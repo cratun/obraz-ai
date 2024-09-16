@@ -36,7 +36,6 @@ module.exports = {
     ],
     'import/prefer-default-export': 'off',
     'newline-before-return': 'error',
-    // 'no-restricted-syntax': 'off',
     'no-relative-import-paths/no-relative-import-paths': [
       'error',
       { allowSameFolder: true, prefix: '@', rootDir: 'src' },
@@ -49,7 +48,6 @@ module.exports = {
     'react/hook-use-state': 'error',
     'react/jsx-key': ['error', { checkFragmentShorthand: true }],
     'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
-    // 'react/jsx-props-no-spreading': 'off',
     'react/jsx-sort-props': [
       'error',
       {
