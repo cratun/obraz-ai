@@ -17,12 +17,14 @@
     "@mui/material": "^6.1.0",
     "@mui/material-nextjs": "^6.1.0",
     "@tanstack/react-query": "^5.56.2",
+    "dayjs": "^1.11.13",
     "next": "14.2.11",
     "openai": "^4.61.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "replicate": "^0.32.1",
-    "stripe": "^16.11.0"
+    "stripe": "^16.11.0",
+    "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.6.1",

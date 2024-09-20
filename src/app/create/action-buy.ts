@@ -22,9 +22,21 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
     payment_intent_data: {
       metadata,
     },
+    invoice_creation: {
+      enabled: true,
+      invoice_data: {
+        account_tax_ids: [process.env.INVOICE_TAX_ID!],
+        custom_fields: [
+          { name: 'Nazwa sprzedawcy', value: 'Cratun sp. z o.o.' },
+          { name: 'Adres sprzedawcy', value: 'Niekłonice 49E 76-024' },
+        ],
+      },
+    },
+    automatic_tax: { enabled: true },
     billing_address_collection: 'required',
     shipping_address_collection: { allowed_countries: ['PL'] },
     tax_id_collection: { enabled: true },
+    locale: 'pl',
   });
 
   if (!session.url) {

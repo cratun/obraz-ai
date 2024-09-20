@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useCreationDailyLimit } from '@/app/hooks';
 import { CheckoutMetadata } from '@/app/types';
 import { ensureNotNull } from '@/app/utils';
 import actionBuy from './action-buy';
@@ -11,8 +12,14 @@ import actionGenerate from './action-generate';
 
 const PageCreate = () => {
   const [prompt, setPrompt] = useState('');
+  const { consume, remainingTries } = useCreationDailyLimit();
+
   const generateMutation = useMutation({
     mutationFn: () => actionGenerate({ prompt: prompt }),
+    onSuccess: () => {
+      console.log('consume');
+      consume();
+    },
   });
 
   const buyMutation = useMutation({
@@ -42,6 +49,7 @@ const PageCreate = () => {
       >
         Buy 200 zł
       </Button>
+      <div>Remaining tries: {remainingTries}</div>
     </div>
   );
 };
