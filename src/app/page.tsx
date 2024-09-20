@@ -1,12 +1,12 @@
-import { Button } from '@mui/material';
 import Link from 'next/link';
+import AppButton from './_components/app-button';
 
 const Home = () => {
   return (
     <div>
-      <Button component={Link} href="/create">
+      <AppButton href="/create" LinkComponent={Link}>
         test
-      </Button>
+      </AppButton>
     </div>
   );
 };

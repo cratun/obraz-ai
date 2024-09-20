@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import AppButton from '@/app/_components/app-button';
+import { ensureNotNull } from '@/app/_utils/common';
 import { useCreationDailyLimit } from '@/app/hooks';
 import { CheckoutMetadata } from '@/app/types';
-import { ensureNotNull } from '@/app/utils';
 import actionBuy from './action-buy';
 import actionGenerate from './action-generate';
 
@@ -30,9 +31,9 @@ const PageCreate = () => {
     <div className="flex-start flex flex-col items-start gap-10">
       <h1>Create new image</h1>
       <TextField onChange={(event) => setPrompt(event.target.value)} />
-      <Button disabled={!prompt} onClick={() => generateMutation.mutate()}>
+      <AppButton disabled={!prompt} onClick={() => generateMutation.mutate()}>
         Generate
-      </Button>
+      </AppButton>
       {generateMutation.isError && <div>Error: {generateMutation.error.message}</div>}
       {generateMutation.isPending && <div>Pending...</div>}
       {generateMutation.isSuccess && (
@@ -42,13 +43,13 @@ const PageCreate = () => {
           ))}
         </div>
       )}
-      <Button
+      <AppButton
         disabled={!generateMutation.isSuccess}
         size="large"
         onClick={() => buyMutation.mutate(ensureNotNull(generateMutation.data).metadata)}
       >
         Buy 200 zł
-      </Button>
+      </AppButton>
       <div>Remaining tries: {remainingTries}</div>
     </div>
   );
