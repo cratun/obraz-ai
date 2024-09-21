@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Image from 'next/image';
 import { twJoin } from 'tailwind-merge';
 import BulbIcon from './_assets/bulb-icon';
@@ -8,7 +9,6 @@ import AppButton from './_components/app-button';
 import AppContainer from './_components/app-container';
 import AppLogo from './_components/app-logo';
 import HomeSwiper from './_components/home-swiper';
-
 const generateSteps = [
   {
     title: 'Opisz swój pomysł',
@@ -62,31 +62,47 @@ const GenerateStep = ({
 const Home = () => {
   return (
     <>
-      <AppContainer className="pb-10 pt-5">
-        <AppContainer.Content className="flex-col gap-10 text-text">
-          <AppLogo />
-          <h1 className="text-6xl font-bold leading-[120%] tracking-[1px]">
-            <span className="text-primary">Wydrukuj</span> obraz z wyobraźni<span className="text-primary">.</span>
-          </h1>
-          <div className="h-10 w-full bg-text"></div>
-          <p className="leading-[150%] tracking-[0.5px]">
-            Unikalny obraz ożywiający pomieszczenie, idealny pomysł na prezent, poczuj sie jak artysta. Wygeneruj swój
-            obraz i wydrukuj już dziś.
-          </p>
+      <AppContainer className="pb-10 pt-5 lg:min-h-screen">
+        <AppContainer.Content className="text-text">
+          <div className="flex flex-col gap-10 lg:max-w-[400px]">
+            <AppLogo />
+            <div className="flex flex-col gap-10 lg:my-auto">
+              <h1 className="text-6xl font-bold leading-[120%] tracking-[1px]">
+                <span className="text-primary">Wydrukuj</span> obraz z wyobraźni<span className="text-primary">.</span>
+              </h1>
+              <div className="h-10 w-full bg-text"></div>
+              <p className="leading-[150%] tracking-[0.5px]">
+                Unikalny obraz ożywiający pomieszczenie, idealny pomysł na prezent, poczuj sie jak artysta. Wygeneruj
+                swój obraz i wydrukuj już dziś.
+              </p>
+            </div>
+            <span className="hidden lg:block">
+              (Dowiedz się <KeyboardArrowDownIcon /> więcej)
+            </span>
+          </div>
         </AppContainer.Content>
+        <div className="absolute right-0 top-0 hidden aspect-square h-full w-full max-w-[500px] object-cover lg:block min-[1100px]:max-w-[600px] xl:max-w-[800px] 2xl:max-w-[900px]">
+          <div className="absolute bottom-5 left-5 right-5 top-5 z-10 flex items-end justify-start rounded-xl border-2 border-neutral p-5">
+            <p className="font-bold text-neutral">
+              &quot;Nowoczesny obraz, subtelnie oświetlony, z delikatnymi refleksami światła podkreślającymi
+              detale.&quot;
+            </p>
+          </div>
+          <Image fill alt="Przykładowy wygenerowany obraz" className="object-cover" src="/home-hero-image.png" />
+        </div>
       </AppContainer>
-      <Image
-        alt="Przykładowy wygenerowany obraz"
-        className="aspect-square h-auto w-full"
-        height={1000}
-        quality={100}
-        src="/home-hero-image.png"
-        width={1000}
-      />
-      <AppContainer className="bg-primary py-10">
-        <AppContainer.Content className="flex-col gap-10 text-center text-neutral">
+      <div className="relative h-[500px] w-full bg-[radial-gradient(169.40%_89.55%_at_94.76%_6.29%,rgba(0,0,0,0.40)_0%,rgba(255,255,255,0.00)_100%)] lg:hidden">
+        <div className="absolute bottom-2.5 left-2.5 right-2.5 top-2.5 z-10 flex items-end justify-start rounded-xl border-2 border-neutral p-2.5">
+          <p className="font-bold text-neutral">
+            &quot;Nowoczesny obraz, subtelnie oświetlony, z delikatnymi refleksami światła podkreślającymi detale.&quot;
+          </p>
+        </div>
+        <Image fill alt="Przykładowy wygenerowany obraz" className="object-cover" src="/home-hero-image.png" />
+      </div>
+      <AppContainer className="overflow-hidden bg-primary py-10 lg:py-20">
+        <AppContainer.Content className="flex-col gap-10 text-center text-neutral lg:gap-20">
           <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Jak wygenerować obraz?</h2>
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-10 lg:flex-row">
             {generateSteps.map(({ title, description, Icon }, index) => (
               <GenerateStep key={title} description={description} index={index} title={title}>
                 <Icon className="h-11 w-auto" />
@@ -123,18 +139,35 @@ const Home = () => {
       <AppContainer className="py-10">
         <AppContainer.Content className="flex flex-col gap-10">
           <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Nasze obrazy są wysokiej jakości</h2>
-          <Image alt="Przykładowy obraz" height={500} quality={100} src="/home-quality-pitures.png" width={500} />
-          <div className="flex flex-col gap-5">
-            <p className="leading-[150%] tracking-[0.5px]">
-              Unikalny obraz ożywiający pomieszczenie, idealny pomysł na prezent, poczuj sie jak artysta. Wygeneruj swój
-              obraz i wydrukuj już dziś.
-            </p>
-            <AppButton
-              classes={{ contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5 w-fit' }}
-              variant="contained"
-            >
-              Przejdź do generatora
-            </AppButton>
+          <div className="flex flex-col gap-10 md:flex-row">
+            <Image
+              alt="Przykładowy obraz"
+              className="md:hidden"
+              height={500}
+              quality={100}
+              src="/home-quality-pitures-mobile.png"
+              width={500}
+            />
+            <Image
+              alt="Przykładowy obraz"
+              className="hidden md:block"
+              height={500}
+              quality={100}
+              src="/home-quality-pitures-desktop.png"
+              width={850}
+            />
+            <div className="flex flex-col gap-5">
+              <p className="max-w-md leading-[150%] tracking-[0.5px]">
+                Unikalny obraz ożywiający pomieszczenie, idealny pomysł na prezent, poczuj sie jak artysta. Wygeneruj
+                swój obraz i wydrukuj już dziś.
+              </p>
+              <AppButton
+                classes={{ contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5 w-fit' }}
+                variant="contained"
+              >
+                Przejdź do generatora
+              </AppButton>
+            </div>
           </div>
         </AppContainer.Content>
       </AppContainer>
