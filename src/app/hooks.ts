@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import dayjs from 'dayjs';
+import { useQueryState } from 'nuqs';
 import { useLocalStorage } from 'usehooks-ts';
 
 const DAILY_LIMIT = 20;
@@ -31,4 +32,8 @@ export const useCreationDailyLimit = () => {
   };
 
   return { remainingTries: storageData.remainingTries, consume };
+};
+
+export const usePromptState = () => {
+  return useQueryState('prompt', { history: 'replace', defaultValue: '' });
 };

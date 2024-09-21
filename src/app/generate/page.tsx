@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import AppButton from '@/app/_components/app-button';
 import AppLogo from '@/app/_components/app-logo';
 import GenerateTextField from '@/app/_components/generate-text-field';
-import { useCreationDailyLimit } from '@/app/hooks';
+import { useCreationDailyLimit, usePromptState } from '@/app/hooks';
 import 'swiper/css';
 
 const styles = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -29,7 +30,7 @@ const Slider = () => {
 };
 
 const PageCreate = () => {
-  const [prompt, setPrompt] = useState('');
+  const [prompt, setPrompt] = usePromptState();
   const { consume, remainingTries } = useCreationDailyLimit();
 
   // const generateMutation = useMutation({
@@ -52,12 +53,23 @@ const PageCreate = () => {
           Generuj <br />
           <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
         </h1>
-        <GenerateTextField />
+        <GenerateTextField value={prompt} onChange={(_, value) => setPrompt(value)} />
       </div>
       <div className="flex flex-col gap-5">
         <h2 className="text-[30px] font-semibold leading-[1.2] text-text">Wybierz swój styl</h2>
       </div>
       <Slider />
+
+      <AppButton
+        component={Link}
+        // @ts-ignore
+        href={{ pathname: '/generate/buy', query: { prompt } }}
+        replace={true}
+        size="large"
+        variant="contained"
+      >
+        Kontynuuj
+      </AppButton>
     </div>
     // <div className="flex-start flex flex-col items-start gap-10">
     //   <h1>Create new image</h1>

@@ -1,10 +1,18 @@
 import PaletteIcon from '@mui/icons-material/Palette';
-import { Autocomplete, InputAdornment, TextField } from '@mui/material';
+import { Autocomplete, AutocompleteProps, ChipTypeMap, InputAdornment, TextField } from '@mui/material';
 import AppButton from './app-button';
 
-const GenerateTextField = ({ onGenerate }: { onGenerate?: () => void }) => {
+const GenerateTextField = ({
+  onGenerate,
+  ...props
+}: { onGenerate?: () => void } & Omit<
+  AutocompleteProps<string, false, false, true, ChipTypeMap['defaultComponent']>,
+  'renderInput' | 'options'
+>) => {
   return (
-    <Autocomplete
+    <Autocomplete<string, false, false, true, ChipTypeMap['defaultComponent']>
+      {...props}
+      autoSelect
       disablePortal
       freeSolo
       options={['big ben', 'eiffel tower', 'statue of liberty']}
