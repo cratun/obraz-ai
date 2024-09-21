@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { TextField } from '@mui/material';
 import AppLogo from '@/app/_components/app-logo';
+import GenerateTextField from '@/app/_components/generate-text-field';
 import { useCreationDailyLimit } from '@/app/hooks';
 
 const PageCreate = () => {
@@ -26,12 +26,13 @@ const PageCreate = () => {
       <AppLogo />
       <div className="flex flex-col gap-5">
         <h1 className="text-[60px] font-bold leading-[1.2] text-text">
-          Generuj <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
+          Generuj <br />
+          <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
         </h1>
-        <TextField />
+        <GenerateTextField />
       </div>
-      <div>
-        
+      <div className="flex flex-col gap-5">
+        <h2 className="text-[30px] font-semibold leading-[1.2] text-text">Wybierz swój styl</h2>
       </div>
     </div>
     // <div className="flex-start flex flex-col items-start gap-10">
