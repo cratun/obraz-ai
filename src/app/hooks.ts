@@ -7,7 +7,7 @@ import { useLocalStorage } from 'usehooks-ts';
 
 const DAILY_LIMIT = 20;
 
-export const useCreationDailyLimit = () => {
+export const useGenerationDailyLimit = () => {
   const today = dayjs().format('YYYY-MM-DD');
 
   const [storageData, setStorageData] = useLocalStorage(
