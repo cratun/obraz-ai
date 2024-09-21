@@ -12,7 +12,6 @@ const GenerateTextField = ({
   return (
     <Autocomplete<string, false, false, true, ChipTypeMap['defaultComponent']>
       {...props}
-      autoSelect
       disablePortal
       freeSolo
       options={['big ben', 'eiffel tower', 'statue of liberty']}

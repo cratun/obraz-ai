@@ -14,14 +14,14 @@ const Slider = () => {
   return (
     <div className="w-full">
       <Swiper
-        slidesPerView={1}
-        spaceBetween={0}
+        slidesPerView={3}
+        spaceBetween={20}
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}
       >
         {styles.map((style) => (
           <SwiperSlide key={style}>
-            <div className="grid aspect-square h-auto place-items-center bg-primary">{style}</div>
+            <div className="grid aspect-square h-auto place-items-center bg-text text-white">{style}</div>
           </SwiperSlide>
         ))}
       </Swiper>
@@ -53,7 +53,12 @@ const PageCreate = () => {
           Generuj <br />
           <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
         </h1>
-        <GenerateTextField value={prompt} onChange={(_, value) => setPrompt(value)} />
+        <GenerateTextField
+          inputValue={prompt}
+          value={prompt}
+          onChange={(_, value) => setPrompt(value)}
+          onInputChange={(_, value) => setPrompt(value)}
+        />
       </div>
       <div className="flex flex-col gap-5">
         <h2 className="text-[30px] font-semibold leading-[1.2] text-text">Wybierz swój styl</h2>
