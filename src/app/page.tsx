@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Image from 'next/image';
+import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
 import BulbIcon from './_assets/bulb-icon';
 import CardIcon from './_assets/card-icon';
@@ -91,7 +92,7 @@ const Home = () => {
           <Image fill alt="Przykładowy wygenerowany obraz" className="object-cover" src="/home-hero-image.png" />
         </div>
       </AppContainer>
-      <div className="relative h-[500px] w-full bg-[radial-gradient(169.40%_89.55%_at_94.76%_6.29%,rgba(0,0,0,0.40)_0%,rgba(255,255,255,0.00)_100%)] lg:hidden">
+      <div className="relative h-[400px] w-full bg-[radial-gradient(169.40%_89.55%_at_94.76%_6.29%,rgba(0,0,0,0.40)_0%,rgba(255,255,255,0.00)_100%)] sm:h-[500px] lg:hidden">
         <div className="absolute bottom-2.5 left-2.5 right-2.5 top-2.5 z-10 flex items-end justify-start rounded-xl border-2 border-neutral p-2.5">
           <p className="font-bold text-neutral">
             &quot;Nowoczesny obraz, subtelnie oświetlony, z delikatnymi refleksami światła podkreślającymi detale.&quot;
@@ -130,6 +131,8 @@ const Home = () => {
         <AppContainer.Content>
           <AppButton
             classes={{ contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5' }}
+            href="/generate"
+            LinkComponent={Link}
             variant="contained"
           >
             Przejdź do generatora
@@ -163,6 +166,8 @@ const Home = () => {
               </p>
               <AppButton
                 classes={{ contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5 w-fit' }}
+                href="/generate"
+                LinkComponent={Link}
                 variant="contained"
               >
                 Przejdź do generatora
