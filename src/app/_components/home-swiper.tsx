@@ -10,25 +10,50 @@ import { twMerge } from 'tailwind-merge';
 
 const slides = [
   {
-    prompt: 'Jezus nad miastem',
-    styl: 'realistyczny',
-    image: 1,
+    prompt: 'Bohater o wyrazistych oczach, kwitnące wiśnie, tradycyjna japońska architektura.',
+    style: 'Anime',
+    image: 'anime',
   },
   {
-    prompt: 'Kobieta się patrzy',
-    styl: 'realistyczny',
-    image: 2,
+    prompt: 'Miasto z nakładającymi się kształtami geometrycznymi, wiele perspektyw.',
+    style: 'Kubizm',
+    image: 'cubism',
   },
   {
-    prompt: 'Balon nad polem',
-    styl: 'abstrakcja',
-    image: 3,
+    prompt: 'Nocne miasto z neonami, drapacze chmur, holograficzne reklamy, futurystyczni mieszkańcy.',
+    style: 'Cyberpunk',
+    image: 'cyberpunk',
+  },
+  {
+    prompt: 'Detaliczne zbliżenie liścia z kroplami rosy, niezwykła wyrazistość.',
+    style: 'Hiperrealizm',
+    image: 'hyper-realizm',
+  },
+  {
+    prompt: 'Wschód słońca nad kwitnącą łąką, miękkie pociągnięcia pędzla, gra światła.',
+    style: 'Impresjonizm',
+    image: 'impressionism',
+  },
+  {
+    prompt: 'Proste kształty geometryczne, czyste linie, monochromatyczna paleta.',
+    style: 'Minimalizm',
+    image: 'minimalism',
+  },
+  {
+    prompt: 'Żywe symbole kultury i celebryci w jaskrawych, kontrastujących kolorach.',
+    style: 'Pop Art',
+    image: 'pop-art',
+  },
+  {
+    prompt: 'Lewitujące wyspy nad morzem chmur, fantazja spotyka rzeczywistość.',
+    style: 'Surrealizm',
+    image: 'surrealism',
   },
 ];
 
 const repeatedSlides: typeof slides = [];
 
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 2; i++) {
   repeatedSlides.push(...slides);
 }
 
@@ -75,10 +100,12 @@ const HomeSwiper = () => {
             <div className="absolute bottom-0 left-0 right-0 top-0 bg-gradient-to-t from-black to-black/0 to-50%"></div>
             <div className="absolute bottom-0 left-0 right-0 top-0 bg-gradient-to-b from-black to-black/0 to-50% opacity-60"></div>
             <div className="py-1.25 absolute left-2.5 top-2.5 rounded-full border border-neutral/60 px-2.5 text-sm capitalize text-neutral">
-              {slide.styl}
+              {slide.style}
             </div>
-            <div className="absolute bottom-2.5 left-2.5 text-neutral">&quot;{slide.prompt}&quot;</div>
-            <Image alt="" height={250} quality={100} src={`/swiper/${slide.image}.png`} width={250} />
+            <div className="absolute bottom-2.5 left-2.5 right-2.5 text-xs text-neutral">
+              &quot;{slide.prompt}&quot;
+            </div>
+            <Image alt="" height={250} quality={100} src={`/swiper/${slide.image}.webp`} width={250} />
           </SwiperSlide>
         ))}
       </Swiper>
