@@ -1,12 +1,13 @@
 import { ReactNode } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
 import AppContainer from './_components/app-container';
 import AppLogo from './_components/app-logo';
-import { footerLinks } from './_utils/constants';
+import { footerLinks, ORIGIN_URL } from './_utils/constants';
 import theme from './_utils/theme';
 import Providers from './providers';
 import './globals.css';
@@ -15,6 +16,27 @@ const raleway = Raleway({
   subsets: ['latin'],
   variable: '--font-raleway',
 });
+
+export const metadata: Metadata = {
+  title: 'ObrazAI - Ożyw swoje marzenia na płótnie | Twórz i zamawiaj unikalne obrazy',
+  description:
+    'Stwórz niepowtarzalny obraz z własnej wyobraźni z ObrazAI. Generuj, personalizuj i zamawiaj wysokiej jakości obrazy na płótnie. Idealny pomysł na prezent!',
+  applicationName: 'ObrazAI',
+  metadataBase: new URL(ORIGIN_URL),
+  openGraph: {
+    type: 'website',
+    url: ORIGIN_URL,
+    siteName: 'ObrazAI',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'ObrazAI',
+      },
+    ],
+  },
+};
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (

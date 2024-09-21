@@ -5,3 +5,5 @@ export const footerLinks = {
   Generator: '/generator',
   Kontakt: '/kontakt',
 };
+
+export const ORIGIN_URL = 'https://obraz-ai.com/';
