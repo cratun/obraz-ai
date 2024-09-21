@@ -4,8 +4,10 @@ import { twJoin } from 'tailwind-merge';
 import BulbIcon from './_assets/bulb-icon';
 import CardIcon from './_assets/card-icon';
 import StyleIcon from './_assets/style-icon';
+import AppButton from './_components/app-button';
 import AppContainer from './_components/app-container';
 import AppLogo from './_components/app-logo';
+import HomeSwiper from './_components/home-swiper';
 
 const generateSteps = [
   {
@@ -60,8 +62,8 @@ const GenerateStep = ({
 const Home = () => {
   return (
     <>
-      <AppContainer>
-        <AppContainer.Content className="flex-col gap-10 py-5 text-text">
+      <AppContainer className="pb-10 pt-5">
+        <AppContainer.Content className="flex-col gap-10 text-text">
           <AppLogo />
           <h1 className="text-6xl font-bold leading-[120%] tracking-[1px]">
             <span className="text-primary">Wydrukuj</span> obraz z wyobraźni<span className="text-primary">.</span>
@@ -82,7 +84,7 @@ const Home = () => {
         width={1000}
       />
       <AppContainer className="bg-primary py-10">
-        <AppContainer.Content className="flex-col gap-10 py-5 text-center text-white">
+        <AppContainer.Content className="flex-col gap-10 text-center text-neutral">
           <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Jak wygenerować obraz?</h2>
           <div className="flex flex-col gap-10">
             {generateSteps.map(({ title, description, Icon }, index) => (
@@ -97,6 +99,25 @@ const Home = () => {
               <Image alt="Wygenerowane zdjęcie" height={111} src="/home-generate-result.png" width={111} />
             </GenerateStep>
           </div>
+        </AppContainer.Content>
+      </AppContainer>
+      <AppContainer className="py-10">
+        <AppContainer.Content className="flex-col gap-10 text-text">
+          <div className="flex flex-col gap-2.5">
+            <h4 className="text-lg leading-[140%] tracking-[0.5px] text-primary">Ponad 1000 zadowolonych klientów</h4>
+            <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Odkryj inspirujące projekty</h2>
+          </div>
+        </AppContainer.Content>
+      </AppContainer>
+      <HomeSwiper />
+      <AppContainer className="py-10">
+        <AppContainer.Content>
+          <AppButton
+            classes={{ contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5' }}
+            variant="contained"
+          >
+            Przejdź do generatora
+          </AppButton>
         </AppContainer.Content>
       </AppContainer>
     </>

@@ -10,3 +10,15 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
 }
+
+#home-swiper .swiper-wrapper {
+  display: flex;
+  align-items: center;
+  transition-timing-function: linear !important;
+  position: relative;
+  user-select: none;
+  -webkit-touch-callout: none;
+  backface-visibility: hidden;
+}
+
+
