@@ -9,9 +9,6 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   important: '#root',
-  corePlugins: {
-    preflight: false,
-  },
   theme: {
     colors: {
       transparent: 'transparent',
