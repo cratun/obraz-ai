@@ -1,6 +1,6 @@
 'use client';
 
-import Policy from './polityka.mdx';
+import Policy from './policy.mdx';
 const PrivacyPolicyPage = () => {
   return (
     <>

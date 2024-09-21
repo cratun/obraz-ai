@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
 import AppContainer from './_components/app-container';
 import AppLogo from './_components/app-logo';
-import { footerLinks, ORIGIN_URL } from './_utils/constants';
+import { CONTACT_EMAIL, footerLinks, ORIGIN_URL } from './_utils/constants';
 import theme from './_utils/theme';
 import Providers from './providers';
 import './globals.css';
@@ -56,6 +56,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
                           {label}
                         </Link>
                       ))}
+                      <Link className="text-text" href={`mailto:${CONTACT_EMAIL}`}>
+                        Kontakt
+                      </Link>
                     </div>
                   </AppContainer.Content>
                 </footer>
