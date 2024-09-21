@@ -1,9 +1,32 @@
 'use client';
 
 import { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import AppLogo from '@/app/_components/app-logo';
 import GenerateTextField from '@/app/_components/generate-text-field';
 import { useCreationDailyLimit } from '@/app/hooks';
+import 'swiper/css';
+
+const styles = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+const Slider = () => {
+  return (
+    <div className="w-full">
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={0}
+        onSlideChange={() => console.log('slide change')}
+        onSwiper={(swiper) => console.log(swiper)}
+      >
+        {styles.map((style) => (
+          <SwiperSlide key={style}>
+            <div className="grid aspect-square h-auto place-items-center bg-primary">{style}</div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+};
 
 const PageCreate = () => {
   const [prompt, setPrompt] = useState('');
@@ -34,6 +57,7 @@ const PageCreate = () => {
       <div className="flex flex-col gap-5">
         <h2 className="text-[30px] font-semibold leading-[1.2] text-text">Wybierz swój styl</h2>
       </div>
+      <Slider />
     </div>
     // <div className="flex-start flex flex-col items-start gap-10">
     //   <h1>Create new image</h1>
