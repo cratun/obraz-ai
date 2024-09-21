@@ -120,6 +120,24 @@ const Home = () => {
           </AppButton>
         </AppContainer.Content>
       </AppContainer>
+      <AppContainer className="py-10">
+        <AppContainer.Content className="flex flex-col gap-10">
+          <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Nasze obrazy są wysokiej jakości</h2>
+          <Image alt="Przykładowy obraz" height={500} quality={100} src="/home-quality-pitures.png" width={500} />
+          <div className="flex flex-col gap-5">
+            <p className="leading-[150%] tracking-[0.5px]">
+              Unikalny obraz ożywiający pomieszczenie, idealny pomysł na prezent, poczuj sie jak artysta. Wygeneruj swój
+              obraz i wydrukuj już dziś.
+            </p>
+            <AppButton
+              classes={{ contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5 w-fit' }}
+              variant="contained"
+            >
+              Przejdź do generatora
+            </AppButton>
+          </div>
+        </AppContainer.Content>
+      </AppContainer>
     </>
   );
 };
