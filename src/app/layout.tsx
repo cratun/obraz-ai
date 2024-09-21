@@ -18,8 +18,8 @@ const raleway = Raleway({
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang="pl">
-      <body className={twJoin('bg-neutral', raleway.variable)} id="root">
+    <html id="root" lang="pl">
+      <body className={twJoin('bg-neutral', raleway.variable)}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <Providers>
