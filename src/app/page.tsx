@@ -84,9 +84,9 @@ const Home = () => {
         </AppContainer.Content>
         <div className="absolute right-0 top-0 hidden aspect-square h-full w-full max-w-[500px] object-cover lg:block min-[1100px]:max-w-[600px] xl:max-w-[800px] 2xl:max-w-[900px]">
           <div className="absolute bottom-5 left-5 right-5 top-5 z-10 flex items-end justify-start rounded-xl border-2 border-neutral p-5">
-            <p className="font-bold text-neutral">
-              &quot;Nowoczesny obraz, subtelnie oświetlony, z delikatnymi refleksami światła podkreślającymi
-              detale.&quot;
+            <p className="font-semibold text-neutral">
+              &quot;Abstrakcyjny obraz, przedstawiający płynne linie i gradacje kolorów, tworzące harmonijną i
+              dynamiczną kompozycję.&quot;
             </p>
           </div>
           <Image fill alt="Przykładowy wygenerowany obraz" className="object-cover" src="/home-hero-image.png" />
@@ -94,8 +94,9 @@ const Home = () => {
       </AppContainer>
       <div className="relative h-[400px] w-full bg-[radial-gradient(169.40%_89.55%_at_94.76%_6.29%,rgba(0,0,0,0.40)_0%,rgba(255,255,255,0.00)_100%)] sm:h-[500px] lg:hidden">
         <div className="absolute bottom-2.5 left-2.5 right-2.5 top-2.5 z-10 flex items-end justify-start rounded-xl border-2 border-neutral p-2.5">
-          <p className="font-bold text-neutral">
-            &quot;Nowoczesny obraz, subtelnie oświetlony, z delikatnymi refleksami światła podkreślającymi detale.&quot;
+          <p className="font-semibold text-neutral">
+            &quot;Abstrakcyjny obraz, przedstawiający płynne linie i gradacje kolorów, tworzące harmonijną i dynamiczną
+            kompozycję.&quot;
           </p>
         </div>
         <Image fill alt="Przykładowy wygenerowany obraz" className="object-cover" src="/home-hero-image.png" />
@@ -113,7 +114,13 @@ const Home = () => {
               description="Nie musisz zakładać konta, kliknij kup i jedym obraz, asdfff"
               title="Obraz jest Twój"
             >
-              <Image alt="Wygenerowane zdjęcie" height={111} src="/home-generate-result.png" width={111} />
+              <Image
+                alt="Wygenerowane zdjęcie"
+                className="rounded-xl border border-[#57C6A3]"
+                height={111}
+                src="/home-generate-result.webp"
+                width={111}
+              />
             </GenerateStep>
           </div>
         </AppContainer.Content>
