@@ -14,7 +14,7 @@ import HomeSwiper from './_components/home-swiper';
 const generateSteps = [
   {
     title: 'Opisz swój pomysł',
-    description: 'Podziel się z nami swoją wizją. Im więcej szczegółów, tym bardziej wyjątkowy będzie Twój obraz.',
+    description: 'Przekaż nam swoją wizję, a nasza sztuczna inteligencja przemieni ją w unikalne dzieło.',
     Icon: BulbIcon,
   },
   {
@@ -24,7 +24,7 @@ const generateSteps = [
     Icon: StyleIcon,
   },
   {
-    title: 'Kup i zapłać',
+    title: 'Zamów z łatwością',
     description: 'Bez zakładania konta! Kliknij "Kup teraz" i sfinalizuj zamówienie w kilka chwil.',
     Icon: CardIcon,
   },
@@ -71,13 +71,14 @@ const Home = () => {
             <AppLogo />
             <div className="flex flex-col gap-10 lg:my-auto">
               <h1 className="text-5xl font-bold leading-[120%] tracking-[1px]">
-                <span className="text-primary">Ożyw</span> swoje marzenia na płótnie
-                <span className="text-primary">!</span>
+                <span className="text-primary">Ożyw</span> swoje marzenia na płótnie z pomocą{' '}
+                <span className="text-primary">AI</span>!
               </h1>
               <div className="h-10 w-full bg-text"></div>
               <p className="leading-[150%] tracking-[0.5px]">
-                Stwórz niepowtarzalny obraz, który zachwyci każdego. Idealny pomysł na prezent! Poczuj się jak artysta i
-                wygeneruj swój własny obraz na płótnie. Zamów już dziś!
+                Pozwól naszej sztucznej inteligencji przekształcić Twoje pomysły w zapierające dech w piersiach obrazy.
+                Idealny pomysł na prezent lub wyjątkową ozdobę Twojego wnętrza! Poczuj moc kreacji i zamów swój unikalny
+                obraz już dziś!
               </p>
             </div>
             <span className="hidden lg:block">
@@ -114,7 +115,7 @@ const Home = () => {
               </GenerateStep>
             ))}
             <GenerateStep
-              description="Otrzymaj swój wyjątkowy obraz. Wydrukujemy go na płótnie najwyższej jakości i dostarczymy prosto do Ciebie."
+              description="Otrzymaj swój wyjątkowy obraz. Wydrukujemy go na płótnie najwyższej jakości i dostarczymy prosto do Ciebie!"
               title="Obraz jest Twój"
             >
               <Image
@@ -175,8 +176,9 @@ const Home = () => {
             />
             <div className="flex flex-col gap-5">
               <p className="max-w-md leading-[150%] tracking-[0.5px]">
-                Każdy obraz to połączenie Twojej wyobraźni i naszej pasji do jakości. Ożyw swoje wnętrza i zaskocz
-                bliskich niepowtarzalnym prezentem. Stwórz i zamów swój obraz już dziś!
+                Każdy obraz to wyjątkowe połączenie Twojej wyobraźni i potęgi sztucznej inteligencji, które razem tworzą
+                dzieła najwyższej jakości. Odmień swoje wnętrza i zaskocz bliskich niepowtarzalnym prezentem. Stwórz i
+                zamów swój obraz już dziś!
               </p>
               <AppButton
                 href="/generate"
