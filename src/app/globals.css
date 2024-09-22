@@ -22,3 +22,25 @@ body {
 }
 
 
+
+/* Cookiebot styles */
+
+.CybotCookiebotDialogBodyButton {
+  border-radius: 999px !important;
+}
+#CybotCookiebotDialogPoweredbyCybot {
+  display: none !important;
+}
+
+.CookieDeclarationTable {
+  word-break: break-word !important;
+}
+
+#CookieDeclarationUserStatusLabelConsentId {
+  word-break: break-word !important;
+}
+
+#CybotCookiebotDialogPoweredByText {
+  display: none !important;
+}
+

@@ -1,7 +1,7 @@
 export const footerLinks = {
-  'Polityka prywatności': '/polityka-prywatnosci',
-  Ciasteczka: '/ciasteczka',
-  Regulamin: '/regulamin',
+  'Polityka prywatności': '/privacy-policy',
+  Ciasteczka: '/cookies',
+  Regulamin: '/terms-of-service',
   Generator: '/generator',
 };
 
