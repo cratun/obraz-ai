@@ -2,15 +2,13 @@
 
 import AppLogo from '@/app/_components/app-logo';
 import GenerateTextField from '@/app/_components/generate-text-field';
-import GenerationStylePicker, {
-  useGenerationStylePickerIndex,
-} from '@/app/generate/_components/generation-style-picker';
-import { useGenerationDailyLimit, usePromptState } from '@/app/hooks';
+import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
+import { usePromptState } from '@/app/hooks';
 
 const PageCreate = () => {
   const [prompt, setPrompt] = usePromptState();
-  const [styleSliderIndex] = useGenerationStylePickerIndex();
-  const { consume, remainingTries } = useGenerationDailyLimit();
+  // const [styleSliderIndex] = useGenerationStylePickerIndex();
+  // const { consume, remainingTries } = useGenerationDailyLimit();
 
   return (
     <div className="flex flex-col gap-10 p-5">
