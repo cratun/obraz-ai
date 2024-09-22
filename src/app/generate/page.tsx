@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import AppButton from '@/app/_components/app-button';
 import AppLogo from '@/app/_components/app-logo';
@@ -7,10 +8,9 @@ import GenerateTextField from '@/app/_components/generate-text-field';
 import GenerationStylePicker, {
   useGenerationStylePickerIndex,
 } from '@/app/generate/_components/generation-style-picker';
-import { usePromptState } from '@/app/hooks';
 
 const PageCreate = () => {
-  const [prompt, setPrompt] = usePromptState();
+  const [prompt, setPrompt] = useState('');
   const { styleIndex } = useGenerationStylePickerIndex();
 
   return (
@@ -24,7 +24,7 @@ const PageCreate = () => {
         <GenerateTextField
           inputValue={prompt}
           value={prompt}
-          onChange={(_, value) => setPrompt(value)}
+          onChange={(_, value) => setPrompt(value || '')}
           onInputChange={(_, value) => setPrompt(value)}
         />
       </div>

@@ -1,7 +1,7 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
-import { parseAsNumberLiteral, useQueryState } from 'nuqs';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
@@ -19,12 +19,7 @@ const styles = [
 ] as const;
 
 export const useGenerationStylePickerIndex = () => {
-  const [styleIndex, setStyleIndex] = useQueryState(
-    'styleIndex',
-    parseAsNumberLiteral(styles.map((_, index) => index))
-      .withDefault(0)
-      .withOptions({ history: 'replace' }),
-  );
+  const [styleIndex, setStyleIndex] = useState(0);
 
   return { styleIndex, setStyleIndex };
 };

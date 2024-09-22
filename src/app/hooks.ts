@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import { useQueryState } from 'nuqs';
 import { useLocalStorage } from 'usehooks-ts';
 
 const DAILY_LIMIT = 20;
@@ -35,5 +34,5 @@ export const useGenerationDailyLimit = () => {
 };
 
 export const usePromptState = () => {
-  return useQueryState('prompt', { history: 'replace', defaultValue: '' });
+  return useState('');
 };

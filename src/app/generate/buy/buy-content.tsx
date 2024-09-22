@@ -43,7 +43,7 @@ const BuyContent = () => {
         <GenerateTextField
           inputValue={prompt}
           value={prompt}
-          onChange={(_, value) => setPrompt(value)}
+          onChange={(_, value) => setPrompt(value || '')}
           onGenerate={() => generateMutation.mutate()}
           onInputChange={(_, value) => setPrompt(value)}
         />
