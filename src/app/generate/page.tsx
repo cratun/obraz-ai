@@ -11,8 +11,7 @@ import { usePromptState } from '@/app/hooks';
 
 const PageCreate = () => {
   const [prompt, setPrompt] = usePromptState();
-  const [styleSliderIndex] = useGenerationStylePickerIndex();
-  // const { consume, remainingTries } = useGenerationDailyLimit();
+  const { styleIndex } = useGenerationStylePickerIndex();
 
   return (
     <div className="flex flex-col gap-10 p-5">
@@ -37,7 +36,7 @@ const PageCreate = () => {
         component={Link}
         disabled={!prompt}
         // @ts-ignore
-        href={{ pathname: '/generate/buy', query: { prompt, styleIndex: styleSliderIndex } }}
+        href={{ pathname: '/generate/buy', query: { prompt, styleIndex } }}
         replace={true}
         size="large"
         variant="contained"

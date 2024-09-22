@@ -19,16 +19,18 @@ const styles = [
 ] as const;
 
 export const useGenerationStylePickerIndex = () => {
-  return useQueryState(
+  const [styleIndex, setStyleIndex] = useQueryState(
     'styleIndex',
     parseAsNumberLiteral(styles.map((_, index) => index))
       .withDefault(0)
       .withOptions({ history: 'replace' }),
   );
+
+  return { styleIndex, setStyleIndex };
 };
 
 const GenerationStylePicker = () => {
-  const [styleIndex, setStyleIndex] = useGenerationStylePickerIndex();
+  const { styleIndex, setStyleIndex } = useGenerationStylePickerIndex();
 
   return (
     <div className="w-full">

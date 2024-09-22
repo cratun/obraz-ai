@@ -3,7 +3,7 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 const s3Client = new S3Client({ region: 'eu-central-1' });
 
-const uploadImage = async ({ src, id }: { src: string; id: string }) => {
+const uploadImage = async ({ imgSrc: src, id }: { imgSrc: string; id: string }) => {
   if (!src || !id) {
     throw new Error();
   }

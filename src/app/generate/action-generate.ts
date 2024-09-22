@@ -13,10 +13,11 @@ const GPT_SYSTEM_INFO =
 
 const openai = new OpenAI();
 
-const actionGenerate = async ({ prompt }: { prompt: string }) => {
+const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleIndex: number }) => {
   if (prompt.split(' ').length > 400) {
     throw new Error();
   }
+  console.log(styleIndex);
 
   const completion = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
@@ -43,10 +44,14 @@ const actionGenerate = async ({ prompt }: { prompt: string }) => {
   })) as string[];
 
   const imageId = crypto.randomUUID();
+  const imgSrc = output[0];
 
-  uploadImage({ src: output[0], id: imageId });
+  uploadImage({ imgSrc, id: imageId });
 
-  return { images: output, metadata: { initialPrompt: prompt, translatedPrompt, imageId } satisfies CheckoutMetadata };
+  return {
+    imgSrc,
+    metadata: { initialPrompt: prompt, translatedPrompt, imageId } satisfies CheckoutMetadata,
+  };
 };
 
 export default actionGenerate;
