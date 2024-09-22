@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import { GoogleTagManager } from '@next/third-parties/google';
 import { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import Link from 'next/link';
@@ -41,6 +42,8 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html id="root" lang="pl">
+      {process.env.NODE_ENV !== 'development' && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />}
+
       <body className={twJoin('bg-neutral', raleway.variable)}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
