@@ -87,23 +87,28 @@ const Home = () => {
           </div>
         </AppContainer.Content>
         <div className="absolute right-0 top-0 hidden aspect-square h-full w-full max-w-[500px] object-cover lg:block min-[1100px]:max-w-[600px] xl:max-w-[800px] 2xl:max-w-[900px]">
-          <div className="absolute bottom-5 left-5 right-5 top-5 z-10 flex items-end justify-start rounded-xl border-2 border-neutral p-5">
+          <div className="absolute bottom-0 left-0 right-0 top-0 z-10 flex items-end justify-start bg-gradient-to-t from-black to-black/0 to-50% p-10">
             <p className="font-semibold text-neutral">
-              &quot;Abstrakcyjny obraz, przedstawiający płynne linie i gradacje kolorów, tworzące harmonijną i
-              dynamiczną kompozycję.&quot;
+              &quot;Kolorowy abstrakcyjny obraz z płynnymi liniami i gradientami głębokich błękitów, żywych czerwieni i
+              delikatnych beżów.&quot;
             </p>
           </div>
-          <Image fill alt="Przykładowy wygenerowany obraz" className="object-cover" src="/home-hero-image.png" />
+          <Image fill alt="Przykładowy wygenerowany obraz" className="object-cover" src="/home-hero-image.webp" />
         </div>
       </AppContainer>
-      <div className="relative h-[400px] w-full bg-[radial-gradient(169.40%_89.55%_at_94.76%_6.29%,rgba(0,0,0,0.40)_0%,rgba(255,255,255,0.00)_100%)] sm:h-[500px] lg:hidden">
-        <div className="absolute bottom-2.5 left-2.5 right-2.5 top-2.5 z-10 flex items-end justify-start rounded-xl border-2 border-neutral p-2.5">
+      <div className="relative h-[400px] w-full bg-gradient-to-t from-black to-black/0 to-50% sm:h-[500px] lg:hidden">
+        <div className="absolute bottom-0 left-0 right-0 top-0 z-10 flex items-end justify-start bg-gradient-to-t from-black to-black/0 to-50% p-5">
           <p className="font-semibold text-neutral">
-            &quot;Abstrakcyjny obraz, przedstawiający płynne linie i gradacje kolorów, tworzące harmonijną i dynamiczną
-            kompozycję.&quot;
+            &quot;Kolorowy abstrakcyjny obraz z płynnymi liniami i gradientami głębokich błękitów, żywych czerwieni i
+            delikatnych beżów.&quot;
           </p>
         </div>
-        <Image fill alt="Przykładowy wygenerowany obraz" className="object-cover" src="/home-hero-image.png" />
+        <Image
+          fill
+          alt="Przykładowy wygenerowany obraz"
+          className="object-cover object-top"
+          src="/home-hero-image.webp"
+        />
       </div>
       <AppContainer className="overflow-hidden bg-primary py-10 lg:py-20">
         <AppContainer.Content className="flex-col gap-10 text-center text-neutral lg:gap-20">
@@ -157,10 +162,10 @@ const Home = () => {
       <AppContainer className="py-10">
         <AppContainer.Content className="flex flex-col gap-10">
           <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Najwyższa jakość gwarantowana</h2>
-          <div className="flex flex-col gap-10 md:flex-row">
+          <div className="flex flex-col gap-10 lg:flex-row">
             <Image
               alt="Przykładowy obraz"
-              className="md:hidden"
+              className="lg:hidden"
               height={500}
               quality={100}
               src="/home-quality-pitures-mobile.png"
@@ -168,7 +173,7 @@ const Home = () => {
             />
             <Image
               alt="Przykładowy obraz"
-              className="hidden md:block"
+              className="hidden lg:block"
               height={500}
               quality={100}
               src="/home-quality-pitures-desktop.png"
