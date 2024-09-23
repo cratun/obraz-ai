@@ -1,51 +1,35 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { twMerge } from 'tailwind-merge';
+import { GENERATION_STYLES } from '@/app/_utils/constants';
 
-import 'swiper/css';
-
-const styles = [
-  ['surprise', 'Zaskocz mnie'],
-  ['surrealism', 'Surrealizm'],
-  ['hyper-realistic', 'Hiperrealizm'],
-  ['cyberpunk', 'Cyberpunk'],
-  ['anime', 'Anime'],
-  ['impressionism', 'Impresjonizm'],
-  ['pop-art', 'Pop-art'],
-  ['minimalism', 'Minimalizm'],
-  ['cubism', 'Kubizm'],
-] as const;
-
-export const useGenerationStylePickerIndex = () => {
-  const [styleIndex, setStyleIndex] = useState(0);
-
-  return { styleIndex, setStyleIndex };
-};
-
-const GenerationStylePicker = () => {
-  const { styleIndex, setStyleIndex } = useGenerationStylePickerIndex();
-
+const GenerationStylePicker = ({
+  styleIndex,
+  imgClassName,
+  onStyleIndexChange,
+}: {
+  styleIndex: number;
+  imgClassName?: string;
+  onStyleIndexChange: (styleIndex: number) => void;
+}) => {
   return (
-    <div className="w-full">
-      <Swiper
-        initialSlide={styleIndex}
-        slidesPerView={1}
-        spaceBetween={20}
-        onSlideChange={({ activeIndex }) => setStyleIndex(activeIndex)}
-      >
-        {styles.map(([style, text], index) => (
-          <SwiperSlide key={style} className="flex flex-col gap-2.5">
-            <div className="relative aspect-square w-full drop-shadow-md">
-              <Image fill alt={style} src={'/styles/' + style + '.webp'} />
-            </div>
-            <div className="text-center text-xl font-medium leading-[1.5] text-text">
-              {index + 1}. {text}
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div className="custom-scrollbar flex grow gap-2.5 overflow-x-auto pb-2 lg:grid lg:grid-flow-col lg:grid-rows-2 lg:pb-0">
+      {GENERATION_STYLES.map(([style, text], index) => (
+        <div
+          key={style}
+          className={twMerge(
+            'relative flex cursor-pointer flex-col items-center gap-2.5 rounded-lg border-[3px] border-transparent p-2.5',
+            styleIndex === index && 'border-primary',
+          )}
+          onClick={() => onStyleIndexChange(index)}
+        >
+          <div className={twMerge('relative aspect-square w-28 drop-shadow-lg lg:w-40', imgClassName)}>
+            <Image fill alt={style} src={'/styles/' + style + '.webp'} />
+          </div>
+          <div className="text-center leading-normal text-text">{text}</div>
+        </div>
+      ))}
     </div>
   );
 };

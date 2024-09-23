@@ -21,8 +21,6 @@ body {
   backface-visibility: hidden;
 }
 
-
-
 /* Cookiebot styles */
 
 .CybotCookiebotDialogBodyButton {
@@ -44,3 +42,23 @@ body {
   display: none !important;
 }
 
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 0.85rem;
+  width: 0.85rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-track {
+  border-radius: 0.5rem;
+  border: 0.25rem solid transparent;
+  background-clip: content-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: theme('colors.primary');
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}

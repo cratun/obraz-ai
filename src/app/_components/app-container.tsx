@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface AppContainerProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }
 

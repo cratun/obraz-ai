@@ -1,50 +1,58 @@
 'use client';
 
 import { useState } from 'react';
+import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import Link from 'next/link';
 import AppButton from '@/app/_components/app-button';
+import AppContainer from '@/app/_components/app-container';
 import AppLogo from '@/app/_components/app-logo';
 import GenerateTextField from '@/app/_components/generate-text-field';
-import GenerationStylePicker, {
-  useGenerationStylePickerIndex,
-} from '@/app/generate/_components/generation-style-picker';
+import { GENERATION_STYLES } from '@/app/_utils/constants';
+import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
 
-const PageCreate = () => {
+const PageGenerate = () => {
   const [prompt, setPrompt] = useState('');
-  const { styleIndex } = useGenerationStylePickerIndex();
+  const [styleIndex, setStyleIndex] = useState(0);
 
   return (
-    <div className="flex flex-col gap-10 p-5">
-      <AppLogo />
-      <div className="flex flex-col gap-5">
-        <h1 className="text-[60px] font-bold leading-[1.2] text-text">
-          Generuj <br />
-          <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
-        </h1>
-        <GenerateTextField
-          inputValue={prompt}
-          value={prompt}
-          onChange={(_, value) => setPrompt(value || '')}
-          onInputChange={(_, value) => setPrompt(value)}
-        />
-      </div>
-      <div className="flex flex-col gap-5">
-        <h2 className="text-[30px] font-semibold leading-[1.2] text-text">Wybierz swój styl</h2>
-      </div>
-      <GenerationStylePicker />
-      <AppButton
-        component={Link}
-        disabled={!prompt}
-        // @ts-ignore
-        href={{ pathname: '/generate/buy', query: { prompt, styleIndex } }}
-        replace={true}
-        size="large"
-        variant="contained"
-      >
-        Kontynuuj
-      </AppButton>
-    </div>
+    <AppContainer className="py-5">
+      <AppContainer.Content className="flex flex-col gap-10 overflow-auto lg:gap-20">
+        <AppLogo className="lg:w-[200px]" />
+        <div className="flex flex-col gap-5 lg:gap-10">
+          <h1 className="text-[60px] font-bold leading-[1.2] text-text">
+            Generuj <br className="lg:hidden" />
+            <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
+          </h1>
+          <GenerateTextField
+            inputValue={prompt}
+            value={prompt}
+            onChange={(_, value) => setPrompt(value || '')}
+            onInputChange={(_, value) => setPrompt(value)}
+          />
+        </div>
+        <div className="flex flex-col gap-5 lg:gap-10">
+          <div className="flex flex-col text-[30px] font-semibold leading-[1.2] text-text sm:flex-row sm:gap-2.5">
+            <h2>Wybierz styl:</h2>
+            <span className="text-primary">{GENERATION_STYLES[styleIndex][1]}</span>
+          </div>
+          <GenerationStylePicker styleIndex={styleIndex} onStyleIndexChange={setStyleIndex} />
+        </div>
+        <AppButton
+          className="lg:py-5 lg:text-lg"
+          component={Link}
+          disabled={!prompt}
+          endIcon={<EastRoundedIcon />}
+          // @ts-ignore
+          href={{ pathname: '/generate/buy', query: { prompt, styleIndex } }}
+          replace={true}
+          size="large"
+          variant="contained"
+        >
+          Kontynuuj
+        </AppButton>
+      </AppContainer.Content>
+    </AppContainer>
   );
 };
 
-export default PageCreate;
+export default PageGenerate;

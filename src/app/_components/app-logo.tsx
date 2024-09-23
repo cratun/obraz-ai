@@ -11,7 +11,7 @@ const AppLogo = ({ className, ...props }: SVGProps<SVGSVGElement>) => (
       width="100"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
-      className={twMerge('h-auto w-[100px]', className)}
+      className={twMerge('h-auto', className)}
     >
       <path
         d="M90.4853 8.70764H91.5523L96.8886 21.5507H95.5503L93.9458 17.535H88.075L86.4705 21.5507H85.1135L90.4853 8.70764ZM93.5474 16.5399L91.0099 10.1909L88.4725 16.5399H93.5474Z"
