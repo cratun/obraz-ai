@@ -93,7 +93,7 @@ const Home = () => {
               delikatnych beżów.&quot;
             </p>
           </div>
-          <Image fill alt="Przykładowy wygenerowany obraz" className="object-cover" src="/home-hero-image.webp" />
+          <Image fill alt="Przykładowy wygenerowany obraz" className="object-cover" src="/home-hero-image.png" />
         </div>
       </AppContainer>
       <div className="relative h-[400px] w-full bg-gradient-to-t from-black to-black/0 to-50% sm:h-[500px] lg:hidden">
@@ -107,7 +107,7 @@ const Home = () => {
           fill
           alt="Przykładowy wygenerowany obraz"
           className="object-cover object-top"
-          src="/home-hero-image.webp"
+          src="/home-hero-image.png"
         />
       </div>
       <AppContainer className="overflow-hidden bg-primary py-10 lg:py-20">
@@ -162,20 +162,18 @@ const Home = () => {
       <AppContainer className="py-10">
         <AppContainer.Content className="flex flex-col gap-10">
           <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Najwyższa jakość gwarantowana</h2>
-          <div className="flex flex-col gap-10 lg:flex-row">
+          <div className="flex flex-col gap-10 xl:flex-row">
             <Image
               alt="Przykładowy obraz"
-              className="lg:hidden"
+              className="md:hidden"
               height={500}
-              quality={100}
               src="/home-quality-pitures-mobile.png"
               width={500}
             />
             <Image
               alt="Przykładowy obraz"
-              className="hidden lg:block"
+              className="hidden md:block"
               height={500}
-              quality={100}
               src="/home-quality-pitures-desktop.png"
               width={850}
             />

@@ -105,7 +105,7 @@ const HomeSwiper = () => {
             <div className="absolute bottom-2.5 left-2.5 right-2.5 text-xs text-neutral">
               &quot;{slide.prompt}&quot;
             </div>
-            <Image alt="" height={250} quality={100} src={`/swiper/${slide.image}.webp`} width={250} />
+            <Image alt="" height={250} src={`/swiper/${slide.image}.webp`} width={250} />
           </SwiperSlide>
         ))}
       </Swiper>
