@@ -12,7 +12,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
-        price: 'price_1PzlJELXa7qieokpMmj0Vx1g',
+        price: process.env.STRIPE_PRICE_ID!,
         quantity: 1,
       },
     ],

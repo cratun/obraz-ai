@@ -10,7 +10,7 @@ export const ORIGIN_URL = 'https://obraz-ai.com/';
 export const CONTACT_EMAIL = 'cratun.dev@gmail.com';
 
 export const GENERATION_STYLES = [
-  ['surprise', 'Zaskocz mnie'],
+  ['surprise', 'Dopasowany'],
   ['surrealism', 'Surrealizm'],
   ['hyper-realistic', 'Hiperrealizm'],
   ['cyberpunk', 'Cyberpunk'],

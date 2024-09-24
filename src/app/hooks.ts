@@ -25,12 +25,13 @@ export const useGenerationDailyLimit = () => {
   }, [storageData, today, setStorageData]);
 
   const consume = () => {
+    console.log(storageData.remainingTries);
     if (storageData.remainingTries > 0) {
       setStorageData({ remainingTries: storageData.remainingTries - 1, lastResetDate: today });
     }
   };
 
-  return { remainingTries: storageData.remainingTries, consume };
+  return { remainingTries: storageData.remainingTries, consume, lastResetDate: storageData.lastResetDate };
 };
 
 export const usePromptState = () => {

@@ -1,33 +1,47 @@
+import { ReactNode } from 'react';
 import PaletteIcon from '@mui/icons-material/Palette';
 import { Autocomplete, AutocompleteProps, ChipTypeMap, InputAdornment, TextField } from '@mui/material';
-
+import { twMerge } from 'tailwind-merge';
 const GenerateTextField = ({
+  className,
+  children,
   ...props
-}: Omit<AutocompleteProps<string, false, true, true, ChipTypeMap['defaultComponent']>, 'renderInput' | 'options'>) => {
+}: Omit<AutocompleteProps<string, false, true, true, ChipTypeMap['defaultComponent']>, 'renderInput' | 'options'> & {
+  children?: ReactNode;
+}) => {
   return (
-    <Autocomplete<string, false, true, true, ChipTypeMap['defaultComponent']>
-      {...props}
-      disableClearable
-      disablePortal
-      freeSolo
-      options={['big ben', 'eiffel tower', 'statue of liberty']}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          slotProps={{
-            input: {
-              ...params.InputProps,
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PaletteIcon />
-                </InputAdornment>
-              ),
-              classes: { root: 'rounded-full px-5' },
-            },
-          }}
-        />
-      )}
-    />
+    <div className={twMerge(className, 'flex flex-col gap-1')}>
+      <Autocomplete<string, false, true, true, ChipTypeMap['defaultComponent']>
+        {...props}
+        disableClearable
+        disablePortal
+        freeSolo
+        options={[
+          'Poranna kawa na balkonie ',
+          'Zielona roślina w słonecznym oknie',
+          'Spacer po parku w jesienny dzień',
+          'Wieża Eiffla o zachodzie słońca',
+          'Latarnia morska przy klifach',
+        ]}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            slotProps={{
+              input: {
+                ...params.InputProps,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PaletteIcon />
+                  </InputAdornment>
+                ),
+                classes: { root: 'rounded-full px-5' },
+              },
+            }}
+          />
+        )}
+      />
+      {children}
+    </div>
   );
 };
 
