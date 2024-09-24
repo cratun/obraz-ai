@@ -17,7 +17,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
       },
     ],
     mode: 'payment',
-    success_url: `${headersList.get('origin')}/success`,
+    success_url: `${headersList.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: cancelUrl,
     payment_intent_data: {
       metadata,

@@ -73,7 +73,7 @@ const PageContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: stri
           />
         </div>
         <AppButton
-          loading={buyMutation.isPending || !generateMutation.isSuccess}
+          disabled={buyMutation.isPending || generateMutation.isPending}
           startIcon={<RestartAltIcon />}
           variant="contained"
           classes={{
@@ -102,7 +102,8 @@ const PageContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: stri
               <AppButton
                 className="lg:py-5 lg:text-lg"
                 color="accent"
-                loading={buyMutation.isPending || !generateMutation.isSuccess}
+                disabled={generateMutation.isPending}
+                loading={buyMutation.isPending}
                 size="large"
                 startIcon={<ShoppingCartIcon />}
                 variant="contained"
