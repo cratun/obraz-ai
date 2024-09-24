@@ -9,6 +9,7 @@ import StyleIcon from './_assets/style-icon';
 import AppButton from './_components/app-button';
 import AppContainer from './_components/app-container';
 import AppLogo from './_components/app-logo';
+import GenerateTextFieldHome from './_components/generate-text-field-home';
 import HomeSwiper from './_components/home-swiper';
 
 const generateSteps = [
@@ -74,7 +75,7 @@ const Home = () => {
                 <span className="text-primary">Ożyw</span> swoje marzenia na płótnie z pomocą{' '}
                 <span className="text-primary">AI</span>!
               </h1>
-              <div className="h-10 w-full bg-text"></div>
+              <GenerateTextFieldHome />
               <p className="leading-[150%] tracking-[0.5px]">
                 Pozwól naszej sztucznej inteligencji przekształcić Twoje pomysły w zapierające dech w piersiach obrazy.
                 Idealny pomysł na prezent lub wyjątkową ozdobę Twojego wnętrza! Poczuj moc kreacji i zamów swój unikalny
@@ -132,6 +133,17 @@ const Home = () => {
               />
             </GenerateStep>
           </div>
+          <AppButton
+            className="self-center"
+            color="neutral"
+            // @ts-ignore
+            component={Link}
+            href="/generate"
+            size="large"
+            variant="contained"
+          >
+            Wygeneruj obraz
+          </AppButton>
         </AppContainer.Content>
       </AppContainer>
       <AppContainer className="py-10">

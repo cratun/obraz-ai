@@ -1,12 +1,14 @@
 import { ReactNode } from 'react';
 import PaletteIcon from '@mui/icons-material/Palette';
-import { Autocomplete, AutocompleteProps, ChipTypeMap, InputAdornment, TextField } from '@mui/material';
+import { Autocomplete, AutocompleteProps, ChipTypeMap, InputAdornment, TextField, TextFieldProps } from '@mui/material';
 import { twMerge } from 'tailwind-merge';
+
 const GenerateTextField = ({
   className,
   children,
   ...props
 }: Omit<AutocompleteProps<string, false, true, true, ChipTypeMap['defaultComponent']>, 'renderInput' | 'options'> & {
+  TextFieldProps?: TextFieldProps;
   children?: ReactNode;
 }) => {
   return (
@@ -25,9 +27,11 @@ const GenerateTextField = ({
         ]}
         renderInput={(params) => (
           <TextField
+            {...props.TextFieldProps}
             {...params}
             slotProps={{
               input: {
+                ...props?.TextFieldProps?.slotProps?.input,
                 ...params.InputProps,
                 startAdornment: (
                   <InputAdornment position="start">

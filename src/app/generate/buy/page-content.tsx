@@ -18,6 +18,7 @@ import actionGenerate from '@/app/generate/action-generate';
 import actionGetPrice from '@/app/generate/action-get-price';
 import { useGenerationDailyLimit } from '@/app/hooks';
 import { CheckoutMetadata } from '@/app/types';
+
 const PageContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: string; initialStyleIndex: number }) => {
   const [prompt, setPrompt] = useState(initialPrompt);
   const [styleIndex, setStyleIndex] = useState(initialStyleIndex);
@@ -72,17 +73,20 @@ const PageContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: stri
             onStyleIndexChange={setStyleIndex}
           />
         </div>
-        <AppButton
-          disabled={buyMutation.isPending || generateMutation.isPending}
-          startIcon={<RestartAltIcon />}
-          variant="contained"
-          classes={{
-            contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5 w-fit',
-          }}
-          onClick={handleRegenerate}
-        >
-          Stwórz swój obraz ponownie
-        </AppButton>
+        <div className="flex lg:gap-20">
+          <div className="hidden w-[200px] lg:block" />
+          <AppButton
+            disabled={buyMutation.isPending || generateMutation.isPending}
+            startIcon={<RestartAltIcon />}
+            variant="contained"
+            classes={{
+              contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5 w-fit',
+            }}
+            onClick={handleRegenerate}
+          >
+            Stwórz swój obraz ponownie
+          </AppButton>
+        </div>
         <div className="flex flex-col gap-10 lg:flex-row">
           {generateMutation.isSuccess ? (
             <div className="relative aspect-square w-full max-w-[600px]">
@@ -129,7 +133,7 @@ const PageContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: stri
                 <li>płótno syntetyczne</li>
                 <li>zadrukowane krawędzie foto-obrazu</li>
                 <li>lekki drewniany blejtram</li>
-                <li>ekologiczny druk w technologii UV - HP</li>
+                <li>ekologiczny druk w technologii UV</li>
               </ul>
             </div>
           </div>

@@ -42,8 +42,8 @@ const theme = createTheme({
     },
     neutral: {
       main: '#F3F3F3',
-      light: 'rgb(113, 113, 113)', // generated
-      dark: 'rgb(54, 54, 54)', // generated
+      light: 'rgb(245, 245, 245)', // generated
+      dark: 'rgb(170, 170, 170)', // generated
       contrastText: '#4E4E4E',
     },
   },

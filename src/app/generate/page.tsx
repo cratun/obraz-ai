@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import AppLogo from '@/app/_components/app-logo';
@@ -12,7 +13,8 @@ import { GENERATION_STYLES } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
 
 const PageGenerate = () => {
-  const [prompt, setPrompt] = useState('');
+  const searchParams = useSearchParams();
+  const [prompt, setPrompt] = useState(searchParams.get('prompt') || '');
   const [styleIndex, setStyleIndex] = useState(0);
 
   return (
