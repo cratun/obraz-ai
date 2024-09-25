@@ -136,7 +136,7 @@ const PageBuyContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: s
                 <li>ekologiczny druk w technologii UV</li>
               </ul>
               <div className="max-w-xl font-bold leading-[150%] tracking-[0.5px]">
-                Oczekiwany czas wykonania 3-7 dni.
+                Oczekiwany czas realizacji zamówienia: 5 dni roboczych.
               </div>
             </div>
           </div>

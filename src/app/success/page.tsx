@@ -29,7 +29,7 @@ const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => 
             <span className="text-primary">{customer.name}</span>, dziękujemy za zamówienie.
           </h1>
           <p className="leading-[150%] tracking-[0.5px]">
-            Szczegóły Twoje zamówienia:
+            Szczegóły Twojego zamówienia:
             <br />
             <br />
             {typeof session.payment_intent === 'string' && (
@@ -50,7 +50,7 @@ const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => 
             <strong>Adres email:</strong> {customer.email}
             <br />
             <br />
-            <strong>Oczekiwany czas wykonania 3-7 dni.</strong>
+            <strong>Oczekiwany czas realizacji zamówienia: 5 dni roboczych.</strong>
             <br />
             <br />
             Jeżeli masz jakiekolwiek pytania lub dane powyżej są niepoprawne skontaktuj się z nami pod adresem{' '}
