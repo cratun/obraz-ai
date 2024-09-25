@@ -5,6 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Dialog, IconButton } from '@mui/material';
 import dayjs from 'dayjs';
+import { twJoin } from 'tailwind-merge';
 import { useGenerationDailyLimit } from '@/app/hooks';
 import AppButton from './app-button';
 const GenerateInfoLimit = () => {
@@ -15,7 +16,13 @@ const GenerateInfoLimit = () => {
 
   return (
     <>
-      <div className="flex w-fit items-center justify-center gap-1 text-[12px] leading-[150%] tracking-[0.5px]">
+      <div
+        className={twJoin(
+          'flex w-fit items-center justify-center gap-1 text-[12px] leading-[150%] tracking-[0.5px] text-text',
+          remainingTries === 0 && 'text-[#d32f2f]',
+          remainingTries <= 5 && remainingTries > 0 && 'text-[#f57c00]',
+        )}
+      >
         <InfoOutlinedIcon className="text-base" />
         <span>
           Pozostało <strong>{remainingTries}</strong> generowań.
