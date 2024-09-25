@@ -19,7 +19,7 @@ import actionGetPrice from '@/app/generate/action-get-price';
 import { useGenerationDailyLimit } from '@/app/hooks';
 import { CheckoutMetadata } from '@/app/types';
 
-const PageContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: string; initialStyleIndex: number }) => {
+const PageBuyContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: string; initialStyleIndex: number }) => {
   const [prompt, setPrompt] = useState(initialPrompt);
   const [styleIndex, setStyleIndex] = useState(initialStyleIndex);
   const { consume } = useGenerationDailyLimit();
@@ -143,4 +143,4 @@ const PageContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: stri
   );
 };
 
-export default PageContent;
+export default PageBuyContent;

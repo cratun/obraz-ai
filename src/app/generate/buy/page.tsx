@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { SerachParams } from '@/app/types';
-import PageContent from './page-content';
+import PageBuyContent from './page-buy-content';
 
 const isStringNotEmptyString = (param: SerachParams[number]): param is string =>
   typeof param === 'string' && param.length > 0 && !Array.isArray(param);
@@ -13,7 +13,7 @@ const PageBuy = ({ searchParams }: { searchParams: SerachParams }) => {
   const parsedStyleIndex = parseInt(searchParams.styleIndex, 10);
 
   return (
-    <PageContent
+    <PageBuyContent
       initialPrompt={searchParams.prompt}
       initialStyleIndex={Number.isNaN(parsedStyleIndex) ? 0 : parsedStyleIndex}
     />
