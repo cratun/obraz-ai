@@ -38,6 +38,9 @@ const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => 
           <strong>Adres email:</strong> {customer.email}
           <br />
           <br />
+          <strong>Oczekiwany czas wykonania 3-7 dni.</strong>
+          <br />
+          <br />
           Jeżeli masz jakiekolwiek pytania lub dane powyżej są niepoprawne skontaktuj się z nami pod adresem{' '}
           <strong>{CONTACT_EMAIL}</strong>
           <br />

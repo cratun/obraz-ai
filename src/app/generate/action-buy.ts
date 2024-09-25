@@ -37,6 +37,14 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
     shipping_address_collection: { allowed_countries: ['PL'] },
     tax_id_collection: { enabled: true },
     locale: 'pl',
+    consent_collection: {
+      terms_of_service: 'required',
+    },
+    custom_text: {
+      terms_of_service_acceptance: {
+        message: `Zapoznałem się i akceptuję warunki [regulaminu](${headersList.get('origin')}/terms-of-service) oraz zgadzam się na wykonanie zamówienia zgodnie z moimi specyfikacjami i zrzekam się prawa do odstąpienia od umowy.`,
+      },
+    },
   });
 
   if (!session.url) {

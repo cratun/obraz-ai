@@ -135,6 +135,9 @@ const PageBuyContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: s
                 <li>lekki drewniany blejtram</li>
                 <li>ekologiczny druk w technologii UV</li>
               </ul>
+              <div className="max-w-xl font-bold leading-[150%] tracking-[0.5px]">
+                Oczekiwany czas wykonania 3-7 dni.
+              </div>
             </div>
           </div>
         </div>
