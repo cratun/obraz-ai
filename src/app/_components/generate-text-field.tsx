@@ -6,6 +6,7 @@ import { twMerge } from 'tailwind-merge';
 const GenerateTextField = ({
   className,
   children,
+  TextFieldProps,
   ...props
 }: Omit<AutocompleteProps<string, false, true, true, ChipTypeMap['defaultComponent']>, 'renderInput' | 'options'> & {
   TextFieldProps?: TextFieldProps;
@@ -27,11 +28,10 @@ const GenerateTextField = ({
         ]}
         renderInput={(params) => (
           <TextField
-            {...props.TextFieldProps}
             {...params}
             slotProps={{
               input: {
-                ...props?.TextFieldProps?.slotProps?.input,
+                ...TextFieldProps?.slotProps?.input,
                 ...params.InputProps,
                 startAdornment: (
                   <InputAdornment position="start">
