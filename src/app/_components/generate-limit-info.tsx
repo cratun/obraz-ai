@@ -13,12 +13,14 @@ const GenerateInfoLimit = () => {
   const { lastResetDate, remainingTries } = useGenerationDailyLimit();
 
   const formattedDate = dayjs(lastResetDate).format('DD.MM.YYYY');
+  console.log(remainingTries);
 
   return (
     <>
       <div
         className={twJoin(
-          'flex w-fit items-center justify-center gap-1 text-[12px] leading-[150%] tracking-[0.5px] text-text',
+          'flex w-fit items-center justify-center gap-1 text-[12px] leading-[150%] tracking-[0.5px]',
+          remainingTries > 5 && 'text-text',
           remainingTries === 0 && 'text-[#d32f2f]',
           remainingTries <= 5 && remainingTries > 0 && 'text-[#f57c00]',
         )}

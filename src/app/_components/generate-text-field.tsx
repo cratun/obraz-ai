@@ -20,11 +20,13 @@ const GenerateTextField = ({
         disablePortal
         freeSolo
         options={[
-          'Poranna kawa na balkonie ',
-          'Zielona roślina w słonecznym oknie',
-          'Spacer po parku w jesienny dzień',
-          'Wieża Eiffla o zachodzie słońca',
-          'Latarnia morska przy klifach',
+          'Romantyczny zachód słońca nad oceanem',
+          'Nowoczesne miasto nocą pełne świateł',
+          'Dzieci bawiące się na plaży w letni dzień',
+          'Kompozycja kolorów i kształtów',
+          'Portret eleganckiej kobiety',
+          'Safari z dzikimi zwierzętami na afrykańskiej sawannie',
+          'Świat z latającymi wyspami',
         ]}
         renderInput={(params) => (
           <TextField

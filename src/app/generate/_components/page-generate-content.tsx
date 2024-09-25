@@ -19,7 +19,7 @@ const PageGenerateContent = ({ initialPrompt }: { initialPrompt: string }) => {
 
   const handleGenerateRedirect = () => {
     startTransition(() => {
-      router.push(`/generate/buy?prompt=${prompt}&styleIndex=${styleIndex}`);
+      router.replace(`/generate/buy?prompt=${prompt}&styleIndex=${styleIndex}`);
     });
   };
 
@@ -51,14 +51,11 @@ const PageGenerateContent = ({ initialPrompt }: { initialPrompt: string }) => {
         <AppButton
           className="lg:py-5 lg:text-lg"
           disabled={!prompt}
+          endIcon={<EastRoundedIcon />}
           loading={isPending}
           size="large"
           variant="contained"
-          // eslint-disable-next-line react/jsx-sort-props
           onClick={handleGenerateRedirect}
-          endIcon={<EastRoundedIcon />}
-          // @ts-ignore
-          replace={true}
         >
           Kontynuuj
         </AppButton>

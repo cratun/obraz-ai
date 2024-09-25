@@ -7,7 +7,7 @@ export const footerLinks = {
 
 export const ORIGIN_URL = 'https://obraz-ai.com/';
 
-export const CONTACT_EMAIL = 'cratun.dev@gmail.com';
+export const CONTACT_EMAIL = 'kontakt@obraz-ai.com';
 
 export const GENERATION_STYLES = [
   ['surprise', 'Dopasowany'],
