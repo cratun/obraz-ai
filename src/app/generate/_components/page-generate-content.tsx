@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import AppLogo from '@/app/_components/app-logo';
@@ -14,6 +14,14 @@ import GenerationStylePicker from '@/app/generate/_components/generation-style-p
 const PageGenerateContent = ({ initialPrompt }: { initialPrompt: string }) => {
   const [prompt, setPrompt] = useState(initialPrompt);
   const [styleIndex, setStyleIndex] = useState(0);
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  const handleGenerateRedirect = () => {
+    startTransition(() => {
+      router.push(`/generate/buy?prompt=${prompt}&styleIndex=${styleIndex}`);
+    });
+  };
 
   return (
     <AppContainer className="py-5">
@@ -42,14 +50,15 @@ const PageGenerateContent = ({ initialPrompt }: { initialPrompt: string }) => {
         </div>
         <AppButton
           className="lg:py-5 lg:text-lg"
-          component={Link}
           disabled={!prompt}
-          endIcon={<EastRoundedIcon />}
-          // @ts-ignore
-          href={{ pathname: '/generate/buy', query: { prompt, styleIndex } }}
-          replace={true}
+          loading={isPending}
           size="large"
           variant="contained"
+          // eslint-disable-next-line react/jsx-sort-props
+          onClick={handleGenerateRedirect}
+          endIcon={<EastRoundedIcon />}
+          // @ts-ignore
+          replace={true}
         >
           Kontynuuj
         </AppButton>

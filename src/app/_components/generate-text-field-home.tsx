@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import AppButton from './app-button';
 import GenerateTextField from './generate-text-field';
@@ -8,9 +8,12 @@ import GenerateTextField from './generate-text-field';
 const GenerateTextFieldHome = () => {
   const router = useRouter();
   const [prompt, setPrompt] = useState('');
+  const [isPending, startTransition] = useTransition();
 
   const handleGenerate = (userPrompt: string) => {
-    router.push(`/generate?prompt=${userPrompt}`);
+    startTransition(() => {
+      router.push(`/generate?prompt=${userPrompt}`);
+    });
   };
 
   return (
@@ -21,7 +24,7 @@ const GenerateTextFieldHome = () => {
         slotProps: {
           input: {
             endAdornment: (
-              <AppButton variant="contained" onClick={() => handleGenerate(prompt)}>
+              <AppButton loading={isPending} variant="contained" onClick={() => handleGenerate(prompt)}>
                 Generuj
               </AppButton>
             ),
