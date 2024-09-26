@@ -129,19 +129,19 @@ const PageBuyContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: s
               </div>
             </div>
             <div className="flex flex-col gap-5 text-text">
-              <h4 className="text-2xl font-semibold leading-[120%] tracking-[1px]">Szczegóły zamówienia</h4>
-              <p className="max-w-xl leading-[150%] tracking-[0.5px]">
+              <h2 className="text-2xl font-semibold leading-[120%] tracking-[1px]">Szczegóły zamówienia</h2>
+              <p className="max-w-xl leading-normal tracking-[0.5px]">
                 Obraz na płótnie o wymiarach 50x50 cm. Druk wysokiej jakości na płótnie, z wybraną przez Ciebie unikalną
                 grafiką, stworzoną na podstawie Twojego opisu. Doskonały do powieszenia na ścianie, gotowy, by ozdobić
                 Twój dom lub biuro.
               </p>
-              <ul className="max-w-xl list-disc pl-4 leading-[150%] tracking-[0.5px]">
+              <ul className="max-w-xl list-disc pl-4 leading-normal tracking-[0.5px]">
                 <li>płótno syntetyczne</li>
                 <li>zadrukowane krawędzie foto-obrazu</li>
                 <li>lekki drewniany blejtram</li>
                 <li>ekologiczny druk w technologii UV</li>
               </ul>
-              <div className="max-w-xl font-bold leading-[150%] tracking-[0.5px]">
+              <div className="max-w-xl font-bold leading-normal tracking-[0.5px]">
                 Oczekiwany czas realizacji zamówienia: 3 - 5 dni roboczych.
               </div>
             </div>

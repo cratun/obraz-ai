@@ -1,9 +1,33 @@
 'use server';
 
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import OpenAI from 'openai';
 import Replicate from 'replicate';
 import { GENERATION_STYLES } from '@/app/_utils/constants';
-import uploadImage from './action-upload-image';
+
+const s3Client = new S3Client({ region: 'eu-central-1' });
+
+const uploadImage = async ({ imgSrc, id }: { imgSrc: string; id: string }) => {
+  if (!imgSrc || !id) {
+    throw new Error();
+  }
+
+  const fileResponse = await fetch(imgSrc);
+
+  if (!fileResponse.ok) {
+    throw new Error('Failed to download the file');
+  }
+
+  const fileBuffer = await fileResponse.arrayBuffer();
+
+  await s3Client.send(
+    new PutObjectCommand({
+      Bucket: process.env.S3_BUCKET_NAME,
+      Key: id + '.webp',
+      Body: Buffer.from(fileBuffer),
+    }),
+  );
+};
 
 const replicate = new Replicate();
 
@@ -50,7 +74,7 @@ const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleInd
   const imageId = crypto.randomUUID();
   const imgSrc = output[0];
 
-  uploadImage({ imgSrc, id: imageId });
+  await uploadImage({ imgSrc, id: imageId });
 
   return {
     imgSrc,
