@@ -33,6 +33,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
         ],
       },
     },
+    allow_promotion_codes: true,
     automatic_tax: { enabled: true },
     billing_address_collection: 'required',
     shipping_address_collection: { allowed_countries: ['PL'] },
