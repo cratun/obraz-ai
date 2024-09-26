@@ -50,7 +50,7 @@ const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => 
             <strong>Adres email:</strong> {customer.email}
             <br />
             <br />
-            <strong>Oczekiwany czas realizacji zamówienia: 5 dni roboczych.</strong>
+            <strong>Oczekiwany czas realizacji zamówienia: 3 - 5 dni roboczych.</strong>
             <br />
             <br />
             Jeżeli masz jakiekolwiek pytania lub dane powyżej są niepoprawne skontaktuj się z nami pod adresem{' '}

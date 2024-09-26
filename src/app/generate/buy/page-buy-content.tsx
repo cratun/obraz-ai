@@ -115,12 +115,18 @@ const PageBuyContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: s
               >
                 Kup i zapłać
               </AppButton>
-              <span className="text-2xl text-text">
-                Cena:{' '}
-                <span className="font-semibold">
-                  {getPriceQuery.isLoading ? <CircularProgress size={15} /> : `${getPriceQuery.data! / 100} zł`}
+              <div className="flex flex-col gap-2.5 lg:gap-5">
+                <span className="text-2xl text-text">
+                  Cena:{' '}
+                  <span className="font-semibold">
+                    {getPriceQuery.isLoading ? <CircularProgress size={15} /> : `${getPriceQuery.data! / 100} zł`}
+                  </span>{' '}
+                  brutto
                 </span>
-              </span>
+                <span className="font-semi text-xl text-text">
+                  Specjalna oferta: <span className="font-semibold">Dostawa gratis!</span>
+                </span>
+              </div>
             </div>
             <div className="flex flex-col gap-5 text-text">
               <h4 className="text-2xl font-semibold leading-[120%] tracking-[1px]">Szczegóły zamówienia</h4>
@@ -136,7 +142,7 @@ const PageBuyContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: s
                 <li>ekologiczny druk w technologii UV</li>
               </ul>
               <div className="max-w-xl font-bold leading-[150%] tracking-[0.5px]">
-                Oczekiwany czas realizacji zamówienia: 5 dni roboczych.
+                Oczekiwany czas realizacji zamówienia: 3 - 5 dni roboczych.
               </div>
             </div>
           </div>

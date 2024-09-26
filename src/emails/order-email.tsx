@@ -58,7 +58,7 @@ const OrderEmail = ({
         </li>
         <li>
           <Text className="text-base !text-text">
-            <b>Data zamówienia:</b> {orderDate}
+            <b>Data złożenia zamówienia:</b> {orderDate}
           </Text>
         </li>
         <li>
@@ -78,7 +78,7 @@ const OrderEmail = ({
         </li>
       </ul>
       <Text className="text-base !text-text">
-        Twoje zamówienie jest obecnie w trakcie realizacji. Przewidywany czas dostawy to <b>5-7</b> dni roboczych. O
+        Twoje zamówienie jest obecnie w trakcie realizacji. Przewidywany czas dostawy to <b>3 - 5</b> dni roboczych. O
         wszelkich aktualizacjach będziemy informować Cię drogą mailową.
       </Text>
       <Text className="text-base !text-text">
