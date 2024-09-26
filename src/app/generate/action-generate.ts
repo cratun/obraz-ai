@@ -68,7 +68,7 @@ const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleInd
   }
 
   const output = (await replicate.run(MODEL_NAME, {
-    input: { prompt: refinedPrompt, num_outputs: 1, aspect_ratio: '1:1' },
+    input: { prompt: refinedPrompt, num_outputs: 1, aspect_ratio: '1:1', guidance: styleIndex === 2 ? 2 : 3 },
   })) as string[];
 
   const imageId = crypto.randomUUID();
