@@ -21,10 +21,10 @@ const GenerateTextField = ({
         freeSolo
         options={[
           'Romantyczny zachód słońca nad oceanem',
-          'Nowoczesne miasto nocą pełne świateł',
-          'Dzieci bawiące się na plaży w letni dzień',
-          'Kompozycja kolorów i kształtów',
+          'Batman przytulający Jokera',
+          'Abstrakcyjna kompozycja kolorów i kształtów',
           'Portret eleganckiej kobiety',
+          'Astronauta grający na skrzypcach na powierzchni księżyca',
           'Safari z dzikimi zwierzętami na afrykańskiej sawannie',
           'Świat z latającymi wyspami',
         ]}
