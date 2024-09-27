@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { CircularProgress } from '@mui/material';
@@ -20,6 +20,7 @@ import { useGenerationDailyLimit } from '@/app/hooks';
 import { CheckoutMetadata } from '@/app/types';
 
 const PageBuyContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: string; initialStyleIndex: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
   const [prompt, setPrompt] = useState(initialPrompt);
   const [styleIndex, setStyleIndex] = useState(initialStyleIndex);
   const { consume } = useGenerationDailyLimit();
@@ -35,6 +36,12 @@ const PageBuyContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: s
     generateMutation.mutate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (generateMutation.isPending && ref.current) {
+      ref.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'center' });
+    }
+  }, [generateMutation.isPending]);
 
   const buyMutation = useMutation({
     mutationFn: (metadata: CheckoutMetadata) => actionBuy({ cancelUrl: window.location.origin + '/', metadata }),
@@ -87,7 +94,7 @@ const PageBuyContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: s
             Stwórz swój obraz ponownie
           </AppButton>
         </div>
-        <div className="flex flex-col gap-10 lg:flex-row">
+        <div ref={ref} className="flex flex-col gap-10 lg:flex-row">
           {generateMutation.isSuccess ? (
             <div className="relative aspect-square w-full max-w-[600px]">
               <Image alt="Generated image" layout="fill" src={generateMutation.data.imgSrc} />
@@ -115,15 +122,15 @@ const PageBuyContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: s
               >
                 Kup i zapłać
               </AppButton>
-              <div className="flex flex-col gap-2.5 lg:gap-5">
-                <span className="text-2xl text-text">
+              <div className="flex flex-col gap-2.5 leading-[150%] tracking-[0.5px] text-text lg:gap-5">
+                <span className="text-2xl">
                   Cena:{' '}
                   <span className="font-semibold">
                     {getPriceQuery.isLoading ? <CircularProgress size={15} /> : `${getPriceQuery.data! / 100} zł`}
                   </span>{' '}
                   brutto
                 </span>
-                <span className="font-semi text-xl text-text">
+                <span className="font-semi text-xl">
                   Specjalna oferta: <span className="font-semibold">Dostawa gratis!</span>
                 </span>
               </div>

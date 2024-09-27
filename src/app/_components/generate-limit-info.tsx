@@ -13,7 +13,6 @@ const GenerateInfoLimit = () => {
   const { lastResetDate, remainingTries } = useGenerationDailyLimit();
 
   const formattedDate = dayjs(lastResetDate).format('DD.MM.YYYY');
-  console.log(remainingTries);
 
   return (
     <>
