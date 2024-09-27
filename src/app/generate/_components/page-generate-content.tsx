@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useRef, useState, useTransition } from 'react';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import { useRouter } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
@@ -12,12 +12,19 @@ import { GENERATION_STYLES } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
 
 const PageGenerateContent = ({ initialPrompt }: { initialPrompt: string }) => {
+  const ref = useRef<HTMLInputElement>(null);
   const [prompt, setPrompt] = useState(initialPrompt);
   const [styleIndex, setStyleIndex] = useState(0);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const handleGenerateRedirect = () => {
+    if (!prompt) {
+      ref.current?.focus();
+      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+
+      return;
+    }
     startTransition(() => {
       router.replace(`/generate/buy?prompt=${prompt}&styleIndex=${styleIndex}`);
     });
@@ -33,12 +40,13 @@ const PageGenerateContent = ({ initialPrompt }: { initialPrompt: string }) => {
               Generuj <br className="lg:hidden" />
               <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
             </h1>
-            <p className="text-text">
+            <p className="leading-[150%] tracking-[0.5px] text-text">
               Opisz dokładnie, co chcesz zobaczyć - jedynym ograniczeniem jest Twoja wyobraźnia.
             </p>
           </div>
           <GenerateTextField
             inputValue={prompt}
+            TextFieldProps={{ inputRef: ref }}
             value={prompt}
             onChange={(_, value) => setPrompt(value || '')}
             onInputChange={(_, value) => setPrompt(value)}
@@ -55,7 +63,6 @@ const PageGenerateContent = ({ initialPrompt }: { initialPrompt: string }) => {
         </div>
         <AppButton
           className="lg:py-5 lg:text-lg"
-          disabled={!prompt}
           endIcon={<EastRoundedIcon />}
           loading={isPending}
           size="large"

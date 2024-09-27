@@ -68,15 +68,15 @@ const Home = () => {
     <>
       <AppContainer className="pb-10 pt-5 lg:min-h-screen">
         <AppContainer.Content className="text-text">
-          <div className="flex flex-col gap-10 lg:max-w-[400px]">
+          <div className="flex w-full flex-col gap-10 lg:max-w-[500px]">
             <AppLogo />
             <div className="flex flex-col gap-10 lg:my-auto">
-              <h1 className="text-5xl font-bold leading-[120%] tracking-[1px]">
+              <h1 className="max-w-[400px] text-5xl font-bold leading-[120%] tracking-[1px]">
                 <span className="text-primary">Ożyw</span> swoje marzenia na płótnie z pomocą{' '}
                 <span className="text-primary">AI</span>!
               </h1>
               <GenerateTextFieldHome />
-              <p className="leading-[150%] tracking-[0.5px]">
+              <p className="max-w-[400px] leading-[150%] tracking-[0.5px]">
                 Pozwól naszej sztucznej inteligencji przekształcić Twoje pomysły w zapierające dech w piersiach obrazy.
                 Idealny pomysł na prezent lub wyjątkową ozdobę Twojego wnętrza! Poczuj moc kreacji i zamów swój unikalny
                 obraz już dziś!
@@ -87,7 +87,7 @@ const Home = () => {
             </span>
           </div>
         </AppContainer.Content>
-        <div className="absolute right-0 top-0 hidden aspect-square h-full w-full max-w-[500px] object-cover lg:block min-[1100px]:max-w-[600px] xl:max-w-[800px] 2xl:max-w-[900px]">
+        <div className="absolute right-0 top-0 hidden aspect-square h-full w-full max-w-[450px] object-cover lg:block min-[1050px]:max-w-[500px] xl:max-w-[700px] 2xl:max-w-[850px]">
           <div className="absolute bottom-0 left-0 right-0 top-0 z-10 flex items-end justify-start bg-gradient-to-t from-black to-black/0 to-50% p-10">
             <p className="font-semibold text-neutral">
               &quot;Kolorowy abstrakcyjny obraz z płynnymi liniami i gradientami głębokich błękitów, żywych czerwieni i
