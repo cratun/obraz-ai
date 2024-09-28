@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { GoogleTagManager } from '@next/third-parties/google';
@@ -48,6 +49,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <Providers>
+              <ToastContainer bodyClassName="text-sm lg:text-base" />
               <div className="min-h-screen-responsive flex flex-col">
                 <div className="grow">{children}</div>
                 <footer className="flex items-center justify-center border-t border-solid border-t-text/20 bg-white p-5">

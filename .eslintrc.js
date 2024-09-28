@@ -12,6 +12,7 @@ module.exports = {
     'next/typescript',
     'plugin:react/jsx-runtime',
     'prettier',
+    'plugin:@tanstack/query/recommended',
   ],
   rules: {
     'jsx-a11y/media-has-caption': 'off',
