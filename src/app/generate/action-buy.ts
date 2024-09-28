@@ -22,6 +22,9 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
     payment_intent_data: {
       metadata,
     },
+    phone_number_collection: {
+      enabled: true,
+    },
     metadata,
     invoice_creation: {
       enabled: true,
