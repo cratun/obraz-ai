@@ -1,6 +1,10 @@
-'use client';
-
+import { Metadata } from 'next';
 import Policy from './policy.mdx';
+
+export const metadata: Metadata = {
+  title: 'Polityka prywatności - ObrazAI | Twórz i zamawiaj unikalne obrazy',
+};
+
 const PrivacyPolicyPage = () => {
   return (
     <>

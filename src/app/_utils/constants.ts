@@ -5,7 +5,7 @@ export const footerLinks = {
   Generator: '/generate',
 };
 
-export const ORIGIN_URL = 'https://obraz-ai.com/';
+export const ORIGIN_URL = 'https://www.obraz-ai.com';
 
 export const CONTACT_EMAIL = 'kontakt@obraz-ai.com';
 

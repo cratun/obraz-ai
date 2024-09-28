@@ -1,6 +1,10 @@
-'use client';
-
+import { Metadata } from 'next';
 import Tos from './tos.mdx';
+
+export const metadata: Metadata = {
+  title: 'Regulamin - ObrazAI | Twórz i zamawiaj unikalne obrazy',
+};
+
 const TosPage = () => {
   return (
     <>
