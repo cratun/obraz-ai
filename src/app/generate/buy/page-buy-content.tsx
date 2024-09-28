@@ -113,7 +113,7 @@ const PageBuyContent = ({ initialPrompt, initialStyleIndex }: { initialPrompt: s
                 variant="contained"
                 onClick={() => buyMutation.mutate(generateMutation.data?.metadata as CheckoutMetadata)}
               >
-                Kup i zapłać
+                Kup teraz
               </AppButton>
               <div className="flex flex-col gap-2.5 lg:gap-5">
                 <span className="text-2xl text-text">
