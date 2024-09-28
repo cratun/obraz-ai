@@ -57,7 +57,7 @@ const GenerateStep = ({
       </div>
     </div>
     <div className="flex flex-col gap-2.5">
-      <h4 className="text-xl font-semibold leading-[120%] tracking-[1px]">{title}</h4>
+      <h3 className="text-xl font-semibold leading-[120%] tracking-[1px]">{title}</h3>
       <p className="leading-[150%] tracking-[0.5px]">{description}</p>
     </div>
   </div>
@@ -149,9 +149,9 @@ const Home = () => {
       <AppContainer className="py-10">
         <AppContainer.Content className="flex-col gap-10 text-text">
           <div className="flex flex-col gap-2.5">
-            <h4 className="text-lg leading-[140%] tracking-[0.5px] text-primary">
+            <h3 className="text-lg leading-[140%] tracking-[0.5px] text-primary">
               Dołącz do grona ponad 1000 zadowolonych klientów
-            </h4>
+            </h3>
             <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">
               Zainspiruj się naszymi wyjątkowymi realizacjami
             </h2>
