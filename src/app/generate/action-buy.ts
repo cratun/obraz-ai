@@ -53,7 +53,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
   });
 
   if (!session.url) {
-    throw new Error();
+    throw new Error('No session URL found');
   }
 
   redirect(session.url);

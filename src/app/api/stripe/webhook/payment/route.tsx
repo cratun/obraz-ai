@@ -12,7 +12,7 @@ const resend = new Resend(process.env.RESEND_API_KEY!);
 export async function POST(req: Request) {
   const signature = headers().get('stripe-signature');
 
-  if (!signature) throw new Error();
+  if (!signature) throw new Error('No stripe-signature found');
 
   let event;
 

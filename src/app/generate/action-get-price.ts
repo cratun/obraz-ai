@@ -7,7 +7,7 @@ const actionGetPrice = async () => {
   const price = await stripe.prices.retrieve(process.env.STRIPE_PRICE_ID!);
 
   if (!price.unit_amount) {
-    throw new Error();
+    throw new Error('No price.unit_amount found');
   }
 
   return price.unit_amount;

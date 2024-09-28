@@ -9,7 +9,7 @@ const s3Client = new S3Client({ region: 'eu-central-1' });
 
 const uploadImage = async ({ imgSrc, id }: { imgSrc: string; id: string }) => {
   if (!imgSrc || !id) {
-    throw new Error();
+    throw new Error('Missing required parameters for image upload');
   }
 
   const fileResponse = await fetch(imgSrc);
@@ -44,7 +44,7 @@ const openai = new OpenAI();
 
 const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleIndex: number }) => {
   if (prompt.split(' ').length > 400) {
-    throw new Error();
+    throw new Error('Prompt is too long');
   }
 
   const completion = await openai.chat.completions.create({
@@ -64,7 +64,7 @@ const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleInd
   const refinedPrompt = completion.choices[0].message.content;
 
   if (!refinedPrompt) {
-    throw new Error();
+    throw new Error('Failed to generate refined prompt');
   }
 
   const output = (await replicate.run(MODEL_NAME, {
