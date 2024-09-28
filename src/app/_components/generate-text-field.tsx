@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge';
 
 const options = [
   'Romantyczny zachód słońca nad oceanem',
-  'Batman przytulający Jokera',
+  'Superbohater przytulający swojego wroga',
   'Abstrakcyjna kompozycja kolorów i kształtów',
   'Portret eleganckiej kobiety',
   'Astronauta grający na skrzypcach na powierzchni księżyca',
@@ -18,7 +18,7 @@ const options = [
 const placeholders = [
   'Opisz swój obraz...',
   'Zachód słońca',
-  'Batman i Joker',
+  'Superbohater i wróg',
   'Opisz swój obraz...',
   'Abstrakcyjne kolory',
   'Portret kobiety',
