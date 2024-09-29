@@ -20,7 +20,7 @@ declare module '@mui/material/Button' {
     neutral: true;
   }
 }
-
+// keep in sync with tailwind.config.ts
 const theme = createTheme({
   typography: {
     fontFamily: 'var(--font-raleway)',
@@ -29,6 +29,9 @@ const theme = createTheme({
     mode: 'light',
     error: {
       main: '#EB4034',
+    },
+    warning: {
+      main: '#f57c00',
     },
     background: {
       default: '#F3F3F3',

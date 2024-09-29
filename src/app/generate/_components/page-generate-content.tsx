@@ -6,12 +6,19 @@ import { useRouter } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import AppLogo from '@/app/_components/app-logo';
-import GenerateInfoLimit from '@/app/_components/generate-limit-info';
 import GenerateTextField from '@/app/_components/generate-text-field';
 import { GENERATION_STYLES } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
+import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
+import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/get-generation-token-count-cookie';
 
-const PageGenerateContent = ({ initialPrompt }: { initialPrompt: string }) => {
+const PageGenerateContent = ({
+  initialPrompt,
+  generationTokenCountCookie,
+}: {
+  initialPrompt: string;
+  generationTokenCountCookie: ParsedGenerationTokenCookie;
+}) => {
   const ref = useRef<HTMLInputElement>(null);
   const [prompt, setPrompt] = useState(initialPrompt);
   const [styleIndex, setStyleIndex] = useState(0);
@@ -51,7 +58,7 @@ const PageGenerateContent = ({ initialPrompt }: { initialPrompt: string }) => {
             onChange={(_, value) => setPrompt(value || '')}
             onInputChange={(_, value) => setPrompt(value)}
           >
-            <GenerateInfoLimit />
+            <GenerateInfoLimit generationTokenCountCookie={generationTokenCountCookie} />
           </GenerateTextField>
         </div>
         <div className="flex flex-col gap-5 lg:gap-10">
@@ -63,6 +70,7 @@ const PageGenerateContent = ({ initialPrompt }: { initialPrompt: string }) => {
         </div>
         <AppButton
           className="lg:py-5 lg:text-lg"
+          disabled={generationTokenCountCookie.value === 0}
           endIcon={<EastRoundedIcon />}
           loading={isPending}
           size="large"
