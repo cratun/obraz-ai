@@ -3,6 +3,7 @@ export const footerLinks = {
   Ciasteczka: '/cookies',
   Regulamin: '/terms-of-service',
   Generator: '/generate',
+  Kontakt: '/contact',
 };
 
 export const ORIGIN_URL = 'https://www.obraz-ai.com';
