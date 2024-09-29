@@ -1,16 +1,15 @@
-'use server';
-import { Stripe } from 'stripe';
+import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-const actionGetPrice = async () => {
+const PageBuyPrice = async () => {
   const price = await stripe.prices.retrieve(process.env.STRIPE_PRICE_ID!);
 
   if (!price.unit_amount) {
     throw new Error('No price.unit_amount found');
   }
 
-  return price.unit_amount;
+  return <span className="font-semibold">{price.unit_amount / 100} zł</span>;
 };
 
-export default actionGetPrice;
+export default PageBuyPrice;

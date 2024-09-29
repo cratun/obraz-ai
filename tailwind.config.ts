@@ -11,7 +11,8 @@ const config: Config = {
   important: '#root',
   theme: {
     colors: {
-      error: '#EB4034',
+      warning: '#f57c00',
+      error: '#C22424',
       transparent: 'transparent',
       current: 'currentColor',
       black: colors.black,
