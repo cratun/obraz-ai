@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useRef, useState } from 'react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -20,6 +21,7 @@ import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/get-generatio
 import actionBuy from '@/app/generate/action-buy';
 import actionGenerate from '@/app/generate/action-generate';
 import { CheckoutMetadata } from '@/app/types';
+import actionVerifyCaptcha from './action-verify-captcha';
 
 const PageBuyContent = ({
   initialPrompt,
@@ -35,6 +37,7 @@ const PageBuyContent = ({
   const ref = useRef<HTMLDivElement>(null);
   const [prompt, setPrompt] = useState(initialPrompt);
   const [styleIndex, setStyleIndex] = useState(initialStyleIndex);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const [generateImageQueryParams, setGenerateImageQueryParams] = useState({
     prompt: initialPrompt,
@@ -44,7 +47,9 @@ const PageBuyContent = ({
 
   const generateImageQuery = useQuery({
     queryKey: ['image', generateImageQueryParams],
-    queryFn: () => actionGenerate(generateImageQueryParams),
+    queryFn: async () => {
+      return actionGenerate(generateImageQueryParams);
+    },
   });
 
   useEffect(() => {
@@ -57,8 +62,19 @@ const PageBuyContent = ({
     mutationFn: (metadata: CheckoutMetadata) => actionBuy({ cancelUrl: window.location.origin + '/', metadata }),
   });
 
-  const handleRegenerate = () => {
-    setGenerateImageQueryParams((prevValue) => ({ prompt, styleIndex, generateKey: prevValue.generateKey + 1 }));
+  const handleRegenerate = async () => {
+    if (!executeRecaptcha) throw new Error('Execute recaptcha not yet available');
+    try {
+      const token = await executeRecaptcha('generate_image');
+      await actionVerifyCaptcha(token);
+      setGenerateImageQueryParams((prevValue) => ({
+        prompt,
+        styleIndex,
+        generateKey: prevValue.generateKey + 1,
+      }));
+    } catch {
+      throw new Error('reCAPTCHA verification failed');
+    }
   };
 
   return (
