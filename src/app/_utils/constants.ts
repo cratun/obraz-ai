@@ -22,7 +22,8 @@ export const GENERATION_DATA = [
   ['impressionism', 'Impresjonizm', 1.3, 'Impressionistic painting'],
   ['pop-art', 'Pop-art', 3, 'Pop Art'],
   ['minimalism', 'Minimalizm', 3, 'Minimalism'],
-  ['cubism', 'Kubizm', 3, 'Cubism'],
+  ['cubism', 'Kubizm', 4, 'Cubism, Pablo Picasso'],
+  ['psychedelic', 'Psychodelik', 3, 'Psychedelic'],
 ] as const;
 
 export const MAX_PROMPT_LENGTH = 1500;
