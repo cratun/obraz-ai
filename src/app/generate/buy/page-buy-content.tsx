@@ -54,7 +54,8 @@ const PageBuyContent = ({
   }, [generateImageQuery.isFetching]);
 
   const buyMutation = useMutation({
-    mutationFn: (metadata: CheckoutMetadata) => actionBuy({ cancelUrl: window.location.origin + '/', metadata }),
+    mutationFn: (metadata: CheckoutMetadata) =>
+      actionBuy({ cancelUrl: window.location.origin + '/generate', metadata }),
   });
 
   const handleRegenerate = () => {

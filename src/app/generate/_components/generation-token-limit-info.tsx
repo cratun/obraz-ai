@@ -53,7 +53,7 @@ const GenerateInfoLimit = ({
           Limit <strong>{GENERATION_TOKEN_DAILY_LIMIT}</strong> kredytów na <strong>24</strong> godziny
         </span>
         <p className="leading-[150%] tracking-[0.5px]">
-          Z powodu ograniczeń API oraz w celu ochrony przed nadużyciami, każde konto ma przyznany limit 20 kredytów na
+          Z powodu ograniczeń API oraz w celu ochrony przed nadużyciami, każde konto ma przyznany limit 20 kredytów na{' '}
           {GENERATION_TOKEN_RETENTION_HOURS} godziny. Dzięki temu zapewniamy płynność działania serwisu i zapobiegamy
           generowaniu obrazów przez boty oraz inne niepożądane skrypty. Kredyty odnawiają się automatycznie po upływie
           doby, więc możesz kontynuować tworzenie swoich dzieł następnego dnia!
