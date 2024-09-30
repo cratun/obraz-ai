@@ -1,13 +1,14 @@
 'use client';
 
 import { useRef, useState, useTransition } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import { useRouter } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import AppLogo from '@/app/_components/app-logo';
 import GenerateTextField from '@/app/_components/generate-text-field';
-import { GENERATION_STYLES } from '@/app/_utils/constants';
+import { GENERATION_STYLES, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
 import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
 import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/get-generation-token-count-cookie';
@@ -19,19 +20,21 @@ const PageGenerateContent = ({
   initialPrompt: string;
   generationTokenCountCookie: ParsedGenerationTokenCookie;
 }) => {
-  const ref = useRef<HTMLInputElement>(null);
-  const [prompt, setPrompt] = useState(initialPrompt);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [styleIndex, setStyleIndex] = useState(0);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  const handleGenerateRedirect = () => {
+  const form = useForm({ defaultValues: { prompt: initialPrompt } });
+
+  const handleSubmit = ({ prompt }: { prompt: string }) => {
     if (!prompt) {
-      ref.current?.focus();
-      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+      inputRef.current?.focus();
+      inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
 
       return;
     }
+
     startTransition(() => {
       router.replace(`/generate/buy?prompt=${prompt}&styleIndex=${styleIndex}`);
     });
@@ -51,15 +54,35 @@ const PageGenerateContent = ({
               Opisz dokładnie, co chcesz zobaczyć - jedynym ograniczeniem jest Twoja wyobraźnia.
             </p>
           </div>
-          <GenerateTextField
-            inputValue={prompt}
-            TextFieldProps={{ inputRef: ref }}
-            value={prompt}
-            onChange={(_, value) => setPrompt(value || '')}
-            onInputChange={(_, value) => setPrompt(value)}
-          >
-            <GenerateInfoLimit generationTokenCountCookie={generationTokenCountCookie} />
-          </GenerateTextField>
+          <Controller
+            control={form.control}
+            name="prompt"
+            render={({ field, fieldState }) => (
+              <GenerateTextField
+                inputValue={field.value}
+                value={field.value}
+                TextFieldProps={{
+                  inputRef: (event) => {
+                    field.ref(event);
+                    inputRef.current = event;
+                  },
+                  error: fieldState.invalid,
+                  helperText: fieldState.error?.message,
+                }}
+                onBlur={field.onBlur}
+                onChange={(_, value) => field.onChange(value || '')}
+                onInputChange={(_, value) => field.onChange(value)}
+              >
+                <GenerateInfoLimit generationTokenCountCookie={generationTokenCountCookie} />
+              </GenerateTextField>
+            )}
+            rules={{
+              maxLength: {
+                value: MAX_PROMPT_LENGTH,
+                message: `Maksymalna długość opisu to ${MAX_PROMPT_LENGTH} znaków.`,
+              },
+            }}
+          />
         </div>
         <div className="flex flex-col gap-5 lg:gap-10">
           <div className="flex flex-col text-[30px] font-semibold leading-[1.2] text-text sm:flex-row sm:gap-2.5">
@@ -75,7 +98,7 @@ const PageGenerateContent = ({
           loading={isPending}
           size="large"
           variant="contained"
-          onClick={handleGenerateRedirect}
+          onClick={form.handleSubmit((values) => handleSubmit(values))}
         >
           Kontynuuj
         </AppButton>

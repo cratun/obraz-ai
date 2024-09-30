@@ -80,6 +80,7 @@ const GenerateTextField = ({
         renderInput={(params) => (
           <TextField
             {...params}
+            {...TextFieldProps}
             inputRef={TextFieldProps?.inputRef}
             slotProps={{
               input: {

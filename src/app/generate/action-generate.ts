@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { cookies } from 'next/headers';
 import OpenAI from 'openai';
 import Replicate from 'replicate';
-import { GENERATION_STYLES } from '@/app/_utils/constants';
+import { GENERATION_STYLES, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import {
   GENERATION_TOKEN_COUNT_COOKIE,
   GENERATION_TOKEN_DAILY_LIMIT,
@@ -100,7 +100,7 @@ const GPT_SYSTEM_INFO_NO_STYLE =
 const openai = new OpenAI();
 
 const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleIndex: number }) => {
-  if (prompt.split(' ').length > 400) {
+  if (prompt.length > MAX_PROMPT_LENGTH) {
     throw new Error('Prompt is too long');
   }
 

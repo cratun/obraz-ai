@@ -28,7 +28,7 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     error: {
-      main: '#EB4034',
+      main: '#C22424',
     },
     warning: {
       main: '#f57c00',

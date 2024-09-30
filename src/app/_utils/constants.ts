@@ -21,3 +21,5 @@ export const GENERATION_STYLES = [
   ['minimalism', 'Minimalizm'],
   ['cubism', 'Kubizm'],
 ] as const;
+
+export const MAX_PROMPT_LENGTH = 1500;
