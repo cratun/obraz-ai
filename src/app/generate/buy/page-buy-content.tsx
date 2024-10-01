@@ -13,7 +13,7 @@ import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import AppLogo from '@/app/_components/app-logo';
 import GenerateTextField from '@/app/_components/generate-text-field';
-import { GENERATION_STYLES, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
+import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
 import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
 import { GENERATION_TOKEN_LIMIT_REACHED } from '@/app/generate/_utils/common';
@@ -110,7 +110,7 @@ const PageBuyContent = ({
         <div className="flex flex-col gap-5 lg:flex-row lg:gap-20">
           <div className="flex flex-col text-[30px] font-semibold leading-[1.2] text-text sm:gap-2.5 lg:basis-[200px]">
             <h2>Wybrany styl:</h2>
-            <span className="text-primary">{GENERATION_STYLES[styleIndex][1]}</span>
+            <span className="text-primary">{GENERATION_DATA[styleIndex][1]}</span>
           </div>
           <GenerationStylePicker
             imgClassName="w-28 lg:w-28"

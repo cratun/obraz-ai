@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { cookies } from 'next/headers';
 import OpenAI from 'openai';
 import Replicate from 'replicate';
-import { GENERATION_STYLES, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
+import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import {
   GENERATION_TOKEN_COUNT_COOKIE,
   GENERATION_TOKEN_DAILY_LIMIT,
@@ -91,7 +91,7 @@ const replicate = new Replicate();
 const MODEL_NAME = process.env.IMAGE_GENERATOR_MODEL_NAME as any;
 
 const getSystemInfoWithStyle = (style: string) => {
-  return `You will be provided with a user-generated prompt for an image generation model. Your task is to refine and enhance the prompt to generate the desired image in a ${style} style. Ensure that the refined prompt is clear, detailed, and maintains the original intent of the user. Return the refined prompt in English.`;
+  return `You will be provided with a user-generated prompt for an image generation model. Your task is to refine and enhance the prompt to generate the desired image in a ${style} style. Ensure that the refined prompt is clear, detailed, and maintains the original intent of the user. Return the refined prompt in English. The prompt must contain the name of the style, so that the image generation model knows for sure which style it is, for example "A Hyperrealistic image of..." `;
 };
 
 const GPT_SYSTEM_INFO_NO_STYLE =
@@ -114,7 +114,7 @@ const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleInd
     messages: [
       {
         role: 'system',
-        content: styleIndex === 0 ? GPT_SYSTEM_INFO_NO_STYLE : getSystemInfoWithStyle(GENERATION_STYLES[styleIndex][0]),
+        content: styleIndex === 0 ? GPT_SYSTEM_INFO_NO_STYLE : getSystemInfoWithStyle(GENERATION_DATA[styleIndex][3]),
       },
       {
         role: 'user',
@@ -130,7 +130,7 @@ const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleInd
   }
 
   const output = (await replicate.run(MODEL_NAME, {
-    input: { prompt: refinedPrompt, num_outputs: 1, aspect_ratio: '1:1', guidance: styleIndex === 2 ? 2 : 3 },
+    input: { prompt: refinedPrompt, num_outputs: 1, aspect_ratio: '1:1', guidance: GENERATION_DATA[styleIndex][2] },
   })) as string[];
 
   const imageId = crypto.randomUUID();
