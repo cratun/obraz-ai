@@ -1,68 +1,15 @@
 'use server';
 
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import dayjs from 'dayjs';
-import { cookies } from 'next/headers';
+
 import OpenAI from 'openai';
 import Replicate from 'replicate';
 import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
-import {
-  GENERATION_TOKEN_COUNT_COOKIE,
-  GENERATION_TOKEN_DAILY_LIMIT,
-  GENERATION_TOKEN_LIMIT_REACHED,
-} from './_utils/common';
-import { GenerationTokenCookieData } from './_utils/get-generation-token-count-cookie';
+import { GENERATION_TOKEN_LIMIT_REACHED } from './_utils/common';
+import { checkAndUpdateGenerationToken } from './_utils/generation-token';
+import { updateImageHistoryCookie } from './_utils/image-history';
 
 const s3Client = new S3Client({ region: 'eu-central-1' });
-
-const getCookieDataFallback = () => {
-  return {
-    value: `${GENERATION_TOKEN_DAILY_LIMIT - 1}`,
-    timestamp: dayjs().toISOString(),
-  };
-};
-
-const checkAndUpdateGenerationToken = () => {
-  const cookieStore = cookies();
-  const generationTokenCookie = cookieStore.get(GENERATION_TOKEN_COUNT_COOKIE);
-
-  if (!generationTokenCookie) {
-    // Cookie does not exist; set initial value and current timestamp
-    cookieStore.set(GENERATION_TOKEN_COUNT_COOKIE, JSON.stringify(getCookieDataFallback()));
-  } else {
-    // Cookie exists; parse the value
-    let cookieData: GenerationTokenCookieData;
-    try {
-      cookieData = JSON.parse(generationTokenCookie.value) as any;
-    } catch {
-      // If parsing fails, reset the cookie
-      cookieData = getCookieDataFallback();
-    }
-
-    const { value, timestamp } = cookieData;
-    const now = dayjs();
-    const cookieTime = dayjs(timestamp);
-    const diffInHours = now.diff(cookieTime, 'hour');
-
-    if (diffInHours >= 24) {
-      // More than 24 hours have passed; reset the value and timestamp
-      cookieStore.set(GENERATION_TOKEN_COUNT_COOKIE, JSON.stringify(getCookieDataFallback()));
-    } else {
-      // Less than 24 hours have passed
-      if (value !== '0') {
-        // Decrement the value and keep the timestamp
-        const newValue = (parseInt(value) - 1).toString();
-        const newCookieValue = JSON.stringify({ value: newValue, timestamp });
-        cookieStore.set(GENERATION_TOKEN_COUNT_COOKIE, newCookieValue);
-      } else {
-        // Value is '0'; limit reached
-        return GENERATION_TOKEN_LIMIT_REACHED;
-      }
-    }
-  }
-
-  return;
-};
 
 const uploadImage = async ({ imgSrc, id }: { imgSrc: string; id: string }) => {
   if (!imgSrc || !id) {
@@ -137,6 +84,7 @@ const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleInd
   const imgSrc = output[0];
 
   await uploadImage({ imgSrc, id: imageId });
+  updateImageHistoryCookie(imageId);
 
   return {
     imgSrc,

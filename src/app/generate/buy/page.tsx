@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { CircularProgress } from '@mui/material';
 import { redirect } from 'next/navigation';
-import { getGenerationTokenCountCookie } from '@/app/generate/_utils/get-generation-token-count-cookie';
+import { getGenerationTokenCountCookie } from '@/app/generate/_utils/generation-token';
 import { SerachParams } from '@/app/types';
 import PageBuyContent from './page-buy-content';
 import PageBuyPrice from './page-buy-price';

@@ -11,7 +11,7 @@ import GenerateTextField from '@/app/_components/generate-text-field';
 import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
 import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
-import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/get-generation-token-count-cookie';
+import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/generation-token';
 
 const PageGenerateContent = ({
   initialPrompt,
