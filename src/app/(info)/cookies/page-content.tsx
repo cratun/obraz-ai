@@ -25,7 +25,7 @@ const PageContent = () => {
 
   return (
     <>
-      <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Polityka prywatności</h2>
+      <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Ciasteczka</h2>
       <Script src="https://consent.cookiebot.com/uc.js?cbid=83648cec-3d22-4112-bc4a-c41063eebf8a" />
       <AppButton
         className="w-fit"
