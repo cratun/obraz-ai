@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { twJoin } from 'tailwind-merge';
 import AppButton from '@/app/_components/app-button';
 import { GENERATION_TOKEN_DAILY_LIMIT, GENERATION_TOKEN_RETENTION_HOURS } from '@/app/generate/_utils/common';
-import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/get-generation-token-count-cookie';
+import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/generation-token';
 
 const GenerateInfoLimit = ({
   generationTokenCountCookie,

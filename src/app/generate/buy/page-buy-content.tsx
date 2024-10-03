@@ -17,7 +17,7 @@ import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
 import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
 import { GENERATION_TOKEN_LIMIT_REACHED } from '@/app/generate/_utils/common';
-import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/get-generation-token-count-cookie';
+import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/generation-token';
 import actionBuy from '@/app/generate/action-buy';
 import actionGenerate from '@/app/generate/action-generate';
 import { CheckoutMetadata } from '@/app/types';
