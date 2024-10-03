@@ -27,6 +27,7 @@
     "@tanstack/react-query": "^5.56.2",
     "@types/mdx": "^2.0.13",
     "dayjs": "^1.11.13",
+    "facebook-nodejs-business-sdk": "^20.0.3",
     "next": "^14.2.13",
     "nuqs": "^1.19.2",
     "openai": "^4.61.1",
@@ -48,6 +49,7 @@
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.58.1",
     "@total-typescript/ts-reset": "^0.6.1",
+    "@types/facebook-nodejs-business-sdk": "^20.0.2",
     "@types/node": "^20.16.5",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",

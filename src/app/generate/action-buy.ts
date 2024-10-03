@@ -3,23 +3,13 @@ import dayjs from 'dayjs';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Stripe } from 'stripe';
+import { getClientIp } from '@/app/_utils/get-client-ip';
 import { CheckoutMetadata } from '@/app/types';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const PIXEL_ID = process.env.META_PIXEL_ID!;
 const META_ACCESS_TOKEN = process.env.CONVERSIONS_API_ACCESS_TOKEN!;
-
-const getClientIp = () => {
-  const FALLBACK_IP_ADDRESS = '0.0.0.0';
-  const forwardedFor = headers().get('x-forwarded-for');
-
-  if (forwardedFor) {
-    return forwardedFor.split(',')[0] ?? FALLBACK_IP_ADDRESS;
-  }
-
-  return headers().get('x-real-ip') ?? FALLBACK_IP_ADDRESS;
-};
 
 const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata: CheckoutMetadata }) => {
   const headersList = headers();
@@ -33,7 +23,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          test_event_code: 'TEST95528',
+          // test_event_code: 'TEST95528',
           data: [
             {
               event_name: 'InitiateCheckout',
@@ -48,9 +38,10 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
         }),
       },
     );
-    console.log(getClientIp());
-    console.error(await response.text());
-  } catch {}
+    console.log(await response.text());
+  } catch (e) {
+    console.log(e);
+  }
 
   const session = await stripe.checkout.sessions.create({
     line_items: [
