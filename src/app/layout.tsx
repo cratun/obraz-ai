@@ -6,6 +6,7 @@ import { GoogleTagManager } from '@next/third-parties/google';
 import { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import Link from 'next/link';
+import Script from 'next/script';
 import { twJoin } from 'tailwind-merge';
 import AppContainer from './_components/app-container';
 import AppLogo from './_components/app-logo';
@@ -68,6 +69,18 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
             </Providers>
           </ThemeProvider>
         </AppRouterCacheProvider>
+        <Script id="meta-pixel" strategy="afterInteractive">
+          {`!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2576537089212905');
+fbq('track', 'PageView');`}
+        </Script>
       </body>
     </html>
   );
