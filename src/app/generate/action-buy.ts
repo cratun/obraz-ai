@@ -1,4 +1,5 @@
 'use server';
+import dayjs from 'dayjs';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Stripe } from 'stripe';
@@ -6,8 +7,50 @@ import { CheckoutMetadata } from '@/app/types';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
+const PIXEL_ID = process.env.META_PIXEL_ID!;
+const META_ACCESS_TOKEN = process.env.CONVERSIONS_API_ACCESS_TOKEN!;
+
+const getClientIp = () => {
+  const FALLBACK_IP_ADDRESS = '0.0.0.0';
+  const forwardedFor = headers().get('x-forwarded-for');
+
+  if (forwardedFor) {
+    return forwardedFor.split(',')[0] ?? FALLBACK_IP_ADDRESS;
+  }
+
+  return headers().get('x-real-ip') ?? FALLBACK_IP_ADDRESS;
+};
+
 const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata: CheckoutMetadata }) => {
   const headersList = headers();
+
+  try {
+    const response = await fetch(
+      `https://graph.facebook.com/v21.0/${PIXEL_ID}/events?access_token=${META_ACCESS_TOKEN}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          test_event_code: 'TEST95528',
+          data: [
+            {
+              event_name: 'InitiateCheckout',
+              event_time: dayjs().unix(),
+              action_source: 'website',
+              user_data: {
+                client_user_agent: headersList.get('user-agent'),
+                client_ip_address: getClientIp(),
+              },
+            },
+          ],
+        }),
+      },
+    );
+    console.log(getClientIp());
+    console.error(await response.text());
+  } catch {}
 
   const session = await stripe.checkout.sessions.create({
     line_items: [
