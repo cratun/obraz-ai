@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useTransition } from 'react';
+import { ReactNode, useRef, useState, useTransition } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import { useRouter } from 'next/navigation';
@@ -12,13 +12,19 @@ import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
 import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
 import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/generation-token';
+import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
+import { ImageHistory } from './components';
 
 const PageGenerateContent = ({
   initialPrompt,
   generationTokenCountCookie,
+  priceElement,
+  imageHistory,
 }: {
   initialPrompt: string;
   generationTokenCountCookie: ParsedGenerationTokenCookie;
+  priceElement: ReactNode;
+  imageHistory: ImageHistoryEntry[];
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [styleIndex, setStyleIndex] = useState(0);
@@ -42,7 +48,7 @@ const PageGenerateContent = ({
 
   return (
     <AppContainer className="py-5">
-      <AppContainer.Content className="flex flex-col gap-10 overflow-auto lg:gap-20">
+      <AppContainer.Content className="flex flex-col gap-10 overflow-auto text-text lg:gap-20">
         <AppLogo className="lg:w-[200px]" />
         <div className="flex flex-col gap-5 lg:gap-10">
           <div className="flex flex-col gap-2.5 lg:gap-5">
@@ -50,7 +56,7 @@ const PageGenerateContent = ({
               Generuj <br className="lg:hidden" />
               <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
             </h1>
-            <p className="leading-[150%] tracking-[0.5px] text-text">
+            <p className="leading-[150%] tracking-[0.5px]">
               Opisz dokładnie, co chcesz zobaczyć - jedynym ograniczeniem jest Twoja wyobraźnia.
             </p>
           </div>
@@ -85,7 +91,7 @@ const PageGenerateContent = ({
           />
         </div>
         <div className="flex flex-col gap-5 lg:gap-10">
-          <div className="flex flex-col text-[30px] font-semibold leading-[1.2] text-text sm:flex-row sm:gap-2.5">
+          <div className="flex flex-col text-[30px] font-semibold leading-[1.2] sm:flex-row sm:gap-2.5">
             <h2>Wybrany styl:</h2>
             <span className="text-primary">{GENERATION_DATA[styleIndex][1]}</span>
           </div>
@@ -102,6 +108,7 @@ const PageGenerateContent = ({
         >
           Kontynuuj
         </AppButton>
+        {imageHistory.length > 0 && <ImageHistory imageHistory={imageHistory} priceElement={priceElement} />}
       </AppContainer.Content>
     </AppContainer>
   );

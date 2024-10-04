@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
 import { CircularProgress } from '@mui/material';
 import { redirect } from 'next/navigation';
+import ProductPrice from '@/app/generate/_components/product-price';
 import { getGenerationTokenCountCookie } from '@/app/generate/_utils/generation-token';
+import { getImageHistoryFromCookie } from '@/app/generate/_utils/image-history/server';
 import { SerachParams } from '@/app/types';
 import PageBuyContent from './page-buy-content';
-import PageBuyPrice from './page-buy-price';
 
 const isStringNotEmptyString = (param: SerachParams[number]): param is string =>
   typeof param === 'string' && param.length > 0 && !Array.isArray(param);
@@ -19,11 +20,12 @@ const PageBuy = ({ searchParams }: { searchParams: SerachParams }) => {
   return (
     <PageBuyContent
       generationTokenCountCookie={getGenerationTokenCountCookie()}
+      imageHistory={getImageHistoryFromCookie()}
       initialPrompt={searchParams.prompt}
       initialStyleIndex={Number.isNaN(parsedStyleIndex) ? 0 : parsedStyleIndex}
       priceElement={
         <Suspense fallback={<CircularProgress size={15} />}>
-          <PageBuyPrice />
+          <ProductPrice />
         </Suspense>
       }
     />
