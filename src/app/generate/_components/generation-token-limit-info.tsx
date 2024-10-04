@@ -40,7 +40,7 @@ const GenerateInfoLimit = ({
         </IconButton>
         <div className="flex flex-col gap-2.5">
           <div className="text-xl font-semibold leading-[120%] tracking-[1px]">
-            Ilość pozostałych kredytów: <span className="text-primary">{generationTokenCountCookie.value}</span>
+            Ilość pozostałych generowań: <span className="text-primary">{generationTokenCountCookie.value}</span>
           </div>
           <div className="text-xl font-semibold leading-[120%] tracking-[1px]">
             Następne odnowienie:{' '}
@@ -50,10 +50,10 @@ const GenerateInfoLimit = ({
           </div>
         </div>
         <span className="leading-[150%] tracking-[0.5px]">
-          Limit <strong>{GENERATION_TOKEN_DAILY_LIMIT}</strong> kredytów na <strong>24</strong> godziny
+          Limit <strong>{GENERATION_TOKEN_DAILY_LIMIT}</strong> generowań na <strong>24</strong> godziny
         </span>
         <p className="leading-[150%] tracking-[0.5px]">
-          Z powodu ograniczeń API oraz w celu ochrony przed nadużyciami, każde konto ma przyznany limit 20 kredytów na{' '}
+          Z powodu ograniczeń API oraz w celu ochrony przed nadużyciami, każde konto ma przyznany limit 20 generowań na{' '}
           {GENERATION_TOKEN_RETENTION_HOURS} godziny. Dzięki temu zapewniamy płynność działania serwisu i zapobiegamy
           generowaniu obrazów przez boty oraz inne niepożądane skrypty. Kredyty odnawiają się automatycznie po upływie
           doby, więc możesz kontynuować tworzenie swoich dzieł następnego dnia!

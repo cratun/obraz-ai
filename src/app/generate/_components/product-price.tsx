@@ -2,7 +2,7 @@ import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-const PageBuyPrice = async () => {
+const ProductPrice = async () => {
   const price = await stripe.prices.retrieve(process.env.STRIPE_PRICE_ID!);
 
   if (!price.unit_amount) {
@@ -12,4 +12,4 @@ const PageBuyPrice = async () => {
   return <span className="font-semibold">{price.unit_amount / 100} zł</span>;
 };
 
-export default PageBuyPrice;
+export default ProductPrice;

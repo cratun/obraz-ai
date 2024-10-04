@@ -7,7 +7,7 @@ import Replicate from 'replicate';
 import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import { GENERATION_TOKEN_LIMIT_REACHED } from './_utils/common';
 import { checkAndUpdateGenerationToken } from './_utils/generation-token';
-import { updateImageHistoryCookie } from './_utils/image-history';
+import { updateImageHistoryCookie } from './_utils/image-history/server';
 
 const s3Client = new S3Client({ region: 'eu-central-1' });
 
