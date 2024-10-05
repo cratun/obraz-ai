@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import AppLogo from '@/app/_components/app-logo';
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 };
 
 const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => {
+  if (!searchParams.session_id) redirect('/');
   const { customer, session } = await actionGetOrderInfo(searchParams.session_id as string);
 
   return (
