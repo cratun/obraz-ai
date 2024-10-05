@@ -1,47 +1,74 @@
 'use server';
 import dayjs from 'dayjs';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Stripe } from 'stripe';
 import { getClientIp } from '@/app/_utils/get-client-ip';
 import { CheckoutMetadata } from '@/app/types';
+import { EXTERNAL_ID_COOKIE } from './_utils/common';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const PIXEL_ID = process.env.META_PIXEL_ID!;
 const META_ACCESS_TOKEN = process.env.CONVERSIONS_API_ACCESS_TOKEN!;
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const bizSdk = require('facebook-nodejs-business-sdk');
+
+const sendInitCheckoutPixelEvent = async () => {
+  const headersList = headers();
+  const cookiesList = cookies();
+
+  const access_token = META_ACCESS_TOKEN;
+  bizSdk.FacebookAdsApi.init(access_token);
+  const EventRequest = bizSdk.EventRequest;
+  const UserData = bizSdk.UserData;
+  const ServerEvent = bizSdk.ServerEvent;
+
+  const pixel_id = PIXEL_ID;
+
+  const userData = new UserData()
+    .setClientIpAddress(getClientIp())
+    .setClientUserAgent(headersList.get('user-agent') || '')
+    .setExternalId(cookiesList.get('external_id')?.value)
+    .setFbp(cookiesList.get('_fbp')?.value)
+    .setFbc(cookiesList.get('_fbc')?.value);
+
+  const serverEvent = new ServerEvent()
+    .setEventName('InitiateCheckout')
+    .setEventTime(dayjs().unix())
+    .setUserData(userData)
+    .setActionSource('website');
+
+  const eventsData = [serverEvent];
+  const eventRequest = new EventRequest(access_token, pixel_id).setEvents(eventsData);
+  // .setTestEventCode('TEST53533');
+
+  await eventRequest.execute().then(
+    (response: any) => {
+      console.log('Response: ', response);
+    },
+    (err: any) => {
+      console.error('Error: ', err);
+    },
+  );
+};
 
 const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata: CheckoutMetadata }) => {
   const headersList = headers();
+  const cookiesList = cookies();
+  let externalId = cookiesList.get('external_id')?.value;
 
-  try {
-    const response = await fetch(
-      `https://graph.facebook.com/v21.0/${PIXEL_ID}/events?access_token=${META_ACCESS_TOKEN}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          // test_event_code: 'TEST95528',
-          data: [
-            {
-              event_name: 'InitiateCheckout',
-              event_time: dayjs().unix(),
-              action_source: 'website',
-              user_data: {
-                client_user_agent: headersList.get('user-agent'),
-                client_ip_address: getClientIp(),
-              },
-            },
-          ],
-        }),
-      },
-    );
-    console.log(await response.text());
-  } catch (e) {
-    console.log(e);
+  if (!externalId) {
+    externalId = crypto.randomUUID();
+    cookiesList.set(EXTERNAL_ID_COOKIE, externalId, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 365,
+      sameSite: 'strict',
+      secure: true,
+    });
   }
+
+  await sendInitCheckoutPixelEvent();
 
   const session = await stripe.checkout.sessions.create({
     line_items: [

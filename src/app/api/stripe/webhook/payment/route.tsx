@@ -3,56 +3,11 @@ import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import Stripe from 'stripe';
-import { META_ACCESS_TOKEN, PIXEL_ID } from '@/app/_utils/common-server';
-import { getClientIp } from '@/app/_utils/get-client-ip';
 import OrderEmail from '@/emails/order-email';
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const bizSdk = require('facebook-nodejs-business-sdk');
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET!;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const resend = new Resend(process.env.RESEND_API_KEY!);
-
-const sendPixelEvent = async ({ email, phone, amount }: { email: string; phone: string; amount: number }) => {
-  const headersList = headers();
-  const access_token = META_ACCESS_TOKEN;
-  bizSdk.FacebookAdsApi.init(access_token);
-  const EventRequest = bizSdk.EventRequest;
-  const UserData = bizSdk.UserData;
-  const ServerEvent = bizSdk.ServerEvent;
-  const CustomData = bizSdk.CustomData;
-
-  const pixel_id = PIXEL_ID;
-
-  const userData = new UserData()
-    .setEmails([email])
-    .setPhones([phone])
-    .setClientIpAddress(getClientIp())
-    .setClientUserAgent(headersList.get('user-agent') || '');
-
-  const customData = new CustomData().setCurrency('PLN').setValue(amount);
-
-  const serverEvent = new ServerEvent()
-    .setEventName('Purchase')
-    .setEventTime(dayjs().unix())
-    .setUserData(userData)
-    .setCustomData(customData)
-    .setActionSource('website');
-  // TODO: add more data to the event
-  const eventsData = [serverEvent];
-  const eventRequest = new EventRequest(access_token, pixel_id).setEvents(eventsData);
-  // .setTestEventCode('TEST95528');
-
-  await eventRequest.execute().then(
-    (response: any) => {
-      console.log('Response: ', response);
-    },
-    (err: any) => {
-      console.error('Error: ', err);
-    },
-  );
-};
 
 export async function POST(req: Request) {
   const headersList = headers();
@@ -89,12 +44,6 @@ export async function POST(req: Request) {
     if (!session.metadata || !session.metadata.imageId) {
       throw new Error('No image ID or metadata found');
     }
-
-    await sendPixelEvent({
-      email: session.customer_details.email as string,
-      phone: session.customer_details.phone as string,
-      amount: session.amount_total / 100,
-    });
 
     await resend.emails.send({
       from: 'ObrazAI <kontakt@obraz-ai.com>',
