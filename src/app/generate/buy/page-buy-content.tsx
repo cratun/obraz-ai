@@ -23,6 +23,22 @@ import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
 import actionBuy from '@/app/generate/action-buy';
 import actionGenerate from '@/app/generate/action-generate';
 import { CheckoutMetadata } from '@/app/types';
+import generateMockup from './generate-mockup';
+
+const mockupData = [
+  {
+    imageName: '1',
+    position: { x: 387, y: 157 },
+  },
+  {
+    imageName: '2',
+    position: { x: 293, y: 136 },
+  },
+  {
+    imageName: '3',
+    position: { x: 584, y: 195 },
+  },
+];
 
 const PageBuyContent = ({
   initialPrompt,
@@ -37,6 +53,9 @@ const PageBuyContent = ({
   priceElement: ReactNode;
   imageHistory: ImageHistoryEntry[];
 }) => {
+  const [mockupImages, setMockupImages] = useState<Array<string> | null>(null);
+  // TODO: REMOVE CONSOLE LOG AFTER IMPLEMENTATION
+  console.log(mockupImages);
   const imgContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const form = useForm({ defaultValues: { prompt: initialPrompt } });
@@ -74,6 +93,26 @@ const PageBuyContent = ({
 
     setGenerateImageQueryParams((prevValue) => ({ prompt, styleIndex, generateKey: prevValue.generateKey + 1 }));
   };
+
+  useEffect(() => {
+    if (!generateImageQuery.isSuccess) return;
+
+    const generateMockupUrl = async () => {
+      console.log('first');
+      if (generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) return;
+      const promises = mockupData.map((el) => {
+        if (generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED)
+          throw new Error('Generation token limit reached');
+
+        return generateMockup(`/mocks/${el.imageName}.png`, generateImageQuery.data.imgSrc, el.position);
+      });
+
+      const images = await Promise.all(promises);
+      setMockupImages(images);
+    };
+
+    generateMockupUrl();
+  }, [generateImageQuery.data, generateImageQuery.isSuccess]);
 
   return (
     <AppContainer className="py-5">
