@@ -8,37 +8,23 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 import { CircularProgress } from '@mui/material';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import Image from 'next/image';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import AppLogo from '@/app/_components/app-logo';
 import GenerateTextField from '@/app/_components/generate-text-field';
 import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
-import { ImageHistory, OrderDetails } from '@/app/generate/_components/components';
+import GeneratedImageSlider from '@/app/generate/_components/generated-image-slider';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
 import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
-import { GENERATION_TOKEN_LIMIT_REACHED } from '@/app/generate/_utils/common';
+import ImageHistory from '@/app/generate/_components/image-history';
+import OrderDetails from '@/app/generate/_components/order-details';
+import { GENERATION_TOKEN_LIMIT_REACHED, mockupData } from '@/app/generate/_utils/common';
 import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/generation-token';
 import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
 import actionBuy from '@/app/generate/action-buy';
 import actionGenerate from '@/app/generate/action-generate';
 import { CheckoutMetadata } from '@/app/types';
 import generateMockup from './generate-mockup';
-
-const mockupData = [
-  {
-    imageName: '1',
-    position: { x: 387, y: 157 },
-  },
-  {
-    imageName: '2',
-    position: { x: 293, y: 136 },
-  },
-  {
-    imageName: '3',
-    position: { x: 584, y: 195 },
-  },
-];
 
 const PageBuyContent = ({
   initialPrompt,
@@ -54,8 +40,6 @@ const PageBuyContent = ({
   imageHistory: ImageHistoryEntry[];
 }) => {
   const [mockupImages, setMockupImages] = useState<Array<string> | null>(null);
-  // TODO: REMOVE CONSOLE LOG AFTER IMPLEMENTATION
-  console.log(mockupImages);
   const imgContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const form = useForm({ defaultValues: { prompt: initialPrompt } });
@@ -90,7 +74,7 @@ const PageBuyContent = ({
 
       return;
     }
-
+    setMockupImages(null);
     setGenerateImageQueryParams((prevValue) => ({ prompt, styleIndex, generateKey: prevValue.generateKey + 1 }));
   };
 
@@ -98,7 +82,6 @@ const PageBuyContent = ({
     if (!generateImageQuery.isSuccess) return;
 
     const generateMockupUrl = async () => {
-      console.log('first');
       if (generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) return;
       const promises = mockupData.map((el) => {
         if (generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED)
@@ -197,9 +180,11 @@ const PageBuyContent = ({
                       </span>
                     </div>
                   ) : (
-                    <div className="relative aspect-square w-full max-w-[600px]">
-                      <Image alt="Generated image" layout="fill" src={generateImageQuery.data.imgSrc} />
-                    </div>
+                    <GeneratedImageSlider
+                      className="[--swiper-theme-color:theme(colors.primary)]"
+                      generatedImgSrc={generateImageQuery.data.imgSrc}
+                      mockupImages={mockupImages || []}
+                    />
                   )}
                 </>
               ) : (
@@ -214,7 +199,7 @@ const PageBuyContent = ({
           )}
           <OrderDetails priceElement={priceElement}>
             <AppButton
-              className="lg:py-5 lg:text-lg"
+              className="mb-0 lg:py-5 lg:text-lg"
               color="accent"
               disabled={!generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED}
               loading={buyMutation.isPending}

@@ -13,7 +13,7 @@ import GenerationStylePicker from '@/app/generate/_components/generation-style-p
 import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
 import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/generation-token';
 import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
-import { ImageHistory } from './components';
+import ImageHistory from './image-history';
 
 const PageGenerateContent = ({
   initialPrompt,
