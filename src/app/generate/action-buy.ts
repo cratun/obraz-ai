@@ -68,7 +68,9 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
     });
   }
 
-  await sendInitCheckoutPixelEvent();
+  if (process.env.NODE_ENV !== 'development') {
+    await sendInitCheckoutPixelEvent();
+  }
 
   const session = await stripe.checkout.sessions.create({
     line_items: [

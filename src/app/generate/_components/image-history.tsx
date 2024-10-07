@@ -1,0 +1,127 @@
+import { ReactNode, useEffect, useState } from 'react';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Dialog, PaperProps } from '@mui/material';
+import ButtonBase from '@mui/material/ButtonBase';
+import { useMutation } from '@tanstack/react-query';
+import Image from 'next/image';
+import AppButton from '@/app/_components/app-button';
+import AppContainer from '@/app/_components/app-container';
+import Typography from '@/app/_components/typography';
+import { mockupData } from '@/app/generate/_utils/common';
+import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
+import actionBuy from '@/app/generate/action-buy';
+import generateMockup from '@/app/generate/buy/generate-mockup';
+import { CheckoutMetadata } from '@/app/types';
+import GeneratedImageSlider from './generated-image-slider';
+import OrderDetails from './order-details';
+
+const getImgUrl = (id: string) => `https://obraz-ai-bucket.s3.eu-central-1.amazonaws.com/${id}.webp`;
+
+const ImageHistoryDialogPaperComponent = ({ children }: PaperProps) => (
+  <AppContainer className="h-full w-full overflow-auto pt-5">
+    <AppContainer.Content className="flex w-full flex-col items-center gap-10 text-white lg:flex-row [&>div:last-of-type]:pb-5 lg:[&>div:last-of-type]:pb-0">
+      {children}
+    </AppContainer.Content>
+  </AppContainer>
+);
+
+const ImageHistoryDialogContent = ({
+  dialogImgId,
+  priceElement,
+  onClose,
+}: {
+  dialogImgId: string;
+  priceElement: ReactNode;
+  onClose: () => void;
+}) => {
+  const generatedImgSrc = getImgUrl(dialogImgId);
+
+  const [mockupImages, setMockupImages] = useState<Array<string> | null>(null);
+  const buyMutation = useMutation({
+    mutationFn: (metadata: CheckoutMetadata) =>
+      actionBuy({ cancelUrl: window.location.origin + '/generate', metadata }),
+  });
+
+  useEffect(() => {
+    const generateMockupUrl = async () => {
+      const promises = mockupData.map((el) => {
+        return generateMockup(`/mocks/${el.imageName}.png`, generatedImgSrc, el.position);
+      });
+
+      const images = await Promise.all(promises);
+      setMockupImages(images);
+    };
+
+    generateMockupUrl();
+  }, [generatedImgSrc]);
+
+  return (
+    <>
+      <GeneratedImageSlider
+        className="[--swiper-theme-color:theme(colors.white)]"
+        generatedImgSrc={generatedImgSrc}
+        mockupImages={mockupImages || []}
+      />
+      <OrderDetails priceElement={priceElement}>
+        <AppButton className="lg:py-5 lg:text-lg" color="neutral" size="large" variant="outlined" onClick={onClose}>
+          Zamknij
+        </AppButton>
+        <AppButton
+          className="-order-1 lg:order-none lg:py-5 lg:text-lg"
+          color="accent"
+          loading={buyMutation.isPending}
+          size="large"
+          startIcon={<ShoppingCartIcon />}
+          variant="contained"
+          onClick={() => buyMutation.mutate({ imageId: dialogImgId })}
+        >
+          Kup teraz
+        </AppButton>
+      </OrderDetails>
+    </>
+  );
+};
+
+const ImageHistory = ({
+  imageHistory,
+  priceElement,
+}: {
+  imageHistory: ImageHistoryEntry[];
+  priceElement: ReactNode;
+}) => {
+  const [dialogImgId, setDialogImgId] = useState<string | null>(null);
+
+  return (
+    <div className="flex flex-col gap-10">
+      {!!dialogImgId && (
+        <Dialog
+          open={!!dialogImgId}
+          PaperComponent={ImageHistoryDialogPaperComponent}
+          slotProps={{ backdrop: { classes: { root: 'bg-black/80 backdrop-blur-3xl' } } }}
+        >
+          <ImageHistoryDialogContent
+            dialogImgId={dialogImgId}
+            priceElement={priceElement}
+            onClose={() => setDialogImgId(null)}
+          />
+        </Dialog>
+      )}
+      <div className="flex flex-col gap-5">
+        <Typography.H3>Twoja galeria wygenerowanych obrazów</Typography.H3>
+        <Typography.Body className="max-w-2xl">
+          Przeglądaj 20 ostatnich obrazów przechowywanych przez 3 dni. <strong>Kliknij</strong> wybrany projekt, aby
+          zobaczyć podgląd i zamówić unikalny obraz na płótnie.
+        </Typography.Body>
+      </div>
+      <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
+        {imageHistory.map(({ id }) => (
+          <ButtonBase key={id} className="relative aspect-square" onClick={() => setDialogImgId(id)}>
+            <Image fill alt="" src={getImgUrl(id)} />
+          </ButtonBase>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ImageHistory;
