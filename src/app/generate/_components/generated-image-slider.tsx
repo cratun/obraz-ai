@@ -27,7 +27,7 @@ const GeneratedImageSlider = ({
   const getPaginationId = () => `swiper-pagination-${swiperId}`;
 
   return (
-    <div className={twMerge('flex w-full max-w-[600px] flex-col gap-2.5', className)}>
+    <div className={twMerge('flex w-full max-w-[600px] shrink-0 flex-col gap-2.5', className)}>
       <Swiper
         className="mx-0 w-full select-none"
         id={swiperId}

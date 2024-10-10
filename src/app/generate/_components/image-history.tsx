@@ -1,14 +1,16 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Dialog, PaperProps } from '@mui/material';
 import ButtonBase from '@mui/material/ButtonBase';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
 import { mockupData } from '@/app/generate/_utils/common';
 import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
+import { defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
 import actionBuy from '@/app/generate/action-buy';
 import generateMockup from '@/app/generate/buy/generate-mockup';
 import { CheckoutMetadata } from '@/app/types';
@@ -19,27 +21,24 @@ const getImgUrl = (id: string) => `https://obraz-ai-bucket.s3.eu-central-1.amazo
 
 const ImageHistoryDialogPaperComponent = ({ children }: PaperProps) => (
   <AppContainer className="h-full w-full overflow-auto pt-5">
-    <AppContainer.Content className="flex w-full flex-col items-center gap-10 text-white lg:flex-row [&>div:last-of-type]:pb-5 lg:[&>div:last-of-type]:pb-0">
+    <AppContainer.Content className="my-auto flex h-fit w-full flex-col items-center gap-10 text-white lg:flex-row [&>div:last-of-type]:pb-5 lg:[&>div:last-of-type]:pb-0">
       {children}
     </AppContainer.Content>
   </AppContainer>
 );
 
-const ImageHistoryDialogContent = ({
-  dialogImgId,
-  priceElement,
-  onClose,
-}: {
-  dialogImgId: string;
-  priceElement: ReactNode;
-  onClose: () => void;
-}) => {
+const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: string; onClose: () => void }) => {
   const generatedImgSrc = getImgUrl(dialogImgId);
+  const searchParams = useSearchParams();
 
   const [mockupImages, setMockupImages] = useState<Array<string> | null>(null);
   const buyMutation = useMutation({
     mutationFn: (metadata: CheckoutMetadata) =>
-      actionBuy({ cancelUrl: window.location.origin + '/generate', metadata }),
+      actionBuy({
+        cancelUrl: window.location.origin + '/generate',
+        metadata,
+        size: searchParams.get('size') || defaultCanvasSize,
+      }),
   });
 
   useEffect(() => {
@@ -62,7 +61,7 @@ const ImageHistoryDialogContent = ({
         generatedImgSrc={generatedImgSrc}
         mockupImages={mockupImages || []}
       />
-      <OrderDetails priceElement={priceElement}>
+      <OrderDetails toggleButtonVariant="primary">
         <AppButton className="lg:py-5 lg:text-lg" color="neutral" size="large" variant="outlined" onClick={onClose}>
           Zamknij
         </AppButton>
@@ -82,13 +81,7 @@ const ImageHistoryDialogContent = ({
   );
 };
 
-const ImageHistory = ({
-  imageHistory,
-  priceElement,
-}: {
-  imageHistory: ImageHistoryEntry[];
-  priceElement: ReactNode;
-}) => {
+const ImageHistory = ({ imageHistory }: { imageHistory: ImageHistoryEntry[] }) => {
   const [dialogImgId, setDialogImgId] = useState<string | null>(null);
 
   return (
@@ -99,11 +92,7 @@ const ImageHistory = ({
           PaperComponent={ImageHistoryDialogPaperComponent}
           slotProps={{ backdrop: { classes: { root: 'bg-black/80 backdrop-blur-3xl' } } }}
         >
-          <ImageHistoryDialogContent
-            dialogImgId={dialogImgId}
-            priceElement={priceElement}
-            onClose={() => setDialogImgId(null)}
-          />
+          <ImageHistoryDialogContent dialogImgId={dialogImgId} onClose={() => setDialogImgId(null)} />
         </Dialog>
       )}
       <div className="flex flex-col gap-5">

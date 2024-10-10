@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useRef, useState, useTransition } from 'react';
+import { useRef, useState, useTransition } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import { useRouter } from 'next/navigation';
@@ -18,12 +18,10 @@ import ImageHistory from './image-history';
 const PageGenerateContent = ({
   initialPrompt,
   generationTokenCountCookie,
-  priceElement,
   imageHistory,
 }: {
   initialPrompt: string;
   generationTokenCountCookie: ParsedGenerationTokenCookie;
-  priceElement: ReactNode;
   imageHistory: ImageHistoryEntry[];
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -108,7 +106,7 @@ const PageGenerateContent = ({
         >
           Kontynuuj
         </AppButton>
-        {imageHistory.length > 0 && <ImageHistory imageHistory={imageHistory} priceElement={priceElement} />}
+        {imageHistory.length > 0 && <ImageHistory imageHistory={imageHistory} />}
       </AppContainer.Content>
     </AppContainer>
   );

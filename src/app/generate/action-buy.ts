@@ -3,9 +3,11 @@ import dayjs from 'dayjs';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Stripe } from 'stripe';
+import { PRICES } from '@/app/_utils/constants';
 import { getClientIp } from '@/app/_utils/get-client-ip';
-import { CheckoutMetadata } from '@/app/types';
+import { CheckoutMetadata, SearchParam } from '@/app/types';
 import { EXTERNAL_ID_COOKIE } from './_utils/common';
+import { CanvasSize } from './_utils/sizes-utils';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -53,7 +55,16 @@ const sendInitCheckoutPixelEvent = async () => {
   );
 };
 
-const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata: CheckoutMetadata }) => {
+const actionBuy = async ({
+  cancelUrl,
+  metadata,
+  size,
+}: {
+  cancelUrl: string;
+  metadata: CheckoutMetadata;
+  size: SearchParam;
+}) => {
+  if (typeof size !== 'string') throw new Error('Size must be a string');
   const headersList = headers();
   const cookiesList = cookies();
   let externalId = cookiesList.get('external_id')?.value;
@@ -75,7 +86,14 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
-        price: process.env.STRIPE_PRICE_ID!,
+        price_data: {
+          currency: 'pln',
+          product: process.env.STRIPE_PRODUCT_ID!,
+          unit_amount: Number(PRICES[size as CanvasSize]) * 100,
+          product_data: {
+            name: `Obraz AI - płotno - ${size}x${size} cm`,
+          },
+        },
         quantity: 1,
       },
     ],
@@ -88,6 +106,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
     phone_number_collection: {
       enabled: true,
     },
+
     metadata,
     invoice_creation: {
       enabled: true,

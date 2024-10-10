@@ -1,15 +1,65 @@
 'use client';
 
 import { ReactNode } from 'react';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { useSearchParams } from 'next/navigation';
+import { twJoin } from 'tailwind-merge';
 import Typography from '@/app/_components/typography';
+import { PRICES } from '@/app/_utils/constants';
+import createQueryString from '@/app/_utils/create-query-string';
+import { CanvasSize, canvasSizes } from '@/app/generate/_utils/sizes-utils';
 
-const OrderDetails = ({ children, priceElement }: { children: ReactNode; priceElement: ReactNode }) => {
+const OrderDetails = ({
+  children,
+  toggleButtonVariant,
+}: {
+  children: ReactNode;
+  toggleButtonVariant: 'primary' | 'secondary';
+}) => {
+  const searchParams = useSearchParams();
+  const size = (searchParams.get('size') || '60') as CanvasSize;
+
+  const handleSizeChange = (_: unknown, newSize: string | null) => {
+    if (newSize === null) return;
+
+    const query = createQueryString([{ action: 'add', name: 'size', value: newSize }], searchParams);
+
+    window.history.replaceState(null, '', `?${query}`);
+  };
+
   return (
     <div className="flex flex-col gap-10 lg:flex-col-reverse lg:justify-between">
       <div className="flex flex-col gap-2.5 lg:flex-col-reverse lg:gap-5">
         {children}
+        <ToggleButtonGroup
+          exclusive
+          className="-order-2 max-w-96 gap-2.5 lg:order-none"
+          value={size}
+          onChange={handleSizeChange}
+        >
+          {canvasSizes.map((size) => (
+            <ToggleButton
+              key={size}
+              value={size}
+              classes={{
+                root: 'rounded-full',
+                selected: twJoin(
+                  toggleButtonVariant === 'primary' ? '!text-text !bg-white' : '!text-white !bg-primary',
+                ),
+                standard: twJoin(
+                  toggleButtonVariant === 'primary' ? 'bg-transparent border-white text-white' : 'bg-white',
+                ),
+              }}
+            >
+              {size}x{size} cm
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
         <div className="flex flex-col gap-2.5 leading-[150%] tracking-[0.5px] lg:gap-5">
-          <span className="text-2xl">Cena: {priceElement}</span>
+          <span className="text-2xl">
+            Cena: <span className="font-semibold">{PRICES[size]} PLN</span>
+          </span>
           <span className="font-semi text-xl">
             Specjalna oferta: <span className="font-semibold">Dostawa gratis!</span>
           </span>
@@ -17,20 +67,24 @@ const OrderDetails = ({ children, priceElement }: { children: ReactNode; priceEl
       </div>
       <div className="flex flex-col gap-5">
         <Typography.H3>Szczegóły zamówienia</Typography.H3>
-        <p className="max-w-xl leading-normal tracking-[0.5px]">
-          Obraz na płótnie o wymiarach <strong>50x50 cm</strong>. Druk <strong>wysokiej jakości na płótnie</strong>, z
-          wybraną przez Ciebie unikalną grafiką, stworzoną na podstawie Twojego opisu. Doskonały{' '}
-          <strong>do powieszenia na ścianie</strong>, gotowy, by ozdobić Twój dom lub biuro.
-        </p>
+        <Typography.Body className="text-inherit">
+          Obraz na płótnie o wymiarach{' '}
+          <strong>
+            {size}x{size} cm
+          </strong>
+          . Druk <strong>wysokiej jakości na płótnie</strong>, z wybraną przez Ciebie unikalną grafiką, stworzoną na
+          podstawie Twojego opisu. Doskonały <strong>do powieszenia na ścianie</strong>, gotowy, by ozdobić Twój dom lub
+          biuro.
+        </Typography.Body>
         <ul className="max-w-xl list-disc pl-4 leading-normal tracking-[0.5px]">
           <li>płótno syntetyczne</li>
           <li>zadrukowane krawędzie foto-obrazu</li>
           <li>lekki drewniany blejtram</li>
           <li>wysokiej jakości druk ekologiczny w technologii UV</li>
         </ul>
-        <div className="max-w-xl leading-normal tracking-[0.5px]">
+        <Typography.Body className="text-inherit">
           Oczekiwany czas realizacji zamówienia: <strong>3 - 5 dni roboczych.</strong>
-        </div>
+        </Typography.Body>
       </div>
     </div>
   );
