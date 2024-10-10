@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -8,6 +8,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 import { CircularProgress } from '@mui/material';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import AppLogo from '@/app/_components/app-logo';
@@ -21,6 +22,7 @@ import OrderDetails from '@/app/generate/_components/order-details';
 import { GENERATION_TOKEN_LIMIT_REACHED, mockupData } from '@/app/generate/_utils/common';
 import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/generation-token';
 import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
+import { defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
 import actionBuy from '@/app/generate/action-buy';
 import actionGenerate from '@/app/generate/action-generate';
 import { CheckoutMetadata } from '@/app/types';
@@ -29,16 +31,15 @@ import generateMockup from './generate-mockup';
 const PageBuyContent = ({
   initialPrompt,
   initialStyleIndex,
-  priceElement,
   generationTokenCountCookie,
   imageHistory,
 }: {
   initialPrompt: string;
   initialStyleIndex: number;
   generationTokenCountCookie: ParsedGenerationTokenCookie;
-  priceElement: ReactNode;
   imageHistory: ImageHistoryEntry[];
 }) => {
+  const searchParams = useSearchParams();
   const [mockupImages, setMockupImages] = useState<Array<string> | null>(null);
   const imgContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -64,7 +65,11 @@ const PageBuyContent = ({
 
   const buyMutation = useMutation({
     mutationFn: (metadata: CheckoutMetadata) =>
-      actionBuy({ cancelUrl: window.location.origin + '/generate', metadata }),
+      actionBuy({
+        cancelUrl: window.location.origin + '/generate',
+        metadata,
+        size: searchParams.get('size') || defaultCanvasSize,
+      }),
   });
 
   const handleGenerate = ({ prompt }: { prompt: string }) => {
@@ -161,7 +166,7 @@ const PageBuyContent = ({
         </div>
         <div ref={imgContainerRef} className="flex flex-col gap-10 lg:flex-row">
           {generateImageQuery.isFetching ? (
-            <div className="relative z-[0] aspect-square w-full max-w-[600px] p-5">
+            <div className="relative z-[0] aspect-square w-full max-w-[600px] shrink-0 p-5">
               <div className="absolute inset-0 z-[0] animate-pulse rounded-xl bg-primary/30"></div>
               <div className="absolute inset-0 z-[1] flex flex-col items-center justify-center gap-5">
                 <CircularProgress />
@@ -197,7 +202,7 @@ const PageBuyContent = ({
               )}
             </>
           )}
-          <OrderDetails priceElement={priceElement}>
+          <OrderDetails toggleButtonVariant="secondary">
             <AppButton
               className="mb-0 lg:py-5 lg:text-lg"
               color="accent"
@@ -218,7 +223,7 @@ const PageBuyContent = ({
             </AppButton>
           </OrderDetails>
         </div>
-        {imageHistory.length > 0 && <ImageHistory imageHistory={imageHistory} priceElement={priceElement} />}
+        {imageHistory.length > 0 && <ImageHistory imageHistory={imageHistory} />}
       </AppContainer.Content>
     </AppContainer>
   );
