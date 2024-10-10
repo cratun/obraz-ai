@@ -6,7 +6,6 @@ import { GoogleTagManager } from '@next/third-parties/google';
 import { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import Link from 'next/link';
-import Script from 'next/script';
 import { twJoin } from 'tailwind-merge';
 import AppContainer from './_components/app-container';
 import AppLogo from './_components/app-logo';
@@ -69,7 +68,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
             </Providers>
           </ThemeProvider>
         </AppRouterCacheProvider>
-        {process.env.NODE_ENV !== 'development' && (
+        {/* {process.env.NODE_ENV !== 'development' && (
           <Script id="meta-pixel" strategy="afterInteractive">
             {`!function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -82,7 +81,7 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '2576537089212905');
 fbq('track', 'PageView');`}
           </Script>
-        )}
+        )} */}
       </body>
     </html>
   );

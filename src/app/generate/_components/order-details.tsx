@@ -6,9 +6,15 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useSearchParams } from 'next/navigation';
 import { twJoin } from 'tailwind-merge';
 import Typography from '@/app/_components/typography';
-import { PRICES } from '@/app/_utils/constants';
 import createQueryString from '@/app/_utils/create-query-string';
 import { CanvasSize, canvasSizes } from '@/app/generate/_utils/sizes-utils';
+
+// KEEP IN SYNC WITH ENVS
+const prices = {
+  '30': 119,
+  '60': 149,
+  '100': 309,
+};
 
 const OrderDetails = ({
   children,
@@ -43,12 +49,12 @@ const OrderDetails = ({
               key={size}
               value={size}
               classes={{
-                root: 'rounded-full',
+                root: 'rounded-full py-1.5 px-2.5',
                 selected: twJoin(
                   toggleButtonVariant === 'primary' ? '!text-text !bg-white' : '!text-white !bg-primary',
                 ),
                 standard: twJoin(
-                  toggleButtonVariant === 'primary' ? 'bg-transparent border-white text-white' : 'bg-white',
+                  toggleButtonVariant === 'primary' ? 'bg-transparent border-white text-white' : 'text-text bg-white',
                 ),
               }}
             >
@@ -58,7 +64,7 @@ const OrderDetails = ({
         </ToggleButtonGroup>
         <div className="flex flex-col gap-2.5 leading-[150%] tracking-[0.5px] lg:gap-5">
           <span className="text-2xl">
-            Cena: <span className="font-semibold">{PRICES[size]} PLN</span>
+            Cena: <span className="font-semibold">{prices[size]} PLN</span>
           </span>
           <span className="font-semi text-xl">
             Specjalna oferta: <span className="font-semibold">Dostawa gratis!</span>

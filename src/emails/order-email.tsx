@@ -9,12 +9,14 @@ const OrderEmail = ({
   orderNumber = 'f123fsdfdsx1cv3',
   imageId = '123fds3r32rfds23f23f',
   orderDate = '2021-10-10',
+  size = '60',
 }: {
   userName: string;
   price: string;
   orderNumber: string;
   orderDate: string;
   imageId: string;
+  size: string;
 }) => (
   <Tailwind
     config={{
@@ -68,7 +70,7 @@ const OrderEmail = ({
         </li>
         <li>
           <Text className="text-base !text-text">
-            <b>Rozmiar:</b> 50x50 cm
+            <b>Rozmiar:</b> {size}x{size} cm
           </Text>
         </li>
         <li>

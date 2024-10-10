@@ -19,13 +19,13 @@ import GenerationStylePicker from '@/app/generate/_components/generation-style-p
 import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
 import ImageHistory from '@/app/generate/_components/image-history';
 import OrderDetails from '@/app/generate/_components/order-details';
-import { GENERATION_TOKEN_LIMIT_REACHED, mockupData } from '@/app/generate/_utils/common';
+import { desiredMockupImageSizes, GENERATION_TOKEN_LIMIT_REACHED, mockupData } from '@/app/generate/_utils/common';
 import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/generation-token';
 import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
-import { defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
+import { CanvasSize, defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
 import actionBuy from '@/app/generate/action-buy';
 import actionGenerate from '@/app/generate/action-generate';
-import { CheckoutMetadata } from '@/app/types';
+import { CheckoutMetadata, MockupImages } from '@/app/types';
 import generateMockup from './generate-mockup';
 
 const PageBuyContent = ({
@@ -40,7 +40,7 @@ const PageBuyContent = ({
   imageHistory: ImageHistoryEntry[];
 }) => {
   const searchParams = useSearchParams();
-  const [mockupImages, setMockupImages] = useState<Array<string> | null>(null);
+  const [mockupImages, setMockupImages] = useState<MockupImages | null>(null);
   const imgContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const form = useForm({ defaultValues: { prompt: initialPrompt } });
@@ -68,7 +68,6 @@ const PageBuyContent = ({
       actionBuy({
         cancelUrl: window.location.origin + '/generate',
         metadata,
-        size: searchParams.get('size') || defaultCanvasSize,
       }),
   });
 
@@ -88,15 +87,26 @@ const PageBuyContent = ({
 
     const generateMockupUrl = async () => {
       if (generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) return;
-      const promises = mockupData.map((el) => {
-        if (generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED)
-          throw new Error('Generation token limit reached');
+      const sizeEntries = Object.entries(desiredMockupImageSizes);
+      const allMockupImages: MockupImages = {};
 
-        return generateMockup(`/mocks/${el.imageName}.png`, generateImageQuery.data.imgSrc, el.position);
-      });
+      for (const [key, value] of sizeEntries) {
+        const promises = mockupData.map((el) => {
+          if (generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) throw new Error('Token limit reached');
 
-      const images = await Promise.all(promises);
-      setMockupImages(images);
+          return generateMockup(
+            `/mocks/${el.imageName}.png`,
+            generateImageQuery.data.imgSrc,
+            el.positions[key as CanvasSize],
+            value,
+          );
+        });
+
+        const images = await Promise.all(promises);
+        allMockupImages[key] = images;
+      }
+
+      setMockupImages(allMockupImages);
     };
 
     generateMockupUrl();
@@ -188,7 +198,7 @@ const PageBuyContent = ({
                     <GeneratedImageSlider
                       className="[--swiper-theme-color:theme(colors.primary)]"
                       generatedImgSrc={generateImageQuery.data.imgSrc}
-                      mockupImages={mockupImages || []}
+                      mockupImages={mockupImages || ([] as unknown as MockupImages)}
                     />
                   )}
                 </>
@@ -216,7 +226,10 @@ const PageBuyContent = ({
                   return;
                 }
 
-                buyMutation.mutate(generateImageQuery.data.metadata);
+                buyMutation.mutate({
+                  imageId: generateImageQuery.data.metadata.imageId,
+                  size: searchParams.get('size') || defaultCanvasSize,
+                });
               }}
             >
               Kup teraz

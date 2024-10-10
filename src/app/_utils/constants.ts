@@ -27,9 +27,3 @@ export const GENERATION_DATA = [
 ] as const;
 
 export const MAX_PROMPT_LENGTH = 1500;
-
-export const PRICES = {
-  '30': process.env.NEXT_PUBLIC_30_PRICE_IN_PLN!,
-  '60': process.env.NEXT_PUBLIC_60_PRICE_IN_PLN!,
-  '100': process.env.NEXT_PUBLIC_100_PRICE_IN_PLN!,
-} as const;

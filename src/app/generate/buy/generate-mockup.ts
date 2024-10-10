@@ -13,7 +13,7 @@ const loadImage = async (url: string) => {
   });
 };
 
-const generateMockup = async (mockupUrl: string, imageUrl: string, position: Position) => {
+const generateMockup = async (mockupUrl: string, imageUrl: string, position: Position, maxUserImageSize: number) => {
   try {
     // Load both images in parallel for better performance
     const [mockupImage, userImage] = await Promise.all([loadImage(mockupUrl), loadImage(imageUrl)]);
@@ -29,7 +29,6 @@ const generateMockup = async (mockupUrl: string, imageUrl: string, position: Pos
     ctx.drawImage(mockupImage, 0, 0);
 
     // Calculate the user image dimensions while maintaining aspect ratio
-    const maxUserImageSize = 250;
     const userAspectRatio = userImage.width / userImage.height;
     let userDrawWidth: number;
     let userDrawHeight: number;

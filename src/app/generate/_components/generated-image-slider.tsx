@@ -3,12 +3,14 @@ import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import { IconButton } from '@mui/material';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
-
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { twJoin, twMerge } from 'tailwind-merge';
+import { defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
+import { MockupImages } from '@/app/types';
 
 const GeneratedImageSlider = ({
   mockupImages,
@@ -16,13 +18,15 @@ const GeneratedImageSlider = ({
   className,
 }: {
   className?: string;
-  mockupImages: string[];
+  mockupImages: MockupImages | null;
   generatedImgSrc: string;
 }) => {
+  const size = useSearchParams().get('size') || defaultCanvasSize;
   const [isInitialized, setIsInitialized] = useState(false);
   const swiperId = useId();
   const swiperRef = useRef<SwiperClass | null>(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const filteredMockupImages = mockupImages ? mockupImages[size] || [] : [];
 
   const getPaginationId = () => `swiper-pagination-${swiperId}`;
 
@@ -46,7 +50,7 @@ const GeneratedImageSlider = ({
             <Image alt="Generated image" layout="fill" src={generatedImgSrc} />
           </div>
         </SwiperSlide>
-        {mockupImages.map((image) => (
+        {filteredMockupImages.map((image) => (
           <SwiperSlide key={image} className="w-full max-w-full lg:max-w-[600px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img alt="Mockup Image aspect-square" src={image} />
@@ -54,7 +58,10 @@ const GeneratedImageSlider = ({
         ))}
       </Swiper>
       <div
-        className={twJoin('flex justify-between', isInitialized && mockupImages.length > 0 ? 'visible' : 'invisible')}
+        className={twJoin(
+          'flex justify-between',
+          isInitialized && filteredMockupImages.length > 0 ? 'visible' : 'invisible',
+        )}
       >
         <IconButton
           className="hidden text-[--swiper-theme-color] lg:inline-flex [&.Mui-disabled]:opacity-40"
@@ -71,7 +78,7 @@ const GeneratedImageSlider = ({
         <IconButton
           className="hidden text-[--swiper-theme-color] lg:inline-flex [&.Mui-disabled]:opacity-40"
           color="inherit"
-          disabled={activeSlideIndex === mockupImages.length}
+          disabled={activeSlideIndex === filteredMockupImages.length}
           onClick={() => swiperRef.current?.slideNext()}
         >
           <ChevronRightRoundedIcon />
