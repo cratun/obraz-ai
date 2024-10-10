@@ -8,12 +8,12 @@ import { useSearchParams } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
-import { mockupData } from '@/app/generate/_utils/common';
+import { desiredMockupImageSizes, mockupData } from '@/app/generate/_utils/common';
 import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
-import { defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
+import { CanvasSize, defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
 import actionBuy from '@/app/generate/action-buy';
 import generateMockup from '@/app/generate/buy/generate-mockup';
-import { CheckoutMetadata } from '@/app/types';
+import { CheckoutMetadata, MockupImages } from '@/app/types';
 import GeneratedImageSlider from './generated-image-slider';
 import OrderDetails from './order-details';
 
@@ -31,24 +31,35 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
   const generatedImgSrc = getImgUrl(dialogImgId);
   const searchParams = useSearchParams();
 
-  const [mockupImages, setMockupImages] = useState<Array<string> | null>(null);
+  const [mockupImages, setMockupImages] = useState<MockupImages | null>(null);
   const buyMutation = useMutation({
     mutationFn: (metadata: CheckoutMetadata) =>
       actionBuy({
         cancelUrl: window.location.origin + '/generate',
         metadata,
-        size: searchParams.get('size') || defaultCanvasSize,
       }),
   });
 
   useEffect(() => {
     const generateMockupUrl = async () => {
-      const promises = mockupData.map((el) => {
-        return generateMockup(`/mocks/${el.imageName}.png`, generatedImgSrc, el.position);
-      });
+      const sizeEntries = Object.entries(desiredMockupImageSizes);
+      const allMockupImages: MockupImages = {};
 
-      const images = await Promise.all(promises);
-      setMockupImages(images);
+      for (const [sizeKey, maxUserImageSize] of sizeEntries) {
+        const promises = mockupData.map((el) => {
+          return generateMockup(
+            `/mocks/${el.imageName}.png`,
+            generatedImgSrc,
+            el.positions[sizeKey as CanvasSize],
+            maxUserImageSize,
+          );
+        });
+
+        const images = await Promise.all(promises);
+        allMockupImages[sizeKey] = images;
+      }
+
+      setMockupImages(allMockupImages);
     };
 
     generateMockupUrl();
@@ -59,7 +70,7 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
       <GeneratedImageSlider
         className="[--swiper-theme-color:theme(colors.white)]"
         generatedImgSrc={generatedImgSrc}
-        mockupImages={mockupImages || []}
+        mockupImages={mockupImages}
       />
       <OrderDetails toggleButtonVariant="primary">
         <AppButton className="lg:py-5 lg:text-lg" color="neutral" size="large" variant="outlined" onClick={onClose}>
@@ -72,7 +83,9 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
           size="large"
           startIcon={<ShoppingCartIcon />}
           variant="contained"
-          onClick={() => buyMutation.mutate({ imageId: dialogImgId })}
+          onClick={() =>
+            buyMutation.mutate({ imageId: dialogImgId, size: searchParams.get('size') || defaultCanvasSize })
+          }
         >
           Kup teraz
         </AppButton>
