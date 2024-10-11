@@ -1,55 +1,57 @@
 'use server';
+import dayjs from 'dayjs';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Stripe } from 'stripe';
+import { getClientIp } from '@/app/_utils/get-client-ip';
 import { CheckoutMetadata } from '@/app/types';
 import { EXTERNAL_ID_COOKIE } from './_utils/common';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-// const PIXEL_ID = process.env.META_PIXEL_ID!;
-// const META_ACCESS_TOKEN = process.env.CONVERSIONS_API_ACCESS_TOKEN!;
+const PIXEL_ID = process.env.META_PIXEL_ID!;
+const META_ACCESS_TOKEN = process.env.CONVERSIONS_API_ACCESS_TOKEN!;
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-// const bizSdk = require('facebook-nodejs-business-sdk');
+const bizSdk = require('facebook-nodejs-business-sdk');
 
-// const sendInitCheckoutPixelEvent = async () => {
-//   const headersList = headers();
-//   const cookiesList = cookies();
+const sendInitCheckoutPixelEvent = async () => {
+  const headersList = headers();
+  const cookiesList = cookies();
 
-//   const access_token = META_ACCESS_TOKEN;
-//   bizSdk.FacebookAdsApi.init(access_token);
-//   const EventRequest = bizSdk.EventRequest;
-//   const UserData = bizSdk.UserData;
-//   const ServerEvent = bizSdk.ServerEvent;
+  const access_token = META_ACCESS_TOKEN;
+  bizSdk.FacebookAdsApi.init(access_token);
+  const EventRequest = bizSdk.EventRequest;
+  const UserData = bizSdk.UserData;
+  const ServerEvent = bizSdk.ServerEvent;
 
-//   const pixel_id = PIXEL_ID;
+  const pixel_id = PIXEL_ID;
 
-//   const userData = new UserData()
-//     .setClientIpAddress(getClientIp())
-//     .setClientUserAgent(headersList.get('user-agent') || '')
-//     .setExternalId(cookiesList.get('external_id')?.value)
-//     .setFbp(cookiesList.get('_fbp')?.value)
-//     .setFbc(cookiesList.get('_fbc')?.value);
+  const userData = new UserData()
+    .setClientIpAddress(getClientIp())
+    .setClientUserAgent(headersList.get('user-agent') || '')
+    .setExternalId(cookiesList.get('external_id')?.value)
+    .setFbp(cookiesList.get('_fbp')?.value)
+    .setFbc(cookiesList.get('_fbc')?.value);
 
-//   const serverEvent = new ServerEvent()
-//     .setEventName('InitiateCheckout')
-//     .setEventTime(dayjs().unix())
-//     .setUserData(userData)
-//     .setActionSource('website');
+  const serverEvent = new ServerEvent()
+    .setEventName('InitiateCheckout')
+    .setEventTime(dayjs().unix())
+    .setUserData(userData)
+    .setActionSource('website');
 
-//   const eventsData = [serverEvent];
-//   const eventRequest = new EventRequest(access_token, pixel_id).setEvents(eventsData);
-//   // .setTestEventCode('TEST53533');
+  const eventsData = [serverEvent];
+  const eventRequest = new EventRequest(access_token, pixel_id).setEvents(eventsData);
+  // .setTestEventCode('TEST53533');
 
-//   await eventRequest.execute().then(
-//     (response: any) => {
-//       console.log('Response: ', response);
-//     },
-//     (err: any) => {
-//       console.error('Error: ', err);
-//     },
-//   );
-// };
+  await eventRequest.execute().then(
+    (response: any) => {
+      console.log('Response: ', response);
+    },
+    (err: any) => {
+      console.error('Error: ', err);
+    },
+  );
+};
 
 const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata: CheckoutMetadata }) => {
   if (typeof metadata.size !== 'string') throw new Error('Size must be a string');
@@ -70,7 +72,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
   }
 
   if (process.env.NODE_ENV !== 'development') {
-    // await sendInitCheckoutPixelEvent();
+    await sendInitCheckoutPixelEvent();
   }
 
   const priceInGrosze = process.env[`CANVAS_PRICE_${size}`];
