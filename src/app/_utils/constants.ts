@@ -6,7 +6,7 @@ export const footerLinks = {
   Kontakt: '/contact',
 };
 
-export const ORIGIN_URL = 'https://www.obraz-ai.com';
+export const ORIGIN_URL = 'https://www.obraz.ai';
 
 export const CONTACT_EMAIL = 'kontakt@obraz-ai.com';
 

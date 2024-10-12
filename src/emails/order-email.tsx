@@ -36,7 +36,7 @@ const OrderEmail = ({
   >
     <Font fallbackFontFamily="Helvetica" fontFamily="Helvetica" fontStyle="normal" fontWeight={400} />
     <Container align="center" className="items-center justify-center bg-neutral p-10">
-      <Link className="m-auto block w-fit" href="https://www.obraz-ai.com">
+      <Link className="m-auto block w-fit" href="https://www.obraz.ai">
         <Img alt="logo" src="https://public-assets-obraz-ai.s3.eu-central-1.amazonaws.com/email-logo.png" width={200} />
       </Link>
     </Container>
@@ -96,8 +96,8 @@ const OrderEmail = ({
         <br />
         Zespół ObrazAI
         <br />
-        <Link className="text-primary" href="https://www.obraz-ai.com">
-          www.obraz-ai.com
+        <Link className="text-primary" href="https://www.obraz.ai">
+          www.obraz.ai
         </Link>
       </Text>
     </Container>
