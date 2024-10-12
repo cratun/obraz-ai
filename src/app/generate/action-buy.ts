@@ -71,7 +71,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
     });
   }
 
-  if (process.env.NODE_ENV !== 'development') {
+  if (process.env.NODE_ENV !== 'development' && process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false') {
     await sendInitCheckoutPixelEvent();
   }
 
