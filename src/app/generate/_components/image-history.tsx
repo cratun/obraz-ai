@@ -111,8 +111,8 @@ const ImageHistory = ({ imageHistory }: { imageHistory: ImageHistoryEntry[] }) =
       <div className="flex flex-col gap-5">
         <Typography.H3>Twoja galeria wygenerowanych obrazów</Typography.H3>
         <Typography.Body className="max-w-2xl">
-          Przeglądaj 20 ostatnich obrazów przechowywanych przez 3 dni. <strong>Kliknij</strong> wybrany projekt, aby
-          zobaczyć podgląd i zamówić unikalny obraz na płótnie.
+          Przeglądaj <strong>20 ostatnich</strong> obrazów przechowywanych przez <strong>3 dni</strong>.{' '}
+          <strong>Kliknij</strong> wybrany projekt, aby zobaczyć podgląd i zamówić unikalny obraz na płótnie.
         </Typography.Body>
       </div>
       <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">

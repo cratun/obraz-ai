@@ -21,15 +21,19 @@ const GenerateInfoLimit = ({
     <>
       <div
         className={twJoin(
-          'flex w-fit items-center justify-center gap-1 text-[12px] leading-[150%] tracking-[0.5px]',
+          'flex w-fit flex-wrap items-center gap-1 text-[12px] leading-[150%] tracking-[0.5px]',
           generationTokenCountCookie.value > 5 && 'text-text',
           generationTokenCountCookie.value <= 5 && 'text-[#f57c00]',
         )}
       >
-        <InfoOutlinedIcon className="text-base" />
-        <span>
-          Pozostało <strong>{generationTokenCountCookie.value}</strong> generowań.
-        </span>
+        <div>
+          <InfoOutlinedIcon className="mr-1 text-base" />
+          <span>
+            Pozostało <strong>{generationTokenCountCookie.value}</strong> generowań.{' '}
+            {generationTokenCountCookie.value === 0 &&
+              `Następne odnowienie: ${dayjs(generationTokenCountCookie.timestamp).add(24, 'hours').format('DD.MM.YYYY HH:mm')}`}
+          </span>
+        </div>
         <AppButton classes={{ root: 'p-0 text-[12px] underline' }} onClick={() => setOpen(true)}>
           Co to znaczy?
         </AppButton>
@@ -55,8 +59,8 @@ const GenerateInfoLimit = ({
         <p className="leading-[150%] tracking-[0.5px]">
           Z powodu ograniczeń API oraz w celu ochrony przed nadużyciami, każde konto ma przyznany limit 20 generowań na{' '}
           {GENERATION_TOKEN_RETENTION_HOURS} godziny. Dzięki temu zapewniamy płynność działania serwisu i zapobiegamy
-          generowaniu obrazów przez boty oraz inne niepożądane skrypty. Kredyty odnawiają się automatycznie po upływie
-          doby, więc możesz kontynuować tworzenie swoich dzieł następnego dnia!
+          generowaniu obrazów przez boty oraz inne niepożądane skrypty. Generowania odnawiają się automatycznie po
+          upływie doby, więc możesz kontynuować tworzenie swoich dzieł następnego dnia!
         </p>
       </Dialog>
     </>
