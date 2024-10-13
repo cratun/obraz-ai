@@ -68,7 +68,9 @@ export const checkAndUpdateGenerationToken = () => {
 
   if (!generationTokenCookie) {
     // Cookie does not exist; set initial value and current timestamp
-    cookieStore.set(GENERATION_TOKEN_COUNT_COOKIE, JSON.stringify(getCookieDataFallback()));
+    cookieStore.set(GENERATION_TOKEN_COUNT_COOKIE, JSON.stringify(getCookieDataFallback()), {
+      maxAge: 60 * 60 * 24 * 365,
+    });
   } else {
     // Cookie exists; parse the value
     let cookieData: GenerationTokenCookieData;
@@ -86,14 +88,16 @@ export const checkAndUpdateGenerationToken = () => {
 
     if (diffInHours >= 24) {
       // More than 24 hours have passed; reset the value and timestamp
-      cookieStore.set(GENERATION_TOKEN_COUNT_COOKIE, JSON.stringify(getCookieDataFallback()));
+      cookieStore.set(GENERATION_TOKEN_COUNT_COOKIE, JSON.stringify(getCookieDataFallback()), {
+        maxAge: 60 * 60 * 24 * 365,
+      });
     } else {
       // Less than 24 hours have passed
       if (value !== '0') {
         // Decrement the value and keep the timestamp
         const newValue = (parseInt(value) - 1).toString();
         const newCookieValue = JSON.stringify({ value: newValue, timestamp });
-        cookieStore.set(GENERATION_TOKEN_COUNT_COOKIE, newCookieValue);
+        cookieStore.set(GENERATION_TOKEN_COUNT_COOKIE, newCookieValue, { maxAge: 60 * 60 * 24 * 365 });
       } else {
         // Value is '0'; limit reached
         return GENERATION_TOKEN_LIMIT_REACHED;

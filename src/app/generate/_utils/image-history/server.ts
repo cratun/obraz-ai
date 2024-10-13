@@ -39,5 +39,5 @@ export function updateImageHistoryCookie(imageId: string) {
 
   const newImageHistory = [newEntry, ...imageHistory].slice(0, 20);
 
-  cookieStore.set(IMAGE_HISTORY_COOKIE, JSON.stringify(newImageHistory));
+  cookieStore.set(IMAGE_HISTORY_COOKIE, JSON.stringify(newImageHistory), { maxAge: 60 * 60 * 24 * 365 });
 }

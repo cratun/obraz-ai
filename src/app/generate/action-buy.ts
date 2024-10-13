@@ -58,12 +58,12 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
 
   const size = metadata.size;
   const headersList = headers();
-  const cookiesList = cookies();
-  let externalId = cookiesList.get('external_id')?.value;
+  const cookieStore = cookies();
+  let externalId = cookieStore.get('external_id')?.value;
 
   if (!externalId) {
     externalId = crypto.randomUUID();
-    cookiesList.set(EXTERNAL_ID_COOKIE, externalId, {
+    cookieStore.set(EXTERNAL_ID_COOKIE, externalId, {
       path: '/',
       maxAge: 60 * 60 * 24 * 365,
       sameSite: 'strict',
