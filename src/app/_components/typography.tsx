@@ -1,6 +1,14 @@
 import { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+const H1 = ({ children, className }: { children: ReactNode; className?: string }) => {
+  return <h1 className={twMerge('text-5xl font-bold leading-[120%] tracking-[1px]', className)}>{children}</h1>;
+};
+
+const H2 = ({ children, className }: { children: ReactNode; className?: string }) => {
+  return <h2 className={twMerge('text-3xl font-semibold leading-[120%] tracking-[1px]', className)}>{children}</h2>;
+};
+
 const H3 = ({ children, className }: { children: ReactNode; className?: string }) => {
   return <h3 className={twMerge('text-2xl font-semibold leading-[120%] tracking-[1px]', className)}>{children}</h3>;
 };
@@ -10,6 +18,8 @@ const Body = ({ children, className }: { children: ReactNode; className?: string
 };
 
 const Typography = {
+  H1,
+  H2,
   H3,
   Body,
 };
