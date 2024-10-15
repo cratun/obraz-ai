@@ -10,42 +10,42 @@ import { twMerge } from 'tailwind-merge';
 
 const slides = [
   {
-    prompt: 'Bohater o wyrazistych oczach, kwitnące wiśnie, tradycyjna japońska architektura.',
+    prompt: 'Bohater o wyrazistych oczach, kwitnące wiśnie, tradycyjna japońska architektura',
     style: 'Anime',
     image: 'anime',
   },
   {
-    prompt: 'Miasto z nakładającymi się kształtami geometrycznymi, wiele perspektyw.',
+    prompt: 'Wiolonczelista z geometrycznymi kształtami, ziemista paleta kolorów',
     style: 'Kubizm',
     image: 'cubism',
   },
   {
-    prompt: 'Nocne miasto z neonami, drapacze chmur, holograficzne reklamy, futurystyczni mieszkańcy.',
+    prompt: 'Nocne miasto z neonami, drapacze chmur, holograficzne reklamy, futurystyczni mieszkańcy',
     style: 'Cyberpunk',
     image: 'cyberpunk',
   },
   {
-    prompt: 'Detaliczne zbliżenie liścia z kroplami rosy, niezwykła wyrazistość.',
+    prompt: 'Detaliczne zbliżenie liścia z kroplami rosy, niezwykła wyrazistość',
     style: 'Hiperrealizm',
     image: 'hyper-realizm',
   },
   {
-    prompt: 'Wschód słońca nad kwitnącą łąką, miękkie pociągnięcia pędzla, gra światła.',
+    prompt: 'Wschód słońca nad kwitnącą łąką, miękkie pociągnięcia pędzla, gra światła',
     style: 'Impresjonizm',
     image: 'impressionism',
   },
   {
-    prompt: 'Proste kształty geometryczne, czyste linie, monochromatyczna paleta.',
+    prompt: 'Proste kształty geometryczne, czyste linie, monochromatyczna paleta',
     style: 'Minimalizm',
     image: 'minimalism',
   },
   {
-    prompt: 'Żywe symbole kultury i celebryci w jaskrawych, kontrastujących kolorach.',
+    prompt: 'Żywe symbole kultury i celebryci w jaskrawych, kontrastujących kolorach',
     style: 'Pop Art',
     image: 'pop-art',
   },
   {
-    prompt: 'Lewitujące wyspy nad morzem chmur, fantazja spotyka rzeczywistość.',
+    prompt: 'Lewitujące wyspy nad morzem chmur, fantazja spotyka rzeczywistość',
     style: 'Surrealizm',
     image: 'surrealism',
   },

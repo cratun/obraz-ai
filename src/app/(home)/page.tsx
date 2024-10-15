@@ -11,8 +11,8 @@ import AppContainer from '@/app/_components/app-container';
 import AppLogo from '@/app/_components/app-logo';
 import GeneratedExamplesSwiper from '@/app/_components/generate-examples-swiper';
 import GenerateTextFieldHome from '@/app/_components/generate-text-field-home';
+import InteriorSettingPicturesSwiper from '@/app/_components/interior-setting-pictures-swiper';
 import Typography from '@/app/_components/typography';
-import HomeSettingPicturesSwiper from './_components/home-setting-pictures-swiper';
 
 const generateSteps = [
   {
@@ -205,7 +205,7 @@ const Home = () => {
         </AppContainer.Content>
       </AppContainer>
       <div className="pb-10">
-        <HomeSettingPicturesSwiper />
+        <InteriorSettingPicturesSwiper />
       </div>
     </>
   );

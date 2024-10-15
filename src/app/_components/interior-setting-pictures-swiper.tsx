@@ -65,7 +65,7 @@ const SwiperConfig: SwiperProps = {
 
 SwiperCore.use([Autoplay, Parallax]);
 
-const HomeSettingPicturesSwiper = () => {
+const InteriorSettingPicturesSwiper = () => {
   const [isInit, setIsInit] = useState(false);
   const swiperRef = useRef<SwiperCore>();
 
@@ -84,7 +84,7 @@ const HomeSettingPicturesSwiper = () => {
         {repeatedSlides.map((slide, index) => (
           <SwiperSlide
             key={index}
-            className="relative aspect-square h-auto w-full max-w-[600px] overflow-hidden rounded-xl"
+            className="relative aspect-square h-auto w-full max-w-[600px] overflow-hidden rounded-lg"
           >
             <div className="absolute bottom-0 left-0 right-0 top-0 z-[1] bg-gradient-to-t from-black to-black/0 to-50%"></div>
             <div className="absolute bottom-2.5 left-5 right-5 z-[1] text-xs text-neutral md:text-sm">
@@ -98,4 +98,4 @@ const HomeSettingPicturesSwiper = () => {
   );
 };
 
-export default HomeSettingPicturesSwiper;
+export default InteriorSettingPicturesSwiper;
