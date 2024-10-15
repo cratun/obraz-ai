@@ -4,6 +4,7 @@ export const footerLinks = {
   Regulamin: '/terms-of-service',
   Generator: '/generate',
   Kontakt: '/contact',
+  'Jak generować?': '/manual',
 };
 
 export const ORIGIN_URL = 'https://www.obraz.ai';

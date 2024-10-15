@@ -9,8 +9,9 @@ import StyleIcon from './_assets/style-icon';
 import AppButton from './_components/app-button';
 import AppContainer from './_components/app-container';
 import AppLogo from './_components/app-logo';
+import HomeSwiper from './_components/generate-examples-swiper';
 import GenerateTextFieldHome from './_components/generate-text-field-home';
-import HomeSwiper from './_components/home-swiper';
+import Typography from './_components/typography';
 
 const generateSteps = [
   {
@@ -71,16 +72,16 @@ const Home = () => {
           <div className="flex w-full flex-col gap-10 md:max-w-[400px] lg:max-w-[500px]">
             <AppLogo />
             <div className="flex flex-col gap-10 lg:my-auto">
-              <h1 className="max-w-[400px] text-5xl font-bold leading-[120%] tracking-[1px]">
+              <Typography.H1 className="max-w-[400px]">
                 <span className="text-primary">Ożyw</span> swoje marzenia na płótnie z pomocą{' '}
                 <span className="text-primary">AI</span>!
-              </h1>
+              </Typography.H1>
               <GenerateTextFieldHome />
-              <p className="max-w-[400px] leading-[150%] tracking-[0.5px]">
+              <Typography.Body className="max-w-[400px]">
                 Pozwól naszej sztucznej inteligencji przekształcić Twoje pomysły w zapierające dech w piersiach obrazy.
                 Idealny pomysł na prezent lub wyjątkową ozdobę Twojego wnętrza! Poczuj moc kreacji i zamów swój unikalny
                 obraz już dziś!
-              </p>
+              </Typography.Body>
             </div>
             <span className="hidden lg:block">
               (Dowiedz się <KeyboardArrowDownIcon /> więcej)
@@ -88,27 +89,15 @@ const Home = () => {
           </div>
         </AppContainer.Content>
         <div className="absolute bottom-0 right-0 top-0 hidden aspect-square w-full max-w-[320px] object-cover md:block min-[900px]:max-w-[400px] lg:max-w-[400px] xl:max-w-[700px] 2xl:max-w-[850px]">
-          <Image
-            fill
-            priority
-            alt="Przykładowy wygenerowany obraz"
-            className="object-cover"
-            src="/home-hero-image.png"
-          />
+          <Image fill priority alt="" className="object-cover" src="/home-hero-image.png" />
         </div>
       </AppContainer>
       <div className="relative h-[400px] w-full bg-gradient-to-t from-black to-black/0 to-50% sm:h-[500px] md:hidden">
-        <Image
-          fill
-          priority
-          alt="Przykładowy wygenerowany obraz"
-          className="object-cover object-top"
-          src="/home-hero-image.png"
-        />
+        <Image fill priority alt="" className="object-cover object-top" src="/home-hero-image.png" />
       </div>
       <AppContainer className="overflow-hidden bg-primary py-10 lg:py-20">
         <AppContainer.Content className="flex-col gap-10 text-center text-neutral lg:gap-20">
-          <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Jak wygenerować obraz?</h2>
+          <Typography.H2>Jak wygenerować obraz?</Typography.H2>
           <div className="flex flex-col gap-10 lg:flex-row">
             {generateSteps.map(({ title, description, Icon }, index) => (
               <GenerateStep key={title} description={description} index={index} title={title}>

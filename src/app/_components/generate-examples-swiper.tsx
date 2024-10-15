@@ -72,7 +72,7 @@ const SwiperConfig: SwiperProps = {
 };
 SwiperCore.use([Autoplay, Parallax]);
 
-const HomeSwiper = () => {
+const GeneratedExamplesSwiper = () => {
   const [isInit, setIsInit] = useState(false);
   const swiperRef = useRef<SwiperCore>();
 
@@ -113,4 +113,4 @@ const HomeSwiper = () => {
   );
 };
 
-export default HomeSwiper;
+export default GeneratedExamplesSwiper;
