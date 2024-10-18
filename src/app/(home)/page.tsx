@@ -8,7 +8,6 @@ import CardIcon from '@/app/_assets/card-icon';
 import StyleIcon from '@/app/_assets/style-icon';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
-import AppLogo from '@/app/_components/app-logo';
 import GeneratedExamplesSwiper from '@/app/_components/generate-examples-swiper';
 import GenerateTextFieldHome from '@/app/_components/generate-text-field-home';
 import InteriorSettingPicturesSwiper from '@/app/_components/interior-setting-pictures-swiper';
@@ -68,10 +67,9 @@ const GenerateStep = ({
 const Home = () => {
   return (
     <>
-      <AppContainer className="relative pb-10 pt-5 lg:min-h-screen">
+      <AppContainer className="relative py-20 lg:min-h-screen">
         <AppContainer.Content className="text-text">
           <div className="flex w-full flex-col gap-10 md:max-w-[400px] lg:max-w-[500px]">
-            <AppLogo />
             <div className="flex flex-col gap-10 lg:my-auto">
               <Typography.H1 className="max-w-[400px]">
                 <span className="text-primary">Ożyw</span> swoje marzenia na płótnie z pomocą{' '}

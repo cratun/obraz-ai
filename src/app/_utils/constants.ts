@@ -7,6 +7,13 @@ export const footerLinks = {
   'Jak generować?': '/manual',
 };
 
+export const bottomDrawerLinks = {
+  'Polityka prywatności': '/privacy-policy',
+  Ciasteczka: '/cookies',
+  Regulamin: '/terms-of-service',
+  Kontakt: '/contact',
+};
+
 export const ORIGIN_URL = 'https://www.obraz.ai';
 
 export const CONTACT_EMAIL = 'kontakt@obraz-ai.com';

@@ -11,7 +11,6 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
-import AppLogo from '@/app/_components/app-logo';
 import GenerateTextField from '@/app/_components/generate-text-field';
 import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import GeneratedImageSlider from '@/app/generate/_components/generated-image-slider';
@@ -113,9 +112,8 @@ const PageBuyContent = ({
   }, [generateImageQuery.data, generateImageQuery.isSuccess]);
 
   return (
-    <AppContainer className="py-5">
+    <AppContainer className="py-20">
       <AppContainer.Content className="flex-col gap-10 overflow-auto text-text lg:gap-20">
-        <AppLogo className="lg:w-[200px]" />
         <div className="flex flex-col gap-5 lg:flex-row lg:gap-20">
           <h2 className="text-[30px] font-semibold leading-[1.2] lg:basis-[200px]">Opis obrazu</h2>
           <Controller

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
-import AppLogo from '@/app/_components/app-logo';
 import { CONTACT_EMAIL } from '@/app/_utils/constants';
 import { SerachParams } from '@/app/types';
 import actionGetOrderInfo from './action-get-order-info';
@@ -20,13 +19,12 @@ const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => 
   const { customer, session } = await actionGetOrderInfo(searchParams.session_id as string);
 
   return (
-    <AppContainer>
+    <AppContainer className="pt-20">
       <div className="absolute right-0 top-0 -z-10 hidden h-screen w-full max-w-sm overflow-hidden bg-primary lg:block xl:max-w-md 2xl:max-w-xl">
         <LogoIcon />
       </div>
       <AppContainer.Content>
         <div className="flex w-fit max-w-xl flex-col gap-10 py-5">
-          <AppLogo />
           <h1 className="text-3xl font-semibold leading-[120%] tracking-[1px]">
             <span className="text-primary">{customer.name}</span>, dziękujemy za zamówienie.
           </h1>

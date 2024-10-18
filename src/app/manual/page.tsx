@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
-import AppLogo from '@/app/_components/app-logo';
 import HomeSwiper from '@/app/_components/generate-examples-swiper';
 import Typography from '@/app/_components/typography';
 
@@ -22,10 +21,9 @@ const ManualStep = ({ children, title, number }: { children: ReactNode; title: s
 const ManualPage = () => {
   return (
     <>
-      <AppContainer className="relative pb-10 pt-5">
+      <AppContainer className="relative py-20">
         <AppContainer.Content className="text-text">
           <div className="flex w-full max-w-[739px] flex-col gap-10">
-            <AppLogo />
             <div className="flex flex-col gap-10 lg:my-auto">
               <Typography.H1 className="text-3xl font-bold leading-[120%] tracking-[1px] md:text-5xl">
                 Nie martw się o opis obrazu - <span className="text-primary">nasze AI</span> go poprawi i ożywi Twoje

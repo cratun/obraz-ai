@@ -6,7 +6,6 @@ import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import { useRouter } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
-import AppLogo from '@/app/_components/app-logo';
 import GenerateTextField from '@/app/_components/generate-text-field';
 import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
@@ -45,9 +44,8 @@ const PageGenerateContent = ({
   };
 
   return (
-    <AppContainer className="py-5">
+    <AppContainer className="py-20">
       <AppContainer.Content className="flex flex-col gap-10 overflow-auto text-text lg:gap-20">
-        <AppLogo className="lg:w-[200px]" />
         <div className="flex flex-col gap-5 lg:gap-10">
           <div className="flex flex-col gap-2.5 lg:gap-5">
             <h1 className="text-5xl font-bold leading-[120%] tracking-[1px]">
