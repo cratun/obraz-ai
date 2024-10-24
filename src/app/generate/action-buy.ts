@@ -92,6 +92,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
         quantity: 1,
       },
     ],
+    shipping_options: [{ shipping_rate: process.env.STRIPE_SHIPPING_RATE_ID }],
     mode: 'payment',
     success_url: `${headersList.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: cancelUrl,
