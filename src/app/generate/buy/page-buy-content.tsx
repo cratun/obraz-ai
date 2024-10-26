@@ -112,7 +112,7 @@ const PageBuyContent = ({
   }, [generateImageQuery.data, generateImageQuery.isSuccess]);
 
   return (
-    <AppContainer className="py-20">
+    <AppContainer className="pb-20 pt-[100px]">
       <AppContainer.Content className="flex-col gap-10 overflow-auto text-text lg:gap-20">
         <div className="flex flex-col gap-5 lg:flex-row lg:gap-20">
           <h2 className="text-[30px] font-semibold leading-[1.2] lg:basis-[200px]">Opis obrazu</h2>

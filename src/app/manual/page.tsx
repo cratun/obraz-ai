@@ -22,7 +22,7 @@ const ManualStep = ({ children, title, number }: { children: ReactNode; title: s
 const ManualPage = () => {
   return (
     <>
-      <AppContainer className="relative py-20">
+      <AppContainer className="relative pb-20 pt-[100px]">
         <AppContainer.Content className="text-text">
           <div className="flex w-full max-w-[739px] flex-col gap-10">
             <div className="flex flex-col gap-10 lg:my-auto">

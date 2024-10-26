@@ -44,7 +44,7 @@ const PageGenerateContent = ({
   };
 
   return (
-    <AppContainer className="py-20">
+    <AppContainer className="pb-20 pt-[100px]">
       <AppContainer.Content className="flex flex-col gap-10 overflow-auto text-text lg:gap-20">
         <div className="flex flex-col gap-5 lg:gap-10">
           <div className="flex flex-col gap-2.5 lg:gap-5">

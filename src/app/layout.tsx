@@ -46,7 +46,6 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html id="root" lang="pl">
       {process.env.NODE_ENV !== 'development' && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />}
-
       <body className={twJoin('bg-neutral', raleway.variable)}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>

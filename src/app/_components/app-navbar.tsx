@@ -41,8 +41,17 @@ const AppNavbar = () => {
   const handleClose = () => setOpen(false);
 
   return (
-    <>
-      <header className="fixed top-0 z-[100] flex w-full items-center justify-center bg-white/80 px-5 py-2 backdrop-blur-sm">
+    <header className="fixed top-0 z-[100] flex w-full flex-col">
+      <div className="flex items-center justify-center bg-primary px-5">
+        <AppContainer.Content className="flex gap-3 text-sm text-white">
+          <span>
+            -20% z kodem <span className="font-sans font-medium">JESIEN</span>
+          </span>
+          <span>|</span>
+          <span>Darmowa dostawa</span>
+        </AppContainer.Content>
+      </div>
+      <div className="flex items-center justify-center bg-white/80 px-5 py-2 backdrop-blur-sm">
         <AppContainer.Content className="items-center justify-between">
           <AppLogo />
           <div className="hidden items-center gap-5 md:flex">
@@ -55,7 +64,7 @@ const AppNavbar = () => {
             <MenuIcon />
           </IconButton>
         </AppContainer.Content>
-      </header>
+      </div>
       <Drawer
         anchor="right"
         classes={{ paper: 'w-full max-w-[300px]  p-5 gap-5' }}
@@ -81,7 +90,7 @@ const AppNavbar = () => {
           ))}
         </div>
       </Drawer>
-    </>
+    </header>
   );
 };
 
