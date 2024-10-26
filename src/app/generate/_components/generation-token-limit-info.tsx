@@ -57,10 +57,11 @@ const GenerateInfoLimit = ({
           Limit <strong>{GENERATION_TOKEN_DAILY_LIMIT}</strong> generowań na <strong>24</strong> godziny
         </span>
         <p className="leading-[150%] tracking-[0.5px]">
-          Z powodu ograniczeń API oraz w celu ochrony przed nadużyciami, każde konto ma przyznany limit 20 generowań na{' '}
-          {GENERATION_TOKEN_RETENTION_HOURS} godziny. Dzięki temu zapewniamy płynność działania serwisu i zapobiegamy
-          generowaniu obrazów przez boty oraz inne niepożądane skrypty. Generowania odnawiają się automatycznie po
-          upływie doby, więc możesz kontynuować tworzenie swoich dzieł następnego dnia!
+          Z powodu ograniczeń API oraz w celu ochrony przed nadużyciami, każde konto ma przyznany limit{' '}
+          {GENERATION_TOKEN_DAILY_LIMIT} generowań na {GENERATION_TOKEN_RETENTION_HOURS} godziny. Dzięki temu zapewniamy
+          płynność działania serwisu i zapobiegamy generowaniu obrazów przez boty oraz inne niepożądane skrypty.
+          Generowania odnawiają się automatycznie po upływie doby, więc możesz kontynuować tworzenie swoich dzieł
+          następnego dnia!
         </p>
       </Dialog>
     </>
