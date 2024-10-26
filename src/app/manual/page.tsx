@@ -4,6 +4,7 @@ import Link from 'next/link';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import HomeSwiper from '@/app/_components/generate-examples-swiper';
+import ReviewsSwiper from '@/app/_components/reviews-swiper';
 import Typography from '@/app/_components/typography';
 
 const ManualStep = ({ children, title, number }: { children: ReactNode; title: string; number: number }) => (
@@ -138,6 +139,7 @@ const ManualPage = () => {
           </AppButton>
         </AppContainer.Content>
       </AppContainer>
+      <ReviewsSwiper />
     </>
   );
 };

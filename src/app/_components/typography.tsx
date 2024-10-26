@@ -14,7 +14,7 @@ const H3 = ({ children, className }: { children: ReactNode; className?: string }
 };
 
 const Body = ({ children, className }: { children: ReactNode; className?: string }) => {
-  return <p className={twMerge('text-base leading-[1.5] tracking-[0.5px] text-text', className)}>{children}</p>;
+  return <p className={twMerge('text-base leading-[1.5] tracking-[0.5px]', className)}>{children}</p>;
 };
 
 const Typography = {

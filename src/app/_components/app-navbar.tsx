@@ -28,7 +28,7 @@ const NavbarLink = ({
   return (
     <Link href={href} onClick={onClick}>
       <Typography.Body
-        className={twMerge('font-medium md:text-sm', pathname === href && 'font-bold underline', className)}
+        className={twMerge('font-medium text-text md:text-sm', pathname === href && 'font-bold underline', className)}
       >
         {children}
       </Typography.Body>

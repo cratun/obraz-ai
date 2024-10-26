@@ -73,7 +73,7 @@ const OrderDetails = ({
       </div>
       <div className="flex flex-col gap-5">
         <Typography.H3>Szczegóły zamówienia</Typography.H3>
-        <Typography.Body className="text-inherit">
+        <Typography.Body>
           Obraz na płótnie o wymiarach{' '}
           <strong>
             {size}x{size} cm
@@ -88,7 +88,7 @@ const OrderDetails = ({
           <li>lekki drewniany blejtram</li>
           <li>wysokiej jakości druk ekologiczny w technologii UV</li>
         </ul>
-        <Typography.Body className="text-inherit">
+        <Typography.Body>
           Oczekiwany czas realizacji zamówienia: <strong>3 - 5 dni roboczych.</strong>
         </Typography.Body>
       </div>

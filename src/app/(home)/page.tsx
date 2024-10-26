@@ -11,6 +11,7 @@ import AppContainer from '@/app/_components/app-container';
 import GeneratedExamplesSwiper from '@/app/_components/generate-examples-swiper';
 import GenerateTextFieldHome from '@/app/_components/generate-text-field-home';
 import InteriorSettingPicturesSwiper from '@/app/_components/interior-setting-pictures-swiper';
+import ReviewsSwiper from '@/app/_components/reviews-swiper';
 import Typography from '@/app/_components/typography';
 
 const generateSteps = [
@@ -76,14 +77,23 @@ const Home = () => {
                 <span className="text-primary">AI</span>!
               </Typography.H1>
               <GenerateTextFieldHome />
-              <Typography.Body className="max-w-[400px]">
-                Pozwól naszej sztucznej inteligencji przekształcić Twoje pomysły w zapierające dech w piersiach obrazy.
-                Idealny pomysł na prezent lub wyjątkową ozdobę Twojego wnętrza! Poczuj moc kreacji i zamów swój unikalny
-                obraz już dziś!
-              </Typography.Body>
+              <ul className="flex list-inside list-disc flex-col gap-1.5">
+                <li className="text-base leading-[1.5] tracking-[0.5px]">
+                  Stwórz <strong>dowolny obraz</strong>, jaki sobie wymarzysz, dzięki <strong>AI</strong>
+                </li>
+                <li className="text-base leading-[1.5] tracking-[0.5px]">
+                  <strong>Wysokiej jakości</strong> obraz, gotowy do powieszenia
+                </li>
+                <li className="text-base leading-[1.5] tracking-[0.5px]">
+                  Realizuj <strong>najśmielsze</strong> i najbardziej <strong>unikalne</strong> pomysły
+                </li>
+                <li className="text-base leading-[1.5] tracking-[0.5px]">
+                  <strong>Łatwy proces</strong> — bez potrzeby umiejętności artystycznych
+                </li>
+              </ul>
             </div>
             <span className="hidden lg:block">
-              (Dowiedz się <KeyboardArrowDownIcon /> więcej)
+              (Dowiedz się więcej <KeyboardArrowDownIcon />)
             </span>
           </div>
         </AppContainer.Content>
@@ -133,7 +143,7 @@ const Home = () => {
         <AppContainer.Content className="flex-col gap-10 text-text">
           <div className="flex flex-col gap-2.5">
             <h3 className="text-lg leading-[140%] tracking-[0.5px] text-primary">
-              Dołącz do grona ponad 1000 zadowolonych klientów
+              Setki tysięcy unikalnych wygenerowanych obrazów.
             </h3>
             <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">
               Zainspiruj się naszymi wyjątkowymi realizacjami
@@ -154,7 +164,7 @@ const Home = () => {
           </AppButton>
         </AppContainer.Content>
       </AppContainer>
-      <AppContainer className="py-10">
+      <AppContainer className="py-10 text-text">
         <AppContainer.Content className="flex flex-col gap-10">
           <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Najwyższa jakość gwarantowana</h2>
           <div className="flex flex-col gap-10 xl:flex-row">
@@ -192,19 +202,29 @@ const Home = () => {
           </div>
         </AppContainer.Content>
       </AppContainer>
+      <ReviewsSwiper />
       <AppContainer className="py-10">
         <AppContainer.Content className="flex-col gap-10 text-text">
           <div className="flex flex-col gap-2.5">
-            <h3 className="text-lg leading-[140%] tracking-[0.5px] text-primary">Unikalny obraz do każdego wnętrza</h3>
+            <h3 className="text-lg leading-[140%] tracking-[0.5px] text-primary">
+              Wysokiej jakości obraz do każdego wnętrza
+            </h3>
             <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">
               Twoja przestrzeń, Twoja wizja: wizualizacje obrazów
             </h2>
           </div>
         </AppContainer.Content>
       </AppContainer>
-      <div className="pb-10">
+      <div className="pb-5">
         <InteriorSettingPicturesSwiper />
       </div>
+      <AppContainer className="pb-10">
+        <AppContainer.Content>
+          <AppButton color="primary" href="/generate" LinkComponent={Link} size="large" variant="contained">
+            Przekształć pomysł w obraz
+          </AppButton>
+        </AppContainer.Content>
+      </AppContainer>
     </>
   );
 };

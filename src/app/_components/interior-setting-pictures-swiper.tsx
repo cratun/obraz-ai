@@ -75,10 +75,11 @@ const InteriorSettingPicturesSwiper = () => {
   };
 
   return (
-    <div id="home-setting-pictures-swiper">
+    <div>
       <Swiper
         {...SwiperConfig}
         className={twMerge(isInit ? 'opacity-1' : 'opacity-0', 'transition-opacity')}
+        id="home-setting-pictures-swiper"
         onInit={onInit}
       >
         {repeatedSlides.map((slide, index) => (

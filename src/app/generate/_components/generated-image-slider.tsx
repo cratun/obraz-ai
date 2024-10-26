@@ -28,7 +28,7 @@ const GeneratedImageSlider = ({
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const filteredMockupImages = mockupImages ? mockupImages[size] || [] : [];
 
-  const getPaginationId = () => `swiper-pagination-${swiperId}`;
+  const paginationId = `swiper-pagination-${swiperId}`;
 
   return (
     <div className={twMerge('flex w-full max-w-[600px] shrink-0 flex-col gap-2.5', className)}>
@@ -36,7 +36,7 @@ const GeneratedImageSlider = ({
         className="mx-0 w-full select-none"
         id={swiperId}
         modules={[Pagination]}
-        pagination={{ el: `[id="${getPaginationId()}"]` }}
+        pagination={{ el: `[id="${paginationId}"]` }}
         slidesPerView={1}
         onInit={() => setIsInitialized(true)}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -73,7 +73,7 @@ const GeneratedImageSlider = ({
         </IconButton>
         <div
           className="static flex items-center justify-center gap-1 [&_.swiper-pagination-bullet-active]:opacity-100 [&_.swiper-pagination-bullet]:bg-[--swiper-theme-color]"
-          id={getPaginationId()}
+          id={paginationId}
         />
         <IconButton
           className="hidden text-[--swiper-theme-color] lg:inline-flex [&.Mui-disabled]:opacity-40"
