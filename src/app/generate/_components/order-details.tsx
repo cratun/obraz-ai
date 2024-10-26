@@ -64,7 +64,7 @@ const OrderDetails = ({
         </ToggleButtonGroup>
         <div className="flex flex-col gap-2.5 leading-[150%] tracking-[0.5px] lg:gap-5">
           <span className="text-2xl">
-            Cena: <span className="font-semibold">{prices[size]} PLN</span>
+            Cena: <span className="font-semibold">{prices[size]} zł</span>
           </span>
           <span className="font-semi text-xl">
             Specjalna oferta: <span className="font-semibold">Dostawa gratis!</span>

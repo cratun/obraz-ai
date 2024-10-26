@@ -5,7 +5,7 @@ const COMPANY_INFO = 'Cratun sp. z o.o. NIP: 4990690625 KRS: 0000971816';
 
 const OrderEmail = ({
   userName = 'Jan',
-  price = '200 PLN',
+  price = '200 zł',
   orderNumber = 'f123fsdfdsx1cv3',
   imageId = '123fds3r32rfds23f23f',
   orderDate = '2021-10-10',

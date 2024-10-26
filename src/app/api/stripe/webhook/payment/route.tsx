@@ -54,7 +54,7 @@ export async function POST(req: Request) {
           imageId={session.metadata.imageId}
           orderDate={dayjs.unix(session.created).format('DD.MM.YYYY HH:mm')}
           orderNumber={`${session.payment_intent}`}
-          price={`${session.amount_total / 100} PLN`}
+          price={`${session.amount_total / 100} zł`}
           size={session.metadata.size}
           userName={`${session.customer_details.name?.split(' ')[0]}`}
         />
