@@ -47,7 +47,7 @@ const GeneratedImageSlider = ({
       >
         <SwiperSlide className="w-full max-w-full lg:max-w-[600px]">
           <div className="relative aspect-square w-full">
-            <Image alt="Generated image" layout="fill" src={generatedImgSrc} />
+            <Image fill alt="Generated image" quality={100} sizes="600px" src={generatedImgSrc} />
           </div>
         </SwiperSlide>
         {filteredMockupImages.map((image) => (

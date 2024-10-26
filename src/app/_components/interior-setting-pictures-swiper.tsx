@@ -91,7 +91,13 @@ const InteriorSettingPicturesSwiper = () => {
             <div className="absolute bottom-2.5 left-5 right-5 z-[1] text-xs text-neutral md:text-sm">
               &quot;{slide.prompt}&quot;
             </div>
-            <Image fill alt="" className="w-full" src={`/home-setting-pictures-swiper/${slide.image}.png`} />
+            <Image
+              fill
+              alt=""
+              className="w-full"
+              sizes="600px"
+              src={`/home-setting-pictures-swiper/${slide.image}.png`}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

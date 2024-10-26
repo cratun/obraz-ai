@@ -186,7 +186,7 @@ const PageBuyContent = ({
               {generateImageQuery.isSuccess ? (
                 <>
                   {generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED ? (
-                    <div className="relative flex aspect-square w-full max-w-[600px] flex-col items-center justify-center gap-5 border border-text/20">
+                    <div className="relative flex aspect-square w-full max-w-[600px] flex-col items-center justify-center gap-5 border border-text/20 p-5">
                       <WarningAmberRoundedIcon className="size-24 text-warning" />
                       <span className="max-w-sm text-center text-sm">
                         Twój limit generowania obrazów został wyczerpany. Wróć jutro, aby kontynuować.
@@ -201,7 +201,7 @@ const PageBuyContent = ({
                   )}
                 </>
               ) : (
-                <div className="relative flex aspect-square w-full max-w-[600px] flex-col items-center justify-center gap-5 border border-text/20">
+                <div className="relative flex aspect-square w-full max-w-[600px] flex-col items-center justify-center gap-5 border border-text/20 p-5">
                   <ErrorOutlineRoundedIcon className="size-24 text-error" />
                   <span className="max-w-sm text-center text-sm">
                     Wystąpił nieoczekiwany błąd, spróbuj ponownie lub skontaktuj się z nami.

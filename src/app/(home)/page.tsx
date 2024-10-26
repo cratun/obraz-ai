@@ -98,11 +98,18 @@ const Home = () => {
           </div>
         </AppContainer.Content>
         <div className="absolute bottom-0 right-0 top-0 hidden aspect-square w-full max-w-[320px] object-cover md:block min-[900px]:max-w-[400px] lg:max-w-[400px] xl:max-w-[700px] 2xl:max-w-[850px]">
-          <Image fill priority alt="" className="object-cover" src="/home-hero-image.png" />
+          <Image
+            fill
+            priority
+            alt=""
+            className="object-cover"
+            sizes="(max-width: 900px) 320px, (max-width: 1024px) 400px, (max-width: 1280px) 700px, 850px"
+            src="/home-hero-image.png"
+          />
         </div>
       </AppContainer>
       <div className="relative h-[400px] w-full bg-gradient-to-t from-black to-black/0 to-50% sm:h-[500px] md:hidden">
-        <Image fill priority alt="" className="object-cover object-top" src="/home-hero-image.png" />
+        <Image fill priority alt="" className="object-cover object-top" sizes="768px" src="/home-hero-image.png" />
       </div>
       <AppContainer className="overflow-hidden bg-primary py-10 lg:py-20">
         <AppContainer.Content className="flex-col gap-10 text-center text-neutral lg:gap-20">

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import sharp from 'sharp';
+import { getBucketImgUrl } from '@/app/_utils/common';
 
 export async function GET(request: Request) {
   try {
@@ -12,7 +13,7 @@ export async function GET(request: Request) {
     }
 
     // Fetch the image from the provided URL
-    const response = await fetch(`https://obraz-ai-bucket.s3.eu-central-1.amazonaws.com/${imageId}.webp`);
+    const response = await fetch(getBucketImgUrl(imageId));
     if (!response.ok) {
       throw new Error('Failed to fetch image');
     }

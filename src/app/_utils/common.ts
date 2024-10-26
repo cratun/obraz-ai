@@ -17,3 +17,6 @@ export const generationStyles = [
   ['minimalism', 'Minimalizm'],
   ['cubism', 'Kubizm'],
 ] as const;
+
+export const getBucketImgUrl = (id: string) =>
+  `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME}.s3.eu-central-1.amazonaws.com/${id}.webp`;

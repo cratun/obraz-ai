@@ -26,7 +26,7 @@ const uploadImage = async ({ imgSrc, id }: { imgSrc: string; id: string }) => {
 
   await s3Client.send(
     new PutObjectCommand({
-      Bucket: process.env.S3_BUCKET_NAME,
+      Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
       Key: id + '.webp',
       Body: Buffer.from(fileBuffer),
     }),

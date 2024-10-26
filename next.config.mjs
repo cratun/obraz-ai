@@ -16,6 +16,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'obraz-ai-bucket.s3.eu-central-1.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'obraz-ai-bucket-dev.s3.eu-central-1.amazonaws.com',
+      },
     ],
   },
 };

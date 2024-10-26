@@ -2,7 +2,7 @@ import 'server-only';
 import dayjs from 'dayjs';
 import { cookies } from 'next/headers';
 import { IMAGE_HISTORY_COOKIE } from '@/app/generate/_utils/common';
-import { ImageHistoryEntry, ImageHistorySchema } from './common';
+import { IMAGE_HISTORY_MAX_ENTRIES, ImageHistoryEntry, ImageHistorySchema } from './common';
 
 const IMAGE_HISTORY_EXPIRY_DAYS = 3;
 
@@ -37,7 +37,7 @@ export function updateImageHistoryCookie(imageId: string) {
   const now = dayjs().unix();
   const newEntry: ImageHistoryEntry = { id: imageId, timestamp: now };
 
-  const newImageHistory = [newEntry, ...imageHistory].slice(0, 20);
+  const newImageHistory = [newEntry, ...imageHistory].slice(0, IMAGE_HISTORY_MAX_ENTRIES);
 
   cookieStore.set(IMAGE_HISTORY_COOKIE, JSON.stringify(newImageHistory), { maxAge: 60 * 60 * 24 * 365 });
 }

@@ -8,16 +8,15 @@ import { useSearchParams } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
+import { getBucketImgUrl } from '@/app/_utils/common';
 import { desiredMockupImageSizes, mockupData } from '@/app/generate/_utils/common';
-import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
+import { IMAGE_HISTORY_MAX_ENTRIES, ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
 import { CanvasSize, defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
 import actionBuy from '@/app/generate/action-buy';
 import generateMockup from '@/app/generate/buy/generate-mockup';
 import { CheckoutMetadata, MockupImages } from '@/app/types';
 import GeneratedImageSlider from './generated-image-slider';
 import OrderDetails from './order-details';
-
-const getImgUrl = (id: string) => `https://obraz-ai-bucket.s3.eu-central-1.amazonaws.com/${id}.webp`;
 
 const ImageHistoryDialogPaperComponent = ({ children }: PaperProps) => (
   <AppContainer className="h-full w-full overflow-auto pt-5">
@@ -28,7 +27,7 @@ const ImageHistoryDialogPaperComponent = ({ children }: PaperProps) => (
 );
 
 const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: string; onClose: () => void }) => {
-  const generatedImgSrc = getImgUrl(dialogImgId);
+  const generatedImgSrc = getBucketImgUrl(dialogImgId);
   const searchParams = useSearchParams();
 
   const [mockupImages, setMockupImages] = useState<MockupImages | null>(null);
@@ -109,16 +108,22 @@ const ImageHistory = ({ imageHistory }: { imageHistory: ImageHistoryEntry[] }) =
         </Dialog>
       )}
       <div className="flex flex-col gap-5">
-        <Typography.H3>Twoja galeria wygenerowanych obrazów</Typography.H3>
+        <Typography.H3>Twoja galeria wygenerowanych obrazów ({imageHistory.length})</Typography.H3>
         <Typography.Body className="max-w-2xl">
-          Przeglądaj <strong>20 ostatnich</strong> obrazów przechowywanych przez <strong>3 dni</strong>.{' '}
-          <strong>Kliknij</strong> wybrany projekt, aby zobaczyć podgląd i zamówić unikalny obraz na płótnie.
+          Przeglądaj <strong>{IMAGE_HISTORY_MAX_ENTRIES} ostatnich</strong> obrazów przechowywanych przez{' '}
+          <strong>3 dni</strong>. <strong>Kliknij</strong> wybrany projekt, aby zobaczyć podgląd i zamówić unikalny
+          obraz na płótnie.
         </Typography.Body>
       </div>
       <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
         {imageHistory.map(({ id }) => (
           <ButtonBase key={id} className="relative aspect-square" onClick={() => setDialogImgId(id)}>
-            <Image fill alt="" src={getImgUrl(id)} />
+            <Image
+              fill
+              alt=""
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              src={getBucketImgUrl(id)}
+            />
           </ButtonBase>
         ))}
       </div>
