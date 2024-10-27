@@ -53,7 +53,8 @@ const GeneratedImageSlider = ({
           </div>
         </SwiperSlide>
         {filteredMockupImages.map((image) => (
-          <SwiperSlide key={image} className="w-full max-w-full lg:max-w-[600px]">
+          <SwiperSlide key={image} className="relative w-full max-w-full lg:max-w-[600px]">
+            <div className="absolute inset-0 z-[1]" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img alt="Mockup Image aspect-square" src={image} />
           </SwiperSlide>
