@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import CasinoIcon from '@mui/icons-material/Casino';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -49,12 +50,23 @@ const PageBuyContent = ({
     prompt: initialPrompt,
     styleIndex: initialStyleIndex,
     generateKey: 0,
+    isRandomPrompt: false,
   });
 
   const generateImageQuery = useQuery({
     queryKey: ['image', generateImageQueryParams],
     queryFn: () => actionGenerate(generateImageQueryParams),
   });
+
+  useEffect(() => {
+    if (generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) {
+      return;
+    }
+
+    if (generateImageQuery.data?.randomPromptTranslated) {
+      form.setValue('prompt', generateImageQuery.data.randomPromptTranslated);
+    }
+  }, [generateImageQuery.data, form]);
 
   useEffect(() => {
     if (generateImageQuery.isFetching && imgContainerRef.current) {
@@ -70,15 +82,20 @@ const PageBuyContent = ({
       }),
   });
 
-  const handleGenerate = ({ prompt }: { prompt: string }) => {
-    if (!prompt) {
+  const handleGenerate = (prompt: string, isRandomPrompt: boolean) => {
+    if (!prompt && !isRandomPrompt) {
       inputRef.current?.focus();
       inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
 
       return;
     }
     setMockupImages(null);
-    setGenerateImageQueryParams((prevValue) => ({ prompt, styleIndex, generateKey: prevValue.generateKey + 1 }));
+    setGenerateImageQueryParams((prevValue) => ({
+      prompt,
+      styleIndex,
+      generateKey: prevValue.generateKey + 1,
+      isRandomPrompt,
+    }));
   };
 
   useEffect(() => {
@@ -160,17 +177,30 @@ const PageBuyContent = ({
         </div>
         <div className="flex lg:gap-20">
           <div className="hidden w-[200px] lg:block" />
-          <AppButton
-            disabled={buyMutation.isPending || generateImageQuery.isFetching || generationTokenCountCookie.value === 0}
-            startIcon={<RestartAltIcon />}
-            variant="contained"
-            classes={{
-              contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5 w-fit',
-            }}
-            onClick={form.handleSubmit(handleGenerate)}
-          >
-            Stwórz swój obraz ponownie
-          </AppButton>
+          <div className="flex flex-wrap gap-2.5 md:gap-5">
+            <AppButton
+              size="large"
+              startIcon={<RestartAltIcon />}
+              variant="contained"
+              disabled={
+                buyMutation.isPending || generateImageQuery.isFetching || generationTokenCountCookie.value === 0
+              }
+              onClick={form.handleSubmit(({ prompt }) => handleGenerate(prompt, false))}
+            >
+              Stwórz swój obraz ponownie
+            </AppButton>
+            <AppButton
+              size="large"
+              startIcon={<CasinoIcon />}
+              variant="outlined"
+              disabled={
+                buyMutation.isPending || generateImageQuery.isFetching || generationTokenCountCookie.value === 0
+              }
+              onClick={form.handleSubmit(({ prompt }) => handleGenerate(prompt, true))}
+            >
+              Zainspiruj mnie
+            </AppButton>
+          </div>
         </div>
         <div ref={imgContainerRef} className="flex flex-col gap-10 lg:flex-row">
           {generateImageQuery.isFetching ? (

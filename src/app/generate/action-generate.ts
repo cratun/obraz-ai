@@ -4,6 +4,7 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 import OpenAI from 'openai';
 import Replicate from 'replicate';
+import { ensureNotNull } from '@/app/_utils/common';
 import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import { GENERATION_TOKEN_LIMIT_REACHED } from './_utils/common';
 import { checkAndUpdateGenerationToken } from './_utils/generation-token';
@@ -96,9 +97,31 @@ Your tasks are:
 
 Now, please provide the final enhanced prompt based on the user's input.`;
 
+const GPT_SYSTEM_INFO_RANDOM = `
+Generate a unique, imaginative 3-word image prompt that blends contrasting themes or concepts. Combine genres, styles, or ideas in a surprising and memorable way.
+
+# Steps
+
+1. Choose two or more unrelated themes or settings.
+2. Use three words to convey a vivid, unconventional scene, character, or concept.
+3. Ensure the three words spark inspiration and curiosity.
+
+# Output Format
+
+Provide a single 3-word image prompt in plain text, returned as JSON with two fields: 'en' with the English version and 'pl' with the Polish translation.
+`;
+
 const openai = new OpenAI();
 
-const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleIndex: number }) => {
+const actionGenerate = async ({
+  prompt,
+  styleIndex,
+  isRandomPrompt,
+}: {
+  prompt: string;
+  styleIndex: number;
+  isRandomPrompt: boolean;
+}) => {
   if (prompt.length > MAX_PROMPT_LENGTH) {
     throw new Error('Prompt is too long');
   }
@@ -106,6 +129,23 @@ const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleInd
   const tokenCheckResult = checkAndUpdateGenerationToken();
   if (tokenCheckResult === GENERATION_TOKEN_LIMIT_REACHED) {
     return GENERATION_TOKEN_LIMIT_REACHED;
+  }
+
+  let randomPromptCompletion: OpenAI.Chat.Completions.ChatCompletion | undefined;
+
+  if (isRandomPrompt) {
+    randomPromptCompletion = await openai.chat.completions.create({
+      response_format: { type: 'json_object' },
+      model: 'gpt-4o-mini',
+      temperature: 1.3,
+      max_tokens: 500,
+      messages: [
+        {
+          role: 'system',
+          content: GPT_SYSTEM_INFO_RANDOM,
+        },
+      ],
+    });
   }
 
   const completion = await openai.chat.completions.create({
@@ -117,19 +157,26 @@ const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleInd
       },
       {
         role: 'user',
-        content: prompt,
+        content: randomPromptCompletion
+          ? (JSON.parse(ensureNotNull(randomPromptCompletion.choices[0].message.content)) as any).en
+          : prompt,
       },
     ],
   });
 
-  const refinedPrompt = completion.choices[0].message.content;
+  const messageContent = completion.choices[0].message.content;
 
-  if (!refinedPrompt) {
+  if (!messageContent) {
     throw new Error('Failed to generate refined prompt');
   }
 
   const output = (await replicate.run(MODEL_NAME, {
-    input: { prompt: refinedPrompt, num_outputs: 1, aspect_ratio: '1:1', guidance: GENERATION_DATA[styleIndex][2] },
+    input: {
+      prompt: messageContent + (styleIndex === 0 ? '' : `, ${GENERATION_DATA[styleIndex][3]}`),
+      num_outputs: 1,
+      aspect_ratio: '1:1',
+      guidance: GENERATION_DATA[styleIndex][2],
+    },
   })) as string[];
 
   const imageId = crypto.randomUUID();
@@ -141,6 +188,9 @@ const actionGenerate = async ({ prompt, styleIndex }: { prompt: string; styleInd
   return {
     imgSrc,
     metadata: { imageId },
+    randomPromptTranslated: randomPromptCompletion
+      ? (JSON.parse(ensureNotNull(randomPromptCompletion.choices[0].message.content)) as any).pl
+      : '',
   };
 };
 
