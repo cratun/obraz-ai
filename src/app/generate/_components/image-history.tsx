@@ -118,6 +118,8 @@ const ImageHistory = ({ imageHistory }: { imageHistory: ImageHistoryEntry[] }) =
       <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
         {imageHistory.map(({ id }) => (
           <ButtonBase key={id} className="relative aspect-square" onClick={() => setDialogImgId(id)}>
+            {/* NOTE: disable easy image copying */}
+            <div className="absolute inset-0 z-[1]" />
             <Image
               fill
               alt=""

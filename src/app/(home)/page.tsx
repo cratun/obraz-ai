@@ -150,7 +150,7 @@ const Home = () => {
         <AppContainer.Content className="flex-col gap-10 text-text">
           <div className="flex flex-col gap-2.5">
             <h3 className="text-lg leading-[140%] tracking-[0.5px] text-primary">
-              Setki tysięcy unikalnych wygenerowanych obrazów.
+              Setki tysięcy unikalnych wygenerowanych obrazów
             </h3>
             <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">
               Zainspiruj się naszymi wyjątkowymi realizacjami
