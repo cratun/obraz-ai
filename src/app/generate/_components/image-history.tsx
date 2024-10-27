@@ -122,6 +122,7 @@ const ImageHistory = ({ imageHistory }: { imageHistory: ImageHistoryEntry[] }) =
             <div className="absolute inset-0 z-[1]" />
             <Image
               fill
+              unoptimized
               alt=""
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               src={getBucketImgUrl(id)}

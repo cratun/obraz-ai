@@ -49,14 +49,22 @@ const GeneratedImageSlider = ({
           <div className="relative z-[1] aspect-square w-full">
             {/* NOTE: disable easy image copying */}
             <div className="absolute inset-0 z-[1]" />
-            <Image fill alt="Generated image" className="z-0" quality={100} sizes="600px" src={generatedImgSrc} />
+            <Image
+              fill
+              unoptimized
+              alt="Generated image"
+              className="z-0"
+              quality={100}
+              sizes="600px"
+              src={generatedImgSrc}
+            />
           </div>
         </SwiperSlide>
         {filteredMockupImages.map((image) => (
           <SwiperSlide key={image} className="relative w-full max-w-full lg:max-w-[600px]">
             <div className="absolute inset-0 z-[1]" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="Mockup Image aspect-square" src={image} />
+            <img alt="Mockup Image" className="aspect-square" src={image} />
           </SwiperSlide>
         ))}
       </Swiper>
