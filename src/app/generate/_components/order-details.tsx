@@ -74,7 +74,7 @@ const OrderDetails = ({
       <div className="flex flex-col gap-5">
         <Typography.H3>Szczegóły zamówienia</Typography.H3>
         <Typography.Body>
-          Obraz na płótnie o wymiarach{' '}
+          <strong>Obraz na płótnie</strong> o wymiarach{' '}
           <strong>
             {size}x{size} cm
           </strong>

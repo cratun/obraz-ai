@@ -24,13 +24,13 @@ export const CONTACT_EMAIL = 'kontakt@obraz-ai.com';
 export const GENERATION_DATA = [
   ['surprise', 'Dopasowany', 3, '-'],
   ['surrealism', 'Surrealizm', 3, 'Surrealism'],
-  ['hyper-realistic', 'Hiperrealizm', 2, 'Hyperrealism'],
+  ['hyper-realistic', 'Hiperrealizm', 2, 'Hyperrealism, UHD, camera shot'],
   ['cyberpunk', 'Cyberpunk', 3, 'Cyberpunk'],
   ['anime', 'Anime', 3, 'Anime'],
-  ['impressionism', 'Impresjonizm', 1.3, 'Impressionistic painting'],
+  ['impressionism', 'Impresjonizm', 1.3, 'Impressionistic oil painting'],
   ['pop-art', 'Pop-art', 3, 'Pop Art'],
   ['minimalism', 'Minimalizm', 3, 'Minimalism'],
-  ['cubism', 'Kubizm', 4, 'Cubism, Pablo Picasso'],
+  ['cubism', 'Kubizm', 4, 'Cubism, Cubist Painting, Angular simple shapes only, Pablo Picasso style'],
   ['psychedelic', 'Psychodelik', 3, 'Psychedelic'],
 ] as const;
 
