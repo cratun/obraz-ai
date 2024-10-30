@@ -11,9 +11,9 @@ import { CanvasSize, canvasSizes } from '@/app/generate/_utils/sizes-utils';
 
 // KEEP IN SYNC WITH ENVS
 const prices = {
-  '30': 90,
-  '60': 130,
-  '100': 220,
+  '30': 89,
+  '60': 129,
+  '100': 219,
 };
 
 const OrderDetails = ({
