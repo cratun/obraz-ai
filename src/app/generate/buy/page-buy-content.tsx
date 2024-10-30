@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import CasinoIcon from '@mui/icons-material/Casino';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -189,7 +188,7 @@ const PageBuyContent = ({
             >
               Stwórz swój obraz ponownie
             </AppButton>
-            <AppButton
+            {/* <AppButton
               size="large"
               startIcon={<CasinoIcon />}
               variant="outlined"
@@ -199,7 +198,7 @@ const PageBuyContent = ({
               onClick={form.handleSubmit(({ prompt }) => handleGenerate(prompt, true))}
             >
               Zainspiruj mnie
-            </AppButton>
+            </AppButton> */}
           </div>
         </div>
         <div ref={imgContainerRef} className="flex flex-col gap-10 lg:flex-row">
