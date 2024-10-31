@@ -18,13 +18,15 @@ const PageGenerateContent = ({
   initialPrompt,
   generationTokenCountCookie,
   imageHistory,
+  initialStyleIndex,
 }: {
   initialPrompt: string;
   generationTokenCountCookie: ParsedGenerationTokenCookie;
   imageHistory: ImageHistoryEntry[];
+  initialStyleIndex: number;
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [styleIndex, setStyleIndex] = useState(0);
+  const [styleIndex, setStyleIndex] = useState(initialStyleIndex);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -102,7 +104,7 @@ const PageGenerateContent = ({
           variant="contained"
           onClick={form.handleSubmit((values) => handleSubmit(values))}
         >
-          Kontynuuj
+          Stwórz swój obraz
         </AppButton>
         {imageHistory.length > 0 && <ImageHistory imageHistory={imageHistory} />}
       </AppContainer.Content>

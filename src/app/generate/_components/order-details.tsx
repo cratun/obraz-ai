@@ -38,6 +38,7 @@ const OrderDetails = ({
     <div className="flex flex-col gap-10 lg:flex-col-reverse lg:justify-between">
       <div className="flex flex-col gap-2.5 lg:flex-col-reverse lg:gap-5">
         {children}
+
         <ToggleButtonGroup
           exclusive
           className="-order-2 max-w-96 gap-2.5 lg:order-none"
@@ -62,8 +63,11 @@ const OrderDetails = ({
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
+        <span className="-order-4 text-2xl lg:hidden">
+          Cena: <span className="font-semibold">{prices[size]} zł</span>
+        </span>
         <div className="flex flex-col gap-2.5 leading-[150%] tracking-[0.5px] lg:gap-5">
-          <span className="text-2xl">
+          <span className="hidden text-2xl lg:block">
             Cena: <span className="font-semibold">{prices[size]} zł</span>
           </span>
           <span className="font-semi text-xl">

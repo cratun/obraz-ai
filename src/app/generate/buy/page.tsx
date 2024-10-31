@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation';
-import { getGenerationTokenCountCookie } from '@/app/generate/_utils/generation-token';
 import { getImageHistoryFromCookie } from '@/app/generate/_utils/image-history/server';
 import { SerachParams } from '@/app/types';
 import PageBuyContent from './page-buy-content';
@@ -16,7 +15,6 @@ const PageBuy = ({ searchParams }: { searchParams: SerachParams }) => {
 
   return (
     <PageBuyContent
-      generationTokenCountCookie={getGenerationTokenCountCookie()}
       imageHistory={getImageHistoryFromCookie()}
       initialPrompt={searchParams.prompt}
       initialStyleIndex={Number.isNaN(parsedStyleIndex) ? 0 : parsedStyleIndex}
