@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -13,7 +15,7 @@ import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
 import { getBucketImgUrl } from '@/app/_utils/common';
 import { desiredMockupImageSizes, mockupData } from '@/app/generate/_utils/common';
-import { IMAGE_HISTORY_MAX_ENTRIES, ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
+import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
 import { CanvasSize, defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
 import actionBuy from '@/app/generate/action-buy';
 import generateMockup from '@/app/generate/buy/generate-mockup';
@@ -112,7 +114,7 @@ const ImageHistory = ({ imageHistory }: { imageHistory: ImageHistoryEntry[] }) =
   const [dialogImgId, setDialogImgId] = useState<string | null>(null);
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex grow flex-col gap-10">
       {!!dialogImgId && (
         <Dialog
           open={!!dialogImgId}
@@ -124,28 +126,43 @@ const ImageHistory = ({ imageHistory }: { imageHistory: ImageHistoryEntry[] }) =
         </Dialog>
       )}
       <div className="flex flex-col gap-5">
-        <Typography.H3>Twoja galeria wygenerowanych obrazów ({imageHistory.length})</Typography.H3>
-        <Typography.Body className="max-w-2xl">
-          Przeglądaj <strong>{IMAGE_HISTORY_MAX_ENTRIES} ostatnich</strong> obrazów przechowywanych przez{' '}
-          <strong>3 dni</strong>. <strong>Kliknij</strong> wybrany projekt, aby zobaczyć podgląd i zamówić unikalny
-          obraz na płótnie.
-        </Typography.Body>
+        <Typography.H3>Galeria Twoich obrazów ({imageHistory.length})</Typography.H3>
+        <div className="max-w-2xl text-text">
+          <ul className="flex list-disc flex-col gap-1.5 pl-4">
+            <li className="text-base leading-[1.2] tracking-[0.5px]">
+              Przechowuj do <strong>40 ostatnich</strong> obrazów przez <strong>3 dni</strong>
+            </li>
+            <li className="text-base leading-[1.2] tracking-[0.5px]">
+              <strong>Kliknij</strong>, aby zobaczyć podgląd i zamówić
+            </li>
+          </ul>
+        </div>
       </div>
-      <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
-        {imageHistory.map(({ id }) => (
-          <ButtonBase key={id} className="relative aspect-square" onClick={() => setDialogImgId(id)}>
-            {/* NOTE: disable easy image copying */}
-            <div className="absolute inset-0 z-[1]" />
-            <Image
-              fill
-              unoptimized
-              alt=""
-              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              src={getBucketImgUrl(id)}
-            />
-          </ButtonBase>
-        ))}
-      </div>
+      {imageHistory.length > 0 ? (
+        <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
+          {imageHistory.map(({ id }) => (
+            <ButtonBase key={id} className="relative aspect-square" onClick={() => setDialogImgId(id)}>
+              {/* NOTE: disable easy image copying */}
+              <div className="absolute inset-0 z-[1]" />
+              <Image
+                fill
+                unoptimized
+                alt=""
+                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                src={getBucketImgUrl(id)}
+              />
+            </ButtonBase>
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center gap-5 text-center md:pt-10">
+          <Image alt="Ikona pustej galerii" height={150} src="/empty-gallery.svg" width={150} />
+          <Typography.H4>Zacznij tworzyć, a Twoje obrazy pojawią się tutaj!</Typography.H4>
+          <AppButton className="px-10" href="/generate" LinkComponent={Link} size="large" variant="contained">
+            Przejdź do kreatora
+          </AppButton>
+        </div>
+      )}
     </div>
   );
 };
