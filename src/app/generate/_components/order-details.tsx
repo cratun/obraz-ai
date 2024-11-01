@@ -1,20 +1,37 @@
 'use client';
 
 import { ReactNode } from 'react';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import PriorityHighOutlinedIcon from '@mui/icons-material/PriorityHighOutlined';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { twJoin } from 'tailwind-merge';
 import Typography from '@/app/_components/typography';
 import createQueryString from '@/app/_utils/create-query-string';
 import { CanvasSize, canvasSizes } from '@/app/generate/_utils/sizes-utils';
-
+import ProductDetails from './product-details';
 // KEEP IN SYNC WITH ENVS
 const prices = {
   '30': 89,
   '60': 129,
   '100': 219,
 };
+
+const Hr = () => <hr className="text-text/30" />;
+
+const paymentMethods = [
+  'blik.png',
+  'apple-pay.svg',
+  'google-pay.svg',
+  'p-24.svg',
+  'mastercard.svg',
+  'visa.svg',
+  'klarna.png',
+];
 
 const OrderDetails = ({
   children,
@@ -35,16 +52,11 @@ const OrderDetails = ({
   };
 
   return (
-    <div className="flex flex-col gap-10 lg:flex-col-reverse lg:justify-between">
-      <div className="flex flex-col gap-2.5 lg:flex-col-reverse lg:gap-5">
-        {children}
-
-        <ToggleButtonGroup
-          exclusive
-          className="-order-2 max-w-96 gap-2.5 lg:order-none"
-          value={size}
-          onChange={handleSizeChange}
-        >
+    <div className="flex w-full flex-col gap-5">
+      <Typography.H2 className="hidden lg:block">Obraz na płótnie</Typography.H2>
+      <div className="flex flex-col gap-1">
+        <Typography.Body className="text-sm font-medium">Wybierz rozmiar</Typography.Body>
+        <ToggleButtonGroup exclusive className="max-w-96 gap-2.5" value={size} onChange={handleSizeChange}>
           {canvasSizes.map((size) => (
             <ToggleButton
               key={size}
@@ -63,39 +75,60 @@ const OrderDetails = ({
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
-        <span className="-order-4 text-2xl lg:hidden">
-          Cena: <span className="font-semibold">{prices[size]} zł</span>
-        </span>
-        <div className="flex flex-col gap-2.5 leading-[150%] tracking-[0.5px] lg:gap-5">
-          <span className="hidden text-2xl lg:block">
-            Cena: <span className="font-semibold">{prices[size]} zł</span>
-          </span>
-          <span className="font-semi text-xl">
-            Specjalna oferta: <span className="font-semibold">Dostawa gratis!</span>
-          </span>
-        </div>
       </div>
-      <div className="flex flex-col gap-5">
-        <Typography.H3>Szczegóły zamówienia</Typography.H3>
-        <Typography.Body>
-          <strong>Obraz na płótnie</strong> o wymiarach{' '}
-          <strong>
-            {size}x{size} cm
-          </strong>
-          . Druk <strong>wysokiej jakości na płótnie</strong>, z wybraną przez Ciebie unikalną grafiką, stworzoną na
-          podstawie Twojego opisu. Doskonały <strong>do powieszenia na ścianie</strong>, gotowy, by ozdobić Twój dom lub
-          biuro.
-        </Typography.Body>
-        <ul className="max-w-xl list-disc pl-4 leading-normal tracking-[0.5px]">
-          <li>płótno syntetyczne</li>
-          <li>zadrukowane krawędzie foto-obrazu</li>
-          <li>lekki drewniany blejtram</li>
-          <li>wysokiej jakości druk ekologiczny w technologii UV</li>
-        </ul>
-        <Typography.Body>
-          Oczekiwany czas realizacji zamówienia: <strong>3 - 5 dni roboczych.</strong>
-        </Typography.Body>
+      <span className="text-3xl font-bold">{prices[size]} zł</span>
+      {children}
+      <div className="flex items-center gap-1 text-[12px] font-bold">
+        <AccessTimeOutlinedIcon className="text-md" /> <span>Czas realizacji zamówienia: 3 - 5 dni roboczych.</span>{' '}
       </div>
+      <div className="flex items-center gap-1 text-[12px] font-bold">
+        <PriorityHighOutlinedIcon className="text-md" /> <span>Darmowa dostawa</span>{' '}
+      </div>
+      <Hr />
+      <div className="flex flex-wrap gap-1">
+        {paymentMethods.map((method) => (
+          <div
+            key={method}
+            className="flex h-8 w-14 items-center justify-center rounded-lg border border-primary/30 bg-white p-1"
+          >
+            <div className="relative h-full w-full">
+              <Image
+                fill
+                alt="Blik metoda płatności ikonka"
+                className="object-contain"
+                sizes="75px"
+                src={`/payment-icons/${method}`}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+      <Typography.H3 className="lg:hidden">Szczegóły produktu</Typography.H3>
+      <Hr />
+      <ProductDetails Icon={InfoOutlinedIcon} title="O tym obrazie">
+        <ProductDetails.Section description={`${size}x${size} cm`} title="Rozmiar" />
+        <ProductDetails.Section description="płótno syntetyczne" title="Materiał" />
+        <ProductDetails.Section description="zadrukowane krawędzie foto-obrazu" title="Wykończenie" />
+        <ProductDetails.Section description="lekki drewniany blejtram" title="Rama" />
+        <ProductDetails.Section description="wysokiej jakości druk ekologiczny w technologii UV" title="Druk" />
+      </ProductDetails>
+      <Hr />
+      <ProductDetails Icon={LocalShippingOutlinedIcon} title="Informacje o dostawie">
+        <ProductDetails.Section
+          description="oczekiwany czas realizacji zamówienia: 3&nbsp;-&nbsp;5 dni roboczych. Może się wydłużyć w okresach świątecznych"
+          title="Czas"
+        />
+        <ProductDetails.Section
+          description="kupując zgadzasz się na wykonanie zamówienia zgodnie z Twoimi specyfikacjami i zrzekasz się prawa do odstąpienia od umowy"
+          title="Zwroty"
+        />
+        <ProductDetails.Section
+          description="pakujemy obrazy tak, aby trafiły do Ciebie w perfekcyjnym stanie"
+          title="Opakowanie"
+        />
+      </ProductDetails>
+
+      <Hr />
     </div>
   );
 };
