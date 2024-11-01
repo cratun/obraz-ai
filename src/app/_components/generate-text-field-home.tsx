@@ -25,7 +25,7 @@ const GenerateTextFieldHome = () => {
           input: {
             endAdornment: (
               <AppButton loading={isPending} variant="contained" onClick={() => handleGenerate(prompt)}>
-                Generuj
+                Stwórz
               </AppButton>
             ),
           },

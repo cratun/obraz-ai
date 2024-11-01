@@ -34,8 +34,10 @@ const ManualPage = () => {
                 Nie musisz pisać perfekcyjnych opisów -{' '}
                 <strong>nasza zaawansowana technologia automatycznie je ulepszy i poprawi</strong>, aby wygenerować
                 najlepszy możliwy obraz. Wystarczy, że podasz <strong>podstawowy pomysł</strong> lub{' '}
-                <strong>krótki opis</strong>, a my zajmiemy się resztą. Jeśli jednak chcesz dowiedzieć się więcej o tym,
-                jak samodzielnie pisać skuteczne opisy, sprawdź poniższe wskazówki.
+                <strong>krótki opis</strong>, a my zajmiemy się resztą. <br />
+                <br />
+                Jeśli jednak chcesz dowiedzieć się więcej o tym, jak samodzielnie pisać skuteczne opisy, sprawdź
+                poniższe wskazówki.
               </Typography.Body>
               <AppButton className="w-fit" href="/generate" LinkComponent={Link} variant="contained">
                 Przejdź do generatora
@@ -134,7 +136,7 @@ const ManualPage = () => {
       <HomeSwiper />
       <AppContainer className="py-10">
         <AppContainer.Content className="flex-wrap gap-5 text-text">
-          <AppButton href="/generate" LinkComponent={Link} variant="contained">
+          <AppButton href="/generate" LinkComponent={Link} size="large" variant="contained">
             Przejdź do generatora
           </AppButton>
         </AppContainer.Content>

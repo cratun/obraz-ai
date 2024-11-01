@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import Image from 'next/image';
 import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
@@ -77,7 +77,7 @@ const Home = () => {
                 <span className="text-primary">AI</span>!
               </Typography.H1>
               <GenerateTextFieldHome />
-              <ul className="flex list-inside list-disc flex-col gap-1.5">
+              <ul className="flex list-disc flex-col gap-1.5 pl-5">
                 <li className="text-base leading-[1.5] tracking-[0.5px]">
                   Stwórz <strong>dowolny obraz</strong>, jaki sobie wymarzysz, dzięki <strong>AI</strong>
                 </li>
@@ -93,7 +93,7 @@ const Home = () => {
               </ul>
             </div>
             <span className="hidden lg:block">
-              (Dowiedz się więcej <KeyboardArrowDownIcon />)
+              (Dowiedz się więcej <KeyboardArrowDownRoundedIcon />)
             </span>
           </div>
         </AppContainer.Content>
@@ -165,6 +165,7 @@ const Home = () => {
             classes={{ contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5' }}
             href="/generate"
             LinkComponent={Link}
+            size="large"
             variant="contained"
           >
             Stwórz swój obraz teraz
@@ -198,6 +199,7 @@ const Home = () => {
               <AppButton
                 href="/generate"
                 LinkComponent={Link}
+                size="large"
                 variant="contained"
                 classes={{
                   contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5 w-fit',

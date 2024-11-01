@@ -51,7 +51,7 @@ const PageGenerateContent = ({
         <div className="flex flex-col gap-5 lg:gap-10">
           <div className="flex flex-col gap-2.5 lg:gap-5">
             <h1 className="text-5xl font-bold leading-[120%] tracking-[1px]">
-              Generuj <br className="lg:hidden" />
+              Stwórz <br className="lg:hidden" />
               <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
             </h1>
             <p className="leading-[150%] tracking-[0.5px]">
