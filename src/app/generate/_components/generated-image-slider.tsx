@@ -1,4 +1,4 @@
-import { useId, useRef } from 'react';
+import { useId, useRef, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -6,7 +6,7 @@ import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { twMerge } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
 import { defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
 import { MockupImages } from '@/app/types';
 
@@ -19,6 +19,7 @@ const GeneratedImageSlider = ({
   mockupImages: MockupImages | null;
   generatedImgSrc: string;
 }) => {
+  const [isLoadedImage, setIsLoadedImage] = useState(false);
   const size = useSearchParams().get('size') || defaultCanvasSize;
   const swiperId = useId();
   const swiperRef = useRef<SwiperClass | null>(null);
@@ -45,7 +46,9 @@ const GeneratedImageSlider = ({
         }}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
       >
-        <SwiperSlide className="w-full max-w-full bg-white p-[20%] lg:max-w-[700px]">
+        <SwiperSlide
+          className={twJoin('w-full max-w-full bg-white lg:max-w-[700px]', isLoadedImage ? 'p-[20%]' : 'p-0')}
+        >
           <div className="relative z-[1] aspect-square w-full">
             {/* NOTE: disable easy image copying */}
             <div className="absolute inset-0 z-[1]" />
@@ -53,11 +56,24 @@ const GeneratedImageSlider = ({
               fill
               unoptimized
               alt="Generated image"
-              className="z-0 shadow-[2px_2px_5px_1px_rgba(0,0,0,0.75)]"
               quality={100}
               sizes="700px"
               src={generatedImgSrc}
+              className={twJoin(
+                'z-0 shadow-[2px_2px_5px_1px_rgba(0,0,0,0.75)] transition-opacity',
+                isLoadedImage ? 'opacity-100' : 'opacity-0',
+              )}
+              onLoad={() => setIsLoadedImage(true)}
             />
+            {!isLoadedImage && (
+              <div className="relative z-[0] h-full w-full p-5">
+                <div className="absolute inset-0 z-[0] animate-pulse bg-primary/30"></div>
+                <div className="absolute inset-0 z-[1] flex flex-col items-center justify-center gap-5">
+                  <CircularProgress />
+                  <span className="text-sm">Tworzenie obrazu...</span>
+                </div>
+              </div>
+            )}
           </div>
         </SwiperSlide>
         {Array.isArray(filteredMockupImages) &&

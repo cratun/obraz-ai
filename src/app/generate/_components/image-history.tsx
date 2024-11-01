@@ -118,6 +118,7 @@ const ImageHistory = ({ imageHistory }: { imageHistory: ImageHistoryEntry[] }) =
           open={!!dialogImgId}
           PaperComponent={ImageHistoryDialogPaperComponent}
           slotProps={{ backdrop: { classes: { root: 'bg-black/80 backdrop-blur-3xl' } } }}
+          onClose={() => setDialogImgId(null)}
         >
           <ImageHistoryDialogContent dialogImgId={dialogImgId} onClose={() => setDialogImgId(null)} />
         </Dialog>
