@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import { Dialog, IconButton, PaperProps } from '@mui/material';
 import ButtonBase from '@mui/material/ButtonBase';
 import { useMutation } from '@tanstack/react-query';
@@ -110,7 +111,7 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
   );
 };
 
-const ImageHistory = ({ imageHistory }: { imageHistory: ImageHistoryEntry[] }) => {
+const ImageHistory = ({ imageHistory, children }: { imageHistory: ImageHistoryEntry[]; children?: ReactNode }) => {
   const [dialogImgId, setDialogImgId] = useState<string | null>(null);
 
   return (
@@ -137,13 +138,14 @@ const ImageHistory = ({ imageHistory }: { imageHistory: ImageHistoryEntry[] }) =
             </li>
           </ul>
         </div>
+        {children}
       </div>
       {imageHistory.length > 0 ? (
         <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
           {imageHistory.map(({ id }) => (
             <ButtonBase key={id} className="relative aspect-square" onClick={() => setDialogImgId(id)}>
               {/* NOTE: disable easy image copying */}
-              <div className="absolute inset-0 z-[1]" />
+              <div className="absolute inset-0 z-[2]" />
               <Image
                 fill
                 unoptimized
@@ -151,6 +153,9 @@ const ImageHistory = ({ imageHistory }: { imageHistory: ImageHistoryEntry[] }) =
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 src={getBucketImgUrl(id)}
               />
+              <div className="absolute bottom-0 left-0 z-[1] rounded-tr-full bg-white/25 p-1">
+                <ShoppingCartRoundedIcon className="mr-2 mt-2 text-xl text-white" />
+              </div>
             </ButtonBase>
           ))}
         </div>

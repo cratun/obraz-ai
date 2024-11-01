@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PhotoLibraryRoundedIcon from '@mui/icons-material/PhotoLibraryRounded';
+import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
+import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 import { CircularProgress } from '@mui/material';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -13,6 +14,7 @@ import { twJoin } from 'tailwind-merge';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import createQueryString from '@/app/_utils/create-query-string';
+import BuyButtonSlide, { useSlideInOnScrollDown } from '@/app/generate/_components/buy-button-slide';
 import GeneratedImageSlider from '@/app/generate/_components/generated-image-slider';
 import ImageHistory from '@/app/generate/_components/image-history';
 import OrderDetails from '@/app/generate/_components/order-details';
@@ -23,6 +25,7 @@ import actionBuy from '@/app/generate/action-buy';
 import actionGenerate from '@/app/generate/action-generate';
 import { CheckoutMetadata, MockupImages } from '@/app/types';
 import generateMockup from './generate-mockup';
+
 const PageBuyContent = ({
   initialPrompt,
   initialStyleIndex,
@@ -34,6 +37,7 @@ const PageBuyContent = ({
 }) => {
   const searchParams = useSearchParams();
   const [mockupImages, setMockupImages] = useState<MockupImages | null>(null);
+  const { ref, slideIn } = useSlideInOnScrollDown();
 
   const generateImageQueryParams = {
     prompt: initialPrompt,
@@ -86,8 +90,28 @@ const PageBuyContent = ({
     generateMockupUrl();
   }, [generateImageQuery.data, generateImageQuery.isSuccess]);
 
+  const handleBuy = () => {
+    if (!generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) {
+      return;
+    }
+
+    buyMutation.mutate({
+      imageId: generateImageQuery.data.metadata.imageId,
+      size: searchParams.get('size') || defaultCanvasSize,
+    });
+  };
+
+  const isBuyButtonDisabled =
+    !generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED;
+
   return (
     <AppContainer className="pb-20 pt-[100px]">
+      <BuyButtonSlide
+        disabled={isBuyButtonDisabled}
+        isVisible={!generateImageQuery.isPending && generateImageQuery.data !== GENERATION_TOKEN_LIMIT_REACHED}
+        slideIn={slideIn}
+        onClick={handleBuy}
+      />
       <AppContainer.Content className="flex-col gap-10 overflow-auto text-text lg:gap-20">
         <div className="flex flex-col gap-5 lg:flex-row lg:gap-10">
           <GeneratedImageSlider
@@ -132,9 +156,19 @@ const PageBuyContent = ({
                   {generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED && (
                     <div className="relative flex aspect-square w-full max-w-[700px] flex-col items-center justify-center gap-5 border border-text/20 p-5">
                       <WarningAmberRoundedIcon className="size-24 text-warning" />
-                      <span className="max-w-sm text-center text-sm">
-                        Twój limit generowania obrazów został wyczerpany. Wróć jutro, aby kontynuować.
-                      </span>
+                      <div className="flex max-w-sm flex-col text-center text-sm">
+                        <span>Limit generowania na dziś wyczerpany.</span>
+                        <span>Wróć jutro lub zamów swoje dotychczasowe dzieło jako obraz!</span>
+                      </div>
+                      <AppButton
+                        color="accent"
+                        href="/gallery"
+                        LinkComponent={Link}
+                        startIcon={<PhotoLibraryRoundedIcon className="text-base" />}
+                        variant="contained"
+                      >
+                        Kup obraz ze swojej galerii
+                      </AppButton>
                     </div>
                   )}
                 </>
@@ -151,23 +185,15 @@ const PageBuyContent = ({
           <OrderDetails toggleButtonVariant="secondary">
             <div className="flex flex-col gap-2.5">
               <AppButton
+                ref={ref}
                 className="mb-0 py-3 lg:py-5 lg:text-lg"
                 color="accent"
-                disabled={!generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED}
+                disabled={isBuyButtonDisabled}
                 loading={buyMutation.isPending}
                 size="large"
-                startIcon={<ShoppingCartIcon />}
+                startIcon={<ShoppingCartRoundedIcon />}
                 variant="contained"
-                onClick={() => {
-                  if (!generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) {
-                    return;
-                  }
-
-                  buyMutation.mutate({
-                    imageId: generateImageQuery.data.metadata.imageId,
-                    size: searchParams.get('size') || defaultCanvasSize,
-                  });
-                }}
+                onClick={handleBuy}
               >
                 Kup teraz
               </AppButton>
@@ -175,7 +201,7 @@ const PageBuyContent = ({
                 className="mb-0 py-2.5 lg:py-5 lg:text-lg"
                 LinkComponent={Link}
                 size="large"
-                startIcon={<RefreshIcon />}
+                startIcon={<RefreshRoundedIcon />}
                 variant="outlined"
                 href={`/generate?${createQueryString(
                   [
