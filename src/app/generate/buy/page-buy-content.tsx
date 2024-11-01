@@ -149,43 +149,45 @@ const PageBuyContent = ({
             </>
           )}
           <OrderDetails toggleButtonVariant="secondary">
-            <AppButton
-              className="mb-0 lg:py-5 lg:text-lg"
-              color="accent"
-              disabled={!generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED}
-              loading={buyMutation.isPending}
-              size="large"
-              startIcon={<ShoppingCartIcon />}
-              variant="contained"
-              onClick={() => {
-                if (!generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) {
-                  return;
-                }
+            <div className="flex flex-col gap-2.5">
+              <AppButton
+                className="mb-0 py-3 lg:py-5 lg:text-lg"
+                color="accent"
+                disabled={!generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED}
+                loading={buyMutation.isPending}
+                size="large"
+                startIcon={<ShoppingCartIcon />}
+                variant="contained"
+                onClick={() => {
+                  if (!generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) {
+                    return;
+                  }
 
-                buyMutation.mutate({
-                  imageId: generateImageQuery.data.metadata.imageId,
-                  size: searchParams.get('size') || defaultCanvasSize,
-                });
-              }}
-            >
-              Kup teraz
-            </AppButton>
-            <AppButton
-              className="mb-0 lg:-order-1 lg:py-5 lg:text-lg"
-              LinkComponent={Link}
-              size="large"
-              startIcon={<RefreshIcon />}
-              variant="outlined"
-              href={`/generate?${createQueryString(
-                [
-                  { name: 'prompt', value: initialPrompt, action: 'add' },
-                  { name: 'styleIndex', value: initialStyleIndex.toString(), action: 'add' },
-                ],
-                searchParams,
-              )}`}
-            >
-              Stwórz nowy obraz
-            </AppButton>
+                  buyMutation.mutate({
+                    imageId: generateImageQuery.data.metadata.imageId,
+                    size: searchParams.get('size') || defaultCanvasSize,
+                  });
+                }}
+              >
+                Kup teraz
+              </AppButton>
+              <AppButton
+                className="mb-0 py-2.5 lg:py-5 lg:text-lg"
+                LinkComponent={Link}
+                size="large"
+                startIcon={<RefreshIcon />}
+                variant="outlined"
+                href={`/generate?${createQueryString(
+                  [
+                    { name: 'prompt', value: initialPrompt, action: 'add' },
+                    { name: 'styleIndex', value: initialStyleIndex.toString(), action: 'add' },
+                  ],
+                  searchParams,
+                )}`}
+              >
+                Stwórz nowy obraz
+              </AppButton>
+            </div>
           </OrderDetails>
         </div>
         {imageHistory.length > 0 && <ImageHistory imageHistory={imageHistory} />}

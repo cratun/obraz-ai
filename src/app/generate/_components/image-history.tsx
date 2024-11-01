@@ -70,7 +70,7 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
       <IconButton disableRipple className="w-full" onClick={onClose}>
         <CloseRoundedIcon className="ml-auto text-4xl text-white" />
       </IconButton>
-      <div className="flex flex-col items-center gap-5 pb-10 text-white lg:flex-row lg:gap-10 [&>div:last-of-type]:pb-5 lg:[&>div:last-of-type]:pb-0">
+      <div className="flex flex-col gap-5 pb-10 text-white lg:flex-row lg:gap-10 [&>div:last-of-type]:pb-5 lg:[&>div:last-of-type]:pb-0">
         <GeneratedImageSlider
           className="[--swiper-theme-color:theme(colors.white)]"
           generatedImgSrc={generatedImgSrc}
@@ -78,19 +78,7 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
         />
         <OrderDetails toggleButtonVariant="primary">
           <AppButton
-            className="lg:py-5 lg:text-lg"
-            color="neutral"
-            href="/generate"
-            LinkComponent={Link}
-            size="large"
-            startIcon={<RefreshIcon />}
-            variant="outlined"
-            onClick={onClose}
-          >
-            Stwórz kolejny obraz
-          </AppButton>
-          <AppButton
-            className="-order-1 lg:order-none lg:py-5 lg:text-lg"
+            className="py-3 lg:py-5 lg:text-lg"
             color="accent"
             loading={buyMutation.isPending}
             size="large"
@@ -101,6 +89,18 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
             }
           >
             Kup teraz
+          </AppButton>
+          <AppButton
+            className="py-2.5 lg:py-5 lg:text-lg"
+            color="neutral"
+            href="/generate"
+            LinkComponent={Link}
+            size="large"
+            startIcon={<RefreshIcon />}
+            variant="outlined"
+            onClick={onClose}
+          >
+            Stwórz kolejny obraz
           </AppButton>
         </OrderDetails>
       </div>
