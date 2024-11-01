@@ -89,7 +89,7 @@ const PageBuyContent = ({
   return (
     <AppContainer className="pb-20 pt-[100px]">
       <AppContainer.Content className="flex-col gap-10 overflow-auto text-text lg:gap-20">
-        <div className="flex flex-col gap-10 lg:flex-row">
+        <div className="flex flex-col gap-5 lg:flex-row lg:gap-10">
           <GeneratedImageSlider
             mockupImages={mockupImages}
             className={twJoin(

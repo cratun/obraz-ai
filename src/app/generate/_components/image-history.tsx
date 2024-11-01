@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Dialog, IconButton, PaperProps } from '@mui/material';
@@ -68,9 +68,9 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
   return (
     <>
       <IconButton disableRipple className="w-full" onClick={onClose}>
-        <CloseIcon className="ml-auto text-4xl text-white" />
+        <CloseRoundedIcon className="ml-auto text-4xl text-white" />
       </IconButton>
-      <div className="flex flex-col items-center gap-10 pb-10 text-white lg:flex-row [&>div:last-of-type]:pb-5 lg:[&>div:last-of-type]:pb-0">
+      <div className="flex flex-col items-center gap-5 pb-10 text-white lg:flex-row lg:gap-10 [&>div:last-of-type]:pb-5 lg:[&>div:last-of-type]:pb-0">
         <GeneratedImageSlider
           className="[--swiper-theme-color:theme(colors.white)]"
           generatedImgSrc={generatedImgSrc}

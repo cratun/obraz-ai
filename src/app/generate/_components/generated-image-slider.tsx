@@ -38,14 +38,14 @@ const GeneratedImageSlider = ({
           clickable: true,
           renderBullet: function (index, className) {
             return filteredMockupImages
-              ? `<img class="${className} w-14 h-14 md:w-20 md:h-20 rounded-xl border-2 border-solid border-transparent" src="${index === 0 || index === 4 ? generatedImgSrc : filteredMockupImages[index - 1]}" style="${index === 0 ? 'padding: 16px; background-color:white;' : 'background-color:transparent;'}"/>`
+              ? `<img class="${className} w-14 h-14 md:w-20 md:h-20 rounded-xl border-2 border-solid border-transparent" src="${index === 0 || index === 4 ? generatedImgSrc : filteredMockupImages[index - 1]}" style="${index === 0 ? 'padding: 12px; background-color:white;' : 'background-color:transparent;'}"/>`
               : '';
           },
           bulletActiveClass: '!border-primary opacity-100',
         }}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
       >
-        <SwiperSlide className="w-full max-w-full bg-white p-[20%] lg:max-w-[700px] lg:p-40">
+        <SwiperSlide className="w-full max-w-full bg-white p-[20%] lg:max-w-[700px]">
           <div className="relative z-[1] aspect-square w-full">
             {/* NOTE: disable easy image copying */}
             <div className="absolute inset-0 z-[1]" />

@@ -69,4 +69,5 @@ body {
   --toastify-color-error: theme('colors.error');
   --toastify-font-family: var(--font-raleway);
   --toastify-text-color-light: theme('colors.text');
+  --swiper-pagination-bullet-inactive-opacity: 0.4;
 }
