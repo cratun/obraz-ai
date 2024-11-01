@@ -2,7 +2,7 @@
 import { ReactNode, useState } from 'react';
 import { SvgIconComponent } from '@mui/icons-material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { Drawer, DrawerProps, IconButton } from '@mui/material';
 import { twMerge } from 'tailwind-merge';
 import Typography from '@/app/_components/typography';
@@ -29,10 +29,9 @@ const ProductDetailsDrawer = ({
           <Typography.H3> {title}</Typography.H3>
         </div>
         <IconButton className="text-text" onClick={onClose}>
-          <CloseOutlinedIcon />
+          <CloseRoundedIcon />
         </IconButton>
       </div>
-
       <div className="flex flex-col gap-5 text-text">{children}</div>
     </Drawer>
   );

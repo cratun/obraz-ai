@@ -11,22 +11,15 @@ const GalleryPage = () => {
 
   return (
     <>
-      <AppContainer className="relative pb-10 pt-[100px] lg:min-h-screen">
+      <AppContainer className="relative pt-[100px] lg:min-h-screen">
         <AppContainer.Content className="text-text">
-          <ImageHistory imageHistory={imageHistory} />
-        </AppContainer.Content>
-      </AppContainer>
-      <AppContainer>
-        <AppContainer.Content className="justify-center">
-          <AppButton
-            className="px-10 py-3 md:px-20"
-            href="/generate"
-            LinkComponent={Link}
-            size="large"
-            variant="contained"
-          >
-            Stwórz następne obrazy
-          </AppButton>
+          <ImageHistory imageHistory={imageHistory}>
+            {imageHistory.length > 0 ? (
+              <AppButton className="self-start" href="/generate" LinkComponent={Link} variant="contained">
+                Stwórz następne obrazy
+              </AppButton>
+            ) : null}
+          </ImageHistory>
         </AppContainer.Content>
       </AppContainer>
       <AppContainer className="py-10">
@@ -43,7 +36,7 @@ const GalleryPage = () => {
       <AppContainer className="py-10">
         <AppContainer.Content className="flex-wrap gap-5 text-text">
           <AppButton href="/generate" LinkComponent={Link} size="large" variant="contained">
-            Przejdź do generatora
+            Przejdź do kreatora
           </AppButton>
         </AppContainer.Content>
       </AppContainer>

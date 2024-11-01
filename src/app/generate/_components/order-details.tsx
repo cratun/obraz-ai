@@ -1,10 +1,10 @@
 'use client';
 
 import { ReactNode } from 'react';
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
-import PriorityHighOutlinedIcon from '@mui/icons-material/PriorityHighOutlined';
+import PriorityHighRoundedIcon from '@mui/icons-material/PriorityHighRounded';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Image from 'next/image';
@@ -78,11 +78,11 @@ const OrderDetails = ({
       </div>
       <span className="text-3xl font-bold">{prices[size]} zł</span>
       {children}
-      <div className="flex items-center gap-1 text-[12px] font-bold">
-        <AccessTimeOutlinedIcon className="text-md" /> <span>Czas realizacji zamówienia: 3 - 5 dni roboczych.</span>{' '}
+      <div className="flex items-center gap-1 text-xs font-bold">
+        <AccessTimeRoundedIcon className="text-base" /> <span>Czas dostawy: 3 - 5 dni roboczych</span>{' '}
       </div>
-      <div className="flex items-center gap-1 text-[12px] font-bold">
-        <PriorityHighOutlinedIcon className="text-md" /> <span>Darmowa dostawa</span>{' '}
+      <div className="flex items-center gap-1 text-xs font-bold">
+        <PriorityHighRoundedIcon className="text-base" /> <span>Darmowa dostawa</span>{' '}
       </div>
       <Hr />
       <div className="flex flex-wrap gap-1">
@@ -115,11 +115,11 @@ const OrderDetails = ({
       <Hr />
       <ProductDetails Icon={LocalShippingOutlinedIcon} title="Informacje o dostawie">
         <ProductDetails.Section
-          description="oczekiwany czas realizacji zamówienia: 3&nbsp;-&nbsp;5 dni roboczych. Może się wydłużyć w okresach świątecznych"
+          description="oczekiwany czas dostawy: 3&nbsp;-&nbsp;5 dni roboczych. Może się wydłużyć w okresach świątecznych"
           title="Czas"
         />
         <ProductDetails.Section
-          description="kupując zgadzasz się na wykonanie zamówienia zgodnie z Twoimi specyfikacjami i zrzekasz się prawa do odstąpienia od umowy"
+          description="zamawiając, otrzymujesz obraz tworzony specjalnie według Twojego pomysłu – dlatego realizacja zamówienia jest ostateczna i nie podlega zwrotowi"
           title="Zwroty"
         />
         <ProductDetails.Section

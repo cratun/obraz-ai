@@ -96,7 +96,7 @@ const PageGenerateContent = ({
           <GenerationStylePicker styleIndex={styleIndex} onStyleIndexChange={setStyleIndex} />
         </div>
         <AppButton
-          className="lg:py-5 lg:text-lg"
+          className="py-3 lg:py-5 lg:text-lg"
           disabled={generationTokenCountCookie.value === 0}
           endIcon={<EastRoundedIcon />}
           loading={isPending}
