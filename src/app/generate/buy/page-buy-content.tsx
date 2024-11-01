@@ -1,77 +1,52 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 import { CircularProgress } from '@mui/material';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { twJoin } from 'tailwind-merge';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
-import GenerateTextField from '@/app/_components/generate-text-field';
-import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
+import createQueryString from '@/app/_utils/create-query-string';
 import GeneratedImageSlider from '@/app/generate/_components/generated-image-slider';
-import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
-import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
 import ImageHistory from '@/app/generate/_components/image-history';
 import OrderDetails from '@/app/generate/_components/order-details';
 import { desiredMockupImageSizes, GENERATION_TOKEN_LIMIT_REACHED, mockupData } from '@/app/generate/_utils/common';
-import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/generation-token';
 import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
 import { CanvasSize, defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
 import actionBuy from '@/app/generate/action-buy';
 import actionGenerate from '@/app/generate/action-generate';
 import { CheckoutMetadata, MockupImages } from '@/app/types';
 import generateMockup from './generate-mockup';
-
 const PageBuyContent = ({
   initialPrompt,
   initialStyleIndex,
-  generationTokenCountCookie,
   imageHistory,
 }: {
   initialPrompt: string;
   initialStyleIndex: number;
-  generationTokenCountCookie: ParsedGenerationTokenCookie;
   imageHistory: ImageHistoryEntry[];
 }) => {
   const searchParams = useSearchParams();
   const [mockupImages, setMockupImages] = useState<MockupImages | null>(null);
-  const imgContainerRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const form = useForm({ defaultValues: { prompt: initialPrompt } });
-  const [styleIndex, setStyleIndex] = useState(initialStyleIndex);
 
-  const [generateImageQueryParams, setGenerateImageQueryParams] = useState({
+  const generateImageQueryParams = {
     prompt: initialPrompt,
     styleIndex: initialStyleIndex,
     generateKey: 0,
     isRandomPrompt: false,
-  });
+  };
 
   const generateImageQuery = useQuery({
     queryKey: ['image', generateImageQueryParams],
     queryFn: () => actionGenerate(generateImageQueryParams),
+    gcTime: 0,
   });
-
-  useEffect(() => {
-    if (generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) {
-      return;
-    }
-
-    if (generateImageQuery.data?.randomPromptTranslated) {
-      form.setValue('prompt', generateImageQuery.data.randomPromptTranslated);
-    }
-  }, [generateImageQuery.data, form]);
-
-  useEffect(() => {
-    if (generateImageQuery.isFetching && imgContainerRef.current) {
-      imgContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'center' });
-    }
-  }, [generateImageQuery.isFetching]);
 
   const buyMutation = useMutation({
     mutationFn: (metadata: CheckoutMetadata) =>
@@ -80,22 +55,6 @@ const PageBuyContent = ({
         metadata,
       }),
   });
-
-  const handleGenerate = (prompt: string, isRandomPrompt: boolean) => {
-    if (!prompt && !isRandomPrompt) {
-      inputRef.current?.focus();
-      inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-
-      return;
-    }
-    setMockupImages(null);
-    setGenerateImageQueryParams((prevValue) => ({
-      prompt,
-      styleIndex,
-      generateKey: prevValue.generateKey + 1,
-      isRandomPrompt,
-    }));
-  };
 
   useEffect(() => {
     if (!generateImageQuery.isSuccess) return;
@@ -130,107 +89,57 @@ const PageBuyContent = ({
   return (
     <AppContainer className="pb-20 pt-[100px]">
       <AppContainer.Content className="flex-col gap-10 overflow-auto text-text lg:gap-20">
-        <div className="flex flex-col gap-5 lg:flex-row lg:gap-20">
-          <h2 className="text-[30px] font-semibold leading-[1.2] lg:basis-[200px]">Opis obrazu</h2>
-          <Controller
-            control={form.control}
-            name="prompt"
-            render={({ field, fieldState }) => (
-              <GenerateTextField
-                className="grow"
-                inputValue={field.value}
-                value={field.value}
-                TextFieldProps={{
-                  inputRef: (event) => {
-                    field.ref(event);
-                    inputRef.current = event;
-                  },
-                  error: fieldState.invalid,
-                  helperText: fieldState.error?.message,
-                }}
-                onBlur={field.onBlur}
-                onChange={(_, value) => field.onChange(value || '')}
-                onInputChange={(_, value) => field.onChange(value)}
-              >
-                <GenerateInfoLimit generationTokenCountCookie={generationTokenCountCookie} />
-              </GenerateTextField>
+        <div className="flex flex-col gap-5 lg:flex-row lg:gap-10">
+          <GeneratedImageSlider
+            mockupImages={mockupImages}
+            className={twJoin(
+              '[--swiper-theme-color:theme(colors.primary)]',
+              (!generateImageQuery.isSuccess ||
+                generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED ||
+                generateImageQuery.isFetching) &&
+                'hidden',
             )}
-            rules={{
-              maxLength: {
-                value: MAX_PROMPT_LENGTH,
-                message: `Maksymalna długość opisu to ${MAX_PROMPT_LENGTH} znaków.`,
-              },
-            }}
-          ></Controller>
-        </div>
-        <div className="flex flex-col gap-5 lg:flex-row lg:gap-20">
-          <div className="flex flex-col text-[30px] font-semibold leading-[1.2] sm:gap-2.5 lg:basis-[200px]">
-            <h2>Wybrany styl:</h2>
-            <span className="text-primary">{GENERATION_DATA[styleIndex][1]}</span>
-          </div>
-          <GenerationStylePicker
-            imgClassName="w-28 lg:w-28"
-            styleIndex={styleIndex}
-            onStyleIndexChange={setStyleIndex}
+            generatedImgSrc={
+              generateImageQuery.isSuccess && typeof generateImageQuery.data !== 'string'
+                ? generateImageQuery.data.imgSrc
+                : '/og-image.png'
+            }
           />
-        </div>
-        <div className="flex lg:gap-20">
-          <div className="hidden w-[200px] lg:block" />
-          <div className="flex flex-wrap gap-2.5 md:gap-5">
-            <AppButton
-              size="large"
-              startIcon={<RestartAltIcon />}
-              variant="contained"
-              disabled={
-                buyMutation.isPending || generateImageQuery.isFetching || generationTokenCountCookie.value === 0
-              }
-              onClick={form.handleSubmit(({ prompt }) => handleGenerate(prompt, false))}
-            >
-              Stwórz swój obraz ponownie
-            </AppButton>
-            {/* <AppButton
-              size="large"
-              startIcon={<CasinoIcon />}
-              variant="outlined"
-              disabled={
-                buyMutation.isPending || generateImageQuery.isFetching || generationTokenCountCookie.value === 0
-              }
-              onClick={form.handleSubmit(({ prompt }) => handleGenerate(prompt, true))}
-            >
-              Zainspiruj mnie
-            </AppButton> */}
-          </div>
-        </div>
-        <div ref={imgContainerRef} className="flex flex-col gap-10 lg:flex-row">
           {generateImageQuery.isFetching ? (
-            <div className="relative z-[0] aspect-square w-full max-w-[600px] shrink-0 p-5">
-              <div className="absolute inset-0 z-[0] animate-pulse rounded-xl bg-primary/30"></div>
-              <div className="absolute inset-0 z-[1] flex flex-col items-center justify-center gap-5">
-                <CircularProgress />
-                <span className="text-sm">Tworzenie obrazu...</span>
+            <div className="flex w-full max-w-[700px] shrink-0 flex-col gap-2.5">
+              <div className="relative z-[0] aspect-square w-full p-5">
+                <div className="absolute inset-0 z-[0] animate-pulse bg-primary/30"></div>
+                <div className="absolute inset-0 z-[1] flex flex-col items-center justify-center gap-5">
+                  <CircularProgress />
+                  <span className="text-sm">Tworzenie obrazu...</span>
+                </div>
+              </div>
+              <div className="static flex w-full items-center justify-center gap-3">
+                {Array.from(Array(5).keys()).map((i) => (
+                  <span
+                    key={i}
+                    className="flex h-14 w-14 items-center justify-center rounded-xl bg-white text-text opacity-75 md:h-20 md:w-20"
+                  >
+                    <CircularProgress size={20} />
+                  </span>
+                ))}
               </div>
             </div>
           ) : (
             <>
               {generateImageQuery.isSuccess ? (
                 <>
-                  {generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED ? (
-                    <div className="relative flex aspect-square w-full max-w-[600px] flex-col items-center justify-center gap-5 border border-text/20 p-5">
+                  {generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED && (
+                    <div className="relative flex aspect-square w-full max-w-[700px] flex-col items-center justify-center gap-5 border border-text/20 p-5">
                       <WarningAmberRoundedIcon className="size-24 text-warning" />
                       <span className="max-w-sm text-center text-sm">
                         Twój limit generowania obrazów został wyczerpany. Wróć jutro, aby kontynuować.
                       </span>
                     </div>
-                  ) : (
-                    <GeneratedImageSlider
-                      className="[--swiper-theme-color:theme(colors.primary)]"
-                      generatedImgSrc={generateImageQuery.data.imgSrc}
-                      mockupImages={mockupImages || ([] as unknown as MockupImages)}
-                    />
                   )}
                 </>
               ) : (
-                <div className="relative flex aspect-square w-full max-w-[600px] flex-col items-center justify-center gap-5 border border-text/20 p-5">
+                <div className="relative flex aspect-square w-full max-w-[700px] flex-col items-center justify-center gap-5 border border-text/20 p-5">
                   <ErrorOutlineRoundedIcon className="size-24 text-error" />
                   <span className="max-w-sm text-center text-sm">
                     Wystąpił nieoczekiwany błąd, spróbuj ponownie lub skontaktuj się z nami.
@@ -260,6 +169,22 @@ const PageBuyContent = ({
               }}
             >
               Kup teraz
+            </AppButton>
+            <AppButton
+              className="mb-0 lg:-order-1 lg:py-5 lg:text-lg"
+              LinkComponent={Link}
+              size="large"
+              startIcon={<RefreshIcon />}
+              variant="outlined"
+              href={`/generate?${createQueryString(
+                [
+                  { name: 'prompt', value: initialPrompt, action: 'add' },
+                  { name: 'styleIndex', value: initialStyleIndex.toString(), action: 'add' },
+                ],
+                searchParams,
+              )}`}
+            >
+              Stwórz nowy obraz
             </AppButton>
           </OrderDetails>
         </div>

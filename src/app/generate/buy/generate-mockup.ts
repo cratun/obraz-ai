@@ -4,18 +4,33 @@ interface Position {
 }
 
 const loadImage = async (url: string) => {
-  return new Promise<HTMLImageElement>((resolve, reject) => {
+  const response = await fetch(url, { mode: 'cors', method: 'GET', cache: 'no-cache' });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch image at ${url}`);
+  }
+  const blob = await response.blob();
+  
+return new Promise<HTMLImageElement>((resolve, reject) => {
     const img = new Image();
-    img.crossOrigin = 'anonymous'; // Enable cross-origin loading if necessary
-    img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error(`Failed to load image at ${url}`));
-    img.src = url;
+    img.src = URL.createObjectURL(blob);
+    img.onload = () => {
+      resolve(img);
+      URL.revokeObjectURL(img.src); // Clean up
+    };
+    img.onerror = () => {
+      reject(new Error(`Failed to load image at ${url}`));
+    };
   });
 };
 
-const generateMockup = async (mockupUrl: string, imageUrl: string, position: Position, maxUserImageSize: number) => {
+const generateMockup = async (
+  mockupUrl: string,
+  imageUrl: string,
+  position: Position,
+  maxUserImageSize: number,
+): Promise<string> => {
   try {
-    // Load both images in parallel for better performance
+    // Load both images in parallel
     const [mockupImage, userImage] = await Promise.all([loadImage(mockupUrl), loadImage(imageUrl)]);
 
     // Create a canvas matching the dimensions of the mockup image
@@ -71,8 +86,8 @@ const generateMockup = async (mockupUrl: string, imageUrl: string, position: Pos
     const blobUrl = URL.createObjectURL(blob);
 
     return blobUrl;
-  } catch (error) {
-    throw new Error(`An error occurred: ${error}`);
+  } catch (error: any) {
+    throw new Error(`An error occurred: ${error.message}`);
   }
 };
 

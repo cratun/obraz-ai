@@ -9,6 +9,7 @@ const PageGenerate = ({ searchParams }: { searchParams: SerachParams }) => {
       generationTokenCountCookie={getGenerationTokenCountCookie()}
       imageHistory={getImageHistoryFromCookie()}
       initialPrompt={typeof searchParams.prompt === 'string' ? searchParams.prompt : ''}
+      initialStyleIndex={typeof searchParams.styleIndex === 'string' ? parseInt(searchParams.styleIndex, 10) : 0}
     />
   );
 };
