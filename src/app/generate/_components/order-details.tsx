@@ -7,9 +7,9 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import PriorityHighRoundedIcon from '@mui/icons-material/PriorityHighRounded';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { twJoin } from 'tailwind-merge';
+import PaymentMethodsList from '@/app/_components/payments-methods-list';
 import Typography from '@/app/_components/typography';
 import createQueryString from '@/app/_utils/create-query-string';
 import { CanvasSize, canvasSizes } from '@/app/generate/_utils/sizes-utils';
@@ -22,16 +22,6 @@ const prices = {
 };
 
 const Hr = () => <hr className="text-text/30" />;
-
-const paymentMethods = [
-  'blik.png',
-  'apple-pay.svg',
-  'google-pay.svg',
-  'p-24.svg',
-  'mastercard.svg',
-  'visa.svg',
-  'klarna.png',
-];
 
 const OrderDetails = ({
   children,
@@ -85,24 +75,7 @@ const OrderDetails = ({
         <PriorityHighRoundedIcon className="text-base" /> <span>Darmowa dostawa</span>{' '}
       </div>
       <Hr />
-      <div className="flex flex-wrap gap-1">
-        {paymentMethods.map((method) => (
-          <div
-            key={method}
-            className="flex h-8 w-14 items-center justify-center rounded-lg border border-primary/30 bg-white p-1"
-          >
-            <div className="relative h-full w-full">
-              <Image
-                fill
-                alt="Blik metoda płatności ikonka"
-                className="object-contain"
-                sizes="75px"
-                src={`/payment-icons/${method}`}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
+      <PaymentMethodsList />
       <Typography.H3 className="lg:hidden">Szczegóły produktu</Typography.H3>
       <Hr />
       <ProductDetails Icon={InfoOutlinedIcon} title="O tym obrazie">

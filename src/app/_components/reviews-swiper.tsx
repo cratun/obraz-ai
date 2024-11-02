@@ -8,7 +8,7 @@ import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { twMerge } from 'tailwind-merge';
+import { ClassNameValue, twMerge } from 'tailwind-merge';
 import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
 import AppButton from './app-button';
@@ -42,7 +42,7 @@ const reviewsData = [
   ],
 ] as const;
 
-const ReviewsSwiper = () => {
+const ReviewsSwiper = ({ className }: { className?: ClassNameValue }) => {
   const [isInit, setIsInit] = useState(false);
   const swiperRef = useRef<SwiperCore>();
   const swiperId = useId();
@@ -55,7 +55,7 @@ const ReviewsSwiper = () => {
   const paginationId = `swiper-pagination-${swiperId}`;
 
   return (
-    <AppContainer className="overflow-hidden bg-primary py-10">
+    <AppContainer className={twMerge('overflow-hidden bg-primary py-10', className)}>
       <AppContainer.Content className="relative -mx-5 box-content min-w-0 flex-col gap-5 bg-[#2E896C] p-5 text-neutral lg:mx-0 lg:flex-row lg:items-center lg:gap-10 lg:rounded-[40px] lg:p-10">
         <Image
           alt=""
