@@ -1,10 +1,15 @@
 export const footerLinks = {
-  'Polityka prywatności': '/privacy-policy',
-  Ciasteczka: '/cookies',
-  Regulamin: '/terms-of-service',
-  Generator: '/generate',
-  Kontakt: '/contact',
-  'Jak generować?': '/manual',
+  Wsparcie: {
+    'Polityka prywatności': '/privacy-policy',
+    Ciasteczka: '/cookies',
+    Regulamin: '/terms-of-service',
+    Kontakt: '/contact',
+  },
+  'Twoje obrazy': {
+    'Stwórz swój obraz': '/generate',
+    'Jak generować?': '/manual',
+    'Galeria Twoich obrazów': '/gallery',
+  },
 };
 
 export const bottomDrawerLinks = {
