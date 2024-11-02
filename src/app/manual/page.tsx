@@ -141,7 +141,7 @@ const ManualPage = () => {
           </AppButton>
         </AppContainer.Content>
       </AppContainer>
-      <ReviewsSwiper />
+      <ReviewsSwiper className="mb-10" />
     </>
   );
 };
