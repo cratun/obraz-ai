@@ -68,7 +68,7 @@ const GenerateStep = ({
 const Home = () => {
   return (
     <>
-      <AppContainer className="relative pb-20 pt-[100px] lg:min-h-screen">
+      <AppContainer className="relative pb-20 pt-[--save-navbar-padding-top] lg:min-h-screen">
         <AppContainer.Content className="text-text">
           <div className="flex w-full flex-col gap-10 md:max-w-[400px] lg:max-w-[500px]">
             <div className="flex flex-col gap-10 lg:my-auto">
@@ -88,7 +88,7 @@ const Home = () => {
                   Realizuj <strong>najśmielsze</strong> i najbardziej <strong>unikalne</strong> pomysły
                 </li>
                 <li className="text-base leading-[1.5] tracking-[0.5px]">
-                  <strong>Łatwy proces</strong> — bez potrzeby umiejętności artystycznych
+                  <strong>Łatwy proces</strong> — wszystko jasne i przejrzyste
                 </li>
               </ul>
             </div>

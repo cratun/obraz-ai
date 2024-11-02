@@ -105,7 +105,7 @@ const PageBuyContent = ({
     !generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED;
 
   return (
-    <AppContainer className="pb-20 pt-[100px]">
+    <AppContainer className="pb-20 pt-[--save-navbar-padding-top]">
       <BuyButtonSlide
         disabled={isBuyButtonDisabled}
         isVisible={!generateImageQuery.isPending && generateImageQuery.data !== GENERATION_TOKEN_LIMIT_REACHED}

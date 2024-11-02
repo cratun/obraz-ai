@@ -6,11 +6,42 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import PhotoLibraryRoundedIcon from '@mui/icons-material/PhotoLibraryRounded';
 import { ButtonBase, Drawer, IconButton } from '@mui/material';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import duration from 'dayjs/plugin/duration';
 import Link from 'next/link';
 import { bottomDrawerLinks } from '@/app/_utils/constants';
+import useCountDownTimer from '@/app/_utils/use-countdown-timer';
 import AppButton from './app-button';
 import AppContainer from './app-container';
 import AppLogo from './app-logo';
+import 'dayjs/locale/pl';
+
+dayjs.extend(duration);
+dayjs.extend(advancedFormat);
+dayjs.locale('pl');
+
+const PROMO_END_DATE = dayjs('2024-11-07').endOf('day');
+const PROMO_CODE = 'NOVEMBER';
+
+const PromoBar = () => {
+  const counter = useCountDownTimer(PROMO_END_DATE);
+
+  return (
+    <div className="flex min-h-[17px] items-center justify-center bg-accent px-5">
+      <AppContainer.Content className="block text-xs text-white">
+        {counter ? (
+          <div>
+            <strong>-20%</strong> z kodem <strong className="font-sans">{PROMO_CODE}</strong> | Koniec:&nbsp;
+            <strong className="capitalize">{counter}</strong> | Darmowa dostawa
+          </div>
+        ) : (
+          <div>Darmowa dostawa | Wysoka jakość obrazów</div>
+        )}
+      </AppContainer.Content>
+    </div>
+  );
+};
 
 const AppNavbar = () => {
   const [open, setOpen] = useState(false);
@@ -18,15 +49,7 @@ const AppNavbar = () => {
 
   return (
     <header className="fixed top-0 z-[100] flex w-full flex-col">
-      <div className="flex items-center justify-center bg-primary px-5">
-        <AppContainer.Content className="flex gap-3 text-sm text-white">
-          <span>
-            -20% z kodem <span className="font-sans font-medium">JESIEN</span>
-          </span>
-          <span>|</span>
-          <span>Darmowa dostawa</span>
-        </AppContainer.Content>
-      </div>
+      <PromoBar />
       <div className="flex items-center justify-center bg-white px-5 py-1 md:py-2">
         <AppContainer.Content className="items-center justify-between gap-2">
           <div className="flex items-center justify-between gap-1 md:grow">
@@ -46,6 +69,7 @@ const AppNavbar = () => {
               </AppButton>
               <AppButton
                 href="/gallery"
+                LinkComponent={Link}
                 size="small"
                 startIcon={<PhotoLibraryRoundedIcon className="text-base" />}
                 variant="outlined"
@@ -54,6 +78,7 @@ const AppNavbar = () => {
               </AppButton>
               <AppButton
                 href="/generate"
+                LinkComponent={Link}
                 size="small"
                 startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
                 variant="contained"
@@ -99,8 +124,8 @@ const AppNavbar = () => {
         </AppButton>
         <hr className="h-1 w-full text-text/10" />
         <AppButton
-          className="w-full"
           href="/generate"
+          LinkComponent={Link}
           startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
           variant="contained"
         >

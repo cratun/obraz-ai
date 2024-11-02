@@ -3,6 +3,9 @@ import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { GoogleTagManager } from '@next/third-parties/google';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import duration from 'dayjs/plugin/duration';
 import { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import Script from 'next/script';
@@ -13,6 +16,11 @@ import { ORIGIN_URL } from './_utils/constants';
 import theme from './_utils/theme';
 import Providers from './providers';
 import './globals.css';
+import 'dayjs/locale/pl';
+
+dayjs.extend(duration);
+dayjs.extend(advancedFormat);
+dayjs.locale('pl');
 
 const raleway = Raleway({
   subsets: ['latin'],
