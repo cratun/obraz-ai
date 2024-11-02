@@ -9,6 +9,7 @@ import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import { GENERATION_TOKEN_LIMIT_REACHED } from './_utils/common';
 import { checkAndUpdateGenerationToken } from './_utils/generation-token';
 import { updateImageHistoryCookie } from './_utils/image-history/server';
+import { updateSpecialPromoCookie } from './_utils/special-promo-cookie';
 
 const s3Client = new S3Client({ region: 'eu-central-1' });
 
@@ -126,6 +127,7 @@ const actionGenerate = async ({
     throw new Error('Prompt is too long');
   }
 
+  updateSpecialPromoCookie();
   const tokenCheckResult = checkAndUpdateGenerationToken();
   if (tokenCheckResult === GENERATION_TOKEN_LIMIT_REACHED) {
     return GENERATION_TOKEN_LIMIT_REACHED;

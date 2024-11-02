@@ -12,14 +12,9 @@ import { twJoin } from 'tailwind-merge';
 import PaymentMethodsList from '@/app/_components/payments-methods-list';
 import Typography from '@/app/_components/typography';
 import createQueryString from '@/app/_utils/create-query-string';
+import { sizeToPrice } from '@/app/generate/_utils/common';
 import { CanvasSize, canvasSizes } from '@/app/generate/_utils/sizes-utils';
 import ProductDetails from './product-details';
-// KEEP IN SYNC WITH ENVS
-const prices = {
-  '30': 89,
-  '60': 129,
-  '100': 219,
-};
 
 const Hr = () => <hr className="text-text/30" />;
 
@@ -66,7 +61,7 @@ const OrderDetails = ({
           ))}
         </ToggleButtonGroup>
       </div>
-      <span className="text-3xl font-bold">{prices[size]} zł</span>
+      <span className="text-3xl font-bold">{sizeToPrice[size]} zł</span>
       {children}
       <div className="flex items-center gap-1 text-xs font-bold">
         <AccessTimeRoundedIcon className="text-base" /> <span>Czas dostawy: 3 - 5 dni roboczych</span>{' '}

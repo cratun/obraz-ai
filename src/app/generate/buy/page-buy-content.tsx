@@ -13,6 +13,7 @@ import { useSearchParams } from 'next/navigation';
 import { twJoin } from 'tailwind-merge';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
+import PromoBox from '@/app/_promo/promo-box';
 import createQueryString from '@/app/_utils/create-query-string';
 import BuyButtonSlide, { useSlideInOnScrollDown } from '@/app/generate/_components/buy-button-slide';
 import GeneratedImageSlider from '@/app/generate/_components/generated-image-slider';
@@ -183,6 +184,7 @@ const PageBuyContent = ({
             </>
           )}
           <OrderDetails toggleButtonVariant="secondary">
+            <PromoBox />
             <div className="flex flex-col gap-2.5">
               <AppButton
                 ref={ref}

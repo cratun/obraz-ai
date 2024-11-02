@@ -1,0 +1,12 @@
+import dayjs from 'dayjs';
+
+export const PROMO_END_DATE = dayjs('2024-11-07').endOf('day');
+export const PROMO_CODE = 'NOVEMBER';
+export const PROMO_PERCENTAGE_VALUE = 20;
+
+export const getIsPromoExpired = () => {
+  const end = dayjs(PROMO_END_DATE);
+  const diffInMs = end.diff(dayjs());
+
+  return diffInMs <= 0;
+};

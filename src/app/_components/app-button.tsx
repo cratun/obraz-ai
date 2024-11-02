@@ -5,7 +5,12 @@ import { twMerge } from 'tailwind-merge';
 const AppButton = forwardRef(
   ({ className, ...props }: PropsWithoutRef<LoadingButtonProps>, ref: LoadingButtonProps['ref']) => {
     return (
-      <LoadingButton disableElevation {...props} ref={ref} className={twMerge('rounded-full normal-case', className)} />
+      <LoadingButton
+        disableElevation
+        {...props}
+        ref={ref}
+        className={twMerge('rounded-full font-semibold normal-case', className)}
+      />
     );
   },
 );
