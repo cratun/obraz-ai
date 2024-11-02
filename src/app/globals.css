@@ -70,4 +70,5 @@ body {
   --toastify-font-family: var(--font-raleway);
   --toastify-text-color-light: theme('colors.text');
   --swiper-pagination-bullet-inactive-opacity: 0.4;
+  --save-navbar-padding-top: 100px;
 }

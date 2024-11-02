@@ -109,7 +109,7 @@ const AppFooter = () => {
           <div className="flex w-full flex-col gap-5">
             <hr className="w-full text-text/20" />
             <Typography.Body className="text-xs text-text/60">
-              © 2024 Obraz AI. Wszelkie prawa zastrzeżone.
+              © 2024 ObrazAI. Wszelkie prawa zastrzeżone.
             </Typography.Body>
           </div>
         </AppContainer.Content>

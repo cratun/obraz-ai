@@ -11,7 +11,7 @@ const GalleryPage = () => {
 
   return (
     <>
-      <AppContainer className="relative pt-[100px] lg:min-h-screen">
+      <AppContainer className="relative pt-[--save-navbar-padding-top] lg:min-h-screen">
         <AppContainer.Content className="text-text">
           <ImageHistory imageHistory={imageHistory}>
             {imageHistory.length > 0 ? (
