@@ -14,6 +14,7 @@ import { useSearchParams } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
+import PromoBox from '@/app/_promo/promo-box';
 import { getBucketImgUrl } from '@/app/_utils/common';
 import { desiredMockupImageSizes, mockupData } from '@/app/generate/_utils/common';
 import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
@@ -80,6 +81,7 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
           mockupImages={mockupImages}
         />
         <OrderDetails toggleButtonVariant="primary">
+          <PromoBox isDark />
           <AppButton
             className="py-3 lg:py-5 lg:text-lg"
             color="accent"

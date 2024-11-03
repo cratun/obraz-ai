@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import { toast } from 'react-toastify';
 import { isServer, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import '@/app/_utils/dayjs-config';
 
 const makeQueryClient = () => {
   return new QueryClient({

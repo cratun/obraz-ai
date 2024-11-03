@@ -6,42 +6,12 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import PhotoLibraryRoundedIcon from '@mui/icons-material/PhotoLibraryRounded';
 import { ButtonBase, Drawer, IconButton } from '@mui/material';
-import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-import duration from 'dayjs/plugin/duration';
 import Link from 'next/link';
+import PromoBar from '@/app/_promo/promo-bar';
 import { bottomDrawerLinks } from '@/app/_utils/constants';
-import useCountDownTimer from '@/app/_utils/use-countdown-timer';
 import AppButton from './app-button';
 import AppContainer from './app-container';
 import AppLogo from './app-logo';
-import 'dayjs/locale/pl';
-
-dayjs.extend(duration);
-dayjs.extend(advancedFormat);
-dayjs.locale('pl');
-
-const PROMO_END_DATE = dayjs('2024-11-07').endOf('day');
-const PROMO_CODE = 'NOVEMBER';
-
-const PromoBar = () => {
-  const counter = useCountDownTimer(PROMO_END_DATE);
-
-  return (
-    <div className="flex min-h-[17px] items-center justify-center bg-accent px-5">
-      <AppContainer.Content className="block text-xs text-white">
-        {counter ? (
-          <div>
-            <strong>-20%</strong> z kodem <strong className="font-sans">{PROMO_CODE}</strong> | Koniec:&nbsp;
-            <strong className="capitalize">{counter}</strong> | Darmowa dostawa
-          </div>
-        ) : (
-          <div>Darmowa dostawa | Wysoka jakość obrazów</div>
-        )}
-      </AppContainer.Content>
-    </div>
-  );
-};
 
 const AppNavbar = () => {
   const [open, setOpen] = useState(false);
