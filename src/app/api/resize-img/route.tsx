@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     const resizedImage = await sharp(fileBuffer).resize(300, 300).toFormat('webp').toBuffer();
 
     // Return the resized image as a response
-    return new NextResponse(resizedImage, { headers: { 'Content-Type': 'image/jpeg' } });
+    return new NextResponse(resizedImage, { headers: { 'Content-Type': 'image/webp' } });
   } catch (error) {
     console.error('Error resizing image:', error);
 

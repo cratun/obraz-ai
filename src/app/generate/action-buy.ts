@@ -87,7 +87,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
           product: process.env.STRIPE_PRODUCT_ID!,
           unit_amount: Number(priceInGrosze),
           product_data: {
-            name: `Obraz AI na płótnie (${size}x${size}) cm`,
+            name: `ObrazAI na płótnie (${size}x${size}) cm`,
             description:
               'Wysokiej jakości wydruk 300 dpi wybranego przez Ciebie obrazu wygenerowanego przez sztuczną inteligencję. Syntetyczne płótno o wymiarach 60x60 cm naciągnięte na lekki drewniany blejtram z zadrukowanymi krawędziami. Ekologiczny druk UV gwarantuje wyjątkową jakość szczegółów. Gotowe do powieszenia na ścianie lub postawienia.',
             images: [`${ORIGIN_URL}/api/resize-img?imgId=${metadata.imageId}`],

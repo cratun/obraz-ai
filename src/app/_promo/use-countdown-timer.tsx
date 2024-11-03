@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import { PROMO_END_DATE } from '@/app/_promo/utils';
 
-const useCountdownTimer = () => {
+const useCountdownTimer = (endDate: dayjs.ConfigType) => {
   const [displayString, setDisplayString] = useState<string | null>(null);
 
   useEffect(() => {
-    const end = dayjs(PROMO_END_DATE);
+    const end = dayjs(endDate);
 
     const updateDisplay = () => {
       const now = dayjs();
@@ -56,7 +55,7 @@ const useCountdownTimer = () => {
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [endDate]);
 
   return displayString;
 };

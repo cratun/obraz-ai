@@ -12,7 +12,7 @@ import LogoIcon from './logo-icon';
 export const metadata: Metadata = {
   title: 'Dziękujemy za zamówienie | ObrazAI',
   description:
-    'Dziękujemy za skorzystanie z ObrazAI. Twoje zamówienie jest w realizacji. Sprawdź szczegóły i oczekuj na wyjątkowy obraz AI na płótnie!',
+    'Dziękujemy za skorzystanie z ObrazAI. Twoje zamówienie jest w realizacji. Sprawdź szczegóły i oczekuj na wyjątkowy ObrazAI na płótnie!',
 };
 
 const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => {
@@ -68,7 +68,7 @@ const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => 
               <br />
               Na adres email podany w zamówieniu zostały przesłane szczegóły. <br />
               <br />
-              Dziękujemy za skorzystanie z ObrazAi. Zachęcamy do ponownego zakupu.
+              Dziękujemy za skorzystanie z ObrazAI. Zachęcamy do ponownego zakupu.
             </p>
             <div className="flex flex-wrap gap-2.5">
               <AppButton

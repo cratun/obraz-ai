@@ -44,7 +44,7 @@ const OrderEmail = ({
       <Text className="m-0 text-center text-2xl font-bold !text-text">Twoje zamówienie zostało potwierdzone</Text>
       <Text className="text-base font-bold !text-text">Witaj {userName},</Text>
       <Text className="text-base !text-text">
-        Dziękujemy za skorzystanie z naszej usługi i złożenie zamówienia na unikalny Obraz AI drukowany na płótnie!
+        Dziękujemy za skorzystanie z naszej usługi i złożenie zamówienia na unikalny ObrazAI drukowany na płótnie!
       </Text>
       <Text className="text-base font-bold !text-text">Szczegóły zamówienia:</Text>
       <ul>
@@ -65,7 +65,7 @@ const OrderEmail = ({
         </li>
         <li>
           <Text className="text-base !text-text">
-            <b>Produkt:</b> Wygenerowany Obraz AI na płótnie
+            <b>Produkt:</b> Wygenerowany ObrazAI na płótnie
           </Text>
         </li>
         <li>

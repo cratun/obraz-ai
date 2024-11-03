@@ -14,6 +14,7 @@ import { twJoin } from 'tailwind-merge';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import PromoBox from '@/app/_promo/promo-box';
+import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import createQueryString from '@/app/_utils/create-query-string';
 import BuyButtonSlide, { useSlideInOnScrollDown } from '@/app/generate/_components/buy-button-slide';
 import GeneratedImageSlider from '@/app/generate/_components/generated-image-slider';
@@ -31,10 +32,12 @@ const PageBuyContent = ({
   initialPrompt,
   initialStyleIndex,
   imageHistory,
+  specialPromoCookie,
 }: {
   initialPrompt: string;
   initialStyleIndex: number;
   imageHistory: ImageHistoryEntry[];
+  specialPromoCookie: SpecialPromoCookie;
 }) => {
   const searchParams = useSearchParams();
   const [mockupImages, setMockupImages] = useState<MockupImages | null>(null);
@@ -44,7 +47,6 @@ const PageBuyContent = ({
     prompt: initialPrompt,
     styleIndex: initialStyleIndex,
     generateKey: 0,
-    isRandomPrompt: false,
   };
 
   const generateImageQuery = useQuery({
@@ -56,7 +58,7 @@ const PageBuyContent = ({
   const buyMutation = useMutation({
     mutationFn: (metadata: CheckoutMetadata) =>
       actionBuy({
-        cancelUrl: window.location.origin + '/generate',
+        cancelUrl: window.location.origin + '/gallery',
         metadata,
       }),
   });
@@ -184,7 +186,7 @@ const PageBuyContent = ({
             </>
           )}
           <OrderDetails toggleButtonVariant="secondary">
-            <PromoBox />
+            <PromoBox specialPromoCookie={specialPromoCookie} />
             <div className="flex flex-col gap-2.5">
               <AppButton
                 ref={ref}
@@ -218,7 +220,9 @@ const PageBuyContent = ({
             </div>
           </OrderDetails>
         </div>
-        {imageHistory.length > 0 && <ImageHistory imageHistory={imageHistory} />}
+        {imageHistory.length > 0 && (
+          <ImageHistory imageHistory={imageHistory} specialPromoCookie={specialPromoCookie} />
+        )}
       </AppContainer.Content>
     </AppContainer>
   );

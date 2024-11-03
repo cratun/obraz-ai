@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import GenerateTextField from '@/app/_components/generate-text-field';
+import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
 import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
@@ -19,11 +20,13 @@ const PageGenerateContent = ({
   generationTokenCountCookie,
   imageHistory,
   initialStyleIndex,
+  specialPromoCookie,
 }: {
   initialPrompt: string;
   generationTokenCountCookie: ParsedGenerationTokenCookie;
   imageHistory: ImageHistoryEntry[];
   initialStyleIndex: number;
+  specialPromoCookie: SpecialPromoCookie;
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [styleIndex, setStyleIndex] = useState(initialStyleIndex);
@@ -106,7 +109,9 @@ const PageGenerateContent = ({
         >
           Stwórz swój obraz
         </AppButton>
-        {imageHistory.length > 0 && <ImageHistory imageHistory={imageHistory} />}
+        {imageHistory.length > 0 && (
+          <ImageHistory imageHistory={imageHistory} specialPromoCookie={specialPromoCookie} />
+        )}
       </AppContainer.Content>
     </AppContainer>
   );
