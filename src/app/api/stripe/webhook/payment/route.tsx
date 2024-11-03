@@ -48,6 +48,7 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: 'ObrazAI <kontakt@obraz-ai.com>',
       to: [session.customer_details.email as string],
+      bcc: process.env.NODE_ENV !== 'development' ? 'obraz.ai+e438967749@invite.trustpilot.com' : undefined,
       subject: 'ObrazAI - Potwierdzenie Twojego zamówienia',
       react: (
         <OrderEmail
