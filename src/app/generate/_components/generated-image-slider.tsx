@@ -47,7 +47,7 @@ const GeneratedImageSlider = ({
         onSwiper={(swiper) => (swiperRef.current = swiper)}
       >
         <SwiperSlide
-          className={twJoin('w-full max-w-full bg-white lg:max-w-[700px]', isLoadedImage ? 'p-[20%]' : 'p-0')}
+          className={twJoin('w-full max-w-full bg-white lg:max-w-[700px]', isLoadedImage ? 'p-[12%]' : 'p-0')}
         >
           <div className="relative z-[1] aspect-square w-full">
             {/* NOTE: disable easy image copying */}
