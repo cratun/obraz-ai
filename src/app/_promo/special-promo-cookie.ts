@@ -81,7 +81,7 @@ export const updateSpecialPromoCookie = async () => {
   const cookieValue = JSON.stringify(generationData);
 
   // Set the cookie with updated value
-  cookieStore.set(SPECIAL_PROMO_COOKIE, cookieValue);
+  cookieStore.set(SPECIAL_PROMO_COOKIE, cookieValue, { maxAge: 60 * 60 * 24 * 365 });
 };
 
 export const getSpecialPromoCookie = (): SpecialPromoCookie => {
