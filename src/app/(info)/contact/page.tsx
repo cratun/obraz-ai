@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import { CONTACT_EMAIL } from '@/app/_utils/constants';
+import { SerachParams } from '@/app/types';
 import ContactForm from './contact-form';
 
-const ContactPage = () => {
+const ContactPage = ({ searchParams }: { searchParams: SerachParams }) => {
   return (
     <div className="flex flex-col justify-between gap-10 self-center text-text lg:flex-row lg:self-auto">
       <div className="flex max-w-md flex-1 flex-col gap-5">
-        <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">Formularz kontaktowy</h2>
+        <h2 className="text-3xl font-semibold leading-[120%] tracking-[1px]">
+          {searchParams.review === 'true' ? 'Podziel się z nami swoją opinią' : 'Formularz kontaktowy'}
+        </h2>
         <ContactForm />
       </div>
       <div className="flex max-w-xl flex-1 flex-col gap-5 text-sm">

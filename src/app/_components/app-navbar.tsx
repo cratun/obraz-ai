@@ -5,6 +5,7 @@ import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import PhotoLibraryRoundedIcon from '@mui/icons-material/PhotoLibraryRounded';
+import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 import { ButtonBase, Drawer, IconButton } from '@mui/material';
 import Link from 'next/link';
 import PromoBar from '@/app/_promo/promo-bar';
@@ -12,7 +13,6 @@ import { bottomDrawerLinks } from '@/app/_utils/constants';
 import AppButton from './app-button';
 import AppContainer from './app-container';
 import AppLogo from './app-logo';
-
 const AppNavbar = () => {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -38,6 +38,15 @@ const AppNavbar = () => {
                 Jak generować?
               </AppButton>
               <AppButton
+                color="colorText"
+                href="/contact?review=true"
+                LinkComponent={Link}
+                size="small"
+                startIcon={<ReviewsOutlinedIcon className="text-base" />}
+              >
+                Zostaw opinię
+              </AppButton>
+              <AppButton
                 href="/gallery"
                 LinkComponent={Link}
                 size="small"
@@ -58,6 +67,14 @@ const AppNavbar = () => {
             </div>
           </div>
           <div className="flex items-center gap-1 md:hidden">
+            <ButtonBase
+              className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
+              href="/contact?review=true"
+              LinkComponent={Link}
+            >
+              <ReviewsOutlinedIcon className="text-xl" />
+              <span className="text-xs">Opinia</span>
+            </ButtonBase>
             <ButtonBase
               className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
               href="/gallery"

@@ -4,10 +4,13 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { TextField } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import actionSendContactForm from './action-send-contact-form';
 
 const ContactForm = () => {
+  const isReview = useSearchParams().get('review') === 'true';
+
   const { control, handleSubmit, reset } = useForm({
     defaultValues: { message: '', email: '' },
     mode: 'onTouched',
@@ -27,21 +30,26 @@ const ContactForm = () => {
       className="flex max-w-md grow flex-col items-start gap-5"
       onSubmit={handleSubmit((data) => sendContactFormMutation.mutate({ ...data }))}
     >
-      <Controller
-        control={control}
-        name="email"
-        rules={{ required: 'To pole jest wymagane', pattern: { value: /\S+@\S+\.\S+/, message: 'Niepoprawny email' } }}
-        render={({ field, fieldState }) => (
-          <TextField
-            fullWidth
-            label="Email"
-            {...field}
-            error={!!fieldState.error}
-            helperText={fieldState.error?.message}
-            slotProps={{ input: { classes: { root: 'rounded-xl' } } }}
-          />
-        )}
-      />
+      {!isReview && (
+        <Controller
+          control={control}
+          name="email"
+          render={({ field, fieldState }) => (
+            <TextField
+              fullWidth
+              label="Email"
+              {...field}
+              error={!!fieldState.error}
+              helperText={fieldState.error?.message}
+              slotProps={{ input: { classes: { root: 'rounded-xl' } } }}
+            />
+          )}
+          rules={{
+            required: 'To pole jest wymagane',
+            pattern: { value: /\S+@\S+\.\S+/, message: 'Niepoprawny email' },
+          }}
+        />
+      )}
       <Controller
         control={control}
         name="message"
