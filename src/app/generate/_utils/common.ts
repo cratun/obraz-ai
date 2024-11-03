@@ -4,8 +4,6 @@ export const GENERATION_TOKEN_RETENTION_HOURS = 24;
 export const GENERATION_TOKEN_LIMIT_REACHED = 'GENERATION_TOKEN_LIMIT_REACHED';
 export const EXTERNAL_ID_COOKIE = 'external_id';
 
-export const SPECIAL_PROMO_COOKIE = '8CfUgS-ge1RBcWWPSxssz';
-
 export const IMAGE_HISTORY_COOKIE = '4aHWRtn_PhQKo4YZ38iKZ';
 // 387, y: 157
 export const mockupData = [

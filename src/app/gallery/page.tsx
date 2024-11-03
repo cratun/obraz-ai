@@ -3,17 +3,19 @@ import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import HomeSwiper from '@/app/_components/generate-examples-swiper';
 import Typography from '@/app/_components/typography';
+import { getSpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import ImageHistory from '@/app/generate/_components/image-history';
 import { getImageHistoryFromCookie } from '@/app/generate/_utils/image-history/server';
 
 const GalleryPage = () => {
   const imageHistory = getImageHistoryFromCookie();
+  const specialPromoCookie = getSpecialPromoCookie();
 
   return (
     <>
       <AppContainer className="relative pt-[--save-navbar-padding-top] lg:min-h-screen">
         <AppContainer.Content className="text-text">
-          <ImageHistory imageHistory={imageHistory}>
+          <ImageHistory imageHistory={imageHistory} specialPromoCookie={specialPromoCookie}>
             {imageHistory.length > 0 ? (
               <AppButton className="self-start" href="/generate" LinkComponent={Link} variant="contained">
                 Stwórz następne obrazy

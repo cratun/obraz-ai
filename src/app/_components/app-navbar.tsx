@@ -115,6 +115,7 @@ const AppNavbar = () => {
           LinkComponent={Link}
           startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
           variant="contained"
+          onClick={handleClose}
         >
           Stwórz swój obraz
         </AppButton>

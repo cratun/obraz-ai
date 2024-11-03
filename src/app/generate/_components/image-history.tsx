@@ -15,6 +15,7 @@ import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
 import PromoBox from '@/app/_promo/promo-box';
+import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { getBucketImgUrl } from '@/app/_utils/common';
 import { desiredMockupImageSizes, mockupData } from '@/app/generate/_utils/common';
 import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
@@ -31,7 +32,15 @@ const ImageHistoryDialogPaperComponent = ({ children }: PaperProps) => (
   </AppContainer>
 );
 
-const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: string; onClose: () => void }) => {
+const ImageHistoryDialogContent = ({
+  specialPromoCookie,
+  dialogImgId,
+  onClose,
+}: {
+  specialPromoCookie: SpecialPromoCookie;
+  dialogImgId: string;
+  onClose: () => void;
+}) => {
   const generatedImgSrc = getBucketImgUrl(dialogImgId);
   const searchParams = useSearchParams();
 
@@ -39,7 +48,7 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
   const buyMutation = useMutation({
     mutationFn: (metadata: CheckoutMetadata) =>
       actionBuy({
-        cancelUrl: window.location.origin + '/generate',
+        cancelUrl: window.location.origin + '/gallery',
         metadata,
       }),
   });
@@ -81,7 +90,7 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
           mockupImages={mockupImages}
         />
         <OrderDetails toggleButtonVariant="primary">
-          <PromoBox isDark />
+          <PromoBox isDark specialPromoCookie={specialPromoCookie} />
           <AppButton
             className="py-3 lg:py-5 lg:text-lg"
             color="accent"
@@ -113,7 +122,15 @@ const ImageHistoryDialogContent = ({ dialogImgId, onClose }: { dialogImgId: stri
   );
 };
 
-const ImageHistory = ({ imageHistory, children }: { imageHistory: ImageHistoryEntry[]; children?: ReactNode }) => {
+const ImageHistory = ({
+  imageHistory,
+  children,
+  specialPromoCookie,
+}: {
+  specialPromoCookie: SpecialPromoCookie;
+  imageHistory: ImageHistoryEntry[];
+  children?: ReactNode;
+}) => {
   const [dialogImgId, setDialogImgId] = useState<string | null>(null);
 
   return (
@@ -125,7 +142,11 @@ const ImageHistory = ({ imageHistory, children }: { imageHistory: ImageHistoryEn
           slotProps={{ backdrop: { classes: { root: 'bg-black/80 backdrop-blur-3xl' } } }}
           onClose={() => setDialogImgId(null)}
         >
-          <ImageHistoryDialogContent dialogImgId={dialogImgId} onClose={() => setDialogImgId(null)} />
+          <ImageHistoryDialogContent
+            dialogImgId={dialogImgId}
+            specialPromoCookie={specialPromoCookie}
+            onClose={() => setDialogImgId(null)}
+          />
         </Dialog>
       )}
       <div className="flex flex-col gap-5">

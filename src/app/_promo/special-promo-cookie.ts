@@ -1,18 +1,18 @@
-// app/actions/updateSpecialPromoCookie.ts
-
 import 'server-only';
 
 import dayjs from 'dayjs';
 import { cookies } from 'next/headers';
+import Stripe from 'stripe';
 import { z } from 'zod';
-import { SPECIAL_PROMO_COOKIE } from './common';
+import { IS_SPECIAL_PROMO_ENABLED, SPECIAL_PROMO_COOKIE } from './utils';
 
 export type SpecialPromoCookie = {
   generationCount: number;
   expiresAt: string | null;
+  code: string | null;
 };
 
-const defaultGenerationData: SpecialPromoCookie = { generationCount: 1, expiresAt: null };
+const defaultGenerationData: SpecialPromoCookie = { generationCount: 1, expiresAt: null, code: null };
 
 const SpecialPromoCookieSchema = z.object({
   generationCount: z.number().int().min(1).max(3),
@@ -30,12 +30,19 @@ const SpecialPromoCookieSchema = z.object({
         message: 'Invalid date format for expiresAt',
       },
     ),
+  code: z.string().nullable(),
 });
 
-export const updateSpecialPromoCookie = () => {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+export const updateSpecialPromoCookie = async () => {
   const cookieStore = cookies();
   const generationCookie = cookieStore.get(SPECIAL_PROMO_COOKIE);
   let generationData: SpecialPromoCookie = defaultGenerationData;
+
+  if (!IS_SPECIAL_PROMO_ENABLED) {
+    return;
+  }
 
   if (generationCookie) {
     try {
@@ -51,9 +58,21 @@ export const updateSpecialPromoCookie = () => {
     if (generationData.generationCount < 3) {
       // Increment the generation count
       generationData.generationCount += 1;
-    } else if (generationData.generationCount === 3 && !generationData.expiresAt) {
+    }
+
+    if (generationData.generationCount === 3 && !generationData.expiresAt) {
       // Set 'expiresAt' to 4 hours from now
-      generationData.expiresAt = dayjs().add(4, 'hour').toISOString();
+      const expiresAtDate = dayjs().add(4, 'hour');
+      generationData.expiresAt = expiresAtDate.toISOString();
+      const promotionCode = await stripe.promotionCodes.create({
+        coupon: process.env.STRIPE_COUPON_ID!,
+        expires_at: expiresAtDate.unix(),
+        max_redemptions: 1,
+        restrictions: {
+          first_time_transaction: true,
+        },
+      });
+      generationData.code = promotionCode.code;
     }
     // If generationCount is 3 and expiresAt is already set, do not modify
   }

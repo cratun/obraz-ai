@@ -83,15 +83,15 @@ const OrderDetails = ({
       <Hr />
       <ProductDetails Icon={LocalShippingOutlinedIcon} title="Informacje o dostawie">
         <ProductDetails.Section
-          description="oczekiwany czas dostawy: 3&nbsp;-&nbsp;5 dni roboczych. Może się wydłużyć w okresach świątecznych"
+          description="Oczekiwany czas dostawy: 3&nbsp;-&nbsp;5 dni roboczych. Może się wydłużyć w okresach świątecznych."
           title="Czas"
         />
         <ProductDetails.Section
-          description="zamawiając, otrzymujesz obraz tworzony specjalnie według Twojego pomysłu – dlatego realizacja zamówienia jest ostateczna i nie podlega zwrotowi"
+          description="Zamawiając, otrzymujesz obraz tworzony specjalnie według Twojego pomysłu - dlatego realizacja zamówienia jest ostateczna i nie podlega zwrotowi."
           title="Zwroty"
         />
         <ProductDetails.Section
-          description="pakujemy obrazy tak, aby trafiły do Ciebie w perfekcyjnym stanie"
+          description="Pakujemy obrazy tak, aby trafiły do Ciebie w perfekcyjnym stanie."
           title="Opakowanie"
         />
       </ProductDetails>
