@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import GenerateTextField from '@/app/_components/generate-text-field';
+import Typography from '@/app/_components/typography';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
@@ -53,9 +54,8 @@ const PageGenerateContent = ({
       <AppContainer.Content className="flex flex-col gap-10 overflow-auto text-text lg:gap-20">
         <div className="flex flex-col gap-5 lg:gap-10">
           <div className="flex flex-col gap-2.5 lg:gap-5">
-            <h1 className="text-5xl font-bold leading-[120%] tracking-[1px]">
-              Stwórz <br className="lg:hidden" />
-              <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
+            <h1 className="text-3xl font-bold leading-[120%] tracking-[1px] md:text-4xl lg:text-5xl">
+              Stwórz <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
             </h1>
             <p className="leading-[150%] tracking-[0.5px]">
               Opisz dokładnie, co chcesz zobaczyć - jedynym ograniczeniem jest Twoja wyobraźnia.
@@ -92,10 +92,9 @@ const PageGenerateContent = ({
           />
         </div>
         <div className="flex flex-col gap-5 lg:gap-10">
-          <div className="flex flex-col text-[30px] font-semibold leading-[1.2] sm:flex-row sm:gap-2.5">
-            <h2>Wybrany styl:</h2>
-            <span className="text-primary">{GENERATION_DATA[styleIndex][1]}</span>
-          </div>
+          <Typography.H4>
+            Wybrany styl: <span className="text-primary">{GENERATION_DATA[styleIndex][1]}</span>
+          </Typography.H4>
           <GenerationStylePicker styleIndex={styleIndex} onStyleIndexChange={setStyleIndex} />
         </div>
         <AppButton

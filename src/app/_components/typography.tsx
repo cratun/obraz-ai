@@ -2,7 +2,9 @@ import { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 const H1 = ({ children, className }: { children: ReactNode; className?: string }) => {
-  return <h1 className={twMerge('text-5xl font-bold leading-[120%] tracking-[1px]', className)}>{children}</h1>;
+  return (
+    <h1 className={twMerge('text-4xl font-bold leading-[120%] tracking-[1px] md:text-5xl', className)}>{children}</h1>
+  );
 };
 
 const H2 = ({ children, className }: { children: ReactNode; className?: string }) => {

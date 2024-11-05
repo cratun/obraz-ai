@@ -24,7 +24,7 @@ const GenerationStylePicker = ({
           )}
           onClick={() => onStyleIndexChange(index)}
         >
-          <div className={twMerge('relative aspect-square w-28 drop-shadow-lg lg:w-40', imgClassName)}>
+          <div className={twMerge('relative aspect-square w-24 drop-shadow-lg', imgClassName)}>
             <Image fill alt={imgPath} sizes="160px" src={'/styles/' + imgPath + '.webp'} />
           </div>
           <div className="text-center leading-normal text-text">{text}</div>
