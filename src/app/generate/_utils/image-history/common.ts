@@ -10,3 +10,5 @@ export const ImageHistorySchema = z.array(ImageHistoryEntrySchema);
 export type ImageHistoryEntry = z.infer<typeof ImageHistoryEntrySchema>;
 
 export const IMAGE_HISTORY_MAX_ENTRIES = 40;
+
+export const IMAGE_HISTORY_EXPIRY_DAYS = 14;

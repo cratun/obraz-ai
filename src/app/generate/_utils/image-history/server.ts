@@ -2,9 +2,7 @@ import 'server-only';
 import dayjs from 'dayjs';
 import { cookies } from 'next/headers';
 import { IMAGE_HISTORY_COOKIE } from '@/app/generate/_utils/common';
-import { IMAGE_HISTORY_MAX_ENTRIES, ImageHistoryEntry, ImageHistorySchema } from './common';
-
-const IMAGE_HISTORY_EXPIRY_DAYS = 3;
+import { IMAGE_HISTORY_EXPIRY_DAYS, IMAGE_HISTORY_MAX_ENTRIES, ImageHistoryEntry, ImageHistorySchema } from './common';
 
 export const getImageHistoryFromCookie = (): ImageHistoryEntry[] => {
   const cookieStore = cookies();

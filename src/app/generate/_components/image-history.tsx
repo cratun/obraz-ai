@@ -18,7 +18,7 @@ import PromoBox from '@/app/_promo/promo-box';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { getBucketImgUrl } from '@/app/_utils/common';
 import { desiredMockupImageSizes, mockupData } from '@/app/generate/_utils/common';
-import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
+import { IMAGE_HISTORY_EXPIRY_DAYS, ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
 import { CanvasSize, defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
 import actionBuy from '@/app/generate/action-buy';
 import generateMockup from '@/app/generate/buy/generate-mockup';
@@ -154,7 +154,7 @@ const ImageHistory = ({
         <div className="max-w-2xl text-text">
           <ul className="flex list-disc flex-col gap-1.5 pl-4">
             <li className="text-base leading-[1.2] tracking-[0.5px]">
-              Przechowuj do <strong>40 ostatnich</strong> obrazów przez <strong>3 dni</strong>
+              Przechowuj do <strong>40 ostatnich</strong> obrazów przez <strong>{IMAGE_HISTORY_EXPIRY_DAYS} dni</strong>
             </li>
             <li className="text-base leading-[1.2] tracking-[0.5px]">
               <strong>Kliknij</strong>, aby zobaczyć podgląd i zamówić
