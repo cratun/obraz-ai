@@ -44,6 +44,13 @@ const PageGenerateContent = ({
       return;
     }
 
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'generate_image',
+        styleIndex: styleIndex,
+      });
+    }
+
     startTransition(() => {
       router.replace(`/generate/buy?prompt=${prompt}&styleIndex=${styleIndex}`);
     });
