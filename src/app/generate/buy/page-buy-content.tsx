@@ -15,6 +15,7 @@ import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import PromoBox from '@/app/_promo/promo-box';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
+import { GenerationStyle } from '@/app/_utils/constants';
 import createQueryString from '@/app/_utils/create-query-string';
 import BuyButtonSlide, { useSlideInOnScrollDown } from '@/app/generate/_components/buy-button-slide';
 import GeneratedImageSlider from '@/app/generate/_components/generated-image-slider';
@@ -30,12 +31,12 @@ import generateMockup from './generate-mockup';
 
 const PageBuyContent = ({
   initialPrompt,
-  initialStyleIndex,
+  initialGenerationStyle,
   imageHistory,
   specialPromoCookie,
 }: {
   initialPrompt: string;
-  initialStyleIndex: number;
+  initialGenerationStyle: GenerationStyle;
   imageHistory: ImageHistoryEntry[];
   specialPromoCookie: SpecialPromoCookie;
 }) => {
@@ -45,7 +46,7 @@ const PageBuyContent = ({
 
   const generateImageQueryParams = {
     prompt: initialPrompt,
-    styleIndex: initialStyleIndex,
+    generationStyle: initialGenerationStyle,
     generateKey: 0,
   };
 
@@ -210,7 +211,7 @@ const PageBuyContent = ({
                 href={`/generate?${createQueryString(
                   [
                     { name: 'prompt', value: initialPrompt, action: 'add' },
-                    { name: 'styleIndex', value: initialStyleIndex.toString(), action: 'add' },
+                    { name: 'generationStyle', value: initialGenerationStyle.toString(), action: 'add' },
                   ],
                   searchParams,
                 )}`}

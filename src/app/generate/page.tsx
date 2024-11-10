@@ -1,4 +1,5 @@
 import { getSpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
+import { getIsGenerationStyle } from '@/app/_utils/constants';
 import { SerachParams } from '@/app/types';
 import PageGenerateContent from './_components/page-generate-content';
 import { getGenerationTokenCountCookie } from './_utils/generation-token';
@@ -10,8 +11,10 @@ const PageGenerate = ({ searchParams }: { searchParams: SerachParams }) => {
       generationTokenCountCookie={getGenerationTokenCountCookie()}
       imageHistory={getImageHistoryFromCookie()}
       initialPrompt={typeof searchParams.prompt === 'string' ? searchParams.prompt : ''}
-      initialStyleIndex={typeof searchParams.styleIndex === 'string' ? parseInt(searchParams.styleIndex, 10) : 0}
       specialPromoCookie={getSpecialPromoCookie()}
+      initialGenerationStyle={
+        getIsGenerationStyle(searchParams.generationStyle) ? searchParams.generationStyle : 'adjusted'
+      }
     />
   );
 };

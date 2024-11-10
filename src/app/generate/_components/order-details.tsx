@@ -76,7 +76,7 @@ const OrderDetails = ({
       <ProductDetails Icon={InfoOutlinedIcon} title="O tym obrazie">
         <ProductDetails.Section description={`${size}x${size} cm`} title="Rozmiar" />
         <ProductDetails.Section description="płótno syntetyczne" title="Materiał" />
-        <ProductDetails.Section description="zadrukowane krawędzie foto-obrazu" title="Wykończenie" />
+        <ProductDetails.Section description="zadrukowane krawędzie obrazu" title="Wykończenie" />
         <ProductDetails.Section description="lekki drewniany blejtram" title="Rama" />
         <ProductDetails.Section description="wysokiej jakości druk ekologiczny w technologii UV" title="Druk" />
       </ProductDetails>

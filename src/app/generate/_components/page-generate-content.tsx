@@ -9,7 +9,8 @@ import AppContainer from '@/app/_components/app-container';
 import GenerateTextField from '@/app/_components/generate-text-field';
 import Typography from '@/app/_components/typography';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
-import { GENERATION_DATA, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
+import { ensureNotNull } from '@/app/_utils/common';
+import { GENERATION_DATA, GenerationStyle, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
 import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
 import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
 import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/generation-token';
@@ -20,17 +21,17 @@ const PageGenerateContent = ({
   initialPrompt,
   generationTokenCountCookie,
   imageHistory,
-  initialStyleIndex,
+  initialGenerationStyle,
   specialPromoCookie,
 }: {
   initialPrompt: string;
   generationTokenCountCookie: ParsedGenerationTokenCookie;
   imageHistory: ImageHistoryEntry[];
-  initialStyleIndex: number;
+  initialGenerationStyle: GenerationStyle;
   specialPromoCookie: SpecialPromoCookie;
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [styleIndex, setStyleIndex] = useState(initialStyleIndex);
+  const [generationStyle, setGenerationStyle] = useState<GenerationStyle>(initialGenerationStyle);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -47,12 +48,12 @@ const PageGenerateContent = ({
     if (window.dataLayer) {
       window.dataLayer.push({
         event: 'generate_image',
-        styleIndex: styleIndex,
+        generationStyle,
       });
     }
 
     startTransition(() => {
-      router.replace(`/generate/buy?prompt=${prompt}&styleIndex=${styleIndex}`);
+      router.replace(`/generate/buy?prompt=${prompt}&generationStyle=${generationStyle}`);
     });
   };
 
@@ -100,9 +101,12 @@ const PageGenerateContent = ({
         </div>
         <div className="flex flex-col gap-5 lg:gap-10">
           <Typography.H4>
-            Wybrany styl: <span className="text-primary">{GENERATION_DATA[styleIndex][1]}</span>
+            Wybrany styl:{' '}
+            <span className="font-semibold text-primary">
+              {ensureNotNull(GENERATION_DATA.find((item) => item.generationStyle === generationStyle)).text}
+            </span>
           </Typography.H4>
-          <GenerationStylePicker styleIndex={styleIndex} onStyleIndexChange={setStyleIndex} />
+          <GenerationStylePicker generationStyle={generationStyle} onGenerationStyleChange={setGenerationStyle} />
         </div>
         <AppButton
           className="py-3 lg:py-5 lg:text-lg"
