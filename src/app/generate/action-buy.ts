@@ -134,7 +134,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
     },
     custom_text: {
       terms_of_service_acceptance: {
-        message: `Zapoznałem się i akceptuję warunki [regulaminu](${headersList.get('origin')}/terms-of-service) oraz zgadzam się na wykonanie zamówienia zgodnie z moimi specyfikacjami i zrzekam się prawa do odstąpienia od umowy.`,
+        message: `Akceptuję warunki [regulaminu](${headersList.get('origin')}/terms-of-service).`,
       },
     },
   });

@@ -203,11 +203,11 @@ const PageBuyContent = ({
                 Kup teraz
               </AppButton>
               <AppButton
-                className="mb-0 py-2.5 lg:py-5 lg:text-lg"
+                className="mb-0 py-3 lg:py-5 lg:text-lg"
                 LinkComponent={Link}
                 size="large"
                 startIcon={<RefreshRoundedIcon />}
-                variant="outlined"
+                variant="contained"
                 href={`/generate?${createQueryString(
                   [
                     { name: 'prompt', value: initialPrompt, action: 'add' },

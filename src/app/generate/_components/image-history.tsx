@@ -91,31 +91,33 @@ const ImageHistoryDialogContent = ({
         />
         <OrderDetails toggleButtonVariant="primary">
           <PromoBox isDark specialPromoCookie={specialPromoCookie} />
-          <AppButton
-            className="py-3 lg:py-5 lg:text-lg"
-            color="accent"
-            loading={buyMutation.isPending}
-            size="large"
-            startIcon={<ShoppingCartIcon />}
-            variant="contained"
-            onClick={() =>
-              buyMutation.mutate({ imageId: dialogImgId, size: searchParams.get('size') || defaultCanvasSize })
-            }
-          >
-            Kup teraz
-          </AppButton>
-          <AppButton
-            className="py-2.5 lg:py-5 lg:text-lg"
-            color="neutral"
-            href="/generate"
-            LinkComponent={Link}
-            size="large"
-            startIcon={<RefreshIcon />}
-            variant="outlined"
-            onClick={onClose}
-          >
-            Stwórz kolejny obraz
-          </AppButton>
+          <div className="flex flex-col gap-2.5">
+            <AppButton
+              className="py-3 lg:py-5 lg:text-lg"
+              color="accent"
+              loading={buyMutation.isPending}
+              size="large"
+              startIcon={<ShoppingCartIcon />}
+              variant="contained"
+              onClick={() =>
+                buyMutation.mutate({ imageId: dialogImgId, size: searchParams.get('size') || defaultCanvasSize })
+              }
+            >
+              Kup teraz
+            </AppButton>
+            <AppButton
+              className="py-3 lg:py-5 lg:text-lg"
+              color="neutral"
+              href="/generate"
+              LinkComponent={Link}
+              size="large"
+              startIcon={<RefreshIcon />}
+              variant="contained"
+              onClick={onClose}
+            >
+              Stwórz kolejny obraz
+            </AppButton>
+          </div>
         </OrderDetails>
       </div>
     </>
