@@ -9,7 +9,7 @@ const AppButton = forwardRef(
         disableElevation
         {...props}
         ref={ref}
-        className={twMerge('rounded-full font-semibold normal-case', className)}
+        className={twMerge('rounded-full font-semibold normal-case tracking-[0.5px]', className)}
       />
     );
   },

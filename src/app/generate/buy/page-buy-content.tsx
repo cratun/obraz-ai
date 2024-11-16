@@ -4,10 +4,9 @@ import { useEffect, useState } from 'react';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import PhotoLibraryRoundedIcon from '@mui/icons-material/PhotoLibraryRounded';
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
-import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 import { CircularProgress } from '@mui/material';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { twJoin } from 'tailwind-merge';
@@ -17,16 +16,16 @@ import PromoBox from '@/app/_promo/promo-box';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { GenerationStyle } from '@/app/_utils/constants';
 import createQueryString from '@/app/_utils/create-query-string';
+import AddToCartButton from '@/app/cart/components/add-to-cart-button';
 import BuyButtonSlide, { useSlideInOnScrollDown } from '@/app/generate/_components/buy-button-slide';
 import GeneratedImageSlider from '@/app/generate/_components/generated-image-slider';
 import ImageHistory from '@/app/generate/_components/image-history';
 import OrderDetails from '@/app/generate/_components/order-details';
 import { desiredMockupImageSizes, GENERATION_TOKEN_LIMIT_REACHED, mockupData } from '@/app/generate/_utils/common';
 import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
-import { CanvasSize, defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
-import actionBuy from '@/app/generate/action-buy';
+import { CanvasSize, getCanvasSizeFromQueryParam } from '@/app/generate/_utils/sizes-utils';
 import actionGenerate from '@/app/generate/action-generate';
-import { CheckoutMetadata, MockupImages } from '@/app/types';
+import { MockupImages } from '@/app/types';
 import generateMockup from './generate-mockup';
 
 const PageBuyContent = ({
@@ -56,25 +55,20 @@ const PageBuyContent = ({
     gcTime: 0,
   });
 
-  const buyMutation = useMutation({
-    mutationFn: (metadata: CheckoutMetadata) =>
-      actionBuy({
-        cancelUrl: window.location.origin + '/gallery',
-        metadata,
-      }),
-  });
+  const canvasSize = getCanvasSizeFromQueryParam(searchParams.get('size'));
 
   useEffect(() => {
     if (!generateImageQuery.isSuccess) return;
 
     const generateMockupUrl = async () => {
-      if (generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) return;
+      if (generateImageQuery.data.errorCode === GENERATION_TOKEN_LIMIT_REACHED) return;
       const sizeEntries = Object.entries(desiredMockupImageSizes);
       const allMockupImages: MockupImages = {};
 
       for (const [key, value] of sizeEntries) {
         const promises = mockupData.map((el) => {
-          if (generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) throw new Error('Token limit reached');
+          if (generateImageQuery.data.errorCode === GENERATION_TOKEN_LIMIT_REACHED)
+            throw new Error('Token limit reached');
 
           return generateMockup(
             `/mocks/${el.imageName}.png`,
@@ -94,27 +88,22 @@ const PageBuyContent = ({
     generateMockupUrl();
   }, [generateImageQuery.data, generateImageQuery.isSuccess]);
 
-  const handleBuy = () => {
-    if (!generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED) {
-      return;
-    }
-
-    buyMutation.mutate({
-      imageId: generateImageQuery.data.metadata.imageId,
-      size: searchParams.get('size') || defaultCanvasSize,
-    });
-  };
-
   const isBuyButtonDisabled =
-    !generateImageQuery.isSuccess || generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED;
+    !generateImageQuery.isSuccess || generateImageQuery.data.errorCode === GENERATION_TOKEN_LIMIT_REACHED;
 
   return (
     <AppContainer className="pb-20 pt-[--save-navbar-padding-top]">
       <BuyButtonSlide
         disabled={isBuyButtonDisabled}
-        isVisible={!generateImageQuery.isPending && generateImageQuery.data !== GENERATION_TOKEN_LIMIT_REACHED}
         slideIn={slideIn}
-        onClick={handleBuy}
+        cartItemData={{
+          canvasSize,
+          imageId: generateImageQuery.data?.metadata.imageId as string,
+          creationDateTimestamp: generateImageQuery.data?.metadata.creationDateTimestamp as number,
+        }}
+        isVisible={
+          !generateImageQuery.isPending && generateImageQuery.data?.errorCode !== GENERATION_TOKEN_LIMIT_REACHED
+        }
       />
       <AppContainer.Content className="flex-col gap-10 overflow-auto text-text lg:gap-20">
         <div className="flex flex-col gap-5 lg:flex-row lg:gap-10">
@@ -123,12 +112,12 @@ const PageBuyContent = ({
             className={twJoin(
               '[--swiper-theme-color:theme(colors.primary)]',
               (!generateImageQuery.isSuccess ||
-                generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED ||
+                generateImageQuery.data.errorCode === GENERATION_TOKEN_LIMIT_REACHED ||
                 generateImageQuery.isFetching) &&
                 'hidden',
             )}
             generatedImgSrc={
-              generateImageQuery.isSuccess && typeof generateImageQuery.data !== 'string'
+              generateImageQuery.isSuccess && generateImageQuery.data.errorCode !== 'GENERATION_TOKEN_LIMIT_REACHED'
                 ? generateImageQuery.data.imgSrc
                 : '/og-image.png'
             }
@@ -157,7 +146,7 @@ const PageBuyContent = ({
             <>
               {generateImageQuery.isSuccess ? (
                 <>
-                  {generateImageQuery.data === GENERATION_TOKEN_LIMIT_REACHED && (
+                  {generateImageQuery.data.errorCode === GENERATION_TOKEN_LIMIT_REACHED && (
                     <div className="relative flex aspect-square w-full max-w-[700px] flex-col items-center justify-center gap-5 border border-text/20 p-5">
                       <WarningAmberRoundedIcon className="size-24 text-warning" />
                       <div className="flex max-w-sm flex-col text-center text-sm">
@@ -189,19 +178,15 @@ const PageBuyContent = ({
           <OrderDetails toggleButtonVariant="secondary">
             <PromoBox specialPromoCookie={specialPromoCookie} />
             <div className="flex flex-col gap-2.5">
-              <AppButton
-                ref={ref}
-                className="mb-0 py-3 lg:py-5 lg:text-lg"
-                color="accent"
+              <AddToCartButton
+                buttonRef={ref}
                 disabled={isBuyButtonDisabled}
-                loading={buyMutation.isPending}
-                size="large"
-                startIcon={<ShoppingCartRoundedIcon />}
-                variant="contained"
-                onClick={handleBuy}
-              >
-                Kup teraz
-              </AppButton>
+                cartItemData={{
+                  canvasSize,
+                  imageId: generateImageQuery.data?.metadata.imageId as string,
+                  creationDateTimestamp: generateImageQuery.data?.metadata.creationDateTimestamp as number,
+                }}
+              />
               <AppButton
                 className="mb-0 py-3 lg:py-5 lg:text-lg"
                 LinkComponent={Link}

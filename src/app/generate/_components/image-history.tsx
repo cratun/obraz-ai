@@ -3,11 +3,9 @@
 import { ReactNode, useEffect, useState } from 'react';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import { Dialog, IconButton, PaperProps } from '@mui/material';
 import ButtonBase from '@mui/material/ButtonBase';
-import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -17,12 +15,12 @@ import Typography from '@/app/_components/typography';
 import PromoBox from '@/app/_promo/promo-box';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { getBucketImgUrl } from '@/app/_utils/common';
+import AddToCartButton from '@/app/cart/components/add-to-cart-button';
 import { desiredMockupImageSizes, mockupData } from '@/app/generate/_utils/common';
 import { IMAGE_HISTORY_EXPIRY_DAYS, ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
-import { CanvasSize, defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
-import actionBuy from '@/app/generate/action-buy';
+import { CanvasSize, getCanvasSizeFromQueryParam } from '@/app/generate/_utils/sizes-utils';
 import generateMockup from '@/app/generate/buy/generate-mockup';
-import { CheckoutMetadata, MockupImages } from '@/app/types';
+import { MockupImages } from '@/app/types';
 import GeneratedImageSlider from './generated-image-slider';
 import OrderDetails from './order-details';
 
@@ -34,24 +32,17 @@ const ImageHistoryDialogPaperComponent = ({ children }: PaperProps) => (
 
 const ImageHistoryDialogContent = ({
   specialPromoCookie,
-  dialogImgId,
+  imgHistoryEntry,
   onClose,
 }: {
   specialPromoCookie: SpecialPromoCookie;
-  dialogImgId: string;
+  imgHistoryEntry: ImageHistoryEntry;
   onClose: () => void;
 }) => {
-  const generatedImgSrc = getBucketImgUrl(dialogImgId);
+  const generatedImgSrc = getBucketImgUrl(imgHistoryEntry.id);
   const searchParams = useSearchParams();
 
   const [mockupImages, setMockupImages] = useState<MockupImages | null>(null);
-  const buyMutation = useMutation({
-    mutationFn: (metadata: CheckoutMetadata) =>
-      actionBuy({
-        cancelUrl: window.location.origin + '/gallery',
-        metadata,
-      }),
-  });
 
   useEffect(() => {
     const generateMockupUrl = async () => {
@@ -92,21 +83,15 @@ const ImageHistoryDialogContent = ({
         <OrderDetails toggleButtonVariant="primary">
           <PromoBox isDark specialPromoCookie={specialPromoCookie} />
           <div className="flex flex-col gap-2.5">
+            <AddToCartButton
+              cartItemData={{
+                canvasSize: getCanvasSizeFromQueryParam(searchParams.get('size')),
+                imageId: imgHistoryEntry.id,
+                creationDateTimestamp: imgHistoryEntry.timestamp,
+              }}
+            />
             <AppButton
-              className="py-3 lg:py-5 lg:text-lg"
-              color="accent"
-              loading={buyMutation.isPending}
-              size="large"
-              startIcon={<ShoppingCartIcon />}
-              variant="contained"
-              onClick={() =>
-                buyMutation.mutate({ imageId: dialogImgId, size: searchParams.get('size') || defaultCanvasSize })
-              }
-            >
-              Kup teraz
-            </AppButton>
-            <AppButton
-              className="py-3 lg:py-5 lg:text-lg"
+              className="py-[11px] lg:py-5 lg:text-lg"
               color="neutral"
               href="/generate"
               LinkComponent={Link}
@@ -133,21 +118,23 @@ const ImageHistory = ({
   imageHistory: ImageHistoryEntry[];
   children?: ReactNode;
 }) => {
-  const [dialogImgId, setDialogImgId] = useState<string | null>(null);
+  const [imgHistoryEntry, setImgHistoryEntry] = useState<ImageHistoryEntry | null>(null);
+
+  const onClose = () => setImgHistoryEntry(null);
 
   return (
     <div className="flex grow flex-col gap-10">
-      {!!dialogImgId && (
+      {!!imgHistoryEntry && (
         <Dialog
-          open={!!dialogImgId}
+          open={!!imgHistoryEntry}
           PaperComponent={ImageHistoryDialogPaperComponent}
           slotProps={{ backdrop: { classes: { root: 'bg-black/80 backdrop-blur-3xl' } } }}
-          onClose={() => setDialogImgId(null)}
+          onClose={onClose}
         >
           <ImageHistoryDialogContent
-            dialogImgId={dialogImgId}
+            imgHistoryEntry={imgHistoryEntry}
             specialPromoCookie={specialPromoCookie}
-            onClose={() => setDialogImgId(null)}
+            onClose={onClose}
           />
         </Dialog>
       )}
@@ -167,8 +154,8 @@ const ImageHistory = ({
       </div>
       {imageHistory.length > 0 ? (
         <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
-          {imageHistory.map(({ id }) => (
-            <ButtonBase key={id} className="relative aspect-square" onClick={() => setDialogImgId(id)}>
+          {imageHistory.map((item) => (
+            <ButtonBase key={item.id} className="relative aspect-square" onClick={() => setImgHistoryEntry(item)}>
               {/* NOTE: disable easy image copying */}
               <div className="absolute inset-0 z-[2]" />
               <Image
@@ -176,7 +163,7 @@ const ImageHistory = ({
                 unoptimized
                 alt=""
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                src={getBucketImgUrl(id)}
+                src={getBucketImgUrl(item.id)}
               />
               <div className="absolute bottom-0 left-0 z-[1] rounded-tr-full bg-white/25 p-1">
                 <ShoppingCartRoundedIcon className="mr-2 mt-2 text-xl text-white" />

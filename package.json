@@ -26,6 +26,7 @@
     "@react-email/components": "^0.0.25",
     "@tanstack/react-query": "^5.56.2",
     "@types/mdx": "^2.0.13",
+    "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "facebook-nodejs-business-sdk": "^20.0.3",
     "next": "^14.2.13",

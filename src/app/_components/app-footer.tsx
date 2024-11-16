@@ -53,7 +53,11 @@ const AppFooter = () => {
               classes={{ container: 'justify-center gap-2.5', iconContainer: 'w-20 h-10 p-1.5 bg-neutral/40' }}
             />
           </BenefitBox>
-          <BenefitBox description="U Ciebie w ciągu kilku dni" Icon={LocalShippingOutlinedIcon} title="Szybka dostawa">
+          <BenefitBox
+            description="U Ciebie w ciągu kilku dni roboczych"
+            Icon={LocalShippingOutlinedIcon}
+            title="Szybka dostawa"
+          >
             <div className="flex flex-wrap justify-center gap-2.5">
               {couriers.map((courier) => (
                 <div

@@ -23,6 +23,7 @@ export const footerLinks = {
     'Stwórz swój obraz': '/generate',
     'Jak generować?': '/manual',
     'Galeria Twoich obrazów': '/gallery',
+    Koszyk: '/cart',
   },
 };
 
