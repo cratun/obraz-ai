@@ -4,14 +4,25 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import LoyaltyRoundedIcon from '@mui/icons-material/LoyaltyRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
-import { Drawer, DrawerProps, IconButton, Slide, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import {
+  Drawer,
+  DrawerProps,
+  IconButton,
+  Skeleton,
+  Slide,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+} from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
+import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import { useMediaQuery } from 'usehooks-ts';
 import AppButton from '@/app/_components/app-button';
@@ -201,9 +212,14 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
     item: null,
   });
 
-  const buyMutation = useMutation({
+  const beginCheckoutMutation = useMutation({
     mutationFn: (promoCodeId?: string) =>
       actionBuy({ cancelUrl: window.location.origin + '/cart', cartItems, promoCodeId }),
+    onMutate: () => {
+      if (window.dataLayer) {
+        window.dataLayer.push({ event: 'begin_checkout' });
+      }
+    },
   });
 
   const promoCodeInputRef = useRef<HTMLInputElement | null>(null);
@@ -248,179 +264,239 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
 
   const totalWithPromo = getTotalWithPromo();
 
+  if (isLoading) {
+    return (
+      <div>
+        <div className="flex gap-2.5">
+          <Skeleton height={140} variant="rectangular" width={140} />
+          <div className="flex grow flex-col justify-between">
+            <div className="relative flex flex-col gap-2.5">
+              <div className="text-base font-semibold leading-[1.2] tracking-[1px]">ObrazAI</div>
+              <div className="flex flex-col">
+                <Skeleton height={20} variant="rectangular" width={45} />
+                <Skeleton height={20} variant="rectangular" width={125} />
+              </div>
+              <Skeleton height={30} variant="rectangular" width={72} />
+            </div>
+            <Skeleton height={24} variant="rectangular" width={61} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (cartItems.length === 0 && !isLoading) {
+    return (
+      <div className="grid grow place-items-center">
+        <div className="flex max-w-[450px] flex-col justify-center gap-2.5 py-5 md:gap-5">
+          <Typography.Body className="text-center text-xl">
+            Wygląda na to, że Twój koszyk jest pusty. Stwórz swój <strong>ObrazAI</strong>!
+          </Typography.Body>
+          <AppButton
+            className="py-2.5"
+            href="/generate"
+            LinkComponent={Link}
+            size="large"
+            startIcon={<AutoAwesomeRoundedIcon />}
+            variant="contained"
+          >
+            Stwórz swój obraz
+          </AppButton>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col gap-5 md:flex-row md:gap-10">
-      <BuyButtonSlideCheckout
-        slideIn
-        disabled={buyMutation.isPending || isLoading}
-        isVisible={cartItems.length > 0}
-        loading={buyMutation.isPending || checkPromoCodeMutation.isPending}
-        onClick={() => {
-          buyMutation.mutate(checkPromoCodeMutation.isSuccess ? checkPromoCodeMutation.data.promoCodeId : undefined);
-        }}
-      />
-      <EditCartItemDrawer
-        item={editDialogState.item as CartItem}
-        open={editDialogState.open}
-        onClose={() => setEditDialogState((prevState) => ({ ...prevState, open: false }))}
-      />
-      <div className="flex grow flex-col gap-2.5">
-        {cartItems.map((item) => (
-          <Fragment key={item.id}>
-            <div className="flex gap-2.5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img alt="" height={145} src={getBucketImgUrl(item.imageId)} width={140} />
-              <div className="flex grow flex-col justify-between">
-                <div className="relative flex flex-col gap-2.5">
-                  <div className="text-base font-semibold leading-[1.2] tracking-[1px]">ObrazAI</div>
-                  <IconButton className="absolute -top-2 right-0 text-text" onClick={() => removeItem(item.id)}>
-                    <DeleteRoundedIcon className="text-xl" />
-                  </IconButton>
-                  <div className="flex flex-col">
-                    <div className="text-sm">
-                      Ilość: <span className="font-medium">{item.quantity}</span>
+    <>
+      <Typography.H2>Twój koszyk</Typography.H2>
+      <div className="flex flex-col gap-5 md:flex-row md:gap-10">
+        <BuyButtonSlideCheckout
+          slideIn
+          disabled={beginCheckoutMutation.isPending || isLoading}
+          isVisible={cartItems.length > 0}
+          loading={beginCheckoutMutation.isPending || checkPromoCodeMutation.isPending}
+          onClick={() => {
+            beginCheckoutMutation.mutate(
+              checkPromoCodeMutation.isSuccess ? checkPromoCodeMutation.data.promoCodeId : undefined,
+            );
+          }}
+        />
+        <EditCartItemDrawer
+          item={editDialogState.item as CartItem}
+          open={editDialogState.open}
+          onClose={() => setEditDialogState((prevState) => ({ ...prevState, open: false }))}
+        />
+        <div className="flex grow flex-col gap-2.5">
+          {cartItems.map((item) => (
+            <Fragment key={item.id}>
+              <div className="flex gap-2.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt="" height={140} src={getBucketImgUrl(item.imageId)} width={140} />
+                <div className="flex grow flex-col justify-between">
+                  <div className="relative flex flex-col gap-2.5">
+                    <div className="text-base font-semibold leading-[1.2] tracking-[1px]">ObrazAI</div>
+                    <IconButton className="absolute -top-2 right-0 text-text" onClick={() => removeItem(item.id)}>
+                      <DeleteRoundedIcon className="text-xl" />
+                    </IconButton>
+                    <div className="flex flex-col">
+                      <div className="text-sm">
+                        Ilość: <span className="font-medium">{item.quantity}</span>
+                      </div>
+                      <div className="text-sm">
+                        Rozmiar:{' '}
+                        <span className="font-medium">
+                          {item.canvasSize}x{item.canvasSize} cm
+                        </span>
+                      </div>
                     </div>
-                    <div className="text-sm">
-                      Rozmiar:{' '}
-                      <span className="font-medium">
-                        {item.canvasSize}x{item.canvasSize} cm
-                      </span>
-                    </div>
+                    <AppButton
+                      className="self-start"
+                      size="small"
+                      startIcon={<EditRoundedIcon className="text-sm" />}
+                      onClick={() => setEditDialogState({ open: true, item })}
+                    >
+                      Edytuj
+                    </AppButton>
                   </div>
-                  <AppButton
-                    className="self-start"
+                  <div className="flex gap-1">
+                    {checkPromoCodeMutation.data?.percentOff && (
+                      <span className={twMerge('text-xl font-bold leading-[1.2] tracking-[1px] text-accent')}>
+                        {formatPrice(
+                          priceWithPercentDiscount(
+                            sizeToPrice[item.canvasSize] * item.quantity,
+                            checkPromoCodeMutation.data.percentOff,
+                          ),
+                        )}{' '}
+                        zł
+                      </span>
+                    )}
+                    <span
+                      className={twMerge(
+                        'text-xl font-bold leading-[1.2] tracking-[1px]',
+                        !!checkPromoCodeMutation.data?.percentOff && 'text-base line-through',
+                      )}
+                    >
+                      {sizeToPrice[item.canvasSize] * item.quantity} zł
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="border-b border-text/20" />
+            </Fragment>
+          ))}
+        </div>
+        <div className="flex flex-col gap-2.5 md:min-w-[350px] md:gap-5 lg:min-w-[400px]">
+          <div className="hidden md:flex">
+            <Typography.H3>Szczegóły zamówienia</Typography.H3>
+          </div>
+          <div className="flex flex-col gap-1">
+            <div className="flex justify-between gap-1">
+              <div>Wartość produktów:</div>
+              <div className="font-medium">{formatPrice(totalWithPromo)} zł</div>
+            </div>
+            <div className="flex justify-between gap-1">
+              <div>Dostawa:</div>
+              <div className="font-medium">0.00 zł</div>
+            </div>
+            {checkPromoCodeMutation.isSuccess && (
+              <div className="flex justify-between gap-1">
+                <div>Kod rabatowy:</div>
+                {checkPromoCodeMutation.data?.percentOff && (
+                  <div className="font-medium text-accent">
+                    {formatPrice(total - priceWithPercentDiscount(total, checkPromoCodeMutation.data.percentOff))} zł
+                  </div>
+                )}
+                {checkPromoCodeMutation.data.amountOff && (
+                  <div className="font-medium text-accent">{checkPromoCodeMutation.data.amountOff} zł</div>
+                )}
+              </div>
+            )}
+          </div>
+          <div className="flex justify-between gap-1 text-xl">
+            <strong>Całość:</strong>
+            <strong>{formatPrice(totalWithPromo)} zł</strong>
+          </div>
+          <PromoBox hidePrice specialPromoCookie={specialPromoCookie} />
+          <div className="border-b border-text/20" />
+          <div className="p">
+            {isPromoClicked ? (
+              <div className="flex flex-col gap-1">
+                <div className="grid grid-cols-[1fr_80px]">
+                  <TextField
+                    fullWidth
+                    className="[&_.Mui-disabled]:font-bold [&_.Mui-focused_fieldset]:border-primary"
+                    disabled={checkPromoCodeMutation.isSuccess}
+                    inputRef={promoCodeInputRef}
+                    label="Kod rabatowy"
                     size="small"
-                    startIcon={<EditRoundedIcon className="text-sm" />}
-                    onClick={() => setEditDialogState({ open: true, item })}
+                    variant="outlined"
+                    slotProps={{
+                      inputLabel: {
+                        classes: { root: 'text-sm' },
+                      },
+                      input: {
+                        inputProps: { maxLength: 14 },
+                        classes: { input: '', notchedOutline: 'rounded-l-xl rounded-r-none' },
+                      },
+                    }}
+                  />
+                  <AppButton
+                    className="rounded-l-none rounded-r-xl"
+                    loading={checkPromoCodeMutation.isPending}
+                    variant="contained"
+                    onClick={handleAddPromoClick}
                   >
-                    Edytuj
+                    {checkPromoCodeMutation.isSuccess ? 'Usuń' : 'Dodaj'}
                   </AppButton>
                 </div>
-                <div className="flex gap-1">
-                  {checkPromoCodeMutation.data?.percentOff && (
-                    <span className={twMerge('text-xl font-bold leading-[1.2] tracking-[1px] text-accent')}>
-                      {formatPrice(
-                        priceWithPercentDiscount(
-                          sizeToPrice[item.canvasSize] * item.quantity,
-                          checkPromoCodeMutation.data.percentOff,
-                        ),
-                      )}{' '}
-                      zł
-                    </span>
-                  )}
-                  <span
-                    className={twMerge(
-                      'text-xl font-bold leading-[1.2] tracking-[1px]',
-                      !!checkPromoCodeMutation.data?.percentOff && 'text-base line-through',
-                    )}
-                  >
-                    {sizeToPrice[item.canvasSize] * item.quantity} zł
-                  </span>
-                </div>
+                {checkPromoCodeMutation.data?.percentOff && (
+                  <Typography.Body className="text-sm font-bold">
+                    Zniżka {checkPromoCodeMutation.data.percentOff}%
+                  </Typography.Body>
+                )}
+                {checkPromoCodeMutation.data?.amountOff && (
+                  <Typography.Body className="text-sm font-bold">
+                    Zniżka {checkPromoCodeMutation.data.amountOff} zł
+                  </Typography.Body>
+                )}
+                {checkPromoCodeMutation.error?.response?.data.errorCode === 'PROMO_CODE_NOT_FOUND' && (
+                  <Typography.Body className="text-sm font-bold">Wprowadzony kod nie istnieje.</Typography.Body>
+                )}
+                {checkPromoCodeMutation.error?.response?.data.errorCode === 'PROMO_CODE_NOT_ACTIVE' && (
+                  <Typography.Body className="text-sm font-bold">Wprowadzony kod wygasł.</Typography.Body>
+                )}
+                {/* TODO: Add code redeemed and other possible states */}
               </div>
-            </div>
-            <div className="border-b border-text/20" />
-          </Fragment>
-        ))}
-      </div>
-      <div className="flex flex-col gap-2.5 md:min-w-[350px] md:gap-5 lg:min-w-[400px]">
-        <div className="hidden md:flex">
-          <Typography.H3>Szczegóły zamówienia</Typography.H3>
-        </div>
-        <div className="flex flex-col gap-1">
-          <div className="flex justify-between gap-1">
-            <div>Wartość produktów:</div>
-            <div className="font-medium">{formatPrice(totalWithPromo)} zł</div>
+            ) : (
+              <AppButton
+                fullWidth
+                className="text-base font-bold"
+                startIcon={<LoyaltyRoundedIcon />}
+                onClick={() => setIsPromoClicked(true)}
+              >
+                Mam kod rabatowy
+              </AppButton>
+            )}
           </div>
-          <div className="flex justify-between gap-1">
-            <div>Dostawa:</div>
-            <div className="font-medium">0.00 zł</div>
-          </div>
-          {checkPromoCodeMutation.isSuccess && (
-            <div className="flex justify-between gap-1">
-              <div>Kod rabatowy:</div>
-              {checkPromoCodeMutation.data?.percentOff && (
-                <div className="font-medium text-accent">
-                  {formatPrice(total - priceWithPercentDiscount(total, checkPromoCodeMutation.data.percentOff))} zł
-                </div>
-              )}
-              {checkPromoCodeMutation.data.amountOff && (
-                <div className="font-medium text-accent">{checkPromoCodeMutation.data.amountOff} zł</div>
-              )}
-            </div>
-          )}
+          <AppButton
+            className="hidden py-3 text-base md:flex"
+            color="accent"
+            disabled={beginCheckoutMutation.isPending || isLoading}
+            loading={beginCheckoutMutation.isPending || checkPromoCodeMutation.isPending}
+            size="large"
+            variant="contained"
+            onClick={() => {
+              beginCheckoutMutation.mutate(
+                checkPromoCodeMutation.isSuccess ? checkPromoCodeMutation.data.promoCodeId : undefined,
+              );
+            }}
+          >
+            {FINALIZE_PAYMENT_TEXT}
+          </AppButton>
         </div>
-        <div className="flex justify-between gap-1 text-xl">
-          <strong>Całość:</strong>
-          <strong>{formatPrice(totalWithPromo)} zł</strong>
-        </div>
-        <PromoBox hidePrice specialPromoCookie={specialPromoCookie} />
-        <div className="border-b border-text/20" />
-        <div className="p">
-          {isPromoClicked ? (
-            <div className="flex flex-col gap-1">
-              <div className="grid grid-cols-[1fr_80px]">
-                <TextField
-                  fullWidth
-                  className="[&_.Mui-disabled]:font-bold [&_.Mui-focused_fieldset]:border-primary"
-                  disabled={checkPromoCodeMutation.isSuccess}
-                  inputRef={promoCodeInputRef}
-                  label="Kod rabatowy"
-                  size="small"
-                  variant="outlined"
-                  slotProps={{
-                    inputLabel: {
-                      classes: { root: 'text-sm' },
-                    },
-                    input: {
-                      inputProps: { maxLength: 14 },
-                      classes: { input: '', notchedOutline: 'rounded-l-xl rounded-r-none' },
-                    },
-                  }}
-                />
-                <AppButton
-                  className="rounded-l-none rounded-r-xl"
-                  loading={checkPromoCodeMutation.isPending}
-                  variant="contained"
-                  onClick={handleAddPromoClick}
-                >
-                  {checkPromoCodeMutation.isSuccess ? 'Usuń' : 'Dodaj'}
-                </AppButton>
-              </div>
-              {checkPromoCodeMutation.data?.percentOff && (
-                <Typography.Body className="text-sm font-bold">
-                  Zniżka {checkPromoCodeMutation.data.percentOff}%
-                </Typography.Body>
-              )}
-              {checkPromoCodeMutation.data?.amountOff && (
-                <Typography.Body className="text-sm font-bold">
-                  Zniżka {checkPromoCodeMutation.data.amountOff} zł
-                </Typography.Body>
-              )}
-              {checkPromoCodeMutation.error?.response?.data.errorCode === 'PROMO_CODE_NOT_FOUND' && (
-                <Typography.Body className="text-sm font-bold">Wprowadzony kod nie istnieje.</Typography.Body>
-              )}
-              {checkPromoCodeMutation.error?.response?.data.errorCode === 'PROMO_CODE_NOT_ACTIVE' && (
-                <Typography.Body className="text-sm font-bold">Wprowadzony kod wygasł.</Typography.Body>
-              )}
-              {/* TODO: Add code redeemed and other possible states */}
-            </div>
-          ) : (
-            <AppButton
-              fullWidth
-              className="text-base font-bold"
-              startIcon={<LoyaltyRoundedIcon />}
-              onClick={() => setIsPromoClicked(true)}
-            >
-              Mam kod rabatowy
-            </AppButton>
-          )}
-        </div>
-        <AppButton className="hidden py-3 text-base md:flex" color="accent" size="large" variant="contained">
-          {FINALIZE_PAYMENT_TEXT}
-        </AppButton>
       </div>
-    </div>
+    </>
   );
 };
 
