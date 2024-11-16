@@ -3,10 +3,11 @@ import dayjs from 'dayjs';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Stripe } from 'stripe';
+import { z } from 'zod';
 import { ORIGIN_URL } from '@/app/_utils/constants';
 import { getClientIp } from '@/app/_utils/get-client-ip';
-import { CheckoutMetadata } from '@/app/types';
-import { EXTERNAL_ID_COOKIE } from './_utils/common';
+import { EXTERNAL_ID_COOKIE } from '@/app/generate/_utils/common';
+import { CartItem, cartItemSchema } from './utils';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -54,10 +55,17 @@ const sendInitCheckoutPixelEvent = async () => {
   );
 };
 
-const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata: CheckoutMetadata }) => {
-  if (typeof metadata.size !== 'string') throw new Error('Size must be a string');
+const actionBuy = async ({
+  cancelUrl,
+  cartItems,
+  promoCodeId,
+}: {
+  cancelUrl: string;
+  cartItems: CartItem[];
+  promoCodeId?: string;
+}) => {
+  const parsedCartItems = z.array(cartItemSchema).parse(cartItems);
 
-  const size = metadata.size;
   const headersList = headers();
   const cookieStore = cookies();
   let externalId = cookieStore.get('external_id')?.value;
@@ -76,42 +84,40 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
     await sendInitCheckoutPixelEvent();
   }
 
-  const priceInGrosze = process.env[`CANVAS_PRICE_${size}`];
-  if (!priceInGrosze) throw new Error('Invalid size');
+  const lineItems = parsedCartItems.map((item) => {
+    const size = item.canvasSize;
+    const priceInGrosze = process.env[`CANVAS_PRICE_${size}`];
+    if (!priceInGrosze) throw new Error('Invalid size');
+
+    return {
+      price_data: {
+        currency: 'pln',
+        product_data: {
+          name: `ObrazAI na płótnie (${size}x${size}) cm`,
+          images: [`${ORIGIN_URL}/api/resize-img?imgId=${item.imageId}`],
+        },
+        unit_amount: Number(priceInGrosze),
+      },
+      quantity: item.quantity,
+    };
+  });
 
   const session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        price_data: {
-          currency: 'pln',
-          product: process.env.STRIPE_PRODUCT_ID!,
-          unit_amount: Number(priceInGrosze),
-          product_data: {
-            name: `ObrazAI na płótnie (${size}x${size}) cm`,
-            description:
-              'Wysokiej jakości wydruk 300 dpi wybranego przez Ciebie obrazu wygenerowanego przez sztuczną inteligencję. Syntetyczne płótno o wymiarach 60x60 cm naciągnięte na lekki drewniany blejtram z zadrukowanymi krawędziami. Ekologiczny druk UV gwarantuje wyjątkową jakość szczegółów. Gotowe do powieszenia na ścianie lub postawienia.',
-            images: [`${ORIGIN_URL}/api/resize-img?imgId=${metadata.imageId}`],
-          },
-        },
-        quantity: 1,
-      },
-    ],
+    line_items: lineItems,
     shipping_options: [{ shipping_rate: process.env.STRIPE_SHIPPING_RATE_ID }],
     mode: 'payment',
     success_url: `${headersList.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: cancelUrl,
+    // NOTE: unlikely scenario, error will be thrown if items > 50
     payment_intent_data: {
-      metadata: {
-        size,
-        imageId: metadata.imageId,
-      },
+      metadata: parsedCartItems.reduce((acc: Record<string, string>, item) => {
+        acc[item.imageId] = JSON.stringify({ quantity: item.quantity, size: item.canvasSize });
+
+        return acc;
+      }, {}),
     },
     phone_number_collection: {
       enabled: true,
-    },
-    metadata: {
-      size,
-      imageId: metadata.imageId,
     },
     invoice_creation: {
       enabled: true,
@@ -123,7 +129,7 @@ const actionBuy = async ({ cancelUrl, metadata }: { cancelUrl: string; metadata:
         ],
       },
     },
-    allow_promotion_codes: true,
+    discounts: promoCodeId ? [{ promotion_code: promoCodeId }] : undefined,
     automatic_tax: { enabled: true },
     billing_address_collection: 'required',
     shipping_address_collection: { allowed_countries: ['PL'] },

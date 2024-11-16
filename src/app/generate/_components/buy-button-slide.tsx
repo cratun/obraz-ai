@@ -2,10 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
-import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import Slide from '@mui/material/Slide';
 import { useIntersectionObserver } from 'usehooks-ts';
-import AppButton from '@/app/_components/app-button';
+import AddToCartButton, { CartItemData } from '@/app/cart/components/add-to-cart-button';
 
 export const useSlideInOnScrollDown = () => {
   const [slideIn, setSlideIn] = useState(false);
@@ -54,12 +53,12 @@ const BuyButtonSlide = ({
   slideIn,
   disabled,
   isVisible,
-  onClick,
+  cartItemData,
 }: {
   slideIn: boolean;
   isVisible: boolean;
   disabled: boolean;
-  onClick: () => void;
+  cartItemData: CartItemData;
 }) => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -74,17 +73,7 @@ const BuyButtonSlide = ({
   return (
     <Slide mountOnEnter unmountOnExit direction="up" in={slideIn}>
       <div className="fixed bottom-0 left-0 right-0 z-10 flex flex-col gap-2 border border-t border-text/20 bg-white px-5 py-4 md:hidden">
-        <AppButton
-          className="py-3"
-          color="accent"
-          disabled={disabled}
-          size="large"
-          startIcon={<ShoppingCartRoundedIcon />}
-          variant="contained"
-          onClick={onClick}
-        >
-          Kup teraz
-        </AppButton>
+        <AddToCartButton cartItemData={cartItemData} disabled={disabled} />
         <div className="flex items-center gap-1 text-xs font-bold text-text">
           <AccessTimeRoundedIcon className="text-base" /> <span>Czas dostawy: 3 - 5 dni roboczych</span>{' '}
         </div>

@@ -31,9 +31,11 @@ const PromoCountDownTimer = ({ endDate }: { endDate: dayjs.ConfigType }) => {
 
 const PromoBox = ({
   specialPromoCookie,
+  hidePrice,
   isDark = false,
 }: {
   specialPromoCookie: SpecialPromoCookie;
+  hidePrice?: boolean;
   isDark?: boolean;
 }) => {
   const searchParams = useSearchParams();
@@ -79,8 +81,14 @@ const PromoBox = ({
       </div>
       <div>
         <strong>{promoPercentageValue}% zniżki</strong>{' '}
-        <span className={twMerge('font-bold', isDark ? 'text-primary' : 'text-accent')}>{promoPriceRounded} zł</span>{' '}
-        <span className="line-through">{sizeToPrice[size]}&nbsp;zł</span>
+        {!hidePrice && (
+          <>
+            <span className={twMerge('font-bold', isDark ? 'text-primary' : 'text-accent')}>
+              {promoPriceRounded} zł
+            </span>{' '}
+            <span className="line-through">{sizeToPrice[size]}&nbsp;zł</span>
+          </>
+        )}
       </div>
       <ButtonBase className="block self-start rounded-md py-1" onClick={handleCopy}>
         Użyj kod <strong>{promoCode}</strong>

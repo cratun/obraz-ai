@@ -6,13 +6,32 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import PhotoLibraryRoundedIcon from '@mui/icons-material/PhotoLibraryRounded';
 import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
-import { ButtonBase, Drawer, IconButton } from '@mui/material';
+import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
+import { Badge, ButtonBase, Drawer, IconButton } from '@mui/material';
 import Link from 'next/link';
 import PromoBar from '@/app/_promo/promo-bar';
 import { bottomDrawerLinks } from '@/app/_utils/constants';
+import { useCartStorage } from '@/app/cart/components/add-to-cart-button';
 import AppButton from './app-button';
 import AppContainer from './app-container';
 import AppLogo from './app-logo';
+
+const NavbarCartIcon = () => {
+  const { cartItems } = useCartStorage();
+
+  return (
+    <Badge
+      anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+      badgeContent={cartItems.length}
+      color="accent"
+      overlap="circular"
+      slotProps={{ badge: { className: 'size-[18px] min-w-[18px]' } }}
+    >
+      <ShoppingCartRoundedIcon className="text-xl" />
+    </Badge>
+  );
+};
+
 const AppNavbar = () => {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -20,14 +39,14 @@ const AppNavbar = () => {
   return (
     <header className="fixed top-0 z-[100] flex w-full flex-col">
       <PromoBar />
-      <div className="flex items-center justify-center bg-white px-5 py-1 md:py-2">
+      <div className="flex items-center justify-center bg-white px-5 py-1 lg:py-2">
         <AppContainer.Content className="items-center justify-between gap-2">
-          <div className="flex items-center justify-between gap-1 md:grow">
-            <IconButton className="p-1 md:hidden" color="primary" onClick={() => setOpen(true)}>
+          <div className="flex items-center justify-between gap-1 lg:grow">
+            <IconButton className="p-1 lg:hidden" color="primary" onClick={() => setOpen(true)}>
               <MenuIcon />
             </IconButton>
             <AppLogo />
-            <div className="hidden items-center gap-5 md:flex">
+            <div className="hidden items-center gap-5 lg:flex">
               <AppButton
                 color="colorText"
                 href="/manual"
@@ -64,17 +83,16 @@ const AppNavbar = () => {
               >
                 Stwórz swój obraz
               </AppButton>
+              <IconButton
+                className="-my-1 p-1 text-text [&_.MuiSvgIcon-root]:text-2xl"
+                href="/cart"
+                LinkComponent={Link}
+              >
+                <NavbarCartIcon />
+              </IconButton>
             </div>
           </div>
-          <div className="flex items-center gap-1 md:hidden">
-            <ButtonBase
-              className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
-              href="/contact?review=true"
-              LinkComponent={Link}
-            >
-              <ReviewsOutlinedIcon className="text-xl" />
-              <span className="text-xs">Opinia</span>
-            </ButtonBase>
+          <div className="flex items-center gap-1 lg:hidden">
             <ButtonBase
               className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
               href="/gallery"
@@ -90,6 +108,14 @@ const AppNavbar = () => {
             >
               <AutoAwesomeRoundedIcon className="text-xl" />
               <span className="text-xs">Twórz</span>
+            </ButtonBase>
+            <ButtonBase
+              className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
+              href="/cart"
+              LinkComponent={Link}
+            >
+              <NavbarCartIcon />
+              <span className="text-xs">Koszyk</span>
             </ButtonBase>
           </div>
         </AppContainer.Content>

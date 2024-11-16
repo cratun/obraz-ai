@@ -2,6 +2,7 @@
 
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
+import dayjs from 'dayjs';
 import OpenAI from 'openai';
 import Replicate from 'replicate';
 import { updateSpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
@@ -48,7 +49,7 @@ const actionGenerate = async ({ prompt, generationStyle }: { prompt: string; gen
 
   const tokenCheckResult = checkAndUpdateGenerationToken();
   if (tokenCheckResult === GENERATION_TOKEN_LIMIT_REACHED) {
-    return GENERATION_TOKEN_LIMIT_REACHED;
+    return { imgSrc: null, metadata: {}, errorCode: GENERATION_TOKEN_LIMIT_REACHED } as const;
   }
 
   if (!getIsGenerationStyle(generationStyle)) {
@@ -92,7 +93,7 @@ const actionGenerate = async ({ prompt, generationStyle }: { prompt: string; gen
   await Promise.all([uploadImage({ imgSrc, id: imageId }), updateSpecialPromoCookie()]);
   updateImageHistoryCookie(imageId);
 
-  return { imgSrc, metadata: { imageId } };
+  return { imgSrc, metadata: { imageId, creationDateTimestamp: dayjs().unix() } };
 };
 
 export default actionGenerate;

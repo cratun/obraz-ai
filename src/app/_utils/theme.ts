@@ -23,6 +23,13 @@ declare module '@mui/material/Button' {
     colorText: true;
   }
 }
+
+declare module '@mui/material/Badge' {
+  interface BadgePropsColorOverrides {
+    accent: true;
+  }
+}
+
 // keep in sync with tailwind.config.ts
 const theme = createTheme({
   typography: {

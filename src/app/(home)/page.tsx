@@ -28,7 +28,7 @@ const generateSteps = [
   },
   {
     title: 'Zamów z łatwością',
-    description: 'Bez zakładania konta! Kliknij "Kup teraz" i sfinalizuj zamówienie w kilka chwil.',
+    description: 'Bez zakładania konta! Sfinalizuj zamówienie w chwilę.',
     Icon: CardIcon,
   },
 ];
