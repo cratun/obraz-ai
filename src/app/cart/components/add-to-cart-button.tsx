@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
@@ -119,7 +119,9 @@ export const useCartStorage = () => {
     setCartItems((prevItems) => prevItems.map((item) => (item.id === id ? { ...item, ...updatedFields } : item)));
   };
 
-  return { addItem, removeItem, updateItem, cartItems, isLoading };
+  const clear = useCallback(() => setCartItems([]), [setCartItems]);
+
+  return { addItem, removeItem, updateItem, clear, cartItems, isLoading };
 };
 
 export type CartItemData = Pick<CartItem, 'canvasSize' | 'imageId' | 'creationDateTimestamp'>;
@@ -148,6 +150,10 @@ const AddToCartButton = ({
         startIcon={<ShoppingCartRoundedIcon />}
         variant="contained"
         onClick={() => {
+          if (window.dataLayer) {
+            window.dataLayer.push({ event: 'add_to_cart' });
+          }
+
           addItem(cartItemData.imageId, cartItemData.canvasSize, cartItemData.creationDateTimestamp);
           setIsDrawerOpen(true);
         }}
