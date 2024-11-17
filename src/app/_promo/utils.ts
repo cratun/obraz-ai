@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-export const PROMO_END_DATE = dayjs('2024-11-28').endOf('day');
+export const PROMO_END_DATE = dayjs('2024-11-21').endOf('day');
 export const PROMO_CODE = 'BLACKWEEK';
 export const PROMO_PERCENTAGE_VALUE = 22;
 
