@@ -60,6 +60,8 @@ const actionGetOrderInfo = async (sessionId: string) => {
   const session = await stripe.checkout.sessions.retrieve(sessionId);
   if (!session.customer_details || !session.amount_total) throw new Error('No customer details found or amount total');
 
+  if (!session.shipping_details) throw new Error('No shipping details found');
+
   if (process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false') {
     await sendPixelEvent({
       email: session.customer_details.email as string,
@@ -72,7 +74,7 @@ const actionGetOrderInfo = async (sessionId: string) => {
     customer = await stripe.customers.retrieve(session.customer);
   }
 
-  return { session, customer: customer as Stripe.Customer };
+  return { session, customer: customer as Stripe.Customer, shippingDetails: session.shipping_details };
 };
 
 export default actionGetOrderInfo;

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => {
   if (!searchParams.session_id) redirect('/');
-  const { customer, session } = await actionGetOrderInfo(searchParams.session_id as string);
+  const { customer, session, shippingDetails } = await actionGetOrderInfo(searchParams.session_id as string);
 
   return (
     <>
@@ -47,10 +47,10 @@ const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => 
                 </div>
               </div>
               <div className="flex flex-col gap-1">
-                <strong>Adres wysyłki: </strong> {customer.address?.city}, {customer.address?.line1},
-                <div>{customer.address?.line2 && <>{customer.address?.line2}, </>}</div>
+                <strong>Adres wysyłki: </strong> {shippingDetails.address?.city}, {shippingDetails.address?.line1},
+                <div>{shippingDetails.address?.line2 && <>{shippingDetails.address?.line2}, </>}</div>
                 <div>
-                  {customer.address?.postal_code}, {customer.address?.country}
+                  {shippingDetails.address?.postal_code}, {shippingDetails.address?.country}
                 </div>
               </div>
               <div>

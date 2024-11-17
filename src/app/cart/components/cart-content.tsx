@@ -143,7 +143,6 @@ const EditCartItemDrawerContent = ({ item, onClose }: { item: CartItem; onClose:
           className="max-w-96 gap-2.5"
           value={size}
           onChange={(_, newSize: CanvasSize) => {
-            console.log(newSize);
             form.setValue('canvasSize', newSize, { shouldDirty: true });
           }}
         >
@@ -152,7 +151,7 @@ const EditCartItemDrawerContent = ({ item, onClose }: { item: CartItem; onClose:
               key={size}
               value={size}
               classes={{
-                root: 'rounded-full py-1.5 px-2.5',
+                root: 'rounded-full py-1.5 px-2.5 border border-text/20',
                 selected: '!text-white !bg-primary',
                 standard: 'text-text bg-white',
               }}

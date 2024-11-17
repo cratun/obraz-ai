@@ -1,4 +1,5 @@
 import { Container, Font, Img, Link, Tailwind, Text } from '@react-email/components';
+import Stripe from 'stripe';
 import colors from 'tailwindcss/colors';
 
 const COMPANY_INFO = 'Cratun sp. z o.o. NIP: 4990690625 KRS: 0000971816';
@@ -8,10 +9,21 @@ const OrderEmail = ({
   price = '200 zł',
   orderNumber = 'f123fsdfdsx1cv3',
   orderDate = '2021-10-10',
+  shippingDetails = {
+    address: {
+      line1: 'Kolorowa 12/3',
+      line2: 'Address line 2',
+      city: 'Warszawa',
+      postal_code: '00-001',
+      country: 'Polska',
+      state: 'Mazowieckie',
+    },
+  },
 }: {
   userName: string;
   price: string;
   orderNumber: string;
+  shippingDetails: Stripe.Checkout.Session.ShippingDetails;
   orderDate: string;
 }) => (
   <Tailwind
@@ -57,6 +69,22 @@ const OrderEmail = ({
         <li>
           <Text className="text-base !text-text">
             <b>Wartość zamówienia:</b> {price}
+          </Text>
+        </li>
+        <li>
+          <Text className="text-base !text-text">
+            <Text className="!mb-2 text-base !text-text">
+              <strong>Adres wysyłki: </strong>
+            </Text>
+            <Text className="!my-0 text-base !text-text">
+              {shippingDetails.address?.city}, {shippingDetails.address?.line1},
+            </Text>
+            <Text className="!my-0 text-base !text-text">
+              {shippingDetails.address?.line2 && <>{shippingDetails.address?.line2}, </>}
+            </Text>
+            <Text className="!my-0 text-base !text-text">
+              {shippingDetails.address?.postal_code}, {shippingDetails.address?.country}
+            </Text>
           </Text>
         </li>
       </ul>

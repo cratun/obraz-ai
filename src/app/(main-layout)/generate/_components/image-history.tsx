@@ -129,7 +129,9 @@ const ImageHistory = ({
         <Dialog
           open={!!imgHistoryEntry}
           PaperComponent={ImageHistoryDialogPaperComponent}
-          slotProps={{ backdrop: { classes: { root: 'bg-black/80 backdrop-blur-3xl' } } }}
+          slotProps={{
+            backdrop: { classes: { root: 'bg-black/80 backdrop-blur-3xl [transform:translate3d(0,0,0)]' } },
+          }}
           onClose={onClose}
         >
           <ImageHistoryDialogContent

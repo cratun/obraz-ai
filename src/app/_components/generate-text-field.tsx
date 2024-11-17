@@ -6,11 +6,11 @@ import { Autocomplete, AutocompleteProps, ChipTypeMap, InputAdornment, TextField
 import { twMerge } from 'tailwind-merge';
 
 const options = [
+  'Astronauta grający na skrzypcach na powierzchni księżyca',
   'Romantyczny zachód słońca nad oceanem',
   'Superbohater przytulający swojego wroga',
   'Abstrakcyjna kompozycja kolorów i kształtów',
   'Portret eleganckiej kobiety',
-  'Astronauta grający na skrzypcach na powierzchni księżyca',
   'Safari z dzikimi zwierzętami na afrykańskiej sawannie',
   'Świat z latającymi wyspami',
 ];

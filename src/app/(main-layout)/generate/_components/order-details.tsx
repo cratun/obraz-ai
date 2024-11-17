@@ -49,10 +49,14 @@ const OrderDetails = ({
               classes={{
                 root: 'rounded-full py-1.5 px-2.5',
                 selected: twJoin(
-                  toggleButtonVariant === 'primary' ? '!text-text !bg-white' : '!text-white !bg-primary',
+                  toggleButtonVariant === 'primary'
+                    ? '!text-text !bg-white'
+                    : '!text-white !bg-primary border-transparent',
                 ),
                 standard: twJoin(
-                  toggleButtonVariant === 'primary' ? 'bg-transparent border-white text-white' : 'text-text bg-white',
+                  toggleButtonVariant === 'primary'
+                    ? 'bg-transparent border-white text-white'
+                    : 'text-text bg-white border-text/20',
                 ),
               }}
             >

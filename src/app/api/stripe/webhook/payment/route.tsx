@@ -45,6 +45,10 @@ export async function POST(req: Request) {
       throw new Error('No image ID or metadata found');
     }
 
+    if (!session.shipping_details) {
+      throw new Error('No shipping details found');
+    }
+
     await resend.emails.send({
       from: 'ObrazAI <kontakt@obraz-ai.com>',
       to: [session.customer_details.email as string],
@@ -55,6 +59,7 @@ export async function POST(req: Request) {
           orderDate={dayjs.unix(session.created).format('DD.MM.YYYY HH:mm')}
           orderNumber={`${session.payment_intent}`}
           price={`${session.amount_total / 100} zł`}
+          shippingDetails={session.shipping_details}
           userName={`${session.customer_details.name?.split(' ')[0]}`}
         />
       ),
