@@ -43,13 +43,6 @@ const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => 
                   )}
                 </div>
                 <div>
-                  {session.metadata && (
-                    <>
-                      <strong>Rozmiar obrazu:</strong> {session.metadata.size}x{session.metadata.size} cm
-                    </>
-                  )}
-                </div>
-                <div>
                   <strong>Wartość:</strong> {(session.amount_total || 0) / 100} zł
                 </div>
               </div>

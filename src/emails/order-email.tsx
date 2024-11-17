@@ -7,16 +7,12 @@ const OrderEmail = ({
   userName = 'Jan',
   price = '200 zł',
   orderNumber = 'f123fsdfdsx1cv3',
-  imageId = '123fds3r32rfds23f23f',
   orderDate = '2021-10-10',
-  size = '60',
 }: {
   userName: string;
   price: string;
   orderNumber: string;
   orderDate: string;
-  imageId: string;
-  size: string;
 }) => (
   <Tailwind
     config={{
@@ -55,27 +51,12 @@ const OrderEmail = ({
         </li>
         <li>
           <Text className="text-base !text-text">
-            <b>Identyfikator obrazu:</b> {imageId}
-          </Text>
-        </li>
-        <li>
-          <Text className="text-base !text-text">
             <b>Data złożenia zamówienia:</b> {orderDate}
           </Text>
         </li>
         <li>
           <Text className="text-base !text-text">
-            <b>Produkt:</b> Wygenerowany ObrazAI na płótnie
-          </Text>
-        </li>
-        <li>
-          <Text className="text-base !text-text">
-            <b>Rozmiar:</b> {size}x{size} cm
-          </Text>
-        </li>
-        <li>
-          <Text className="text-base !text-text">
-            <b>Cena:</b> {price}
+            <b>Wartość zamówienia:</b> {price}
           </Text>
         </li>
       </ul>
