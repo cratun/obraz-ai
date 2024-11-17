@@ -10,21 +10,25 @@ import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { twJoin } from 'tailwind-merge';
+import BuyButtonSlide, { useSlideInOnScrollDown } from '@/app/(main-layout)/generate/_components/buy-button-slide';
+import GeneratedImageSlider from '@/app/(main-layout)/generate/_components/generated-image-slider';
+import ImageHistory from '@/app/(main-layout)/generate/_components/image-history';
+import OrderDetails from '@/app/(main-layout)/generate/_components/order-details';
+import {
+  desiredMockupImageSizes,
+  GENERATION_TOKEN_LIMIT_REACHED,
+  mockupData,
+} from '@/app/(main-layout)/generate/_utils/common';
+import { ImageHistoryEntry } from '@/app/(main-layout)/generate/_utils/image-history/common';
+import actionGenerate from '@/app/(main-layout)/generate/action-generate';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import PromoBox from '@/app/_promo/promo-box';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { GenerationStyle } from '@/app/_utils/constants';
 import createQueryString from '@/app/_utils/create-query-string';
+import { CanvasSize, getCanvasSizeFromQueryParam } from '@/app/_utils/sizes-utils';
 import AddToCartButton from '@/app/cart/components/add-to-cart-button';
-import BuyButtonSlide, { useSlideInOnScrollDown } from '@/app/generate/_components/buy-button-slide';
-import GeneratedImageSlider from '@/app/generate/_components/generated-image-slider';
-import ImageHistory from '@/app/generate/_components/image-history';
-import OrderDetails from '@/app/generate/_components/order-details';
-import { desiredMockupImageSizes, GENERATION_TOKEN_LIMIT_REACHED, mockupData } from '@/app/generate/_utils/common';
-import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
-import { CanvasSize, getCanvasSizeFromQueryParam } from '@/app/generate/_utils/sizes-utils';
-import actionGenerate from '@/app/generate/action-generate';
 import { MockupImages } from '@/app/types';
 import generateMockup from './generate-mockup';
 

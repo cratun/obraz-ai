@@ -9,11 +9,11 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useSearchParams } from 'next/navigation';
 import { twJoin } from 'tailwind-merge';
+import { sizeToPrice } from '@/app/(main-layout)/generate/_utils/common';
 import PaymentMethodsList from '@/app/_components/payments-methods-list';
 import Typography from '@/app/_components/typography';
 import createQueryString from '@/app/_utils/create-query-string';
-import { sizeToPrice } from '@/app/generate/_utils/common';
-import { CanvasSize, canvasSizes } from '@/app/generate/_utils/sizes-utils';
+import { CanvasSize, canvasSizes } from '@/app/_utils/sizes-utils';
 import ProductDetails from './product-details';
 
 const Hr = () => <hr className="text-text/30" />;

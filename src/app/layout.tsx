@@ -7,8 +7,6 @@ import { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import Script from 'next/script';
 import { twJoin } from 'tailwind-merge';
-import AppFooter from './_components/app-footer';
-import AppNavbar from './_components/app-navbar';
 import { ORIGIN_URL } from './_utils/constants';
 import theme from './_utils/theme';
 import Providers from './providers';
@@ -50,11 +48,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
           <ThemeProvider theme={theme}>
             <Providers>
               <ToastContainer bodyClassName="text-sm lg:text-base" />
-              <div className="min-h-screen-responsive flex flex-col">
-                <AppNavbar />
-                <div className="grow">{children}</div>
-                <AppFooter />
-              </div>
+              <div className="min-h-screen-responsive flex flex-col">{children}</div>
             </Providers>
           </ThemeProvider>
         </AppRouterCacheProvider>

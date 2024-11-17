@@ -9,8 +9,8 @@ const loadImage = async (url: string) => {
     throw new Error(`Failed to fetch image at ${url}`);
   }
   const blob = await response.blob();
-  
-return new Promise<HTMLImageElement>((resolve, reject) => {
+
+  return new Promise<HTMLImageElement>((resolve, reject) => {
     const img = new Image();
     img.src = URL.createObjectURL(blob);
     img.onload = () => {

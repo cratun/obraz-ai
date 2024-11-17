@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
+import { getImageHistoryFromCookie } from '@/app/(main-layout)/generate/_utils/image-history/server';
 import { getSpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { getIsGenerationStyle } from '@/app/_utils/constants';
-import { getImageHistoryFromCookie } from '@/app/generate/_utils/image-history/server';
 import { SerachParams } from '@/app/types';
 import PageBuyContent from './page-buy-content';
 

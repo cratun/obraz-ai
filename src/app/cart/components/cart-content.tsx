@@ -26,17 +26,17 @@ import axios, { AxiosError } from 'axios';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import { useMediaQuery } from 'usehooks-ts';
+import { sizeToPrice } from '@/app/(main-layout)/generate/_utils/common';
 import AppButton from '@/app/_components/app-button';
 import Typography from '@/app/_components/typography';
 import PromoBox from '@/app/_promo/promo-box';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { getBucketImgUrl, groszToPLN } from '@/app/_utils/common';
+import { CanvasSize, canvasSizes } from '@/app/_utils/sizes-utils';
 import { CheckPromoResponse } from '@/app/api/check-promo/utils';
 import actionBuy from '@/app/cart/action-buy';
 import { useCartStorage } from '@/app/cart/components/add-to-cart-button';
 import { CartItem } from '@/app/cart/utils';
-import { sizeToPrice } from '@/app/generate/_utils/common';
-import { CanvasSize, canvasSizes } from '@/app/generate/_utils/sizes-utils';
 
 const FINALIZE_PAYMENT_TEXT = 'Sfinalizuj zakup';
 

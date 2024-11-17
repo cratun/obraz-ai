@@ -4,6 +4,8 @@ import { useRef, useState, useTransition } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import { useRouter } from 'next/navigation';
+import { ParsedGenerationTokenCookie } from '@/app/(main-layout)/generate/_utils/generation-token';
+import { ImageHistoryEntry } from '@/app/(main-layout)/generate/_utils/image-history/common';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import BenefitsSection from '@/app/_components/benefits-section';
@@ -12,10 +14,8 @@ import Typography from '@/app/_components/typography';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { ensureNotNull } from '@/app/_utils/common';
 import { GENERATION_DATA, GenerationStyle, MAX_PROMPT_LENGTH } from '@/app/_utils/constants';
-import GenerationStylePicker from '@/app/generate/_components/generation-style-picker';
-import GenerateInfoLimit from '@/app/generate/_components/generation-token-limit-info';
-import { ParsedGenerationTokenCookie } from '@/app/generate/_utils/generation-token';
-import { ImageHistoryEntry } from '@/app/generate/_utils/image-history/common';
+import GenerationStylePicker from './generation-style-picker';
+import GenerateInfoLimit from './generation-token-limit-info';
 import ImageHistory from './image-history';
 
 const PageGenerateContent = ({
