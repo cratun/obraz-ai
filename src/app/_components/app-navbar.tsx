@@ -66,13 +66,22 @@ const AppNavbar = () => {
                 Zostaw opinię
               </AppButton>
               <AppButton
+                color="colorText"
                 href="/gallery"
                 LinkComponent={Link}
                 size="small"
                 startIcon={<PhotoLibraryRoundedIcon className="text-base" />}
-                variant="outlined"
               >
                 Twoje obrazy
+              </AppButton>
+              <AppButton
+                color="colorText"
+                href="/cart"
+                LinkComponent={Link}
+                size="small"
+                startIcon={<NavbarCartIcon />}
+              >
+                Koszyk
               </AppButton>
               <AppButton
                 href="/generate"
@@ -83,13 +92,6 @@ const AppNavbar = () => {
               >
                 Stwórz swój obraz
               </AppButton>
-              <IconButton
-                className="-my-1 p-1 text-text [&_.MuiSvgIcon-root]:text-2xl"
-                href="/cart"
-                LinkComponent={Link}
-              >
-                <NavbarCartIcon />
-              </IconButton>
             </div>
           </div>
           <div className="flex items-center gap-1 lg:hidden">

@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
@@ -175,7 +176,14 @@ const ImageHistory = ({
         <div className="flex flex-col items-center justify-center gap-5 text-center md:pt-10">
           <Image alt="Ikona pustej galerii" height={150} src="/empty-gallery.svg" width={150} />
           <Typography.H4>Zacznij tworzyć, a Twoje obrazy pojawią się tutaj!</Typography.H4>
-          <AppButton className="px-10" href="/generate" LinkComponent={Link} size="large" variant="contained">
+          <AppButton
+            className="px-10"
+            href="/generate"
+            LinkComponent={Link}
+            size="large"
+            startIcon={<AutoAwesomeRoundedIcon />}
+            variant="contained"
+          >
             Przejdź do kreatora
           </AppButton>
         </div>

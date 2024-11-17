@@ -9,6 +9,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import LoyaltyRoundedIcon from '@mui/icons-material/LoyaltyRounded';
+import PhotoLibraryRoundedIcon from '@mui/icons-material/PhotoLibraryRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import {
   Drawer,
@@ -29,7 +30,7 @@ import AppButton from '@/app/_components/app-button';
 import Typography from '@/app/_components/typography';
 import PromoBox from '@/app/_promo/promo-box';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
-import { getBucketImgUrl } from '@/app/_utils/common';
+import { getBucketImgUrl, groszToPLN } from '@/app/_utils/common';
 import { CheckPromoResponse } from '@/app/api/check-promo/utils';
 import actionBuy from '@/app/cart/action-buy';
 import { useCartStorage } from '@/app/cart/components/add-to-cart-button';
@@ -255,7 +256,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
       }
 
       if (checkPromoCodeMutation.data.amountOff) {
-        return total - checkPromoCodeMutation.data.amountOff;
+        return total - groszToPLN(checkPromoCodeMutation.data.amountOff);
       }
     }
 
@@ -292,16 +293,29 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
           <Typography.Body className="text-center text-xl">
             Wygląda na to, że Twój koszyk jest pusty. Stwórz swój <strong>ObrazAI</strong>!
           </Typography.Body>
-          <AppButton
-            className="py-2.5"
-            href="/generate"
-            LinkComponent={Link}
-            size="large"
-            startIcon={<AutoAwesomeRoundedIcon />}
-            variant="contained"
-          >
-            Stwórz swój obraz
-          </AppButton>
+          <div className="flex flex-col gap-2.5">
+            <AppButton
+              className="py-2.5"
+              href="/generate"
+              LinkComponent={Link}
+              size="large"
+              startIcon={<AutoAwesomeRoundedIcon />}
+              variant="contained"
+            >
+              Stwórz swój obraz teraz
+            </AppButton>
+            <Typography.Body className="self-center">Lub</Typography.Body>
+            <AppButton
+              className="py-2.5"
+              href="/gallery"
+              LinkComponent={Link}
+              size="large"
+              startIcon={<PhotoLibraryRoundedIcon />}
+              variant="outlined"
+            >
+              Przejdź do swojej galerii
+            </AppButton>
+          </div>
         </div>
       </div>
     );
@@ -393,7 +407,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
           <div className="flex flex-col gap-1">
             <div className="flex justify-between gap-1">
               <div>Wartość produktów:</div>
-              <div className="font-medium">{formatPrice(totalWithPromo)} zł</div>
+              <div className="font-medium">{formatPrice(total)} zł</div>
             </div>
             <div className="flex justify-between gap-1">
               <div>Dostawa:</div>
@@ -401,14 +415,20 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
             </div>
             {checkPromoCodeMutation.isSuccess && (
               <div className="flex justify-between gap-1">
-                <div>Kod rabatowy:</div>
+                <div>
+                  Zniżka{' '}
+                  {checkPromoCodeMutation.data.percentOff
+                    ? `${checkPromoCodeMutation.data.percentOff}%`
+                    : groszToPLN(checkPromoCodeMutation.data.amountOff as number) + ' zł'}
+                  :
+                </div>
                 {checkPromoCodeMutation.data?.percentOff && (
                   <div className="font-medium text-accent">
-                    {formatPrice(total - priceWithPercentDiscount(total, checkPromoCodeMutation.data.percentOff))} zł
+                    -{formatPrice(total - priceWithPercentDiscount(total, checkPromoCodeMutation.data.percentOff))} zł
                   </div>
                 )}
                 {checkPromoCodeMutation.data.amountOff && (
-                  <div className="font-medium text-accent">{checkPromoCodeMutation.data.amountOff} zł</div>
+                  <div className="font-medium text-accent">-{checkPromoCodeMutation.data.amountOff / 100} zł</div>
                 )}
               </div>
             )}
@@ -450,7 +470,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                     {checkPromoCodeMutation.isSuccess ? 'Usuń' : 'Dodaj'}
                   </AppButton>
                 </div>
-                {checkPromoCodeMutation.data?.percentOff && (
+                {/* {checkPromoCodeMutation.data?.percentOff && (
                   <Typography.Body className="text-sm font-bold">
                     Zniżka {checkPromoCodeMutation.data.percentOff}%
                   </Typography.Body>
@@ -459,7 +479,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                   <Typography.Body className="text-sm font-bold">
                     Zniżka {checkPromoCodeMutation.data.amountOff} zł
                   </Typography.Body>
-                )}
+                )} */}
                 {checkPromoCodeMutation.error?.response?.data.errorCode === 'PROMO_CODE_NOT_FOUND' && (
                   <Typography.Body className="text-sm font-bold">Wprowadzony kod nie istnieje.</Typography.Body>
                 )}

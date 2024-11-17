@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
+import BenefitsSection from '@/app/_components/benefits-section';
 import HomeSwiper from '@/app/_components/generate-examples-swiper';
 import ReviewsSwiper from '@/app/_components/reviews-swiper';
 import Typography from '@/app/_components/typography';
@@ -142,6 +143,7 @@ const ManualPage = () => {
         </AppContainer.Content>
       </AppContainer>
       <ReviewsSwiper className="mb-10" />
+      <BenefitsSection />
     </>
   );
 };

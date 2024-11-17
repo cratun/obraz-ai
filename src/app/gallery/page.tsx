@@ -1,6 +1,8 @@
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import Link from 'next/link';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
+import BenefitsSection from '@/app/_components/benefits-section';
 import HomeSwiper from '@/app/_components/generate-examples-swiper';
 import Typography from '@/app/_components/typography';
 import { getSpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
@@ -37,11 +39,18 @@ const GalleryPage = () => {
       <HomeSwiper />
       <AppContainer className="py-10">
         <AppContainer.Content className="flex-wrap gap-5 text-text">
-          <AppButton href="/generate" LinkComponent={Link} size="large" variant="contained">
+          <AppButton
+            href="/generate"
+            LinkComponent={Link}
+            size="large"
+            startIcon={<AutoAwesomeRoundedIcon />}
+            variant="contained"
+          >
             Przejdź do kreatora
           </AppButton>
         </AppContainer.Content>
       </AppContainer>
+      <BenefitsSection />
     </>
   );
 };
