@@ -7,8 +7,8 @@ import dayjs from 'dayjs';
 import { useSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { useCopyToClipboard } from 'usehooks-ts';
-import { sizeToPrice } from '@/app/generate/_utils/common';
-import { CanvasSize } from '@/app/generate/_utils/sizes-utils';
+import { sizeToPrice } from '@/app/(main-layout)/generate/_utils/common';
+import { CanvasSize } from '@/app/_utils/sizes-utils';
 import { SpecialPromoCookie } from './special-promo-cookie';
 import useCountdownTimer from './use-countdown-timer';
 import {

@@ -10,10 +10,10 @@ import dayjs from 'dayjs';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import { useLocalStorage } from 'usehooks-ts';
+import { IMAGE_HISTORY_EXPIRY_DAYS } from '@/app/(main-layout)/generate/_utils/image-history/common';
 import AppButton from '@/app/_components/app-button';
+import { CanvasSize } from '@/app/_utils/sizes-utils';
 import { CartItem } from '@/app/cart/utils';
-import { IMAGE_HISTORY_EXPIRY_DAYS } from '@/app/generate/_utils/image-history/common';
-import { CanvasSize } from '@/app/generate/_utils/sizes-utils';
 
 const AddToCartDrawer = ({
   className,

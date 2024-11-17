@@ -1,13 +1,13 @@
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import Link from 'next/link';
+import ImageHistory from '@/app/(main-layout)/generate/_components/image-history';
+import { getImageHistoryFromCookie } from '@/app/(main-layout)/generate/_utils/image-history/server';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import BenefitsSection from '@/app/_components/benefits-section';
 import HomeSwiper from '@/app/_components/generate-examples-swiper';
 import Typography from '@/app/_components/typography';
 import { getSpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
-import ImageHistory from '@/app/generate/_components/image-history';
-import { getImageHistoryFromCookie } from '@/app/generate/_utils/image-history/server';
 
 const GalleryPage = () => {
   const imageHistory = getImageHistoryFromCookie();

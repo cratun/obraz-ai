@@ -4,9 +4,10 @@ import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Stripe } from 'stripe';
 import { z } from 'zod';
+import { EXTERNAL_ID_COOKIE } from '@/app/(main-layout)/generate/_utils/common';
 import { ORIGIN_URL } from '@/app/_utils/constants';
 import { getClientIp } from '@/app/_utils/get-client-ip';
-import { EXTERNAL_ID_COOKIE } from '@/app/generate/_utils/common';
+
 import { CartItem, cartItemSchema } from './utils';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);

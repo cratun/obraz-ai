@@ -7,7 +7,8 @@ import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { defaultCanvasSize } from '@/app/generate/_utils/sizes-utils';
+
+import { defaultCanvasSize } from '@/app/_utils/sizes-utils';
 import { MockupImages } from '@/app/types';
 
 const GeneratedImageSlider = ({

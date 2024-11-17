@@ -9,7 +9,7 @@ import {
   GPT_ADJUSTED_PROMPT_POPART_PICTURE,
   GPT_ADJUSTED_PROMPT_PSYCHEDELIC,
   GPT_ADJUSTED_PROMPT_SURREALISM,
-} from '@/app/generate/_utils/style-prompts';
+} from './style-prompts';
 
 export const footerLinks = {
   Wsparcie: {
