@@ -14,7 +14,7 @@ const paymentMethods = [
 const PaymentMethodsList = ({
   classes,
 }: {
-  classes?: { container: ClassNameValue; iconContainer: ClassNameValue };
+  classes?: { container?: ClassNameValue; iconContainer?: ClassNameValue };
 }) => {
   return (
     <div className={twMerge('flex flex-wrap gap-1', classes?.container)}>

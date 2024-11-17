@@ -28,6 +28,7 @@ import { twMerge } from 'tailwind-merge';
 import { useMediaQuery } from 'usehooks-ts';
 import { sizeToPrice } from '@/app/(main-layout)/generate/_utils/common';
 import AppButton from '@/app/_components/app-button';
+import PaymentMethodsList from '@/app/_components/payments-methods-list';
 import Typography from '@/app/_components/typography';
 import PromoBox from '@/app/_promo/promo-box';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
@@ -400,7 +401,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
             </Fragment>
           ))}
         </div>
-        <div className="flex flex-col gap-2.5 md:min-w-[350px] md:gap-5 lg:min-w-[400px]">
+        <div className="flex flex-col gap-3 md:min-w-[350px] md:gap-5 lg:min-w-[400px]">
           <div className="hidden md:flex">
             <Typography.H3>Szczegóły zamówienia</Typography.H3>
           </div>
@@ -439,7 +440,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
           </div>
           <PromoBox hidePrice specialPromoCookie={specialPromoCookie} />
           <div className="border-b border-text/20" />
-          <div className="p">
+          <div>
             {isPromoClicked ? (
               <div className="flex flex-col gap-1">
                 <div className="grid grid-cols-[1fr_80px]">
@@ -470,16 +471,6 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                     {checkPromoCodeMutation.isSuccess ? 'Usuń' : 'Dodaj'}
                   </AppButton>
                 </div>
-                {/* {checkPromoCodeMutation.data?.percentOff && (
-                  <Typography.Body className="text-sm font-bold">
-                    Zniżka {checkPromoCodeMutation.data.percentOff}%
-                  </Typography.Body>
-                )}
-                {checkPromoCodeMutation.data?.amountOff && (
-                  <Typography.Body className="text-sm font-bold">
-                    Zniżka {checkPromoCodeMutation.data.amountOff} zł
-                  </Typography.Body>
-                )} */}
                 {checkPromoCodeMutation.error?.response?.data.errorCode === 'PROMO_CODE_NOT_FOUND' && (
                   <Typography.Body className="text-sm font-bold">Wprowadzony kod nie istnieje.</Typography.Body>
                 )}
@@ -499,6 +490,8 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
               </AppButton>
             )}
           </div>
+          <div className="border-b border-text/20 md:hidden" />
+          <PaymentMethodsList classes={{ container: 'md:hidden', iconContainer: 'h-7' }} />
           <AppButton
             className="hidden py-3 text-base md:flex"
             color="accent"
