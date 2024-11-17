@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 
 export const PROMO_END_DATE = dayjs('2024-11-15').endOf('day');
-export const PROMO_CODE = 'PREBLACK';
-export const PROMO_PERCENTAGE_VALUE = 20;
+export const PROMO_CODE = 'BLACKWEEK';
+export const PROMO_PERCENTAGE_VALUE = 22;
 
 export const getIsPromoExpired = () => {
   const end = dayjs(PROMO_END_DATE);
@@ -13,4 +13,4 @@ export const getIsPromoExpired = () => {
 
 export const SPECIAL_PROMO_COOKIE = '8CfUgS-ge1RBcWWPSxssz';
 
-export const IS_SPECIAL_PROMO_ENABLED = true;
+export const IS_SPECIAL_PROMO_ENABLED = false;
