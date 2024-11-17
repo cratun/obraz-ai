@@ -290,7 +290,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
   if (cartItems.length === 0 && !isLoading) {
     return (
       <div className="grid grow place-items-center">
-        <div className="flex max-w-[450px] flex-col justify-center gap-2.5 py-5 md:gap-5">
+        <div className="flex max-w-[450px] flex-col justify-center gap-2.5 py-5 pt-[20vh] md:gap-5 md:pt-20">
           <Typography.Body className="text-center text-xl">
             Wygląda na to, że Twój koszyk jest pusty. Stwórz swój <strong>ObrazAI</strong>!
           </Typography.Body>
