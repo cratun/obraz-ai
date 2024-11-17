@@ -6,6 +6,7 @@ import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import { useRouter } from 'next/navigation';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
+import BenefitsSection from '@/app/_components/benefits-section';
 import GenerateTextField from '@/app/_components/generate-text-field';
 import Typography from '@/app/_components/typography';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
@@ -58,72 +59,75 @@ const PageGenerateContent = ({
   };
 
   return (
-    <AppContainer className="pb-20 pt-[--save-navbar-padding-top]">
-      <AppContainer.Content className="flex flex-col gap-10 overflow-auto text-text lg:gap-20">
-        <div className="flex flex-col gap-5 lg:gap-10">
-          <div className="flex flex-col gap-2.5 lg:gap-5">
-            <h1 className="text-3xl font-bold leading-[120%] tracking-[1px] md:text-4xl lg:text-5xl">
-              Stwórz <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
-            </h1>
-            <p className="leading-[150%] tracking-[0.5px]">
-              Opisz dokładnie, co chcesz zobaczyć - jedynym ograniczeniem jest Twoja wyobraźnia.
-            </p>
+    <>
+      <AppContainer className="pb-20 pt-[--save-navbar-padding-top]">
+        <AppContainer.Content className="flex flex-col gap-10 overflow-auto text-text lg:gap-20">
+          <div className="flex flex-col gap-5 lg:gap-10">
+            <div className="flex flex-col gap-2.5 lg:gap-5">
+              <h1 className="text-3xl font-bold leading-[120%] tracking-[1px] md:text-4xl lg:text-5xl">
+                Stwórz <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
+              </h1>
+              <p className="leading-[150%] tracking-[0.5px]">
+                Opisz dokładnie, co chcesz zobaczyć - jedynym ograniczeniem jest Twoja wyobraźnia.
+              </p>
+            </div>
+            <Controller
+              control={form.control}
+              name="prompt"
+              render={({ field, fieldState }) => (
+                <GenerateTextField
+                  inputValue={field.value}
+                  value={field.value}
+                  TextFieldProps={{
+                    inputRef: (event) => {
+                      field.ref(event);
+                      inputRef.current = event;
+                    },
+                    error: fieldState.invalid,
+                    helperText: fieldState.error?.message,
+                  }}
+                  onBlur={field.onBlur}
+                  onChange={(_, value) => field.onChange(value || '')}
+                  onInputChange={(_, value) => field.onChange(value)}
+                >
+                  <GenerateInfoLimit generationTokenCountCookie={generationTokenCountCookie} />
+                </GenerateTextField>
+              )}
+              rules={{
+                maxLength: {
+                  value: MAX_PROMPT_LENGTH,
+                  message: `Maksymalna długość opisu to ${MAX_PROMPT_LENGTH} znaków.`,
+                },
+              }}
+            />
           </div>
-          <Controller
-            control={form.control}
-            name="prompt"
-            render={({ field, fieldState }) => (
-              <GenerateTextField
-                inputValue={field.value}
-                value={field.value}
-                TextFieldProps={{
-                  inputRef: (event) => {
-                    field.ref(event);
-                    inputRef.current = event;
-                  },
-                  error: fieldState.invalid,
-                  helperText: fieldState.error?.message,
-                }}
-                onBlur={field.onBlur}
-                onChange={(_, value) => field.onChange(value || '')}
-                onInputChange={(_, value) => field.onChange(value)}
-              >
-                <GenerateInfoLimit generationTokenCountCookie={generationTokenCountCookie} />
-              </GenerateTextField>
-            )}
-            rules={{
-              maxLength: {
-                value: MAX_PROMPT_LENGTH,
-                message: `Maksymalna długość opisu to ${MAX_PROMPT_LENGTH} znaków.`,
-              },
-            }}
-          />
-        </div>
-        <div className="flex flex-col gap-5 lg:gap-10">
-          <Typography.H4>
-            Wybrany styl:{' '}
-            <span className="font-semibold text-primary">
-              {ensureNotNull(GENERATION_DATA.find((item) => item.generationStyle === generationStyle)).text}
-            </span>
-          </Typography.H4>
-          <GenerationStylePicker generationStyle={generationStyle} onGenerationStyleChange={setGenerationStyle} />
-        </div>
-        <AppButton
-          className="py-3 lg:py-5 lg:text-lg"
-          disabled={generationTokenCountCookie.value === 0}
-          endIcon={<EastRoundedIcon />}
-          loading={isPending}
-          size="large"
-          variant="contained"
-          onClick={form.handleSubmit((values) => handleSubmit(values))}
-        >
-          Stwórz swój obraz
-        </AppButton>
-        {imageHistory.length > 0 && (
-          <ImageHistory imageHistory={imageHistory} specialPromoCookie={specialPromoCookie} />
-        )}
-      </AppContainer.Content>
-    </AppContainer>
+          <div className="flex flex-col gap-5 lg:gap-10">
+            <Typography.H4>
+              Wybrany styl:{' '}
+              <span className="font-semibold text-primary">
+                {ensureNotNull(GENERATION_DATA.find((item) => item.generationStyle === generationStyle)).text}
+              </span>
+            </Typography.H4>
+            <GenerationStylePicker generationStyle={generationStyle} onGenerationStyleChange={setGenerationStyle} />
+          </div>
+          <AppButton
+            className="py-3 lg:py-5 lg:text-lg"
+            disabled={generationTokenCountCookie.value === 0}
+            endIcon={<EastRoundedIcon />}
+            loading={isPending}
+            size="large"
+            variant="contained"
+            onClick={form.handleSubmit((values) => handleSubmit(values))}
+          >
+            Stwórz swój obraz
+          </AppButton>
+          {imageHistory.length > 0 && (
+            <ImageHistory imageHistory={imageHistory} specialPromoCookie={specialPromoCookie} />
+          )}
+        </AppContainer.Content>
+      </AppContainer>
+      <BenefitsSection />
+    </>
   );
 };
 

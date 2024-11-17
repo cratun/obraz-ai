@@ -20,3 +20,5 @@ export const generationStyles = [
 
 export const getBucketImgUrl = (id: string) =>
   `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME}.s3.eu-central-1.amazonaws.com/${id}.webp`;
+
+export const groszToPLN = (grosz: number) => grosz / 100;

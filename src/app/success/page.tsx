@@ -2,7 +2,6 @@ import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import Script from 'next/script';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import { CONTACT_EMAIL } from '@/app/_utils/constants';
@@ -96,19 +95,6 @@ const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => 
           </div>
         </AppContainer.Content>
       </AppContainer>
-      {session &&
-        customer &&
-        process.env.NODE_ENV !== 'development' &&
-        process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false' && (
-          <Script id="x-pixel-success" strategy="lazyOnload">
-            {`twq('event', 'tw-opn45-opn73', {
-    value: ${(session.amount_total || 0) / 100},
-    currency: 'PLN',
-    email_address: '${customer.email}',
-    phone_number: ${customer.phone},
-  });`}
-          </Script>
-        )}
     </>
   );
 };

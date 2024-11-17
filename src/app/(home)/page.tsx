@@ -8,6 +8,7 @@ import CardIcon from '@/app/_assets/card-icon';
 import StyleIcon from '@/app/_assets/style-icon';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
+import BenefitsSection from '@/app/_components/benefits-section';
 import GeneratedExamplesSwiper from '@/app/_components/generate-examples-swiper';
 import GenerateTextFieldHome from '@/app/_components/generate-text-field-home';
 import InteriorSettingPicturesSwiper from '@/app/_components/interior-setting-pictures-swiper';
@@ -234,6 +235,7 @@ const Home = () => {
           </AppButton>
         </AppContainer.Content>
       </AppContainer>
+      <BenefitsSection />
     </>
   );
 };

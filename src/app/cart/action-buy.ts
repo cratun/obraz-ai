@@ -43,7 +43,7 @@ const sendInitCheckoutPixelEvent = async () => {
 
   const eventsData = [serverEvent];
   const eventRequest = new EventRequest(access_token, pixel_id).setEvents(eventsData);
-  // .setTestEventCode('TEST53533');
+  // .setTestEventCode('TEST85816');
 
   await eventRequest.execute().then(
     (response: any) => {
@@ -80,7 +80,7 @@ const actionBuy = async ({
     });
   }
 
-  if (process.env.NODE_ENV !== 'development' && process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false') {
+  if (process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false') {
     await sendInitCheckoutPixelEvent();
   }
 

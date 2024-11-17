@@ -44,9 +44,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html id="root" lang="pl">
-      {process.env.NODE_ENV !== 'development' && process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false' && (
-        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
-      )}
+      {process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false' && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />}
       <body className={twJoin('bg-neutral', raleway.variable)}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
@@ -60,7 +58,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
             </Providers>
           </ThemeProvider>
         </AppRouterCacheProvider>
-        {process.env.NODE_ENV !== 'development' && process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false' && (
+        {process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false' && (
           <Script id="meta-pixel" strategy="afterInteractive">
             {`!function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -72,14 +70,6 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '2576537089212905');
 fbq('track', 'PageView');`}
-          </Script>
-        )}
-        {process.env.NODE_ENV !== 'development' && process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false' && (
-          <Script id="x-pixel" strategy="afterInteractive">
-            {`!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
-},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
-a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-twq('config','opn45');`}
           </Script>
         )}
       </body>
