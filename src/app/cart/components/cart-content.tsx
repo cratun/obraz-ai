@@ -491,7 +491,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
             )}
           </div>
           <div className="border-b border-text/20 md:hidden" />
-          <PaymentMethodsList classes={{ container: 'md:hidden', iconContainer: 'h-7' }} />
+          <PaymentMethodsList classes={{ container: 'md:hidden pb-[110px]', iconContainer: 'h-7' }} />
           <AppButton
             className="hidden py-3 text-base md:flex"
             color="accent"
