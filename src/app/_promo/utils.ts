@@ -13,4 +13,4 @@ export const getIsPromoExpired = () => {
 
 export const SPECIAL_PROMO_COOKIE = '8CfUgS-ge1RBcWWPSxssz';
 
-export const IS_SPECIAL_PROMO_ENABLED = false;
+export const IS_SPECIAL_PROMO_ENABLED = true;
