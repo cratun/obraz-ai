@@ -8,7 +8,7 @@ const CartPage = () => {
   return (
     <>
       <AppNavbar />
-      <AppContainer className="relative pb-10 pt-20 md:pt-[--save-navbar-padding-top]">
+      <AppContainer className="relative pb-10 pt-[--save-navbar-padding-top]">
         <AppContainer.Content className="flex flex-col gap-6 text-text lg:gap-10">
           <CartContent specialPromoCookie={getSpecialPromoCookie()} />
         </AppContainer.Content>
