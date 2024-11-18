@@ -112,7 +112,7 @@ const actionBuy = async ({
     // NOTE: unlikely scenario, error will be thrown if items > 50
     payment_intent_data: {
       metadata: parsedCartItems.reduce((acc: Record<string, string>, item) => {
-        acc[item.imageId] = JSON.stringify({ quantity: item.quantity, size: item.canvasSize });
+        acc[item.id] = JSON.stringify({ imageId: item.imageId, quantity: item.quantity, size: item.canvasSize });
 
         return acc;
       }, {}),
