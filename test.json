@@ -1,0 +1,113 @@
+{
+  "adaptive_pricing": { "enabled": false },
+  "after_expiration": null,
+  "allow_promotion_codes": null,
+  "amount_subtotal": 21900,
+  "amount_total": 17082,
+  "automatic_tax": { "enabled": true, "liability": { "type": "self" }, "status": "complete" },
+  "billing_address_collection": "required",
+  "cancel_url": "http://localhost:3000/cart",
+  "client_reference_id": null,
+  "client_secret": null,
+  "consent": { "promotions": null, "terms_of_service": "accepted" },
+  "consent_collection": {
+    "payment_method_reuse_agreement": null,
+    "promotions": "none",
+    "terms_of_service": "required"
+  },
+  "created": 1732057713,
+  "currency": "pln",
+  "currency_conversion": null,
+  "custom_fields": [],
+  "custom_text": {
+    "after_submit": null,
+    "shipping_address": null,
+    "submit": null,
+    "terms_of_service_acceptance": {
+      "message": "Akceptuję warunki [regulaminu](http://localhost:3000/terms-of-service)."
+    }
+  },
+  "customer": "cus_RFVYQCuIGIMdXU",
+  "customer_creation": "if_required",
+  "customer_details": {
+    "address": {
+      "city": "dupa",
+      "country": "PL",
+      "line1": "test dupa",
+      "line2": null,
+      "postal_code": "00-000",
+      "state": null
+    },
+    "email": "kacper.zabielski05@gmail.com",
+    "name": "test",
+    "phone": "+48500234231",
+    "tax_exempt": "none",
+    "tax_ids": []
+  },
+  "customer_email": null,
+  "expires_at": 1732144113,
+  "id": "cs_test_a1vSHyHSshFS1WltiLtPaCCgXcj3WVcleCfoBysypbsMbX7XWlhG0PKyu8",
+  "invoice": "in_1QN0XKLXa7qieokpKQbOODwT",
+  "invoice_creation": {
+    "enabled": true,
+    "invoice_data": {
+      "account_tax_ids": ["txi_1Q0UpqLXa7qieokpZOKDS7Dt"],
+      "custom_fields": [
+        { "name": "Nazwa sprzedawcy", "value": "Cratun sp. z o.o." },
+        { "name": "Adres sprzedawcy", "value": "Niekłonice 49E 76-024" }
+      ],
+      "description": null,
+      "footer": null,
+      "issuer": { "type": "self" },
+      "metadata": {},
+      "rendering_options": null
+    }
+  },
+  "livemode": false,
+  "locale": "pl",
+  "metadata": {},
+  "mode": "payment",
+  "object": "checkout.session",
+  "payment_intent": "pi_3QN0XFLXa7qieokp1X6gWRZ2",
+  "payment_link": null,
+  "payment_method_collection": "if_required",
+  "payment_method_configuration_details": { "id": "pmc_1Q0TQ8LXa7qieokpy9u4tI5N", "parent": null },
+  "payment_method_options": {},
+  "payment_method_types": ["card", "p24", "blik", "link", "klarna"],
+  "payment_status": "paid",
+  "phone_number_collection": { "enabled": true },
+  "recovered_from": null,
+  "saved_payment_method_options": {
+    "allow_redisplay_filters": ["always"],
+    "payment_method_remove": null,
+    "payment_method_save": null
+  },
+  "setup_intent": null,
+  "shipping_address_collection": { "allowed_countries": ["PL"] },
+  "shipping_cost": {
+    "amount_subtotal": 0,
+    "amount_tax": 0,
+    "amount_total": 0,
+    "shipping_rate": "shr_1QE9CQLXa7qieokpvvzN194z"
+  },
+  "shipping_details": {
+    "address": {
+      "city": "dupa",
+      "country": "PL",
+      "line1": "test dupa",
+      "line2": null,
+      "postal_code": "00-000",
+      "state": null
+    },
+    "name": "test"
+  },
+  "shipping_options": [{ "shipping_amount": 0, "shipping_rate": "shr_1QE9CQLXa7qieokpvvzN194z" }],
+  "status": "complete",
+  "submit_type": null,
+  "subscription": null,
+  "success_url": "http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
+  "tax_id_collection": { "enabled": true, "required": "never" },
+  "total_details": { "amount_discount": 4818, "amount_shipping": 0, "amount_tax": 3194 },
+  "ui_mode": "hosted",
+  "url": null
+}

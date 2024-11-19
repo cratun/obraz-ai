@@ -34,7 +34,7 @@ import PromoBox from '@/app/_promo/promo-box';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { getBucketImgUrl, groszToPLN } from '@/app/_utils/common';
 import { CanvasSize, canvasSizes } from '@/app/_utils/sizes-utils';
-import { CheckPromoResponse } from '@/app/api/check-promo/utils';
+import { checkIsGiftCodeCouponName, CheckPromoResponse, GiftCodeCouponName } from '@/app/api/check-promo/utils';
 import actionBuy from '@/app/cart/action-buy';
 import { useCartStorage } from '@/app/cart/components/add-to-cart-button';
 import { CartItem } from '@/app/cart/utils';
@@ -205,6 +205,12 @@ const EditCartItemDrawer = ({
   );
 };
 
+const giftCardErrorToSize = {
+  GIFT30: '30x30 cm',
+  GIFT60: '60x60 cm',
+  GIFT100: '100x100 cm',
+} as const satisfies Record<GiftCodeCouponName, string>;
+
 const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoCookie }) => {
   const { cartItems, removeItem, isLoading } = useCartStorage();
   const [isPromoClicked, setIsPromoClicked] = useState(false);
@@ -227,9 +233,26 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
 
   const checkPromoCodeMutation = useMutation({
     mutationFn: (code: string) =>
-      axios.get<CheckPromoResponse>(`/api/check-promo?code=${code}`).then(({ data }) => data),
+      axios.get<CheckPromoResponse>(`/api/check-promo?code=${code}`).then(({ data }) => {
+        if (data.giftCodeName) {
+          // GIFT CARD LOGIC SAME ON FRONTEND AND BACKEND
+          if (cartItems.length !== 1) {
+            throw new Error(data.giftCodeName);
+          }
+
+          if (cartItems[0].quantity !== 1) {
+            throw new Error(data.giftCodeName);
+          }
+
+          if (cartItems[0].canvasSize !== data.giftCodeName.split('GIFT')[1]) {
+            throw new Error(data.giftCodeName);
+          }
+        }
+
+        return data;
+      }),
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    onError: (_: AxiosError<{ errorCode: 'PROMO_CODE_NOT_FOUND' | 'PROMO_CODE_NOT_ACTIVE' }>) => {},
+    onError: (error: AxiosError<{ errorCode: 'PROMO_CODE_NOT_FOUND' | 'PROMO_CODE_NOT_ACTIVE' }>) => {},
   });
 
   const handleAddPromoClick = () => {
@@ -366,6 +389,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                     </div>
                     <AppButton
                       className="self-start"
+                      disabled={!!checkPromoCodeMutation.data?.giftCodeName}
                       size="small"
                       startIcon={<EditRoundedIcon className="text-sm" />}
                       onClick={() => setEditDialogState({ open: true, item })}
@@ -476,6 +500,12 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                 {checkPromoCodeMutation.error?.response?.data.errorCode === 'PROMO_CODE_NOT_ACTIVE' && (
                   <Typography.Body className="text-sm font-bold">Wprowadzony kod wygasł.</Typography.Body>
                 )}
+                {checkIsGiftCodeCouponName(checkPromoCodeMutation.error?.message) && (
+                  <Typography.Body className="text-sm font-bold">
+                    Aby użyć podany kod prezentowy w koszyku musi się znajdować tylko jeden obraz w rozmiarze{' '}
+                    {giftCardErrorToSize[checkPromoCodeMutation.error.message]}.
+                  </Typography.Body>
+                )}
                 {/* TODO: Add code redeemed and other possible states */}
               </div>
             ) : (
@@ -485,7 +515,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                 startIcon={<LoyaltyRoundedIcon />}
                 onClick={() => setIsPromoClicked(true)}
               >
-                Mam kod rabatowy
+                Mam kod rabatowy lub prezentowy
               </AppButton>
             )}
           </div>
