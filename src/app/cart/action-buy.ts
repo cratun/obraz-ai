@@ -1,60 +1,16 @@
 'use server';
-import dayjs from 'dayjs';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Stripe } from 'stripe';
 import { z } from 'zod';
 import { EXTERNAL_ID_COOKIE } from '@/app/(main-layout)/generate/_utils/common';
-import { ORIGIN_URL } from '@/app/_utils/constants';
-import { getClientIp } from '@/app/_utils/get-client-ip';
 
+import { sendInitCheckoutPixelEvent } from '@/app/_utils/pixel-events';
+import { CanvasSize } from '@/app/_utils/sizes-utils';
+import { checkIsGiftCodeCouponName } from '@/app/api/check-promo/utils';
 import { CartItem, cartItemSchema } from './utils';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
-const PIXEL_ID = process.env.META_PIXEL_ID!;
-const META_ACCESS_TOKEN = process.env.CONVERSIONS_API_ACCESS_TOKEN!;
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const bizSdk = require('facebook-nodejs-business-sdk');
-
-const sendInitCheckoutPixelEvent = async () => {
-  const headersList = headers();
-  const cookiesList = cookies();
-
-  const access_token = META_ACCESS_TOKEN;
-  bizSdk.FacebookAdsApi.init(access_token);
-  const EventRequest = bizSdk.EventRequest;
-  const UserData = bizSdk.UserData;
-  const ServerEvent = bizSdk.ServerEvent;
-
-  const pixel_id = PIXEL_ID;
-
-  const userData = new UserData()
-    .setClientIpAddress(getClientIp())
-    .setClientUserAgent(headersList.get('user-agent') || '')
-    .setExternalId(cookiesList.get('external_id')?.value)
-    .setFbp(cookiesList.get('_fbp')?.value)
-    .setFbc(cookiesList.get('_fbc')?.value);
-
-  const serverEvent = new ServerEvent()
-    .setEventName('InitiateCheckout')
-    .setEventTime(dayjs().unix())
-    .setUserData(userData)
-    .setActionSource('website');
-
-  const eventsData = [serverEvent];
-  const eventRequest = new EventRequest(access_token, pixel_id).setEvents(eventsData);
-  // .setTestEventCode('TEST85816');
-
-  await eventRequest.execute().then(
-    (response: any) => {
-      console.log('Response: ', response);
-    },
-    (err: any) => {
-      console.error('Error: ', err);
-    },
-  );
-};
 
 const actionBuy = async ({
   cancelUrl,
@@ -71,6 +27,25 @@ const actionBuy = async ({
   const cookieStore = cookies();
   let externalId = cookieStore.get('external_id')?.value;
 
+  // GIFT CARD LOGIC SAME ON FRONTEND AND BACKEND
+  if (promoCodeId) {
+    const promotionCode = await stripe.promotionCodes.retrieve(promoCodeId);
+
+    if (checkIsGiftCodeCouponName(promotionCode.coupon.name)) {
+      if (cartItems.length !== 1) {
+        throw new Error('Only one item can be bought with a gift code');
+      }
+
+      if (cartItems[0].quantity !== 1) {
+        throw new Error('Only one item can be bought with a gift code, with one quantity');
+      }
+
+      if (cartItems[0].canvasSize !== promotionCode.coupon.name.split('GIFT')[1]) {
+        throw new Error('Gift code size does not match the item size');
+      }
+    }
+  }
+
   if (!externalId) {
     externalId = crypto.randomUUID();
     cookieStore.set(EXTERNAL_ID_COOKIE, externalId, {
@@ -85,31 +60,30 @@ const actionBuy = async ({
     await sendInitCheckoutPixelEvent();
   }
 
-  const lineItems = parsedCartItems.map((item) => {
-    const size = item.canvasSize;
-    const priceInGrosze = process.env[`CANVAS_PRICE_${size}`];
-    if (!priceInGrosze) throw new Error('Invalid size');
+  const itemBySize = parsedCartItems.reduce(
+    (acc, item) => {
+      if (!acc[item.canvasSize]) {
+        acc[item.canvasSize] = 0;
+      }
 
-    return {
-      price_data: {
-        currency: 'pln',
-        product_data: {
-          name: `ObrazAI na płótnie (${size}x${size}) cm`,
-          images: [`${ORIGIN_URL}/api/resize-img?imgId=${item.imageId}`],
-        },
-        unit_amount: Number(priceInGrosze),
-      },
-      quantity: item.quantity,
-    };
-  });
+      acc[item.canvasSize] += item.quantity;
+
+      return acc;
+    },
+    {} as Record<CanvasSize, number>,
+  );
 
   const session = await stripe.checkout.sessions.create({
-    line_items: lineItems,
+    line_items: Object.entries(itemBySize).map(([size, quantity]) => {
+      const priceId = process.env[`STRIPE_PRICE_ID_${size}`];
+      if (!priceId) throw new Error('Price ID does not exist');
+
+      return { price: priceId, quantity };
+    }),
     shipping_options: [{ shipping_rate: process.env.STRIPE_SHIPPING_RATE_ID }],
     mode: 'payment',
     success_url: `${headersList.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: cancelUrl,
-    // NOTE: unlikely scenario, error will be thrown if items > 50
     payment_intent_data: {
       metadata: parsedCartItems.reduce((acc: Record<string, string>, item) => {
         acc[item.id] = JSON.stringify({ imageId: item.imageId, quantity: item.quantity, size: item.canvasSize });

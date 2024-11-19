@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { CheckPromoResponse } from './utils';
+import { checkIsGiftCodeCouponName, CheckPromoResponse } from './utils';
 
 export async function GET(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -20,14 +20,21 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ errorCode: 'PROMO_CODE_NOT_FOUND' }, { status: 404 });
     }
 
+    const isGiftCode = checkIsGiftCodeCouponName(promoCodeData?.coupon?.name);
+
     if (!promoCodeData.active) {
       return NextResponse.json({ errorCode: 'PROMO_CODE_NOT_ACTIVE' }, { status: 400 });
+    }
+
+    if (!promoCodeData.active && isGiftCode) {
+      return NextResponse.json({ errorCode: 'GIFT_CODE_NOT_ACTIVE' }, { status: 400 });
     }
 
     return NextResponse.json({
       percentOff: promoCodeData.coupon.percent_off,
       amountOff: promoCodeData.coupon.amount_off,
       promoCodeId: promoCodeData.id,
+      giftCodeName: checkIsGiftCodeCouponName(promoCodeData?.coupon?.name) ? promoCodeData.coupon.name : null,
     } satisfies CheckPromoResponse);
   } catch (error) {
     console.error('Error checking promo code:', error);

@@ -46,13 +46,15 @@ const PageSuccess = async ({ searchParams }: { searchParams: SerachParams }) => 
                   <strong>Wartość:</strong> {(session.amount_total || 0) / 100} zł
                 </div>
               </div>
-              <div className="flex flex-col gap-1">
-                <strong>Adres wysyłki: </strong> {shippingDetails.address?.city}, {shippingDetails.address?.line1},
-                <div>{shippingDetails.address?.line2 && <>{shippingDetails.address?.line2}, </>}</div>
-                <div>
-                  {shippingDetails.address?.postal_code}, {shippingDetails.address?.country}
+              {shippingDetails && (
+                <div className="flex flex-col gap-1">
+                  <strong>Adres wysyłki: </strong> {shippingDetails.address?.city}, {shippingDetails.address?.line1},
+                  <div>{shippingDetails.address?.line2 && <>{shippingDetails.address?.line2}, </>}</div>
+                  <div>
+                    {shippingDetails.address?.postal_code}, {shippingDetails.address?.country}
+                  </div>
                 </div>
-              </div>
+              )}
               <div>
                 <strong>Adres email:</strong> {customer.email}
               </div>

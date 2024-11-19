@@ -3,6 +3,7 @@ import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import Stripe from 'stripe';
+import { giftCardSchema } from '@/app/giftcard/utils';
 import OrderEmail from '@/emails/order-email';
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -32,6 +33,7 @@ export async function POST(req: Request) {
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
+    console.log(JSON.stringify(session));
 
     if (!session.customer_details) {
       throw new Error('No customer details found');
@@ -43,6 +45,14 @@ export async function POST(req: Request) {
 
     if (!session.metadata) {
       throw new Error('No image ID or metadata found');
+    }
+    // console.log(JSON.stringify(session));
+    if (session.metadata.isGiftCard === 'true') {
+      // GIFT CARD LOGIC
+      const giftCardPayload = giftCardSchema.parse(session.metadata);
+      console.log(giftCardPayload);
+
+      return NextResponse.json({ result: event, ok: true });
     }
 
     if (!session.shipping_details) {
