@@ -349,7 +349,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                 <img alt="" height={140} src={getBucketImgUrl(item.imageId)} width={140} />
                 <div className="flex grow flex-col justify-between">
                   <div className="relative flex flex-col gap-2.5">
-                    <div className="text-base font-semibold leading-[1.2] tracking-[1px]">ObrazAI</div>
+                    <div className="text-base font-semibold leading-[1.2] tracking-[1px]">ObrazAI (płótno)</div>
                     <IconButton className="absolute -top-2 right-0 text-text" onClick={() => removeItem(item.id)}>
                       <DeleteRoundedIcon className="text-xl" />
                     </IconButton>

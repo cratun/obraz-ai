@@ -38,7 +38,7 @@ const OrderDetails = ({
 
   return (
     <div className="flex w-full flex-col gap-5">
-      <Typography.H2 className="hidden lg:block">Obraz na płótnie</Typography.H2>
+      <Typography.H2>Obraz na płótnie</Typography.H2>
       <div className="flex flex-col gap-1">
         <Typography.Body className="text-sm font-medium">Wybierz rozmiar</Typography.Body>
         <ToggleButtonGroup exclusive className="max-w-96 gap-2.5" value={size} onChange={handleSizeChange}>
