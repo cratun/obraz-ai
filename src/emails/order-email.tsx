@@ -89,8 +89,7 @@ const OrderEmail = ({
         </li>
       </ul>
       <Text className="text-base !text-text">
-        Twoje zamówienie jest obecnie w trakcie realizacji. Przewidywany czas dostawy to <b>3 - 5</b> dni roboczych. O
-        wszelkich aktualizacjach będziemy informować Cię drogą mailową.
+        Twoje zamówienie jest obecnie w trakcie realizacji. Przewidywany czas dostawy to <b>3 - 5</b> dni roboczych.
       </Text>
       <Text className="text-base !text-text">
         Jeśli masz jakiekolwiek pytania lub potrzebujesz dodatkowej pomocy, nasz zespół obsługi klienta jest do Twojej
