@@ -17,13 +17,15 @@ const actionBuyGiftCard = async ({ body, cancelUrl }: { cancelUrl: string; body:
     await sendInitCheckoutPixelEvent();
   }
 
+  const metadata = { ...payload, isGiftCard: 'true' };
+
   const session = await stripe.checkout.sessions.create({
     line_items: [{ price: process.env[`STRIPE_GIFT_CARD_PRICE_ID_${payload.canvasSize}`], quantity: 1 }],
     mode: 'payment',
     success_url: `${headersList.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: cancelUrl,
-    metadata: { ...payload, isGiftCard: 'true' },
-    payment_intent_data: { metadata: { ...payload, isGiftCard: 'true' } },
+    metadata,
+    payment_intent_data: { metadata },
     invoice_creation: {
       enabled: true,
       invoice_data: {

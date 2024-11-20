@@ -3,7 +3,7 @@ import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import Stripe from 'stripe';
-import { giftCardSchema } from '@/app/giftcard/utils';
+import { giftCardSchema } from '@/app/(main-layout)/giftcard/utils';
 import OrderEmail from '@/emails/order-email';
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -33,7 +33,6 @@ export async function POST(req: Request) {
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
-    console.log(JSON.stringify(session));
 
     if (!session.customer_details) {
       throw new Error('No customer details found');
@@ -43,14 +42,27 @@ export async function POST(req: Request) {
       throw new Error('No amount total found');
     }
 
-    if (!session.metadata) {
-      throw new Error('No image ID or metadata found');
-    }
-    // console.log(JSON.stringify(session));
-    if (session.metadata.isGiftCard === 'true') {
+    if (session.metadata?.isGiftCard === 'true') {
       // GIFT CARD LOGIC
-      const giftCardPayload = giftCardSchema.parse(session.metadata);
-      console.log(giftCardPayload);
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { isGiftCard, ...payload } = session.metadata;
+      const giftCardPayload = giftCardSchema.parse(payload);
+      const expiresAtDate = dayjs().add(1, 'year');
+
+      const couponId = process.env[`STRIPE_GIT_CARD_COUPON_ID_${payload.canvasSize}`];
+
+      if (!couponId) {
+        throw new Error('No coupon ID found' + JSON.stringify(payload));
+      }
+
+      const promotionCode = await stripe.promotionCodes.create({
+        coupon: couponId,
+        expires_at: expiresAtDate.unix(),
+        max_redemptions: 1,
+      });
+
+      console.log(promotionCode);
 
       return NextResponse.json({ result: event, ok: true });
     }
