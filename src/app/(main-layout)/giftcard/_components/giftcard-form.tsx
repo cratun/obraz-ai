@@ -73,7 +73,7 @@ const GiftCardForm = () => {
         startTransition(() => actionBuyGiftCard({ body: values, cancelUrl: window.location.href })),
       )}
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-5">
         <Controller
           control={form.control}
           name="canvasSize"
@@ -83,8 +83,8 @@ const GiftCardForm = () => {
                 <ButtonBase
                   key={size}
                   className={twMerge(
-                    'flex h-[80px] flex-col gap-2 rounded-xl border-2 border-solid border-transparent bg-white p-1',
-                    field.value === size && 'border-primary',
+                    'flex h-[80px] flex-col gap-2 rounded-xl border border-solid border-[#cbcbcb] bg-white p-1',
+                    field.value === size && 'border-primary shadow-[0_0_0_1px_#3BAE89]',
                   )}
                   onClick={() => field.onChange(size)}
                 >
@@ -112,7 +112,9 @@ const GiftCardForm = () => {
         <AppButton className="py-3" color="accent" loading={isPending} size="large" type="submit" variant="contained">
           Kup teraz
         </AppButton>
-        <Typography.Body className="text-center font-medium">Natychmiastowa dostawa na adres email</Typography.Body>
+        <Typography.Body className="text-center text-[14px] font-medium text-text/60">
+          Natychmiastowa dostawa na adres email
+        </Typography.Body>
       </div>
     </form>
   );
