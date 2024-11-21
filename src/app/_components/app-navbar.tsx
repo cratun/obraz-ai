@@ -9,13 +9,13 @@ import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import { Badge, ButtonBase, Drawer, IconButton } from '@mui/material';
 import Link from 'next/link';
+import GiftIcon from '@/app/_assets/gift-icon';
 import PromoBar from '@/app/_promo/promo-bar';
 import { bottomDrawerLinks } from '@/app/_utils/constants';
 import { useCartStorage } from '@/app/cart/components/add-to-cart-button';
 import AppButton from './app-button';
 import AppContainer from './app-container';
 import AppLogo from './app-logo';
-
 const NavbarCartIcon = () => {
   const { cartItems } = useCartStorage();
 
@@ -42,11 +42,21 @@ const AppNavbar = () => {
       <div className="flex items-center justify-center bg-white px-5 py-1 lg:py-2">
         <AppContainer.Content className="items-center justify-between gap-2">
           <div className="flex items-center justify-between gap-1 lg:grow">
-            <IconButton className="p-1 lg:hidden" color="primary" onClick={() => setOpen(true)}>
+            <IconButton className="p-0 lg:hidden" color="primary" onClick={() => setOpen(true)}>
               <MenuIcon />
             </IconButton>
-            <AppLogo />
+            <AppLogo className="w-20 lg:w-[100px]" />
             <div className="hidden items-center gap-5 lg:flex">
+              <AppButton
+                className="text-accent"
+                color="colorText"
+                href="/giftcard"
+                LinkComponent={Link}
+                size="small"
+                startIcon={<GiftIcon className="h-auto w-4 pb-1" id="desktop" />}
+              >
+                Prezent
+              </AppButton>
               <AppButton
                 color="colorText"
                 href="/manual"
@@ -97,6 +107,14 @@ const AppNavbar = () => {
           <div className="flex items-center gap-1 lg:hidden">
             <ButtonBase
               className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
+              href="/giftcard"
+              LinkComponent={Link}
+            >
+              <GiftIcon className="h-auto w-5" id="mobile" />
+              <span className="text-xs font-semibold text-accent">Prezent</span>
+            </ButtonBase>
+            <ButtonBase
+              className="itemsw-center flex flex-col gap-1 rounded-sm p-1 text-text"
               href="/gallery"
               LinkComponent={Link}
             >
