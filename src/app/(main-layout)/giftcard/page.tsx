@@ -3,24 +3,8 @@ import Link from 'next/link';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
-import GiftcardFaq from './_components/giftcard-faq';
+import GiftCardFaq from './_components/giftcard-faq';
 import GiftCardForm from './_components/giftcard-form';
-
-// <AppButton
-//   onClick={() =>
-//     actionBuyGiftCard({
-//       body: {
-//         giverName: 'Andrzej',
-//         recipientName: 'Jakub',
-//         recipientEmail: 'kacper.zabielski05@gmail.com',
-//         canvasSize: '30',
-//       },
-//       cancelUrl: window.location.origin + '/giftcard',
-//     })
-//   }
-// >
-//   test
-// </AppButton>
 
 const GitCardPage = () => {
   return (
@@ -70,7 +54,7 @@ const GitCardPage = () => {
                 src="/giftcard/card-front.png"
                 width={559}
               />
-              <GiftcardFaq />
+              <GiftCardFaq />
             </div>
             <div className="flex flex-col gap-5" id="buy-gift-card">
               <div className="flex flex-col gap-1">

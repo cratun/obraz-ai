@@ -6,7 +6,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const getOrderInfo = async (sessionId: string) => {
   const session = await stripe.checkout.sessions.retrieve(sessionId);
-  if (!session.customer_details || !session.amount_total) throw new Error('No customer details found or amount total');
+
+  if (!session.customer_details || session.amount_total === null)
+    throw new Error('No customer details found or amount total');
 
   if (process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false') {
     await sendPixelPurchaseEvent({
