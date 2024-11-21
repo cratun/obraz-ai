@@ -9,6 +9,10 @@ const META_ACCESS_TOKEN = process.env.CONVERSIONS_API_ACCESS_TOKEN!;
 const bizSdk = require('facebook-nodejs-business-sdk');
 
 const actionSendAddToCartEvent = async () => {
+  if (process.env.SHOULD_SEND_PIXEL_EVENTS === 'false') {
+    return;
+  }
+
   const headersList = headers();
   const cookiesList = cookies();
 
@@ -35,7 +39,7 @@ const actionSendAddToCartEvent = async () => {
 
   const eventsData = [serverEvent];
   const eventRequest = new EventRequest(access_token, pixel_id).setEvents(eventsData);
-  // .setTestEventCode('TEST85816');
+  // .setTestEventCode('TEST85779');
 
   await eventRequest.execute().then(
     (response: any) => {

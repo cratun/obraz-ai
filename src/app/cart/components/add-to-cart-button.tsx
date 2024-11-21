@@ -13,6 +13,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { IMAGE_HISTORY_EXPIRY_DAYS } from '@/app/(main-layout)/generate/_utils/image-history/common';
 import AppButton from '@/app/_components/app-button';
 import { CanvasSize } from '@/app/_utils/sizes-utils';
+import actionSendAddToCartEvent from '@/app/cart/action-send-add-to-cart-pixel-event';
 import { CartItem } from '@/app/cart/utils';
 
 const AddToCartDrawer = ({
@@ -150,12 +151,13 @@ const AddToCartButton = ({
         startIcon={<ShoppingCartRoundedIcon />}
         variant="contained"
         onClick={() => {
+          addItem(cartItemData.imageId, cartItemData.canvasSize, cartItemData.creationDateTimestamp);
+          setIsDrawerOpen(true);
+
           if (window.dataLayer) {
             window.dataLayer.push({ event: 'add_to_cart' });
           }
-
-          addItem(cartItemData.imageId, cartItemData.canvasSize, cartItemData.creationDateTimestamp);
-          setIsDrawerOpen(true);
+          actionSendAddToCartEvent();
         }}
       >
         Dodaj do koszyka
