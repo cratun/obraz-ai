@@ -100,13 +100,7 @@ const GiftCardForm = () => {
         <AppTextFieldForm control={form.control} label="Imię odbiorcy prezentu" name="recipientName" />
         <AppTextFieldForm control={form.control} label="Twoje imię" name="giverName" />
         <AppTextFieldForm control={form.control} label="E-mail do wysyłki karty" name="recipientEmail" />
-        <AppTextFieldForm
-          multiline
-          control={form.control}
-          label="Personalizowana wiadomość (opcjonalnie)"
-          name="message"
-          rows={3}
-        />
+        <AppTextFieldForm multiline control={form.control} label="Personalizowana wiadomość" name="message" rows={3} />
       </div>
       <div className="flex flex-col gap-1">
         <AppButton className="py-3" color="accent" loading={isPending} size="large" type="submit" variant="contained">

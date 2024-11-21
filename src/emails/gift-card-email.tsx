@@ -1,22 +1,23 @@
 import { Column, Container, Font, Img, Link, Row, Tailwind, Text } from '@react-email/components';
 import colors from 'tailwindcss/colors';
+import { CanvasSize } from '@/app/_utils/sizes-utils';
 
 const COMPANY_INFO = 'Cratun sp. z o.o. NIP: 4990690625 KRS: 0000971816';
 
-const OrderEmail = ({
+const GiftCardEmail = ({
   senderName = 'Martyna',
   receiverName = 'Kacper',
   promoCode = 'ABCDEF123',
   message = 'Wszystkiego najlepszego z okazji świąt bożego narodzenia',
   expirationDate = '20.11.2025',
-  size = 30,
+  canvasSize = '30',
 }: {
   receiverName: string;
   senderName: string;
   promoCode: string;
   message?: string;
   expirationDate: string;
-  size: number;
+  canvasSize: CanvasSize;
 }) => (
   <Tailwind
     config={{
@@ -81,7 +82,7 @@ const OrderEmail = ({
         </Column>
         <Column>
           <Text className="m-0 text-right text-xl !text-primary">
-            {size}x{size}cm
+            {canvasSize}x{canvasSize}cm
           </Text>
         </Column>
       </Row>
@@ -109,7 +110,7 @@ const OrderEmail = ({
       />
       <Text className="bg-primary p-5 text-base !text-white">
         Jeśli chcesz przekazać komuś tę kartę podarunkową w elegancki sposób, w załączniku znajdziesz gotowy do wydruku
-        plik. Możesz go wydrukować i wręczyć w kopercie – idealnie nadaje się na każdą okazję!
+        plik. Możesz go wydrukować i wręczyć w kopercie - idealnie nadaje się na każdą okazję!
       </Text>
       <Text className="p-5 text-base !text-text">
         Jeśli masz jakiekolwiek pytania lub potrzebujesz dodatkowej pomocy, nasz zespół obsługi klienta jest do Twojej
@@ -129,4 +130,4 @@ const OrderEmail = ({
   </Tailwind>
 );
 
-export default OrderEmail;
+export default GiftCardEmail;

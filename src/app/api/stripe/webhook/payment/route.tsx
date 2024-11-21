@@ -4,7 +4,9 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import Stripe from 'stripe';
 import { giftCardSchema } from '@/app/(main-layout)/giftcard/utils';
+import GiftCardEmail from '@/emails/gift-card-email';
 import OrderEmail from '@/emails/order-email';
+import { generateGiftCardPdf } from './utils';
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET!;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -38,7 +40,7 @@ export async function POST(req: Request) {
       throw new Error('No customer details found');
     }
 
-    if (!session.amount_total) {
+    if (session.amount_total === null) {
       throw new Error('No amount total found');
     }
 
@@ -56,13 +58,41 @@ export async function POST(req: Request) {
         throw new Error('No coupon ID found' + JSON.stringify(payload));
       }
 
-      const promotionCode = await stripe.promotionCodes.create({
+      const { code } = await stripe.promotionCodes.create({
         coupon: couponId,
         expires_at: expiresAtDate.unix(),
         max_redemptions: 1,
       });
 
-      console.log(promotionCode);
+      const expirationDateFormatted = expiresAtDate.format('DD.MM.YYYY');
+      // Generate the PDF
+      const filledPdfBytes = await generateGiftCardPdf(giftCardPayload, expirationDateFormatted, code);
+
+      // Encode the PDF to Base64
+      const pdfBase64 = Buffer.from(filledPdfBytes).toString('base64');
+
+      await resend.emails.send({
+        from: 'ObrazAI <kontakt@obraz-ai.com>',
+        to: [giftCardPayload.recipientEmail],
+        subject: `ObrazAI | Cześć ${giftCardPayload.recipientName}, ${giftCardPayload.giverName} przekazuje Ci kartę podarunkową!`,
+        react: (
+          <GiftCardEmail
+            canvasSize={giftCardPayload.canvasSize}
+            expirationDate={expirationDateFormatted}
+            message={giftCardPayload.message}
+            promoCode={code}
+            receiverName={giftCardPayload.recipientName}
+            senderName={giftCardPayload.giverName}
+          />
+        ),
+        attachments: [
+          {
+            content: pdfBase64,
+            filename: 'Karta podarunkowa ObrazAI.pdf',
+            contentType: 'application/pdf',
+          },
+        ],
+      });
 
       return NextResponse.json({ result: event, ok: true });
     }
@@ -79,7 +109,7 @@ export async function POST(req: Request) {
       react: (
         <OrderEmail
           orderDate={dayjs.unix(session.created).format('DD.MM.YYYY HH:mm')}
-          orderNumber={`${session.payment_intent}`}
+          orderNumber={`${session.payment_intent || session.id}`}
           price={`${session.amount_total / 100} zł`}
           shippingDetails={session.shipping_details}
           userName={`${session.customer_details.name?.split(' ')[0]}`}

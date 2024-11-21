@@ -73,6 +73,12 @@ const actionBuy = async ({
     {} as Record<CanvasSize, number>,
   );
 
+  const metadata = parsedCartItems.reduce((acc: Record<string, string>, item) => {
+    acc[item.id] = JSON.stringify({ imageId: item.imageId, quantity: item.quantity, size: item.canvasSize });
+
+    return acc;
+  }, {});
+
   const session = await stripe.checkout.sessions.create({
     line_items: Object.entries(itemBySize).map(([size, quantity]) => {
       const priceId = process.env[`STRIPE_PRICE_ID_${size}`];
@@ -84,16 +90,8 @@ const actionBuy = async ({
     mode: 'payment',
     success_url: `${headersList.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: cancelUrl,
-    payment_intent_data: {
-      metadata: parsedCartItems.reduce((acc: Record<string, string>, item) => {
-        acc[item.id] = JSON.stringify({ imageId: item.imageId, quantity: item.quantity, size: item.canvasSize });
-
-        return acc;
-      }, {}),
-    },
-    phone_number_collection: {
-      enabled: true,
-    },
+    payment_intent_data: { metadata },
+    phone_number_collection: { enabled: true },
     invoice_creation: {
       enabled: true,
       invoice_data: {
@@ -104,6 +102,7 @@ const actionBuy = async ({
         ],
       },
     },
+    metadata,
     discounts: promoCodeId ? [{ promotion_code: promoCodeId }] : undefined,
     automatic_tax: { enabled: true },
     billing_address_collection: 'required',
