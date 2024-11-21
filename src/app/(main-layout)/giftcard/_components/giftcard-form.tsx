@@ -112,7 +112,7 @@ const GiftCardForm = () => {
         <AppButton className="py-3" color="accent" loading={isPending} size="large" type="submit" variant="contained">
           Kup teraz
         </AppButton>
-        <Typography.Body className="text-center text-[14px] font-medium text-text/60">
+        <Typography.Body className="text-center text-[14px] font-medium">
           Natychmiastowa dostawa na adres email
         </Typography.Body>
       </div>
