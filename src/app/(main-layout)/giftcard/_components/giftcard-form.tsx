@@ -69,9 +69,12 @@ const GiftCardForm = () => {
   return (
     <form
       className="flex flex-col gap-5"
-      onSubmit={form.handleSubmit((values) =>
-        startTransition(() => actionBuyGiftCard({ body: values, cancelUrl: window.location.href })),
-      )}
+      onSubmit={form.handleSubmit((values) => {
+        if (window.dataLayer) {
+          window.dataLayer.push({ event: 'begin_checkout' });
+        }
+        startTransition(() => actionBuyGiftCard({ body: values, cancelUrl: window.location.href }));
+      })}
     >
       <div className="flex flex-col gap-5">
         <Controller
