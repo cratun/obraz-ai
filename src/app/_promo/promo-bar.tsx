@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 import AppContainer from '@/app/_components/app-container';
 import { getIsPromoExpired, PROMO_CODE, PROMO_END_DATE, PROMO_PERCENTAGE_VALUE } from './utils';
 
+// next promo color #29339B
+
 const getPromoEndDay = () => {
   const formattedDate = dayjs(PROMO_END_DATE).locale('pl');
   const today = dayjs().startOf('day');
@@ -22,7 +24,7 @@ const PromoBar = () => {
   }
 
   return (
-    <div className="flex min-h-[17px] items-center justify-center bg-black px-5">
+    <div className="flex min-h-[17px] items-center justify-center bg-[#361D2E] px-5">
       <AppContainer.Content className="block text-xs text-white">
         <div>
           <strong>-{PROMO_PERCENTAGE_VALUE}%</strong> z kodem <strong className="font-sans">{PROMO_CODE}</strong> |
