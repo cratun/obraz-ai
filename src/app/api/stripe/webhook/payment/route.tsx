@@ -5,6 +5,7 @@ import { Resend } from 'resend';
 import Stripe from 'stripe';
 import { giftCardSchema } from '@/app/(main-layout)/giftcard/utils';
 import GiftCardEmail from '@/emails/gift-card-email';
+import GiftCardSentEmail from '@/emails/gift-card-sent-email';
 import OrderEmail from '@/emails/order-email';
 import { generateGiftCardPdf } from './utils';
 
@@ -71,6 +72,29 @@ export async function POST(req: Request) {
       // Encode the PDF to Base64
       const pdfBase64 = Buffer.from(filledPdfBytes).toString('base64');
 
+      const pdfGiftCardAttachment = [
+        {
+          content: pdfBase64,
+          filename: 'Karta podarunkowa ObrazAI.pdf',
+          contentType: 'application/pdf',
+        },
+      ];
+
+      await resend.emails.send({
+        from: 'ObrazAI <kontakt@obraz-ai.com>',
+        to: [session.customer_details.email as string],
+        subject: `ObrazAI | Karta podarunkowa na ObrazAI o rozmiarze ${giftCardPayload.canvasSize} została wysłana!`,
+        react: (
+          <GiftCardSentEmail
+            canvasSize={giftCardPayload.canvasSize}
+            giverName={giftCardPayload.recipientName}
+            recipientEmail={giftCardPayload.recipientEmail}
+            recipientName={giftCardPayload.giverName}
+          />
+        ),
+        attachments: pdfGiftCardAttachment,
+      });
+
       await resend.emails.send({
         from: 'ObrazAI <kontakt@obraz-ai.com>',
         to: [giftCardPayload.recipientEmail],
@@ -85,13 +109,7 @@ export async function POST(req: Request) {
             senderName={giftCardPayload.giverName}
           />
         ),
-        attachments: [
-          {
-            content: pdfBase64,
-            filename: 'Karta podarunkowa ObrazAI.pdf',
-            contentType: 'application/pdf',
-          },
-        ],
+        attachments: pdfGiftCardAttachment,
       });
 
       return NextResponse.json({ result: event, ok: true });
