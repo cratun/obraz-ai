@@ -1,4 +1,5 @@
 'use client';
+
 import { ReactNode } from 'react';
 import { SvgIconComponent } from '@mui/icons-material';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
@@ -8,7 +9,7 @@ import { twMerge } from 'tailwind-merge';
 import AppContainer from './app-container';
 import PaymentMethodsList from './payments-methods-list';
 import Typography from './typography';
-const couriers = ['dhl.svg', 'inpost.svg', 'pp.svg', 'fedex.svg', 'ups.svg', 'gls.svg'];
+const couriers = ['dhl.svg', 'inpost.svg', 'fedex.svg', 'ups.svg', 'gls.svg'];
 
 const BenefitBox = ({
   Icon,
