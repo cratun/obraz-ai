@@ -1,4 +1,5 @@
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import ImageHistory from '@/app/(main-layout)/generate/_components/image-history';
 import { getImageHistoryFromCookie } from '@/app/(main-layout)/generate/_utils/image-history/server';
@@ -8,6 +9,11 @@ import BenefitsSection from '@/app/_components/benefits-section';
 import HomeSwiper from '@/app/_components/generate-examples-swiper';
 import Typography from '@/app/_components/typography';
 import { getSpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
+
+export const metadata: Metadata = {
+  title: 'ObrazAI - Twoja Galeria | Przeglądaj i Udostępniaj Swoje Dzieła',
+  description: 'Przeglądaj swoją osobistą galerię obrazów stworzonych z ObrazAI.',
+};
 
 const GalleryPage = () => {
   const imageHistory = getImageHistoryFromCookie();

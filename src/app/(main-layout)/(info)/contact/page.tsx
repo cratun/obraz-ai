@@ -1,7 +1,13 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { CONTACT_EMAIL } from '@/app/_utils/constants';
 import { SerachParams } from '@/app/types';
 import ContactForm from './contact-form';
+
+export const metadata: Metadata = {
+  title: 'ObrazAI - Kontakt | Skontaktuj się z Nami',
+  description: 'Masz pytania lub potrzebujesz pomocy? Skontaktuj się z zespołem ObrazAI. Jesteśmy tu, aby Ci pomóc!',
+};
 
 const ContactPage = ({ searchParams }: { searchParams: SerachParams }) => {
   return (

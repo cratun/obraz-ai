@@ -9,6 +9,10 @@ const ROUTES = [
   '/cookies',
   '/terms-of-service',
   '/manual',
+  '/contact',
+  '/giftcard',
+  '/gallery',
+  '/cart',
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
