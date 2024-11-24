@@ -424,7 +424,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
             </Fragment>
           ))}
         </div>
-        <div className="flex flex-col gap-3 md:min-w-[350px] md:gap-5 lg:min-w-[400px]">
+        <div className="flex flex-col gap-3 md:basis-[350px] md:gap-5 lg:basis-[400px]">
           <div className="hidden md:flex">
             <Typography.H3>Szczegóły zamówienia</Typography.H3>
           </div>
