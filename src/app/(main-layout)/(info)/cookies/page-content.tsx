@@ -31,7 +31,9 @@ const PageContent = () => {
         className="w-fit"
         variant="contained"
         onClick={() => {
-          window.Cookiebot?.renew();
+          if (window.Cookiebot) {
+            window.Cookiebot?.renew();
+          }
         }}
       >
         Edytuj ciasteczka
