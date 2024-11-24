@@ -25,9 +25,9 @@ export const footerLinks = {
     'Galeria Twoich obrazów': '/gallery',
     Koszyk: '/cart',
   },
-  'Prezenty i promocje': {
-    'Karta podarunkowa': '/giftcard',
-  },
+  // 'Prezenty i promocje': {
+  //   'Karta podarunkowa': '/giftcard',
+  // },
 };
 
 export const bottomDrawerLinks = {
