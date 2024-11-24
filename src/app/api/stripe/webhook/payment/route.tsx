@@ -87,9 +87,9 @@ export async function POST(req: Request) {
         react: (
           <GiftCardSentEmail
             canvasSize={giftCardPayload.canvasSize}
-            giverName={giftCardPayload.recipientName}
+            giverName={giftCardPayload.giverName}
             recipientEmail={giftCardPayload.recipientEmail}
-            recipientName={giftCardPayload.giverName}
+            recipientName={giftCardPayload.recipientName}
           />
         ),
         attachments: pdfGiftCardAttachment,
@@ -103,10 +103,10 @@ export async function POST(req: Request) {
           <GiftCardEmail
             canvasSize={giftCardPayload.canvasSize}
             expirationDate={expirationDateFormatted}
+            giverName={giftCardPayload.giverName}
             message={giftCardPayload.message}
             promoCode={code}
             receiverName={giftCardPayload.recipientName}
-            senderName={giftCardPayload.giverName}
           />
         ),
         attachments: pdfGiftCardAttachment,

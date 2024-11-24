@@ -5,7 +5,7 @@ import { CanvasSize } from '@/app/_utils/sizes-utils';
 const COMPANY_INFO = 'Cratun sp. z o.o. NIP: 4990690625 KRS: 0000971816';
 
 const GiftCardEmail = ({
-  senderName = 'Martyna',
+  giverName = 'Martyna',
   receiverName = 'Kacper',
   promoCode = 'ABCDEF123',
   message = 'Wszystkiego najlepszego z okazji świąt bożego narodzenia',
@@ -13,7 +13,7 @@ const GiftCardEmail = ({
   canvasSize = '30',
 }: {
   receiverName: string;
-  senderName: string;
+  giverName: string;
   promoCode: string;
   message?: string;
   expirationDate: string;
@@ -43,7 +43,7 @@ const GiftCardEmail = ({
         src="https://public-assets-obraz-ai.s3.eu-central-1.amazonaws.com/gift-card-front.png"
       />
       <Text className="m-0 p-5 text-center text-3xl !text-text">
-        Cześć {receiverName}, {senderName} przekazuje Ci kartę podarunkową!
+        Cześć {receiverName}, {giverName} przekazuje Ci kartę podarunkową!
       </Text>
 
       {message && (
