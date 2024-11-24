@@ -350,9 +350,9 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
       <div className="flex flex-col gap-5 md:flex-row md:gap-10">
         <BuyButtonSlideCheckout
           slideIn
-          disabled={beginCheckoutMutation.isPending || isLoading}
+          disabled={isLoading || checkPromoCodeMutation.isPending}
           isVisible={cartItems.length > 0}
-          loading={beginCheckoutMutation.isPending || checkPromoCodeMutation.isPending}
+          loading={beginCheckoutMutation.isPending}
           onClick={() => {
             beginCheckoutMutation.mutate(
               checkPromoCodeMutation.isSuccess ? checkPromoCodeMutation.data.promoCodeId : undefined,
@@ -495,13 +495,15 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                   </AppButton>
                 </div>
                 {checkPromoCodeMutation.error?.response?.data.errorCode === 'PROMO_CODE_NOT_FOUND' && (
-                  <Typography.Body className="text-sm font-bold">Wprowadzony kod nie istnieje.</Typography.Body>
+                  <Typography.Body className="text-sm font-bold text-error">
+                    Wprowadzony kod nie istnieje.
+                  </Typography.Body>
                 )}
                 {checkPromoCodeMutation.error?.response?.data.errorCode === 'PROMO_CODE_NOT_ACTIVE' && (
-                  <Typography.Body className="text-sm font-bold">Wprowadzony kod wygasł.</Typography.Body>
+                  <Typography.Body className="text-sm font-bold text-error">Wprowadzony kod wygasł.</Typography.Body>
                 )}
                 {checkIsGiftCodeCouponName(checkPromoCodeMutation.error?.message) && (
-                  <Typography.Body className="text-sm font-bold">
+                  <Typography.Body className="text-sm font-bold text-error">
                     Aby użyć podany kod prezentowy w koszyku musi się znajdować tylko jeden obraz w rozmiarze{' '}
                     {giftCardErrorToSize[checkPromoCodeMutation.error.message]}.
                   </Typography.Body>
@@ -524,8 +526,8 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
           <AppButton
             className="hidden py-3 text-base md:flex"
             color="accent"
-            disabled={beginCheckoutMutation.isPending || isLoading}
-            loading={beginCheckoutMutation.isPending || checkPromoCodeMutation.isPending}
+            disabled={isLoading || checkPromoCodeMutation.isPending}
+            loading={beginCheckoutMutation.isPending}
             size="large"
             variant="contained"
             onClick={() => {
