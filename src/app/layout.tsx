@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import { GoogleTagManager } from '@next/third-parties/google';
 import { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import Script from 'next/script';
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html id="root" lang="pl">
-      {/* {process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false' && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />} */}
+      {process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false' && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />}
       <body className={twJoin('bg-neutral', raleway.variable)}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>

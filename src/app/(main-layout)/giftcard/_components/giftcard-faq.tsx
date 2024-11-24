@@ -26,7 +26,7 @@ const FAQ_KEYS = [
   {
     question: 'Czy mogę zwrócić kartę podarunkową?',
     answer:
-      'Tak, kartę podarunkową można zwrócić w ciągu 14 dni od daty zakupu, o ile nie została jeszcze użyta. W celu dokonania zwrotu prosimy o kontakt z naszym działem obsługi klienta, podając numer zamówienia i adres e-mail użyty przy zakupie. Kwota zostanie zwrócona tą samą metodę płatności, którą użyto przy zakupie.',
+      'Tak, kartę podarunkową można zwrócić w ciągu 14 dni od daty zakupu, o ile nie została jeszcze użyta. W celu dokonania zwrotu prosimy o kontakt z naszym działem obsługi klienta, podając numer zamówienia i adres e-mail użyty przy zakupie. Kwota zostanie zwrócona tą samą metodą płatności, którą użyto przy zakupie.',
   },
 ];
 

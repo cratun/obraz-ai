@@ -122,7 +122,7 @@ const Home = () => {
               </GenerateStep>
             ))}
             <GenerateStep
-              description="Otrzymaj swój wyjątkowy obraz. Wydrukujemy go na płótnie najwyższej jakości i dostarczymy prosto do Ciebie!"
+              description="Otrzymaj swój wyjątkowy obraz. Stworzymy go na płótnie najwyższej jakości i dostarczymy prosto do Ciebie!"
               title="Obraz jest Twój"
             >
               <Image
