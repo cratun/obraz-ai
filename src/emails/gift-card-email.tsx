@@ -37,6 +37,15 @@ const GiftCardEmail = ({
   >
     <Font fallbackFontFamily="Helvetica" fontFamily="Helvetica" fontStyle="normal" fontWeight={400} />
     <Container align="center" className="bg-neutral">
+      <Container align="center" className="items-center justify-center bg-neutral p-10">
+        <Link className="m-auto block w-fit" href="https://www.obraz.ai">
+          <Img
+            alt="logo"
+            src="https://public-assets-obraz-ai.s3.eu-central-1.amazonaws.com/email-logo.png"
+            width={200}
+          />
+        </Link>
+      </Container>
       <Img
         alt="Karta podarunkowa przykład"
         className="mx-auto"
