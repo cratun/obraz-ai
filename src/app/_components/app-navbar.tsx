@@ -9,7 +9,6 @@ import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import { Badge, ButtonBase, Drawer, IconButton } from '@mui/material';
 import Link from 'next/link';
-import GiftIcon from '@/app/_assets/gift-icon';
 import PromoBar from '@/app/_promo/promo-bar';
 import { bottomDrawerLinks } from '@/app/_utils/constants';
 import { useCartStorage } from '@/app/cart/components/add-to-cart-button';
@@ -47,7 +46,7 @@ const AppNavbar = () => {
             </IconButton>
             <AppLogo className="w-20 lg:w-[100px]" />
             <div className="hidden items-center gap-5 lg:flex">
-              <AppButton
+              {/* <AppButton
                 className="text-accent"
                 color="colorText"
                 href="/giftcard"
@@ -56,7 +55,7 @@ const AppNavbar = () => {
                 startIcon={<GiftIcon className="h-auto w-4 pb-1" id="desktop" />}
               >
                 Prezent
-              </AppButton>
+              </AppButton> */}
               <AppButton
                 color="colorText"
                 href="/manual"
@@ -105,14 +104,14 @@ const AppNavbar = () => {
             </div>
           </div>
           <div className="flex items-center gap-1 lg:hidden">
-            <ButtonBase
+            {/* <ButtonBase
               className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
               href="/giftcard"
               LinkComponent={Link}
             >
               <GiftIcon className="h-auto w-5" id="mobile" />
               <span className="text-xs font-semibold text-accent">Prezent</span>
-            </ButtonBase>
+            </ButtonBase> */}
             <ButtonBase
               className="itemsw-center flex flex-col gap-1 rounded-sm p-1 text-text"
               href="/gallery"
