@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import AppButton from '@/app/_components/app-button';
@@ -7,6 +8,12 @@ import BenefitsSection from '@/app/_components/benefits-section';
 import HomeSwiper from '@/app/_components/generate-examples-swiper';
 import ReviewsSwiper from '@/app/_components/reviews-swiper';
 import Typography from '@/app/_components/typography';
+
+export const metadata: Metadata = {
+  title: 'ObrazAI - Jak Generować Obrazy | Przewodnik Krok po Kroku',
+  description:
+    'Dowiedz się, jak łatwo generować własne obrazy z ObrazAI. Przeczytaj nasz przewodnik i rozpocznij przygodę z tworzeniem sztuki!',
+};
 
 const ManualStep = ({ children, title, number }: { children: ReactNode; title: string; number: number }) => (
   <div className="flex flex-col gap-5">

@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import AppButton from '@/app/_components/app-button';
@@ -5,6 +6,12 @@ import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
 import GiftCardFaq from './_components/giftcard-faq';
 import GiftCardForm from './_components/giftcard-form';
+
+export const metadata: Metadata = {
+  title: 'ObrazAI - Karta Podarunkowa | Podaruj Sztukę z Wyobraźni',
+  description:
+    'Podaruj bliskim niepowtarzalną możliwość tworzenia własnych obrazów z ObrazAI. Kup kartę podarunkową i otwórz drzwi do świata kreatywności!',
+};
 
 const GitCardPage = () => {
   return (

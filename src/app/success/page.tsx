@@ -13,7 +13,7 @@ import ResetCart from './components/reset-cart';
 import LogoIcon from './logo-icon';
 
 export const metadata: Metadata = {
-  title: 'Dziękujemy za zamówienie | ObrazAI',
+  title: 'ObrazAI | Dziękujemy za zamówienie',
   description:
     'Dziękujemy za skorzystanie z ObrazAI. Twoje zamówienie jest w realizacji. Sprawdź szczegóły i oczekuj na wyjątkowy ObrazAI na płótnie!',
 };
