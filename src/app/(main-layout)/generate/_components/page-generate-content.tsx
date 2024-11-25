@@ -2,6 +2,7 @@
 
 import { useRef, useState, useTransition } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import { useRouter } from 'next/navigation';
 import { ParsedGenerationTokenCookie } from '@/app/(main-layout)/generate/_utils/generation-token';
@@ -17,7 +18,6 @@ import { GENERATION_DATA, GenerationStyle, MAX_PROMPT_LENGTH } from '@/app/_util
 import GenerationStylePicker from './generation-style-picker';
 import GenerateInfoLimit from './generation-token-limit-info';
 import ImageHistory from './image-history';
-
 const PageGenerateContent = ({
   initialPrompt,
   generationTokenCountCookie,
@@ -35,7 +35,7 @@ const PageGenerateContent = ({
   const [generationStyle, setGenerationStyle] = useState<GenerationStyle>(initialGenerationStyle);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-
+  const ref = useRef<null | HTMLHeadingElement>(null);
   const form = useForm({ defaultValues: { prompt: initialPrompt } });
 
   const handleSubmit = ({ prompt }: { prompt: string }) => {
@@ -64,7 +64,7 @@ const PageGenerateContent = ({
         <AppContainer.Content className="flex flex-col gap-10 overflow-auto text-text lg:gap-20">
           <div className="flex flex-col gap-5 lg:gap-10">
             <div className="flex flex-col gap-2.5 lg:gap-5">
-              <h1 className="text-3xl font-bold leading-[120%] tracking-[1px] md:text-4xl lg:text-5xl">
+              <h1 ref={ref} className="text-3xl font-bold leading-[120%] tracking-[1px] md:text-4xl lg:text-5xl">
                 Stwórz <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
               </h1>
               <p className="leading-[150%] tracking-[0.5px]">
@@ -90,6 +90,18 @@ const PageGenerateContent = ({
                   onChange={(_, value) => field.onChange(value || '')}
                   onInputChange={(_, value) => field.onChange(value)}
                 >
+                  <AppButton
+                    className="w-fit"
+                    color="primary"
+                    startIcon={<CloseRoundedIcon />}
+                    onClick={() => {
+                      form.setValue('prompt', '');
+                      form.setFocus('prompt');
+                      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                    }}
+                  >
+                    Wyczyść
+                  </AppButton>
                   <GenerateInfoLimit generationTokenCountCookie={generationTokenCountCookie} />
                 </GenerateTextField>
               )}
