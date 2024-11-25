@@ -1,16 +1,17 @@
 import { ReactNode } from 'react';
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import Image from 'next/image';
 import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
 import BulbIcon from '@/app/_assets/bulb-icon';
 import CardIcon from '@/app/_assets/card-icon';
+import GiftIcon from '@/app/_assets/gift-icon';
 import StyleIcon from '@/app/_assets/style-icon';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import BenefitsSection from '@/app/_components/benefits-section';
 import GeneratedExamplesSwiper from '@/app/_components/generate-examples-swiper';
-import GenerateTextFieldHome from '@/app/_components/generate-text-field-home';
 import InteriorSettingPicturesSwiper from '@/app/_components/interior-setting-pictures-swiper';
 import ReviewsSwiper from '@/app/_components/reviews-swiper';
 import Typography from '@/app/_components/typography';
@@ -69,7 +70,7 @@ const GenerateStep = ({
 const Home = () => {
   return (
     <>
-      <AppContainer className="relative pb-20 pt-[--save-navbar-padding-top] lg:min-h-screen">
+      <AppContainer className="relative pb-5 pt-[--save-navbar-padding-top] lg:min-h-screen">
         <AppContainer.Content className="text-text">
           <div className="flex w-full flex-col gap-10 md:max-w-[400px] lg:max-w-[500px]">
             <div className="flex flex-col gap-10 lg:my-auto">
@@ -77,7 +78,6 @@ const Home = () => {
                 <span className="text-primary">Ożyw</span> swoje marzenia na płótnie z pomocą{' '}
                 <span className="text-primary">AI</span>!
               </Typography.H1>
-              <GenerateTextFieldHome />
               <ul className="flex list-disc flex-col gap-1.5 pl-5">
                 <li className="text-base leading-[1.5] tracking-[0.5px]">
                   Stwórz <strong>dowolny obraz</strong>, jaki sobie wymarzysz, dzięki <strong>AI</strong>
@@ -92,6 +92,27 @@ const Home = () => {
                   <strong>Łatwy proces</strong> — wszystko jasne i przejrzyste
                 </li>
               </ul>
+              <div className="flex flex-wrap gap-2.5 lg:gap-5">
+                <AppButton
+                  href="/generate"
+                  LinkComponent={Link}
+                  size="large"
+                  startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
+                  variant="contained"
+                >
+                  Stwórz swój obraz
+                </AppButton>
+                <AppButton
+                  color="accent"
+                  href="/giftcard"
+                  LinkComponent={Link}
+                  size="large"
+                  startIcon={<GiftIcon className="h-auto w-4 [&_path]:fill-white" id="home" />}
+                  variant="contained"
+                >
+                  Kup kartę prezentową
+                </AppButton>
+              </div>
             </div>
             <span className="hidden lg:block">
               (Dowiedz się więcej <KeyboardArrowDownRoundedIcon />)

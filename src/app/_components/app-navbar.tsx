@@ -9,9 +9,11 @@ import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import { Badge, ButtonBase, Drawer, IconButton } from '@mui/material';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import GiftIcon from '@/app/_assets/gift-icon';
 import PromoBar from '@/app/_promo/promo-bar';
 import { bottomDrawerLinks } from '@/app/_utils/constants';
+import createQueryString from '@/app/_utils/create-query-string';
 import { useCartStorage } from '@/app/cart/components/add-to-cart-button';
 import AppButton from './app-button';
 import AppContainer from './app-container';
@@ -34,8 +36,17 @@ const NavbarCartIcon = () => {
 };
 
 const AppNavbar = () => {
+  const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
+
+  const generateHref = `/generate?${createQueryString(
+    [
+      { name: 'prompt', value: searchParams.get('prompt') || '', action: 'add' },
+      { name: 'generationStyle', value: searchParams.get('generationStyle') || '', action: 'add' },
+    ],
+    searchParams,
+  )}`;
 
   return (
     <header className="fixed top-0 z-[100] flex w-full flex-col">
@@ -95,7 +106,7 @@ const AppNavbar = () => {
                 Koszyk
               </AppButton>
               <AppButton
-                href="/generate"
+                href={generateHref}
                 LinkComponent={Link}
                 size="small"
                 startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
@@ -124,7 +135,7 @@ const AppNavbar = () => {
             </ButtonBase>
             <ButtonBase
               className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
-              href="/generate"
+              href={generateHref}
               LinkComponent={Link}
             >
               <AutoAwesomeRoundedIcon className="text-xl" />

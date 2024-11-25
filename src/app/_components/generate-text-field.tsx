@@ -1,8 +1,7 @@
 'use client';
 
 import { ReactNode, useCallback, useEffect, useState } from 'react';
-import PaletteIcon from '@mui/icons-material/Palette';
-import { Autocomplete, AutocompleteProps, ChipTypeMap, InputAdornment, TextField, TextFieldProps } from '@mui/material';
+import { Autocomplete, AutocompleteProps, ChipTypeMap, TextField, TextFieldProps } from '@mui/material';
 import { twMerge } from 'tailwind-merge';
 
 const options = [
@@ -86,13 +85,9 @@ const GenerateTextField = ({
               input: {
                 ...TextFieldProps?.slotProps?.input,
                 ...params.InputProps,
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <PaletteIcon />
-                  </InputAdornment>
-                ),
-                classes: { root: 'rounded-full px-5 ' },
+                classes: { root: 'rounded-xl px-5 resize' },
                 placeholder: displayedText || ' ',
+                multiline: true,
               },
             }}
             sx={{
