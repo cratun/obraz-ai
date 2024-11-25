@@ -9,15 +9,14 @@ import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import { Badge, ButtonBase, Drawer, IconButton } from '@mui/material';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import GiftIcon from '@/app/_assets/gift-icon';
 import PromoBar from '@/app/_promo/promo-bar';
 import { bottomDrawerLinks } from '@/app/_utils/constants';
-import createQueryString from '@/app/_utils/create-query-string';
 import { useCartStorage } from '@/app/cart/components/add-to-cart-button';
 import AppButton from './app-button';
 import AppContainer from './app-container';
 import AppLogo from './app-logo';
+import GenerateNavbarButtons from './generate-navbar-buttons';
 
 const NavbarCartIcon = () => {
   const { cartItems } = useCartStorage();
@@ -35,18 +34,9 @@ const NavbarCartIcon = () => {
   );
 };
 
-const AppNavbar = () => {
-  const searchParams = useSearchParams();
+const AppNavbar = ({ isLoading = false }: { isLoading?: boolean }) => {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
-
-  const generateHref = `/generate?${createQueryString(
-    [
-      { name: 'prompt', value: searchParams.get('prompt') || '', action: 'add' },
-      { name: 'generationStyle', value: searchParams.get('generationStyle') || '', action: 'add' },
-    ],
-    searchParams,
-  )}`;
 
   return (
     <header className="fixed top-0 z-[100] flex w-full flex-col">
@@ -105,15 +95,18 @@ const AppNavbar = () => {
               >
                 Koszyk
               </AppButton>
-              <AppButton
-                href={generateHref}
-                LinkComponent={Link}
-                size="small"
-                startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
-                variant="contained"
-              >
-                Stwórz swój obraz
-              </AppButton>
+              {!isLoading && <GenerateNavbarButtons.Desktop />}
+              {isLoading && (
+                <AppButton
+                  href="/generate"
+                  LinkComponent={Link}
+                  size="small"
+                  startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
+                  variant="contained"
+                >
+                  Stwórz swój obraz
+                </AppButton>
+              )}
             </div>
           </div>
           <div className="flex items-center gap-1 lg:hidden">
@@ -133,14 +126,17 @@ const AppNavbar = () => {
               <PhotoLibraryRoundedIcon className="text-xl" />
               <span className="text-xs">Galeria</span>
             </ButtonBase>
-            <ButtonBase
-              className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
-              href={generateHref}
-              LinkComponent={Link}
-            >
-              <AutoAwesomeRoundedIcon className="text-xl" />
-              <span className="text-xs">Twórz</span>
-            </ButtonBase>
+            {!isLoading && <GenerateNavbarButtons.Mobile />}
+            {isLoading && (
+              <ButtonBase
+                className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
+                href="/generate"
+                LinkComponent={Link}
+              >
+                <AutoAwesomeRoundedIcon className="text-xl" />
+                <span className="text-xs">Twórz</span>
+              </ButtonBase>
+            )}
             <ButtonBase
               className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
               href="/cart"
@@ -168,15 +164,18 @@ const AppNavbar = () => {
           Jak generować?
         </AppButton>
         <hr className="h-1 w-full text-text/10" />
-        <AppButton
-          href="/generate"
-          LinkComponent={Link}
-          startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
-          variant="contained"
-          onClick={handleClose}
-        >
-          Stwórz swój obraz
-        </AppButton>
+        {!isLoading && <GenerateNavbarButtons.Drawer onClick={handleClose} />}
+        {isLoading && (
+          <AppButton
+            href="/generate"
+            LinkComponent={Link}
+            startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
+            variant="contained"
+            onClick={handleClose}
+          >
+            Stwórz swój obraz
+          </AppButton>
+        )}
         <div className="mt-auto flex flex-col gap-2.5">
           {Object.entries(bottomDrawerLinks).map(([label, href], i) => (
             <React.Fragment key={href}>

@@ -1,11 +1,13 @@
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import AppFooter from '@/app/_components/app-footer';
 import AppNavbar from '@/app/_components/app-navbar';
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <AppNavbar />
+      <Suspense fallback={<AppNavbar isLoading />}>
+        <AppNavbar />
+      </Suspense>
       <div className="grow">{children}</div>
       <AppFooter />
     </>

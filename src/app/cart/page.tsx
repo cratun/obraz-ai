@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Metadata } from 'next';
 import AppContainer from '@/app/_components/app-container';
 import AppNavbar from '@/app/_components/app-navbar';
@@ -14,7 +15,9 @@ export const metadata: Metadata = {
 const CartPage = () => {
   return (
     <>
-      <AppNavbar />
+      <Suspense fallback={<AppNavbar isLoading />}>
+        <AppNavbar />
+      </Suspense>
       <AppContainer className="relative pb-10 pt-[--save-navbar-padding-top]">
         <AppContainer.Content className="flex flex-col gap-6 text-text lg:gap-10">
           <CartContent specialPromoCookie={getSpecialPromoCookie()} />
