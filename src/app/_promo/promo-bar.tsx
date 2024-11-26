@@ -24,7 +24,7 @@ const PromoBar = () => {
   }
 
   return (
-    <div className="flex min-h-[17px] items-center justify-center bg-[#361D2E] px-5">
+    <div className="flex min-h-[17px] items-center justify-center bg-black px-5">
       <AppContainer.Content className="block text-xs text-white">
         <div>
           <strong>-{PROMO_PERCENTAGE_VALUE}%</strong> z kodem <strong className="font-sans">{PROMO_CODE}</strong> |
