@@ -4,15 +4,15 @@ import colors from 'tailwindcss/colors';
 const COMPANY_INFO = 'Cratun sp. z o.o. NIP: 4990690625 KRS: 0000971816';
 
 const OrderEmail = ({
-  userName = 'Jan',
-  price = '200 zł',
-  orderNumber = 'f123fsdfdsx1cv3',
-  imageId = '123fds3r32rfds23f23f',
-  deliveryNumber = '1003751483509U',
-  deliveryLink = 'https://www.obraz.ai',
-  size = '60',
-  fullName = 'Jan Kowalski',
-  address = 'ul. Kolorowa 12/3, 00-001 Warszawa',
+  userName = 'X',
+  price = 'x zł',
+  orderNumber = 'xxxxxxx',
+  imageId = 'xxxxxx-xxxx-xxxx-xxxx-xxxxxxx',
+  deliveryNumber = 'xxxxxxxxxxxxxx',
+  deliveryLink = 'https://tracktrace.dpd.com.pl/parcelDetails?typ=1&p1=',
+  size = 'X',
+  fullName = 'X X',
+  address = 'X',
 }: {
   userName: string;
   price: string;
@@ -47,10 +47,10 @@ const OrderEmail = ({
       </Link>
     </Container>
     <Container className="p-5">
-      <Text className="m-0 text-center text-2xl font-bold !text-text">Twoje zamówienie zostało wysłane</Text>
+      <Text className="m-0 text-center text-2xl font-bold !text-text">Twoje zamówienie zostało nadane</Text>
       <Text className="text-base font-bold !text-text">Witaj {userName},</Text>
       <Text className="text-base !text-text">
-        Z radością informujemy, że Twoje zamówienie nr {orderNumber} zostało właśnie wysłane! Możesz śledzić status
+        Z radością informujemy, że Twoje zamówienie nr {orderNumber} zostało właśnie nadane! Możesz śledzić status
         swojej przesyłki, klikając w poniższy link:
       </Text>
       <Link className="text-primary" href={deliveryLink}>
@@ -79,7 +79,7 @@ const OrderEmail = ({
         </li>
         <li>
           <Text className="text-base !text-text">
-            <b>Produkt:</b> Wygenerowany Obraz AI na płótnie
+            <b>Produkt:</b> Wygenerowany ObrazAI na płótnie
           </Text>
         </li>
         <li>
