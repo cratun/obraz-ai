@@ -110,7 +110,7 @@ const Home = () => {
                   startIcon={<GiftIcon className="h-auto w-4 [&_path]:fill-white" id="home" />}
                   variant="contained"
                 >
-                  Kup kartę prezentową
+                  Kup kartę podarunkową
                 </AppButton>
               </div>
             </div>
