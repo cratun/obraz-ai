@@ -28,10 +28,10 @@ const reviewsData = [
     'Tworzyłam różne obrazy Marilyn Monroe, ten wyszedł bardzo ciekawie, obraz przyszedł dobrze zabezpieczony, druk bez zarzutów. Coś ładnego jeszcze na pewno zamówię',
     'Joanna',
   ],
-  [
-    'Zamówiłam mały obraz z abstrakcyjnymi kształtami. Jestem zadowolona z jakości obrazu, jest wyraźny, kolory ładne. Idealnie pasuje do mojego wnętrza! :)',
-    'Aneta',
-  ],
+  // [
+  //   'Zamówiłam mały obraz z abstrakcyjnymi kształtami. Jestem zadowolona z jakości obrazu, jest wyraźny, kolory ładne. Idealnie pasuje do mojego wnętrza! :)',
+  //   'Aneta',
+  // ],
   [
     'Taki oto obraz dla wnuczki, która uwielbia kotki. Wyszło super! Obraz pasuje do pokoiku, wnuczka zadowolona, ja również. Paczkę dostałam po 5 dniach.',
     'Jagoda',
