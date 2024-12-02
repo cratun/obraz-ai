@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 
-export const PROMO_END_DATE = dayjs('2024-12-01').endOf('day');
-export const PROMO_CODE = 'BLACKWEEKEND';
-export const PROMO_PERCENTAGE_VALUE = 32;
+export const PROMO_END_DATE = dayjs('2024-12-02').endOf('day');
+export const PROMO_CODE = 'CYBER';
+export const PROMO_PERCENTAGE_VALUE = 30;
 
 export const getIsPromoExpired = () => {
   const end = dayjs(PROMO_END_DATE);
