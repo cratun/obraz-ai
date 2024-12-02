@@ -24,12 +24,12 @@ const PromoBar = () => {
   }
 
   return (
-    <div className="flex min-h-[17px] items-center justify-center bg-[#6D41A1] px-5">
+    <div className="flex min-h-[17px] items-center justify-center bg-accent px-5">
       <AppContainer.Content className="block text-xs text-white">
         <div>
           <strong>-{PROMO_PERCENTAGE_VALUE}%</strong> z kodem <strong className="font-sans">{PROMO_CODE}</strong> |
           Koniec:&nbsp;
-          <strong className="capitalize">{getPromoEndDay()}</strong> | Darmowa dostawa | Cyber Monday
+          <strong className="capitalize">{getPromoEndDay()}</strong> | Darmowa dostawa
         </div>
       </AppContainer.Content>
     </div>
