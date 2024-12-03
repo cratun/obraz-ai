@@ -18,6 +18,7 @@ import { GENERATION_DATA, GenerationStyle, MAX_PROMPT_LENGTH } from '@/app/_util
 import GenerationStylePicker from './generation-style-picker';
 import GenerateInfoLimit from './generation-token-limit-info';
 import ImageHistory from './image-history';
+
 const PageGenerateContent = ({
   initialPrompt,
   generationTokenCountCookie,
