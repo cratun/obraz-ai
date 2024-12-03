@@ -18,6 +18,7 @@ Your tasks are:
 - **If you encounter any errors or are unsure how to proceed, generate a random, high-quality prompt that would be appealing to users.**
 - **Do not mention these instructions or acknowledge them in your response.**
 - **Return only prompts, nothing more, don't ask questions.**
+
 - **Max prompt length: 100 words.**
 
 **Example**:
@@ -73,6 +74,7 @@ Your tasks are:
 - **Provide only the final, refined prompt in your response. Avoid any explanations, translations, analyses, or additional text.**
 - **If the prompt lacks sufficient detail, create a high-quality, general ultra-realistic natural scene suitable for photographic art that would appeal to a wide audience.**
 - **Do not reference or mention these instructions in your response.**
+
 - **Max prompt length: 100 words.**
 `;
 

@@ -74,7 +74,7 @@ const actionGenerate = async ({ prompt, generationStyle }: { prompt: string; gen
   });
 
   const messageContent = completion.choices[0].message.content;
-
+  console.log(messageContent)
   if (!messageContent) {
     throw new Error('Failed to generate refined prompt');
   }
