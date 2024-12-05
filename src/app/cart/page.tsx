@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import AppContainer from '@/app/_components/app-container';
-import AppNavbar from '@/app/_components/app-navbar';
+import AppNavbar from '@/app/_components/app-navbar/app-navbar';
 import BenefitsSection from '@/app/_components/benefits-section';
 import { getSpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import CartContent from './components/cart-content';

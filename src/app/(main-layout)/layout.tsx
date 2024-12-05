@@ -1,6 +1,6 @@
 import { ReactNode, Suspense } from 'react';
 import AppFooter from '@/app/_components/app-footer';
-import AppNavbar from '@/app/_components/app-navbar';
+import AppNavbar from '@/app/_components/app-navbar/app-navbar';
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
