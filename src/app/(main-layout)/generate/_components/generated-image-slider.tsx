@@ -61,7 +61,7 @@ const GeneratedImageSlider = ({
               sizes="700px"
               src={generatedImgSrc}
               className={twJoin(
-                'z-0 shadow-[2px_2px_5px_1px_rgba(0,0,0,0.75)] transition-opacity',
+                'inspiration-shadow z-0 transition-opacity',
                 isLoadedImage ? 'opacity-100' : 'opacity-0',
               )}
               onLoad={() => setIsLoadedImage(true)}

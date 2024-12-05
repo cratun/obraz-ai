@@ -1,15 +1,18 @@
-import { Breadcrumbs, ButtonBase } from '@mui/material';
-import Image from 'next/image';
+import { Breadcrumbs } from '@mui/material';
 import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
-import { inspirationData, InspirationStyle, styles } from '@/app/(main-layout)/inspirations/utils';
+import { inspirationData, styles } from '@/app/(main-layout)/inspirations/utils';
 import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
+import { GenerationStyle } from '@/app/_utils/constants';
 import FiltersDrawer from './filters-drawer';
+import InspirationCard from './inspiration-card';
+import ScrollToTopButton from './scroll-to-top-button';
 
-const InspirationsContent = ({ style }: { style?: InspirationStyle }) => {
+const InspirationsContent = ({ style }: { style?: GenerationStyle }) => {
   return (
     <AppContainer className="relative pb-10 pt-[--save-navbar-padding-top] lg:min-h-screen">
+      <ScrollToTopButton />
       <div className="bg-white"></div>
       <AppContainer.Content className="flex grid-cols-6 gap-5 text-text md:grid md:gap-10">
         <div className="hidden flex-col gap-5 md:flex">
@@ -24,7 +27,7 @@ const InspirationsContent = ({ style }: { style?: InspirationStyle }) => {
               className={twJoin(style === el ? 'font-bold text-primary' : 'hover:underline')}
               href={`/inspirations/${el}`}
             >
-              <Typography.Body>{styles[el as InspirationStyle]}</Typography.Body>
+              <Typography.Body>{styles[el as GenerationStyle]}</Typography.Body>
             </Link>
           ))}
         </div>
@@ -46,32 +49,7 @@ const InspirationsContent = ({ style }: { style?: InspirationStyle }) => {
             {inspirationData.map((item) => {
               if (style !== item.style && style) return null;
 
-              return (
-                <ButtonBase
-                  key={item.id}
-                  className="flex flex-col gap-2.5 rounded-sm text-left"
-                  href={`/inspirations/${item.style}/${item.id}`}
-                  LinkComponent={Link}
-                >
-                  <div className="aspect-square w-full bg-white p-[12%]">
-                    <div className="inspiration-shadow relative aspect-square overflow-hidden">
-                      <Image
-                        fill
-                        alt={item.prompt}
-                        className="h-full w-full object-cover"
-                        src={`/inspirations/${item.style}/${item.id}.webp`}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <Typography.Body className="text-xs font-bold uppercase text-primary">
-                      {styles[item.style]}
-                    </Typography.Body>
-                    <Typography.Body className="line-clamp-2">{item.prompt}</Typography.Body>
-                    <Typography.Body className="text-sm font-semibold text-accent">Od 89 zł</Typography.Body>
-                  </div>
-                </ButtonBase>
-              );
+              return <InspirationCard key={item.id} id={item.id} prompt={item.prompt} style={item.style} />;
             })}
           </div>
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import PhotoLibraryRoundedIcon from '@mui/icons-material/PhotoLibraryRounded';
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
@@ -14,11 +14,7 @@ import BuyButtonSlide, { useSlideInOnScrollDown } from '@/app/(main-layout)/gene
 import GeneratedImageSlider from '@/app/(main-layout)/generate/_components/generated-image-slider';
 import ImageHistory from '@/app/(main-layout)/generate/_components/image-history';
 import OrderDetails from '@/app/(main-layout)/generate/_components/order-details';
-import {
-  desiredMockupImageSizes,
-  GENERATION_TOKEN_LIMIT_REACHED,
-  mockupData,
-} from '@/app/(main-layout)/generate/_utils/common';
+import { GENERATION_TOKEN_LIMIT_REACHED } from '@/app/(main-layout)/generate/_utils/common';
 import { ImageHistoryEntry } from '@/app/(main-layout)/generate/_utils/image-history/common';
 import actionGenerate from '@/app/(main-layout)/generate/action-generate';
 import AppButton from '@/app/_components/app-button';
@@ -27,10 +23,9 @@ import PromoBox from '@/app/_promo/promo-box';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { GenerationStyle } from '@/app/_utils/constants';
 import createQueryString from '@/app/_utils/create-query-string';
-import { CanvasSize, getCanvasSizeFromQueryParam } from '@/app/_utils/sizes-utils';
+import { getCanvasSizeFromQueryParam } from '@/app/_utils/sizes-utils';
+import useGenerateMocks from '@/app/_utils/use-generate-mocks';
 import AddToCartButton from '@/app/cart/components/add-to-cart-button';
-import { MockupImages } from '@/app/types';
-import generateMockup from './generate-mockup';
 
 const PageBuyContent = ({
   initialPrompt,
@@ -44,7 +39,7 @@ const PageBuyContent = ({
   specialPromoCookie: SpecialPromoCookie;
 }) => {
   const searchParams = useSearchParams();
-  const [mockupImages, setMockupImages] = useState<MockupImages | null>(null);
+  const { generateMockupUrl, mockupImages } = useGenerateMocks();
   const { ref, slideIn } = useSlideInOnScrollDown();
 
   const generateImageQueryParams = {
@@ -63,33 +58,10 @@ const PageBuyContent = ({
 
   useEffect(() => {
     if (!generateImageQuery.isSuccess) return;
+    if (generateImageQuery.data.errorCode === GENERATION_TOKEN_LIMIT_REACHED) return;
 
-    const generateMockupUrl = async () => {
-      if (generateImageQuery.data.errorCode === GENERATION_TOKEN_LIMIT_REACHED) return;
-      const sizeEntries = Object.entries(desiredMockupImageSizes);
-      const allMockupImages: MockupImages = {};
-
-      for (const [key, value] of sizeEntries) {
-        const promises = mockupData.map((el) => {
-          if (generateImageQuery.data.errorCode === GENERATION_TOKEN_LIMIT_REACHED)
-            throw new Error('Token limit reached');
-
-          return generateMockup(
-            `/mocks/${el.imageName}.png`,
-            generateImageQuery.data.imgSrc,
-            el.positions[key as CanvasSize],
-            value,
-          );
-        });
-
-        const images = await Promise.all(promises);
-        allMockupImages[key] = images;
-      }
-
-      setMockupImages(allMockupImages);
-    };
-
-    generateMockupUrl();
+    generateMockupUrl(generateImageQuery.data.imgSrc);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [generateImageQuery.data, generateImageQuery.isSuccess]);
 
   const isBuyButtonDisabled =

@@ -1,7 +1,8 @@
 import InspirationsContent from '@/app/(main-layout)/inspirations/_components/inspirations-content';
-import { InspirationStyle, styles } from '@/app/(main-layout)/inspirations/utils';
+import { styles } from '@/app/(main-layout)/inspirations/utils';
+import { GenerationStyle } from '@/app/_utils/constants';
 
-const InspirationsStylePage = ({ params }: { params: { style: InspirationStyle } }) => {
+const InspirationsStylePage = ({ params }: { params: { style: GenerationStyle } }) => {
   return <InspirationsContent style={params.style} />;
 };
 

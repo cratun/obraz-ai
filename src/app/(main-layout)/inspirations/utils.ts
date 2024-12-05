@@ -1,101 +1,100 @@
+import { GENERATION_DATA, GenerationStyle } from '@/app/_utils/constants';
+
 type Inspiration = {
   id: string;
-  style: InspirationStyle;
+  style: GenerationStyle;
   prompt: string;
 };
 
-export type InspirationStyle = keyof typeof styles;
+export const styles = GENERATION_DATA.reduce<Record<GenerationStyle, string>>(
+  (acc, el) => {
+    if (el.generationStyle === 'adjusted' || el.generationStyle === 'cubism') return acc;
+    acc[el.generationStyle] = el.text;
 
-export const styles = {
-  hiperrealism: 'Hiperrealizm',
-  anime: 'Anime',
-  surrealistic: 'Surrealizm',
-  cyberpunk: 'Cyberpunk',
-  impressionism: 'Impresjonizm',
-  popArt: 'Pop-art',
-  minimalism: 'Minimalizm',
-  psychoDelic: 'Psychodelik',
-} as const;
+    return acc;
+  },
+  {} as Record<GenerationStyle, string>,
+);
 
 export const inspirationData: Inspiration[] = [
   {
     id: '1',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt: 'Tarantula wykonana z lodu, pokryta soplami, krocząca po wodzie, której kroki zamrażają powierzchnię.',
   },
   {
     id: '2',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt:
       'Pół-realisticzny, świecący demoniczny czajnik z złowrogimi oczami, wiszący na łańcuchu nad ogniskiem w kominku. Z dynamicznym oświetleniem, płytką głębią ostrości i wysoką rozdzielczością.',
   },
   {
     id: '3',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt: 'Zbliżenie na płaczącego kota trzymającego w pyszczku płaczącą mysz.',
   },
   {
     id: '4',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt:
       'Słodki, kawaii stworek w kształcie połówki awokado z motylim skrzydłem, dużymi oczami i ostrym nosem, unoszący się nad zielonymi polami w wietrzną, pomarańczowo-różową scenerię zachodzącego słońca.',
   },
   {
     id: '5',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt:
       'Zbliżenie na ogromne smocze oko i postać w czarnej szacie w surrealistycznej, mglisto-śnieżnej atmosferze.',
   },
   {
     id: '6',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt:
       'Realistyczna scena portu umieszczona w wannie, wyglądająca jak miniaturowy model. W porcie są statki, dźwigi, kontenery i doki, a woda w wannie przypomina spokojne morze. Na brzegu widoczne są drobne łazienkowe przedmioty, które podkreślają surrealizm tej scenerii.',
   },
   {
     id: '7',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt:
       'Wojownik w skórzanym pancerzu, z hełmem ozdobionym rogami, spogląda w niebo, gdzie nad wioską unosi się smok.',
   },
   {
     id: '8',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt:
       'Zbliżenie na usta kobiety w monochromatycznym ujęciu, z wyjątkiem jej ust, które świecą intensywnym, żółtym blaskiem. Delikatne, eteryczne żółte fale dymu unoszą się z jej ust, łagodnie rozprzestrzeniając się w powietrzu. Reszta obrazu jest w czerni i bieli, co tworzy silny kontrast z żywym żółtym blaskiem, podkreślając surrealistyczną, senną atmosferę sceny.',
   },
   {
     id: '9',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt: 'Puchaty kociak owinięty w tortille, z kawałkami mięsa i warzywami, trzymany w dłoniach.',
   },
   {
     id: '10',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt:
       'Pociąg ozdobiony kwitnącymi kwiatami, zwiewne zwierzęta z chmur o połyskujących konturach, pasażerowie patrzący z zachwytem, rozległe niebo z wirującymi galaktykami, kosmiczne kolory (fiolety, błękity, róże), dramatyczne oświetlenie, mistyczna atmosfera.',
   },
   {
     id: '11',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt:
       'Zakapturzona, starożytna postać z twarzą owiniętą tkaniną pełną hieroglifów, na tle poligonalnego, lodowo-niebieskiego gradientu. Zniszczony materiał i pajęczyny podkreślają upływ czasu, a cyfrowa pustka kontrastuje z antycznym klimatem.',
   },
   {
     id: '12',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt:
       'Szczegółowy, mistrzowski, profesjonalny obraz w odważnych kolorach: mały biało-różowy kotek wącha bioluminescencyjny, obcy kwiat w bajkowym lesie. Stylizacja w klimacie vintage, z efektem ziarnistości filmu, aberracją chromatyczną.',
   },
   {
     id: '13',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt:
       'Niesamowite tło, ekstremalne zbliżenie oszałamiającej cyberpunkowej hakerki z prostymi, dwukolorowymi włosami (czarne z neonowozielonymi pasemkami), w popkulturowych okularach. Ciemny makijaż oczu, czarna szminka, patrzy na niewidoczny ekran komputera. Na okularach odbicie neonowoniebieskiego, odwróconego tekstu ASCII na czarnym tle.',
   },
   {
     id: '14',
-    style: 'hiperrealism',
+    style: 'hyperrealism',
     prompt:
       'Zielone, grunge’owe tło, widok od dołu w pełnej wysokości. Kobieta w luksusowych zielonych gumowych kaloszach, krótkich szortach z falbanami, z pięknymi, jasnozielonymi tulipanami wystającymi z wąskich butów. Kwiaty w kaloszach, w stylu boho D',
   },

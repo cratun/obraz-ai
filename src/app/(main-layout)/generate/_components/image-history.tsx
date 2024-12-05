@@ -10,18 +10,16 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { desiredMockupImageSizes, mockupData } from '@/app/(main-layout)/generate/_utils/common';
 import { IMAGE_HISTORY_EXPIRY_DAYS, ImageHistoryEntry } from '@/app/(main-layout)/generate/_utils/image-history/common';
-import generateMockup from '@/app/(main-layout)/generate/buy/generate-mockup';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
 import PromoBox from '@/app/_promo/promo-box';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { getBucketImgUrl } from '@/app/_utils/common';
-import { CanvasSize, getCanvasSizeFromQueryParam } from '@/app/_utils/sizes-utils';
+import { getCanvasSizeFromQueryParam } from '@/app/_utils/sizes-utils';
+import useGenerateMocks from '@/app/_utils/use-generate-mocks';
 import AddToCartButton from '@/app/cart/components/add-to-cart-button';
-import { MockupImages } from '@/app/types';
 import GeneratedImageSlider from './generated-image-slider';
 import OrderDetails from './order-details';
 
@@ -42,32 +40,11 @@ const ImageHistoryDialogContent = ({
 }) => {
   const generatedImgSrc = getBucketImgUrl(imgHistoryEntry.id);
   const searchParams = useSearchParams();
-
-  const [mockupImages, setMockupImages] = useState<MockupImages | null>(null);
+  const { generateMockupUrl, mockupImages } = useGenerateMocks();
 
   useEffect(() => {
-    const generateMockupUrl = async () => {
-      const sizeEntries = Object.entries(desiredMockupImageSizes);
-      const allMockupImages: MockupImages = {};
-
-      for (const [sizeKey, maxUserImageSize] of sizeEntries) {
-        const promises = mockupData.map((el) => {
-          return generateMockup(
-            `/mocks/${el.imageName}.png`,
-            generatedImgSrc,
-            el.positions[sizeKey as CanvasSize],
-            maxUserImageSize,
-          );
-        });
-
-        const images = await Promise.all(promises);
-        allMockupImages[sizeKey] = images;
-      }
-
-      setMockupImages(allMockupImages);
-    };
-
-    generateMockupUrl();
+    generateMockupUrl(generatedImgSrc);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [generatedImgSrc]);
 
   return (
