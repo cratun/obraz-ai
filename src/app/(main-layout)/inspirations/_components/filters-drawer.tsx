@@ -6,11 +6,14 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { Drawer, IconButton } from '@mui/material';
 import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
-import { InspirationStyle, styles } from '@/app/(main-layout)/inspirations/utils';
+import { styles } from '@/app/(main-layout)/inspirations/utils';
 import AppButton from '@/app/_components/app-button';
 import Typography from '@/app/_components/typography';
-const FiltersDrawer = ({ style }: { style?: InspirationStyle }) => {
+import { GenerationStyle } from '@/app/_utils/constants';
+const FiltersDrawer = ({ style }: { style?: GenerationStyle }) => {
   const [open, setOpen] = useState(false);
+
+  const handleClose = () => setOpen(false);
 
   return (
     <>
@@ -27,11 +30,11 @@ const FiltersDrawer = ({ style }: { style?: InspirationStyle }) => {
         anchor="left"
         classes={{ paper: 'w-full max-w-[300px] flex flex-col gap-5 p-5' }}
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
       >
         <div className="flex items-center justify-between">
           <Typography.H4>Inspiracje</Typography.H4>
-          <IconButton>
+          <IconButton onClick={handleClose}>
             <CloseRoundedIcon />
           </IconButton>
         </div>
@@ -41,7 +44,7 @@ const FiltersDrawer = ({ style }: { style?: InspirationStyle }) => {
         </Link>
         {Object.keys(styles).map((el) => (
           <Link key={el} className={twJoin(style === el && 'font-bold text-primary')} href={`/inspirations/${el}`}>
-            <Typography.Body>{styles[el as InspirationStyle]}</Typography.Body>
+            <Typography.Body>{styles[el as GenerationStyle]}</Typography.Body>
           </Link>
         ))}
       </Drawer>
