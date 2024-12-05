@@ -30,10 +30,10 @@ const InspirationPage = ({ params }: { params: { style: GenerationStyle; id: str
             </Suspense>
 
             <div className="flex flex-col gap-5 md:my-auto md:pb-24">
-              <BackButton className="hidden md:block" />
+              <BackButton className="hidden md:flex" />
               <div className="flex flex-col gap-2.5">
-                <Typography.H2>ObrazAI na płótnie</Typography.H2>
-                <Typography.H4>&quot;{inspiration.prompt}&quot;</Typography.H4>
+                <Typography.H2 className="text-2xl md:text-3xl">ObrazAI na płótnie</Typography.H2>
+                <Typography.Body className="md:text-xl">&quot;{inspiration.prompt}&quot;</Typography.Body>
               </div>
               <Typography.Body>
                 Styl:{' '}

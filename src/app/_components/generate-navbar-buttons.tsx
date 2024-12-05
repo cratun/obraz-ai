@@ -1,3 +1,5 @@
+'use client';
+
 import { MouseEventHandler } from 'react';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import { ButtonBase } from '@mui/material';
@@ -5,6 +7,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import createQueryString from '@/app/_utils/create-query-string';
 import AppButton from './app-button';
+import Typography from './typography';
 
 const useGeneratePageHref = () => {
   const searchParams = useSearchParams();
@@ -24,13 +27,7 @@ const GenerateNavbarButtonDesktop = () => {
   const generateHref = useGeneratePageHref();
 
   return (
-    <AppButton
-      href={generateHref}
-      LinkComponent={Link}
-      size="small"
-      startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
-      variant="contained"
-    >
+    <AppButton color="colorText" href={generateHref} LinkComponent={Link} size="small">
       Stwórz swój obraz
     </AppButton>
   );
@@ -51,19 +48,13 @@ const GenerateNavbarButtonMobile = () => {
   );
 };
 
-const GenerateDraverButton = ({ onClick }: { onClick: MouseEventHandler<HTMLButtonElement> }) => {
+const GenerateDrawerButton = ({ onClick }: { onClick: MouseEventHandler<HTMLAnchorElement> }) => {
   const generateHref = useGeneratePageHref();
 
   return (
-    <AppButton
-      href={generateHref}
-      LinkComponent={Link}
-      startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
-      variant="contained"
-      onClick={onClick}
-    >
-      Stwórz swój obraz
-    </AppButton>
+    <Link href={generateHref} onClick={onClick}>
+      <Typography.Body>Stwórz swój obraz</Typography.Body>
+    </Link>
   );
 };
 
@@ -71,6 +62,6 @@ const GenerateNavbarButtons = () => null;
 
 GenerateNavbarButtons.Desktop = GenerateNavbarButtonDesktop;
 GenerateNavbarButtons.Mobile = GenerateNavbarButtonMobile;
-GenerateNavbarButtons.Drawer = GenerateDraverButton;
+GenerateNavbarButtons.Drawer = GenerateDrawerButton;
 
 export default GenerateNavbarButtons;

@@ -21,8 +21,9 @@ export const footerLinks = {
   },
   'Twoje obrazy': {
     'Stwórz swój obraz': '/generate',
-    'Jak generować?': '/manual',
+    Inspiracje: '/inspirations',
     'Galeria Twoich obrazów': '/gallery',
+    'Jak generować?': '/manual',
     Koszyk: '/cart',
   },
   'Prezenty i promocje': {

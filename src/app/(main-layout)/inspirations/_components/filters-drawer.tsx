@@ -28,7 +28,7 @@ const FiltersDrawer = ({ style }: { style?: GenerationStyle }) => {
       </AppButton>
       <Drawer
         anchor="left"
-        classes={{ paper: 'w-full max-w-[300px] flex flex-col gap-5 p-5' }}
+        classes={{ paper: 'w-full max-w-[300px] flex flex-col gap-5 p-2.5' }}
         open={open}
         onClose={handleClose}
       >
