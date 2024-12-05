@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@mui/material';
 import Link from 'next/link';
+import { shuffle } from 'remeda';
 import { twJoin } from 'tailwind-merge';
 import { inspirationData, styles } from '@/app/(main-layout)/inspirations/utils';
 import AppContainer from '@/app/_components/app-container';
@@ -46,7 +47,7 @@ const InspirationsContent = ({ style }: { style?: GenerationStyle }) => {
           </div>
           <FiltersDrawer style={style} />
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {inspirationData.map((item) => {
+            {shuffle(inspirationData).map((item) => {
               if (style !== item.style && style) return null;
 
               return <InspirationCard key={item.id} id={item.id} prompt={item.prompt} style={item.style} />;

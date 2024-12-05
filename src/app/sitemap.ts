@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { inspirationData, styles } from './(main-layout)/inspirations/utils';
 import { ORIGIN_URL } from './_utils/constants';
 
 const ROUTES = [
@@ -13,6 +14,9 @@ const ROUTES = [
   '/giftcard',
   '/gallery',
   '/cart',
+  '/inspirations',
+  ...Object.keys(styles).map((style) => `/inspirations/${style}`),
+  ...inspirationData.map(({ id, style }) => `/inspirations/${style}/${id}`),
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
