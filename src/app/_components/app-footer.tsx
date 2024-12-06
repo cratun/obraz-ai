@@ -21,7 +21,9 @@ const AppFooter = () => {
             ))}
           </div>
         ))}
-        <AppSocials />
+        <AppSocials>
+          <Typography.Body className="font-bold">Nasze sociale</Typography.Body>
+        </AppSocials>
         <div className="flex w-full flex-col gap-5">
           <hr className="w-full text-text/20" />
           <Typography.Body className="text-xs text-text/60">
