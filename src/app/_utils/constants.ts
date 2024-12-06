@@ -97,7 +97,7 @@ export const GENERATION_DATA = [
     },
     prompt: GPT_ADJUSTED_IMPRESSIONISTIC_PAINTING,
     imagePromptWrapper: (prompt: string) =>
-      `Impressionistic oil painting of ${prompt} Impressionism, Impressionistic Oil Painting`,
+      `An impressionistic oil painting of ${prompt}, featuring soft and blurred brush strokes, a harmonious and vibrant color palette, emphasis on natural light and atmospheric effects, depicting everyday scenes with a focus on capturing movement and fleeting moments, utilizing fluid transitions, soft edges, and a misty, hazy atmosphere to create a serene and emotionally evocative composition in the style of late 19th-century Impressionism.`,
   },
   {
     generationStyle: 'pop-art',

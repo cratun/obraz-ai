@@ -78,17 +78,17 @@ const actionGenerate = async ({ prompt, generationStyle }: { prompt: string; gen
     throw new Error('Failed to generate refined prompt');
   }
 
-  const output = (await replicate.run(MODEL_NAME, {
+  const output = await replicate.run(MODEL_NAME, {
     input: {
       prompt: generationData.imagePromptWrapper(messageContent),
-      num_outputs: 1,
       aspect_ratio: '1:1',
+      prompt_upsampling: true,
       ...generationData.modelConfig,
     },
-  })) as string[];
+  });
 
   const imageId = crypto.randomUUID();
-  const imgSrc = output[0];
+  const imgSrc = output as unknown as string;
 
   await Promise.all([uploadImage({ imgSrc, id: imageId }), updateSpecialPromoCookie()]);
   updateImageHistoryCookie(imageId);
