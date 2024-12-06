@@ -185,12 +185,12 @@ const Home = () => {
         <AppContainer.Content>
           <AppButton
             classes={{ contained: 'normal-case font-normal leading-[150%] tracking-[0.5px] px-5 py-2.5' }}
-            href="/generate"
+            href="/inspirations"
             LinkComponent={Link}
             size="large"
             variant="contained"
           >
-            Stwórz swój obraz teraz
+            Sprawdź nasze inspiracje
           </AppButton>
         </AppContainer.Content>
       </AppContainer>
@@ -252,7 +252,7 @@ const Home = () => {
       <AppContainer className="pb-10">
         <AppContainer.Content>
           <AppButton color="primary" href="/generate" LinkComponent={Link} size="large" variant="contained">
-            Przekształć pomysł w obraz
+            Sprawdź pomysły na obrazy
           </AppButton>
         </AppContainer.Content>
       </AppContainer>

@@ -14,9 +14,8 @@ const InspirationsContent = ({ style }: { style?: GenerationStyle }) => {
   return (
     <AppContainer className="relative pb-10 pt-[--save-navbar-padding-top] lg:min-h-screen">
       <ScrollToTopButton />
-      <div className="bg-white"></div>
-      <AppContainer.Content className="flex grid-cols-6 gap-5 text-text md:grid md:gap-10">
-        <div className="hidden flex-col gap-5 md:flex">
+      <AppContainer.Content className="flex grid-cols-6 items-start gap-5 text-text md:grid md:gap-10">
+        <div className="sticky top-[--save-navbar-padding-top] hidden flex-col gap-5 md:flex">
           <Typography.H4>Inspiracje</Typography.H4>
           <hr className="text-text/20" />
           <Link className={twJoin(!style ? 'font-bold text-primary' : 'hover:underline')} href={`/inspirations`}>

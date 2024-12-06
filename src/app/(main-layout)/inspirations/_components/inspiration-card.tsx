@@ -15,7 +15,12 @@ const InspirationCard = ({ id, style, prompt }: { id: string; style: GenerationS
     >
       <div className="aspect-square w-full bg-white p-[12%]">
         <div className="inspiration-shadow relative aspect-square overflow-hidden">
-          <Image fill alt={prompt} className="h-full w-full object-cover" src={`/inspirations/${style}/${id}.webp`} />
+          <Image
+            fill
+            alt={prompt}
+            className="h-full w-full object-cover"
+            src={`/inspirations/${style}/${id}${style === 'impressionism' ? '.webp' : '.jpg'}`}
+          />
         </div>
       </div>
       <div className="flex flex-col gap-1">

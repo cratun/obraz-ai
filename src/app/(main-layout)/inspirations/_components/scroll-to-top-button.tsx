@@ -24,7 +24,7 @@ const ScrollToTopButton = () => {
   return (
     <Slide mountOnEnter unmountOnExit direction="up" in={scrollY > 300}>
       <IconButton
-        className="fixed bottom-5 right-5 z-20 bg-primary md:hidden"
+        className="fixed bottom-5 right-5 z-20 bg-primary"
         onClick={() => scrollTo({ left: 0, top: 0, behavior: 'smooth' })}
       >
         <KeyboardArrowUpIcon className="text-white" />
