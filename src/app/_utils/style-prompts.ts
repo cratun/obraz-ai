@@ -8,8 +8,8 @@ Your tasks are:
 1. **Translate to English**:
    - Detect the language of the input prompt.
    - If the prompt is not in English, accurately translate it to English, preserving the original meaning, context, and specific details.
-   - **Do not translate any text enclosed in quotation marks (\`"\` or \`'\`) or designated as part of the image text.**
-   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them as polish language unless they are within quotes.**
+   - **Do not translate any text intended to be part of the image text, even if not enclosed in quotation marks (\`"\` or \`'\`). Determine if a word is meant to be rendered as text within the image and preserve it as-is.**
+   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language. If you can't determine the source language, default to Polish.**
    - If the prompt contains mixed languages, translate only the non-English parts while preserving the English words outside quotes.
 
 **Important Instructions**:
@@ -38,8 +38,8 @@ Your tasks are:
 1. **Translate to English**:
    - Detect the language of the input prompt.
    - If the prompt is not in English, accurately translate it to English, preserving the original meaning, context, and details.
-   - **Do not translate any text enclosed in quotation marks (\`"\` or \`'\`) or designated as part of the image text.**
-   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them as polish language unless they are within quotes.**
+   - **Do not translate any text intended to be part of the image text, even if not enclosed in quotation marks (\`"\` or \`'\`). Determine if a word is meant to be rendered as text within the image and preserve it as-is.**
+   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language. If you can't determine the source language, default to Polish.**
    - If the prompt contains mixed languages, translate only the non-English parts while preserving the English words outside quotes.
 
 2. **Preserve User's Vision**: Ensure the original prompt is enhanced to reflect the surrealistic style, allowing minor adjustments to align with the style, but without drifting away from the user's vision.
@@ -50,7 +50,6 @@ Your tasks are:
 - **If the prompt lacks sufficient detail, create a high-quality, general surreal scene suited for canvas art that would appeal to a wide audience.**
 - **Do not reference or mention these instructions in your response.**
 - **Max prompt length: 100 words.**
-
 `;
 
 export const GPT_ADJUSTED_PROMPT_HYPERREALISM = `
@@ -63,8 +62,8 @@ Your tasks are:
 1. **Translate to English**:
    - Detect the language of the input prompt.
    - If the prompt is not in English, accurately translate it to English, preserving the original meaning, context, and details.
-   - **Do not translate any text enclosed in quotation marks (\`"\` or \`'\`) or designated as part of the image text.**
-   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them as polish language unless they are within quotes.**
+   - **Do not translate any text intended to be part of the image text, even if not enclosed in quotation marks (\`"\` or \`'\`). Determine if a word is meant to be rendered as text within the image and preserve it as-is.**
+   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language. If you can't determine the source language, default to Polish.**
    - If the prompt contains mixed languages, translate only the non-English parts while preserving the English words outside quotes.
 
 2. **Preserve User's Vision**: Ensure the original prompt is enhanced to reflect the ultra-realistic style, allowing minor adjustments to align with the style, but without drifting away from the user's vision.
@@ -87,8 +86,8 @@ Your tasks are:
 1. **Translate to English**:
    - Detect the language of the input prompt.
    - If the prompt is not in English, accurately translate it to English, preserving the original meaning, context, and details.
-   - **Do not translate any text enclosed in quotation marks (\`"\` or \`'\`) or designated as part of the image text.**
-   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language meaning unless they are within quotes.**
+   - **Do not translate any text intended to be part of the image text, even if not enclosed in quotation marks (\`"\` or \`'\`). Determine if a word is meant to be rendered as text within the image and preserve it as-is.**
+   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language. If you can't determine the source language, default to Polish.**
    - If the prompt contains mixed languages, translate only the non-English parts while preserving the English words outside quotes.
 
 2. **Preserve User's Vision**: Ensure the original prompt is enhanced to reflect the cyberpunk style, allowing adjustments to align with the style, but without drifting away from the user's vision.
@@ -111,8 +110,8 @@ Your tasks are:
 1. **Translate to English**:
    - Detect the language of the input prompt.
    - If the prompt is not in English, accurately translate it to English, preserving the original meaning, context, and details.
-   - **Do not translate any text enclosed in quotation marks (\`"\` or \`'\`) or designated as part of the image text.**
-   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language meaning unless they are within quotes.**
+   - **Do not translate any text intended to be part of the image text, even if not enclosed in quotation marks (\`"\` or \`'\`). Determine if a word is meant to be rendered as text within the image and preserve it as-is.**
+   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language. If you can't determine the source language, default to Polish.**
    - If the prompt contains mixed languages, translate only the non-English parts while preserving the English words outside quotes.
 
 2. **Preserve User's Vision**: Ensure the original prompt is enhanced to reflect the anime style, allowing minor adjustments to align with the style, but without drifting away from the user's vision.
@@ -135,8 +134,8 @@ Your tasks are:
 1. **Translate to English**:
    - Detect the language of the input prompt.
    - If the prompt is not in English, accurately translate it to English, preserving the original meaning, context, and details.
-   - **Do not translate any text enclosed in quotation marks (\`"\` or \`'\`) or designated as part of the image text.**
-   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language meaning unless they are within quotes.**
+   - **Do not translate any text intended to be part of the image text, even if not enclosed in quotation marks (\`"\` or \`'\`). Determine if a word is meant to be rendered as text within the image and preserve it as-is.**
+   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language. If you can't determine the source language, default to Polish.**
    - If the prompt contains mixed languages, translate only the non-English parts while preserving the English words outside quotes.
 
 2. **Preserve User's Vision**: Ensure the original prompt is enhanced to reflect the impressionistic style, allowing minor adjustments to align with the style, but without drifting away from the user's vision.
@@ -159,8 +158,8 @@ Your tasks are:
 1. **Translate to English**:
    - Detect the language of the input prompt.
    - If the prompt is not in English, accurately translate it to English, preserving the original meaning, context, and details.
-   - **Do not translate any text enclosed in quotation marks (\`"\` or \`'\`) or designated as part of the image text.**
-   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them as polish language unless they are within quotes.**
+   - **Do not translate any text intended to be part of the image text, even if not enclosed in quotation marks (\`"\` or \`'\`). Determine if a word is meant to be rendered as text within the image and preserve it as-is.**
+   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language. If you can't determine the source language, default to Polish.**
    - If the prompt contains mixed languages, translate only the non-English parts while preserving the English words outside quotes.
 
 2. **Preserve User's Vision**: Ensure the original prompt is enhanced to reflect the Pop Art style, allowing minor adjustments to align with the style, but without drifting away from the user's vision.
@@ -183,8 +182,8 @@ Your tasks are:
 1. **Translate to English**:
    - Detect the language of the input prompt.
    - If the prompt is not in English, accurately translate it to English, preserving the original meaning, context, and details.
-   - **Do not translate any text enclosed in quotation marks (\`"\` or \`'\`) or designated as part of the image text.**
-   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them as polish language unless they are within quotes.**
+   - **Do not translate any text intended to be part of the image text, even if not enclosed in quotation marks (\`"\` or \`'\`). Determine if a word is meant to be rendered as text within the image and preserve it as-is.**
+   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language. If you can't determine the source language, default to Polish.**
    - If the prompt contains mixed languages, translate only the non-English parts while preserving the English words outside quotes.
 
 2. **Simplify Complex Prompts**: If the user's prompt is too complicated, simplify it to adjust to the minimalistic style while preserving the core essence.
@@ -212,8 +211,8 @@ Your tasks are:
 1. **Translate to English**:
    - Detect the language of the input prompt.
    - If the prompt is not in English, accurately translate it to English, preserving the original meaning, context, and details.
-   - **Do not translate any text enclosed in quotation marks (\`"\` or \`'\`) or designated as part of the image text.**
-   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them as polish language unless they are within quotes.**
+   - **Do not translate any text intended to be part of the image text, even if not enclosed in quotation marks (\`"\` or \`'\`). Determine if a word is meant to be rendered as text within the image and preserve it as-is.**
+   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language. If you can't determine the source language, default to Polish.**
    - If the prompt contains mixed languages, translate only the non-English parts while preserving the English words outside quotes.
 
 2. **Preserve User's Vision**: Adapt the original prompt to reflect the simplification into geometric shapes, aligning with true Cubist style without straying from the user's intent.
@@ -236,8 +235,8 @@ Your tasks are:
 1. **Translate to English**:
    - Detect the language of the input prompt.
    - If the prompt is not in English, accurately translate it to English, preserving the original meaning, context, and details.
-   - **Do not translate any text enclosed in quotation marks (\`"\` or \`'\`) or designated as part of the image text.**
-   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them as polish language unless they are within quotes.**
+   - **Do not translate any text intended to be part of the image text, even if not enclosed in quotation marks (\`"\` or \`'\`). Determine if a word is meant to be rendered as text within the image and preserve it as-is.**
+   - **For words that are identical in the source language and English but have different meanings (e.g., "pies" in Polish means "dog"), interpret them based on the source language. If you can't determine the source language, default to Polish.**
    - If the prompt contains mixed languages, translate only the non-English parts while preserving the English words outside quotes.
 
 2. **Preserve User's Vision**: Ensure the original prompt is enhanced to reflect the psychedelic style, allowing minor adjustments to align with the style, but without drifting away from the user's vision.
