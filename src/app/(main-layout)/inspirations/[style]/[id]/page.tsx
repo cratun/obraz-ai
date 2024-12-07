@@ -12,6 +12,14 @@ import BackButton from './_components/back-button';
 import ImagesMockups from './_components/images-mockups';
 import Prompt from './_components/prompt';
 
+export async function generateMetadata({ params }: { params: { style: GenerationStyle; id: string } }) {
+  return {
+    title: `ObrazAI - ${params.id} - ${styles[params.style]} - Inspiracja`,
+    description: `Odkryj inspirację ${params.id} w stylu ${styles[params.style]}. Stwórz i zamów ten unikalny obraz AI na płótnie z ObrazAI, który doda charakteru Twojemu wnętrzu.
+`,
+  };
+}
+
 const RandomInspirations = dynamic(
   () => import('@/app/(main-layout)/inspirations/[style]/[id]/_components/random-inspirations'),
   { ssr: false },

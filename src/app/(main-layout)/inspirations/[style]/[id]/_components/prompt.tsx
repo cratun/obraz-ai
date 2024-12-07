@@ -23,6 +23,10 @@ const Prompt = ({ prompt }: { prompt: string }) => {
       clone.style.maxHeight = 'none';
       clone.style.overflow = 'visible';
 
+      // Set the clone's width to match the visible element's width
+      const visibleRect = visibleElement.getBoundingClientRect();
+      clone.style.width = `${visibleRect.width}px`;
+
       // Append clone to the body to measure full height
       document.body.appendChild(clone);
       const fullHeight = clone.scrollHeight;

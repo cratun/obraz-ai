@@ -428,7 +428,8 @@ export const inspirationData: Inspiration[] = [
   {
     id: '75',
     style: 'cyberpunk',
-    prompt: 'Smok odlatujący z krateru wulkanu, którego łuski zmieniają kolor jak światło neonowe.',
+    prompt:
+      'Cyberpunkowy stary wojownik siedzący na futurystycznym wózku inwalidzkim, otoczony tajemniczą mgłą przy ziemi, miękkie neonowe światło, kinowy nastrój, iryzująca czerń, żywe detale, toksyczny pył.',
   },
   {
     id: '76',
@@ -746,7 +747,7 @@ export const inspirationData: Inspiration[] = [
   {
     id: '137',
     style: 'minimalism',
-    prompt: 'Minimalistyczna sylwetka roweru w srebrzystym odcieniu, na głębokim odcieniu grafitowej szarości.',
+    prompt: 'Mały koci nosek w kolorze jasnego brązu, na mlecznym, kremowym tle.',
   },
   {
     id: '138',
