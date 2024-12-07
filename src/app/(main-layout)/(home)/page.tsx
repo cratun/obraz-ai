@@ -251,7 +251,7 @@ const Home = () => {
       </div>
       <AppContainer className="pb-10">
         <AppContainer.Content>
-          <AppButton color="primary" href="/generate" LinkComponent={Link} size="large" variant="contained">
+          <AppButton color="primary" href="/inspirations" LinkComponent={Link} size="large" variant="contained">
             Sprawdź pomysły na obrazy
           </AppButton>
         </AppContainer.Content>
