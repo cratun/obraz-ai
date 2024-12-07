@@ -39,6 +39,7 @@ const uploadImage = async ({ imgSrc, id }: { imgSrc: string; id: string }) => {
 const replicate = new Replicate();
 
 const MODEL_NAME = process.env.IMAGE_GENERATOR_MODEL_NAME as any;
+const MODEL_NAME_IMPRESSIONISM = process.env.IMAGE_GENERATOR_MODEL_NAME_IMPRESSIONISM as any;
 
 const openai = new OpenAI();
 
@@ -78,17 +79,20 @@ const actionGenerate = async ({ prompt, generationStyle }: { prompt: string; gen
     throw new Error('Failed to generate refined prompt');
   }
 
-  const output = await replicate.run(MODEL_NAME, {
-    input: {
-      prompt: generationData.imagePromptWrapper(messageContent),
-      aspect_ratio: '1:1',
-      prompt_upsampling: true,
-      ...generationData.modelConfig,
+  const output = (await replicate.run(
+    generationData.generationStyle === 'impressionism' ? MODEL_NAME_IMPRESSIONISM : MODEL_NAME,
+    {
+      input: {
+        prompt: generationData.imagePromptWrapper(messageContent),
+        aspect_ratio: '1:1',
+        prompt_upsampling: true,
+        ...generationData.modelConfig,
+      },
     },
-  });
+  )) as any;
 
   const imageId = crypto.randomUUID();
-  const imgSrc = output as unknown as string;
+  const imgSrc = generationData.generationStyle === 'impressionism' ? output[0] : output;
 
   await Promise.all([uploadImage({ imgSrc, id: imageId }), updateSpecialPromoCookie()]);
   updateImageHistoryCookie(imageId);
