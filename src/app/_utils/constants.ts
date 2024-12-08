@@ -138,7 +138,8 @@ export const GENERATION_DATA = [
       guidance: 4,
     },
     prompt: GPT_ADJUSTED_PROMPT_CUBISM,
-    imagePromptWrapper: (prompt: string) => `Cubist Painting of ${prompt} Cubism, Cubist Art, Cubist Masterpiece`,
+    imagePromptWrapper: (prompt: string) =>
+      `A Cubist interpretation of ${prompt}, featuring geometric shapes, fragmented forms, and multiple perspectives characteristic of Cubism.`,
   },
 ] as const;
 

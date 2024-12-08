@@ -8,7 +8,7 @@ type Inspiration = {
 
 export const styles = GENERATION_DATA.reduce<Record<GenerationStyle, string>>(
   (acc, el) => {
-    if (el.generationStyle === 'adjusted' || el.generationStyle === 'cubism') return acc;
+    if (el.generationStyle === 'adjusted') return acc;
     acc[el.generationStyle] = el.text;
 
     return acc;
@@ -881,5 +881,105 @@ export const inspirationData: Inspiration[] = [
     id: '163',
     style: 'psychedelic',
     prompt: 'Koń z grzywą płomieni, biegnący przez pole psychodelicznych kwiatów, które migoczą neonowymi światłami.',
+  },
+  {
+    id: '164',
+    style: 'cubism',
+    prompt: 'Nowoczesne miasto z wieżowcami i ulicami pełnymi ruchu, ukazane w abstrakcyjnych formach.',
+  },
+  {
+    id: '165',
+    style: 'cubism',
+    prompt: 'Portret starszego mężczyzny z wyraźnymi geometrycznymi kształtami twarzy.',
+  },
+  {
+    id: '166',
+    style: 'cubism',
+    prompt: 'Abstrakcyjny krajobraz górski z fragmentarycznymi szczytami i wielobarwnym niebem.',
+  },
+  {
+    id: '167',
+    style: 'cubism',
+    prompt: 'Dynamiczna scena taneczna z postaciami w ruchu, złożonymi z wielokątnych form.',
+  },
+  {
+    id: '168',
+    style: 'cubism',
+    prompt: 'Spokojne jezioro o zachodzie słońca, przedstawione za pomocą geometrycznych linii i kształtów.',
+  },
+  {
+    id: '169',
+    style: 'cubism',
+    prompt: 'Ulica w deszczowy dzień z parasolami i odbiciami, zgeometryzowana w stylu kubistycznym.',
+  },
+  {
+    id: '170',
+    style: 'cubism',
+    prompt: 'Kwiatowy ogród pełen różnorodnych kwiatów, przedstawiony w kolorowych, fragmentarycznych formach.',
+  },
+  {
+    id: '171',
+    style: 'cubism',
+    prompt: 'Portret dziecka z wyrazistymi, geometrycznymi detalami twarzy i włosów.',
+  },
+  {
+    id: '172',
+    style: 'cubism',
+    prompt: 'Scena z plaży z falami i parasolami, przedstawiona za pomocą wielokolorowych kształtów.',
+  },
+  {
+    id: '173',
+    style: 'cubism',
+    prompt: 'Abstrakcyjna kompozycja muzyczna z instrumentami rozłożonymi w przestrzeni.',
+  },
+  {
+    id: '174',
+    style: 'cubism',
+    prompt: 'Las pełen drzew o złożonych, geometrycznych koronach i sylwetkach.',
+  },
+  {
+    id: '175',
+    style: 'cubism',
+    prompt: 'Kosmiczny krajobraz z planetami i gwiazdami w kubistycznym stylu.',
+  },
+  {
+    id: '176',
+    style: 'cubism',
+    prompt: 'Stary most nad rzeką, przedstawiony z geometrycznymi detalami i fragmentarycznymi elementami.',
+  },
+  {
+    id: '177',
+    style: 'cubism',
+    prompt: 'Scena z kawiarni pełnej ludzi, ukazana za pomocą zgeometryzowanych postaci i mebli.',
+  },
+  {
+    id: '178',
+    style: 'cubism',
+    prompt: 'Abstrakcyjny portret muzyka grającego na skrzypcach, z geometrycznymi elementami instrumentu i twarzy.',
+  },
+  {
+    id: '179',
+    style: 'cubism',
+    prompt: 'Miasto nocą z oświetlonymi budynkami i ulicznymi światłami, przedstawione w fragmentarycznych kształtach.',
+  },
+  {
+    id: '180',
+    style: 'cubism',
+    prompt: 'Scena z targu pełna straganów i ludzi, ukazana za pomocą wielokątnych form i intensywnych kolorów.',
+  },
+  {
+    id: '181',
+    style: 'cubism',
+    prompt: 'Abstrakcyjny widok na plażę z palmami i zachodem słońca, zgeometryzowany w stylu kubistycznym.',
+  },
+  {
+    id: '182',
+    style: 'cubism',
+    prompt: 'Portret kobiety z rozłożonymi na części włosami i biżuterią w geometrycznych wzorach.',
+  },
+  {
+    id: '183',
+    style: 'cubism',
+    prompt: 'Dynamiczna scena sportowa, np. piłkarze w ruchu, przedstawiona w fragmentarycznych formach.',
   },
 ];
