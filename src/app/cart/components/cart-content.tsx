@@ -369,7 +369,11 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
             <Fragment key={item.id}>
               <div className="flex gap-2.5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" height={140} src={getBucketImgUrl(item.imageId)} width={140} />
+                <div className="relative">
+                  {/* NOTE: disable easy image copying */}
+                  <div className="absolute inset-0 z-[1]" />
+                  <img alt="" height={140} src={getBucketImgUrl(item.imageId)} width={140} />
+                </div>
                 <div className="flex grow flex-col justify-between">
                   <div className="relative flex flex-col gap-2.5">
                     <div className="text-base font-semibold leading-[1.2] tracking-[1px]">ObrazAI (płótno)</div>
