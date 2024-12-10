@@ -47,11 +47,13 @@ const OrderEmail = ({
       </Link>
     </Container>
     <Container className="p-5">
-      <Text className="m-0 text-center text-2xl font-bold !text-text">Twoje zamówienie zostało nadane</Text>
+      <Text className="m-0 text-center text-2xl font-bold !text-text">
+        Potwierdzenie nadania numeru listu przewozowego
+      </Text>
       <Text className="text-base font-bold !text-text">Witaj {userName},</Text>
       <Text className="text-base !text-text">
-        Z radością informujemy, że Twoje zamówienie nr {orderNumber} zostało właśnie nadane! Możesz śledzić status
-        swojej przesyłki, klikając w poniższy link:
+        Z radością informujemy, że dla Twojego zamówienie nr {orderNumber} został własnie nadany numer listu
+        przewozowego! Możesz śledzić status swojej przesyłki, klikając w poniższy link:
       </Text>
       <Link className="text-primary" href={deliveryLink}>
         {deliveryNumber}
