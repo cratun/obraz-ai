@@ -8,7 +8,7 @@ import AppContainer from '@/app/_components/app-container';
 import BenefitsSection from '@/app/_components/benefits-section';
 import Typography from '@/app/_components/typography';
 import { GenerationStyle } from '@/app/_utils/constants';
-import BackButton from './_components/back-button';
+import BreadCrumbsInspirationDetails from './_components/back-button';
 import ImagesMockups from './_components/images-mockups';
 import Prompt from './_components/prompt';
 
@@ -33,7 +33,7 @@ const InspirationPage = ({ params }: { params: { style: GenerationStyle; id: str
       <AppContainer className="pb-20 pt-[--save-navbar-padding-top]">
         <AppContainer.Content className="flex-col gap-10 overflow-auto text-text lg:gap-20">
           <div className="flex flex-col gap-5 lg:flex-row lg:gap-10">
-            <BackButton className="md:hidden" />
+            <BreadCrumbsInspirationDetails className="md:hidden" style={params.style} />
             <Suspense>
               <ImagesMockups
                 imgSrc={`/inspirations/${params.style}/${params.id}${params.style === 'impressionism' ? '.webp' : '.jpg'}`}
@@ -41,7 +41,7 @@ const InspirationPage = ({ params }: { params: { style: GenerationStyle; id: str
             </Suspense>
 
             <div className="flex flex-col gap-5 md:my-auto md:pb-24">
-              <BackButton className="hidden md:flex" />
+              <BreadCrumbsInspirationDetails className="hidden md:flex" style={params.style} />
               <div className="flex flex-col gap-2.5">
                 <Typography.H2 className="text-2xl md:text-3xl">ObrazAI na płótnie</Typography.H2>
                 <Prompt prompt={inspiration.prompt} />

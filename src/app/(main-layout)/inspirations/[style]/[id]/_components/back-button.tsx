@@ -1,18 +1,20 @@
-'use client';
+import { Breadcrumbs } from '@mui/material';
+import Link from 'next/link';
+import { styles } from '@/app/(main-layout)/inspirations/utils';
+import Typography from '@/app/_components/typography';
+import { GenerationStyle } from '@/app/_utils/constants';
 
-import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
-import { useRouter } from 'next/navigation';
-import { ClassNameValue, twMerge } from 'tailwind-merge';
-import AppButton from '@/app/_components/app-button';
-
-const BackButton = ({ className }: { className?: ClassNameValue }) => {
-  const router = useRouter();
-
+const BreadCrumbsInspirationDetails = ({ className, style }: { className?: string; style: GenerationStyle }) => {
   return (
-    <AppButton className={twMerge('w-fit', className)} startIcon={<ArrowBackRoundedIcon />} onClick={router.back}>
-      Powrót
-    </AppButton>
+    <Breadcrumbs className={className}>
+      <Link href="/inspirations">
+        <Typography.Body className="hover:underline">Inspiracje</Typography.Body>
+      </Link>
+      <Link href={`/inspirations/${style}`}>
+        <Typography.Body className="hover:underline">{styles[style]}</Typography.Body>
+      </Link>
+    </Breadcrumbs>
   );
 };
 
-export default BackButton;
+export default BreadCrumbsInspirationDetails;
