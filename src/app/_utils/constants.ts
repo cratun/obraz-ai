@@ -25,6 +25,7 @@ export const footerLinks = {
     'Galeria Twoich obrazów': '/gallery',
     'Jak generować?': '/manual',
     Koszyk: '/cart',
+    Blog: '/blog',
   },
   'Prezenty i promocje': {
     'Karta podarunkowa': '/giftcard',

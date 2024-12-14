@@ -4,11 +4,11 @@ import { shuffle } from 'remeda';
 import { twJoin } from 'tailwind-merge';
 import { inspirationData, styles } from '@/app/(main-layout)/inspirations/utils';
 import AppContainer from '@/app/_components/app-container';
+import ScrollToTopButton from '@/app/_components/scroll-to-top-button';
 import Typography from '@/app/_components/typography';
 import { GenerationStyle } from '@/app/_utils/constants';
 import FiltersDrawer from './filters-drawer';
 import InspirationCard from './inspiration-card';
-import ScrollToTopButton from './scroll-to-top-button';
 
 const InspirationsContent = ({ style }: { style?: GenerationStyle }) => {
   return (

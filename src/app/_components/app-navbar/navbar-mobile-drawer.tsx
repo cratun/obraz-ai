@@ -100,6 +100,10 @@ const NavbarMobileDrawer = ({ isLoading }: { isLoading: boolean }) => {
             <Typography.Body>Jak generować?</Typography.Body>
           </Link>
           <hr className="text-text/20" />
+          <Link href="/blog" onClick={handleClose}>
+            <Typography.Body>Blog</Typography.Body>
+          </Link>
+          <hr className="text-text/20" />
           <Link href="/giftcard" onClick={handleClose}>
             <Typography.Body>Karta podarunkowa</Typography.Body>
           </Link>

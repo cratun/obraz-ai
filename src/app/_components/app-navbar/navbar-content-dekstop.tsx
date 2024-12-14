@@ -34,6 +34,9 @@ const NavbarContentDesktop = ({ isLoading }: { isLoading: boolean }) => {
         <AppButton color="colorText" href="/contact?review=true" LinkComponent={Link} size="small">
           Opinia
         </AppButton>
+        <AppButton color="colorText" href="/blog" LinkComponent={Link} size="small">
+          Blog
+        </AppButton>
       </div>
       <div className="hidden items-center gap-5 lg:flex">
         <IconButton href="/gallery" LinkComponent={Link} size="small">
