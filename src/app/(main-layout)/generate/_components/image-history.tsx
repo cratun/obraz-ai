@@ -10,7 +10,11 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { IMAGE_HISTORY_EXPIRY_DAYS, ImageHistoryEntry } from '@/app/(main-layout)/generate/_utils/image-history/common';
+import {
+  IMAGE_HISTORY_EXPIRY_DAYS,
+  IMAGE_HISTORY_MAX_ENTRIES,
+  ImageHistoryEntry,
+} from '@/app/(main-layout)/generate/_utils/image-history/common';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
@@ -123,7 +127,8 @@ const ImageHistory = ({
         <div className="max-w-2xl text-text">
           <ul className="flex list-disc flex-col gap-1.5 pl-4">
             <li className="text-base leading-[1.2] tracking-[0.5px]">
-              Przechowuj do <strong>40 ostatnich</strong> obrazów przez <strong>{IMAGE_HISTORY_EXPIRY_DAYS} dni</strong>
+              Przechowuj do <strong>{IMAGE_HISTORY_MAX_ENTRIES} ostatnich</strong> obrazów przez{' '}
+              <strong>{IMAGE_HISTORY_EXPIRY_DAYS} dni</strong>
             </li>
             <li className="text-base leading-[1.2] tracking-[0.5px]">
               <strong>Kliknij</strong>, aby zobaczyć podgląd i zamówić
