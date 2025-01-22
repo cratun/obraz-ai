@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import PriorityHighRoundedIcon from '@mui/icons-material/PriorityHighRounded';
@@ -15,7 +16,6 @@ import Typography from '@/app/_components/typography';
 import createQueryString from '@/app/_utils/create-query-string';
 import { CanvasSize, canvasSizes } from '@/app/_utils/sizes-utils';
 import ProductDetails from './product-details';
-
 const Hr = () => <hr className="text-text/30" />;
 
 const OrderDetails = ({
@@ -67,11 +67,15 @@ const OrderDetails = ({
       </div>
       <span className="text-3xl font-bold">{sizeToPrice[size]} zł</span>
       {children}
-      <div className="flex items-center gap-1 text-xs font-bold">
-        <AccessTimeRoundedIcon className="text-base" /> <span>Czas dostawy: 3 - 5 dni roboczych</span>{' '}
+      <div className="flex items-start gap-1 text-xs font-bold">
+        <CheckRoundedIcon className="text-base" />
+        <span>Przy zakupie otrzymasz obraz bez znaków wodnych</span>
       </div>
       <div className="flex items-center gap-1 text-xs font-bold">
-        <PriorityHighRoundedIcon className="text-base" /> <span>Darmowa dostawa</span>{' '}
+        <AccessTimeRoundedIcon className="text-base" /> <span>Czas dostawy: 3 - 5 dni roboczych</span>
+      </div>
+      <div className="flex items-center gap-1 text-xs font-bold">
+        <PriorityHighRoundedIcon className="text-base" /> <span>Darmowa dostawa</span>
       </div>
       <Hr />
       <PaymentMethodsList />
