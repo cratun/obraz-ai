@@ -1,36 +1,35 @@
 'use client';
+import { useRef } from 'react';
 import { shuffle } from 'remeda';
 import { useWindowSize } from 'usehooks-ts';
 import { inspirationData } from '@/app/(main-layout)/inspirations/utils';
 import { GenerationStyle } from '@/app/_utils/constants';
 
 const useRandomInspirations = (style: GenerationStyle, id: string) => {
-  const width = useWindowSize().width;
-  const shuffledArray = shuffle(inspirationData.filter((el) => el.style === style && el.id !== id));
+  const { width } = useWindowSize();
+  const shuffledArrayRef = useRef<typeof inspirationData | undefined>();
 
-  if (!width) return;
+  if (!shuffledArrayRef.current) {
+    const filtered = shuffle(inspirationData.filter((el) => el.style === style && el.id !== id));
 
-  if (width >= 1024) {
-    shuffledArray.length = 5;
-
-    return shuffledArray;
+    if (!width) {
+      shuffledArrayRef.current = undefined;
+    } else if (width >= 1024) {
+      filtered.length = 5;
+      shuffledArrayRef.current = filtered;
+    } else if (width >= 768) {
+      filtered.length = 4;
+      shuffledArrayRef.current = filtered;
+    } else if (width >= 640) {
+      filtered.length = 3;
+      shuffledArrayRef.current = filtered;
+    } else {
+      filtered.length = 2;
+      shuffledArrayRef.current = filtered;
+    }
   }
 
-  if (width >= 768) {
-    shuffledArray.length = 4;
-
-    return shuffledArray;
-  }
-
-  if (width >= 640) {
-    shuffledArray.length = 3;
-
-    return shuffledArray;
-  }
-
-  shuffledArray.length = 2;
-
-  return shuffledArray;
+  return shuffledArrayRef.current;
 };
 
 export default useRandomInspirations;
