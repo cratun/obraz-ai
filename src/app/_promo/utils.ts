@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 
-export const PROMO_END_DATE = dayjs('2024-12-12').endOf('day');
-export const PROMO_CODE = 'XMAS20';
-export const PROMO_PERCENTAGE_VALUE = 20;
+export const PROMO_END_DATE = dayjs('2025-02-14').endOf('day');
+export const PROMO_CODE = 'ZIMA2025';
+export const PROMO_PERCENTAGE_VALUE = 30;
 
 export const getIsPromoExpired = () => {
   const end = dayjs(PROMO_END_DATE);
@@ -11,6 +11,6 @@ export const getIsPromoExpired = () => {
   return diffInMs <= 0;
 };
 
-export const SPECIAL_PROMO_COOKIE = '8CfUgS-ge1RBcWWPSxssz';
+export const SPECIAL_PROMO_COOKIE = '8CfUgS-ge1RBcWWPSxsszaa';
 
 export const IS_SPECIAL_PROMO_ENABLED = true;

@@ -19,6 +19,8 @@ import {
   PROMO_PERCENTAGE_VALUE,
 } from './utils';
 
+const SPECIAL_PROMO_PERCENTAGE_VALUE = 40;
+
 const PromoCountDownTimer = ({ endDate }: { endDate: dayjs.ConfigType }) => {
   const countDown = useCountdownTimer(endDate);
 
@@ -62,7 +64,7 @@ const PromoBox = ({
     });
   };
 
-  const promoPercentageValue = isSpecialPromo ? 30 : PROMO_PERCENTAGE_VALUE;
+  const promoPercentageValue = isSpecialPromo ? SPECIAL_PROMO_PERCENTAGE_VALUE : PROMO_PERCENTAGE_VALUE;
 
   const promoPrice = sizeToPrice[size] * ((100 - promoPercentageValue) / 100);
   const promoPriceRounded = Math.round(promoPrice * 100) / 100;

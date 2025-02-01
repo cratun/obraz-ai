@@ -41,7 +41,7 @@ export const desiredMockupImageSizes = {
 
 // KEEP IN SYNC WITH ENVS
 export const sizeToPrice = {
-  '30': 89,
-  '60': 129,
-  '100': 219,
+  '30': 159,
+  '60': 209,
+  '100': 299,
 };
