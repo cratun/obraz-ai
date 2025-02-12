@@ -22,9 +22,12 @@ const NavbarContentDesktop = ({ isLoading }: { isLoading: boolean }) => {
         {!isLoading && <GenerateNavbarButtons.Desktop />}
         {isLoading && (
           <AppButton color="colorText" href="/generate" LinkComponent={Link} size="small">
-            Stwórz swój obraz
+            Stwórz obraz
           </AppButton>
         )}
+        <AppButton color="colorText" href="/generate/portrait" LinkComponent={Link} size="small">
+          Stwórz portret
+        </AppButton>
         <AppButton color="colorText" href="/inspirations" LinkComponent={Link} size="small">
           Inspiracje
         </AppButton>

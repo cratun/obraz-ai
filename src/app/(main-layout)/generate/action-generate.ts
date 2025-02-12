@@ -122,7 +122,7 @@ const actionGenerate = async ({ prompt, generationStyle }: { prompt: string; gen
       }),
     ),
     updateSpecialPromoCookie(),
-    updateImageHistoryCookie(imageId),
+    updateImageHistoryCookie(imageId, 'square'),
   ]);
 
   return {

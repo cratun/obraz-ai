@@ -76,6 +76,7 @@ const PageBuyContent = ({
           canvasSize,
           imageId: generateImageQuery.data?.metadata.imageId as string,
           creationDateTimestamp: generateImageQuery.data?.metadata.creationDateTimestamp as number,
+          type: 'square',
         }}
         isVisible={
           !generateImageQuery.isPending && generateImageQuery.data?.errorCode !== GENERATION_TOKEN_LIMIT_REACHED
@@ -151,8 +152,8 @@ const PageBuyContent = ({
               )}
             </>
           )}
-          <OrderDetails toggleButtonVariant="secondary">
-            <PromoBox specialPromoCookie={specialPromoCookie} />
+          <OrderDetails toggleButtonVariant="secondary" type="square">
+            <PromoBox specialPromoCookie={specialPromoCookie} type="square" />
             <div className="flex flex-col gap-2.5">
               <AddToCartButton
                 buttonRef={ref}
@@ -161,6 +162,7 @@ const PageBuyContent = ({
                   canvasSize,
                   imageId: generateImageQuery.data?.metadata.imageId as string,
                   creationDateTimestamp: generateImageQuery.data?.metadata.creationDateTimestamp as number,
+                  type: 'square',
                 }}
               />
               <AppButton

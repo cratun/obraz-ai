@@ -21,6 +21,7 @@ export const footerLinks = {
   },
   'Twoje obrazy': {
     'Stwórz swój obraz': '/generate',
+    'Stwórz swój portret': '/generate/portrait',
     Inspiracje: '/inspirations',
     'Galeria Twoich obrazów': '/gallery',
     'Jak generować?': '/manual',

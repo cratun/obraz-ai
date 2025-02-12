@@ -119,6 +119,7 @@ export async function POST(req: Request) {
       throw new Error('No shipping details found');
     }
 
+    console.log('sent');
     await resend.emails.send({
       from: 'ObrazAI <kontakt@obraz-ai.com>',
       to: [session.customer_details.email as string],

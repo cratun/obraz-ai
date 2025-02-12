@@ -59,29 +59,34 @@ const actionBuy = async ({
   if (process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false') {
     await sendInitCheckoutPixelEvent();
   }
-
   const itemBySize = parsedCartItems.reduce(
     (acc, item) => {
-      if (!acc[item.canvasSize]) {
-        acc[item.canvasSize] = 0;
+      const key = `${item.canvasSize}_${item.type}`;
+      if (!acc[key]) {
+        acc[key] = { quantity: 0, size: item.canvasSize, type: item.type };
       }
 
-      acc[item.canvasSize] += item.quantity;
+      acc[key].quantity += item.quantity;
 
       return acc;
     },
-    {} as Record<CanvasSize, number>,
+    {} as Record<string, { quantity: number; size: CanvasSize; type: 'square' | 'portrait' }>,
   );
 
   const metadata = parsedCartItems.reduce((acc: Record<string, string>, item) => {
-    acc[item.id] = JSON.stringify({ imageId: item.imageId, quantity: item.quantity, size: item.canvasSize });
+    acc[item.id] = JSON.stringify({
+      imageId: item.imageId,
+      quantity: item.quantity,
+      size: item.canvasSize,
+      type: item.type,
+    });
 
     return acc;
   }, {});
 
   const session = await stripe.checkout.sessions.create({
-    line_items: Object.entries(itemBySize).map(([size, quantity]) => {
-      const priceId = process.env[`STRIPE_PRICE_ID_${size}`];
+    line_items: Object.values(itemBySize).map(({ size, quantity, type }) => {
+      const priceId = process.env[`STRIPE_PRICE_ID_${size}_${type.toUpperCase()}`];
       if (!priceId) throw new Error('Price ID does not exist');
 
       return { price: priceId, quantity };

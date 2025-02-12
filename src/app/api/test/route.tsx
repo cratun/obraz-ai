@@ -12,7 +12,7 @@ export const POST = async () => {
     giverName: 'Jane Smith',
     recipientEmail: '',
     message: 'Happy Birthday!',
-    canvasSize: '30',
+    canvasSize: 'M',
   };
 
   const expirationDate = '2024-12-31';

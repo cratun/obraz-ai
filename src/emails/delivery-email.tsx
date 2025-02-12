@@ -86,7 +86,7 @@ const OrderEmail = ({
         </li>
         <li>
           <Text className="text-base !text-text">
-            <b>Rozmiar:</b> {size}x{size} cm
+            <b>Rozmiar:</b> {size}
           </Text>
         </li>
         <li>

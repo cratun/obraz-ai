@@ -8,7 +8,7 @@ const GiftCardSentEmail = ({
   recipientName = 'Przemek',
   recipientEmail = 'kacper.zabielski@cratun.test.com',
   giverName = 'Kacper',
-  canvasSize = '100',
+  canvasSize = 'M',
 }: {
   recipientName: string;
   recipientEmail: string;

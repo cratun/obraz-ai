@@ -28,12 +28,12 @@ export const getImageHistoryFromCookie = (): ImageHistoryEntry[] => {
   return imageHistory;
 };
 
-export function updateImageHistoryCookie(imageId: string) {
+export function updateImageHistoryCookie(imageId: string, type: ImageHistoryEntry['type']) {
   const cookieStore = cookies();
   const imageHistory = getImageHistoryFromCookie();
 
   const now = dayjs().unix();
-  const newEntry: ImageHistoryEntry = { id: imageId, timestamp: now };
+  const newEntry: ImageHistoryEntry = { id: imageId, timestamp: now, type };
 
   const newImageHistory = [newEntry, ...imageHistory].slice(0, IMAGE_HISTORY_MAX_ENTRIES);
 

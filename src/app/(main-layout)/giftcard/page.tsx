@@ -70,7 +70,7 @@ const GitCardPage = () => {
               </div>
               <Typography.Body className="max-w-[480px]">
                 Podaruj prezent, który może być czymkolwiek z wyobraźni obdarowanego. ObrazAI, który jest zawsze
-                idealnym dziełem. Skonfiguruj kartę podarunkową poniżej.
+                idealnym dziełem. Skonfiguruj kartę podarunkową poniżej. <strong>Karta nie obejmuje portretów.</strong>
               </Typography.Body>
               <Image
                 alt=""

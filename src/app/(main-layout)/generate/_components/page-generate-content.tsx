@@ -4,6 +4,7 @@ import { useRef, useState, useTransition } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ParsedGenerationTokenCookie } from '@/app/(main-layout)/generate/_utils/generation-token';
 import { ImageHistoryEntry } from '@/app/(main-layout)/generate/_utils/image-history/common';
@@ -65,9 +66,15 @@ const PageGenerateContent = ({
         <AppContainer.Content className="flex flex-col gap-10 overflow-auto text-text lg:gap-20">
           <div className="flex flex-col gap-5 lg:gap-10">
             <div className="flex flex-col gap-2.5 lg:gap-5">
-              <h1 ref={ref} className="text-3xl font-bold leading-[120%] tracking-[1px] md:text-4xl lg:text-5xl">
-                Stwórz <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
-              </h1>
+              <div className="flex flex-col items-center gap-2.5 md:flex-row">
+                <h1 ref={ref} className="text-3xl font-bold leading-[120%] tracking-[1px] md:text-4xl lg:text-5xl">
+                  Stwórz <span className="text-primary">swój</span> obraz<span className="text-primary">.</span>
+                </h1>
+                <span>lub</span>
+                <AppButton href="/generate/portrait" LinkComponent={Link} variant="outlined">
+                  Stwórz portret
+                </AppButton>
+              </div>
               <p className="leading-[150%] tracking-[0.5px]">
                 Opisz dokładnie, co chcesz zobaczyć - jedynym ograniczeniem jest Twoja wyobraźnia.
               </p>

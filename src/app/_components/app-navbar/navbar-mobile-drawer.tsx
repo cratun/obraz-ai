@@ -53,6 +53,10 @@ const NavbarMobileDrawer = ({ isLoading }: { isLoading: boolean }) => {
             <Typography.Body>Strona główna</Typography.Body>
           </Link>
           <hr className="text-text/20" />
+          <Link href="/generate/portrait" onClick={handleClose}>
+            <Typography.Body>Stwórz swój portret</Typography.Body>
+          </Link>
+          <hr className="text-text/20" />
           {isLoading && (
             <Link href="/generate" onClick={handleClose}>
               <Typography.Body>Stwórz swój obraz</Typography.Body>

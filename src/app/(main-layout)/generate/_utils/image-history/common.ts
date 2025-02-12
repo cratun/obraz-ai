@@ -3,6 +3,7 @@ import { z } from 'zod';
 const ImageHistoryEntrySchema = z.object({
   id: z.string(),
   timestamp: z.number(),
+  type: z.enum(['portrait', 'square']),
 });
 
 export const ImageHistorySchema = z.array(ImageHistoryEntrySchema);

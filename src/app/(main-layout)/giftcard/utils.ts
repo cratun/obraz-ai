@@ -12,7 +12,7 @@ export const giftCardSchema = z.object({
     .string()
     .min(1, { message: 'Pole jest wymagane' })
     .email({ message: 'Adres email jest niepoprawny' }),
-  canvasSize: z.union([z.literal('30'), z.literal('60'), z.literal('100')]),
+  canvasSize: z.union([z.literal('S'), z.literal('M'), z.literal('L')]),
   message: z
     .string()
     .min(1, { message: 'Pole jest wymagane' })

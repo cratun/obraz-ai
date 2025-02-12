@@ -19,7 +19,7 @@ const ProductDetailsDrawer = ({
     <Drawer
       {...props}
       classes={{ paper: 'p-5 gap-10 lg:max-w-sm' }}
-      className={twMerge('z-[10000]', className)}
+      className={twMerge('z-[2000]', className)}
       variant="temporary"
       onClose={onClose}
     >
@@ -78,9 +78,19 @@ const ProductDetails = ({ children, title, Icon }: { children: ReactNode; title:
   );
 };
 
-const ProductDetailsSection = ({ title, description }: { title: string; description: string }) => (
+const ProductDetailsSection = ({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description: string;
+  children?: ReactNode;
+}) => (
   <div className="flex flex-col gap-2.5">
-    <Typography.Body className="font-bold">{title}</Typography.Body>
+    <Typography.Body className="font-bold">
+      {title} {children}
+    </Typography.Body>
     <Typography.Body>{description}</Typography.Body>
   </div>
 );

@@ -61,7 +61,7 @@ const GeneratedImageSlider = ({
               sizes="700px"
               src={generatedImgSrc}
               className={twJoin(
-                'inspiration-shadow z-0 transition-opacity',
+                'inspiration-shadow z-0 object-contain transition-opacity',
                 isLoadedImage ? 'opacity-100' : 'opacity-0',
               )}
               onLoad={() => setIsLoadedImage(true)}
@@ -89,7 +89,15 @@ const GeneratedImageSlider = ({
           <div className="relative z-[1] aspect-square w-full">
             {/* NOTE: disable easy image copying */}
             <div className="absolute inset-0 z-[1]" />
-            <Image fill unoptimized alt="Generated image" quality={100} sizes="700px" src={generatedImgSrc} />
+            <Image
+              fill
+              unoptimized
+              alt="Generated image"
+              className="object-contain"
+              quality={100}
+              sizes="700px"
+              src={generatedImgSrc}
+            />
           </div>
         </SwiperSlide>
       </Swiper>

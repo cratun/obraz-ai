@@ -10,7 +10,7 @@ const GiftCardEmail = ({
   promoCode = 'ABCDEF123',
   message = 'Wszystkiego najlepszego z okazji świąt bożego narodzenia',
   expirationDate = '20.11.2025',
-  canvasSize = '30',
+  canvasSize = 'M',
 }: {
   receiverName: string;
   giverName: string;

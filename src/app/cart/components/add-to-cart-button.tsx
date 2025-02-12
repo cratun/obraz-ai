@@ -83,7 +83,7 @@ export const useCartStorage = () => {
     }
   }, [cartItems, setCartItems]);
 
-  const addItem = (imageId: string, canvasSize: CanvasSize, creationDateTimestamp: number) => {
+  const addItem = (imageId: string, canvasSize: CanvasSize, creationDateTimestamp: number, type: CartItem['type']) => {
     setCartItems((prevItems) => {
       // Check if the item already exists in the cart
       const existingItemIndex = prevItems.findIndex(
@@ -105,6 +105,7 @@ export const useCartStorage = () => {
           quantity: 1,
           canvasSize,
           creationDateTimestamp,
+          type,
         };
 
         return [...prevItems, newItem];
@@ -125,7 +126,7 @@ export const useCartStorage = () => {
   return { addItem, removeItem, updateItem, clear, cartItems, isLoading };
 };
 
-export type CartItemData = Pick<CartItem, 'canvasSize' | 'imageId' | 'creationDateTimestamp'>;
+export type CartItemData = Pick<CartItem, 'canvasSize' | 'imageId' | 'creationDateTimestamp' | 'type'>;
 
 const AddToCartButton = ({
   cartItemData,
@@ -151,7 +152,7 @@ const AddToCartButton = ({
         startIcon={<ShoppingCartRoundedIcon />}
         variant="contained"
         onClick={() => {
-          addItem(cartItemData.imageId, cartItemData.canvasSize, cartItemData.creationDateTimestamp);
+          addItem(cartItemData.imageId, cartItemData.canvasSize, cartItemData.creationDateTimestamp, cartItemData.type);
           setIsDrawerOpen(true);
 
           if (window.dataLayer) {

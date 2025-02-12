@@ -1,7 +1,7 @@
-export const canvasSizes = ['30', '60', '100'] as const;
+export const canvasSizes = ['S', 'M', 'L'] as const;
 export type CanvasSize = (typeof canvasSizes)[number];
 
-export const defaultCanvasSize: CanvasSize = '60';
+export const defaultCanvasSize: CanvasSize = 'M';
 
 const checkIsCanvasSize = (size: any): size is CanvasSize => canvasSizes.includes(size);
 

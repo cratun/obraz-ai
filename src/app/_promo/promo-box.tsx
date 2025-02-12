@@ -8,6 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { useCopyToClipboard } from 'usehooks-ts';
 import { sizeToPrice } from '@/app/(main-layout)/generate/_utils/common';
+import { ImageHistoryEntry } from '@/app/(main-layout)/generate/_utils/image-history/common';
 import { CanvasSize } from '@/app/_utils/sizes-utils';
 import { SpecialPromoCookie } from './special-promo-cookie';
 import useCountdownTimer from './use-countdown-timer';
@@ -35,13 +36,15 @@ const PromoBox = ({
   specialPromoCookie,
   hidePrice,
   isDark = false,
+  type,
 }: {
   specialPromoCookie: SpecialPromoCookie;
   hidePrice?: boolean;
   isDark?: boolean;
+  type: ImageHistoryEntry['type'];
 }) => {
   const searchParams = useSearchParams();
-  const size = (searchParams.get('size') || '60') as CanvasSize;
+  const size = (searchParams.get('size') || 'M') as CanvasSize;
 
   const [, copy] = useCopyToClipboard();
   const [isCopied, setIsCopied] = useState(false);
@@ -66,7 +69,7 @@ const PromoBox = ({
 
   const promoPercentageValue = isSpecialPromo ? SPECIAL_PROMO_PERCENTAGE_VALUE : PROMO_PERCENTAGE_VALUE;
 
-  const promoPrice = sizeToPrice[size] * ((100 - promoPercentageValue) / 100);
+  const promoPrice = sizeToPrice[type][size] * ((100 - promoPercentageValue) / 100);
   const promoPriceRounded = Math.round(promoPrice * 100) / 100;
 
   return (
@@ -88,7 +91,7 @@ const PromoBox = ({
             <span className={twMerge('font-bold', isDark ? 'text-primary' : 'text-accent')}>
               {promoPriceRounded} zł
             </span>{' '}
-            <span className="line-through">{sizeToPrice[size]}&nbsp;zł</span>
+            <span className="line-through">{sizeToPrice[type][size]}&nbsp;zł</span>
           </>
         )}
       </div>

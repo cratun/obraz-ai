@@ -1,12 +1,11 @@
 import { ReactNode } from 'react';
-import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
+import { ButtonBase } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
 import BulbIcon from '@/app/_assets/bulb-icon';
 import CardIcon from '@/app/_assets/card-icon';
-import GiftIcon from '@/app/_assets/gift-icon';
 import StyleIcon from '@/app/_assets/style-icon';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
@@ -15,7 +14,6 @@ import GeneratedExamplesSwiper from '@/app/_components/generate-examples-swiper'
 import InteriorSettingPicturesSwiper from '@/app/_components/interior-setting-pictures-swiper';
 import ReviewsSwiper from '@/app/_components/reviews-swiper';
 import Typography from '@/app/_components/typography';
-
 const generateSteps = [
   {
     title: 'Opisz swój pomysł',
@@ -71,68 +69,58 @@ const Home = () => {
   return (
     <>
       <AppContainer className="relative pb-5 pt-[--save-navbar-padding-top] lg:min-h-screen">
-        <AppContainer.Content className="text-text">
-          <div className="flex w-full flex-col gap-10 md:max-w-[400px] lg:max-w-[500px]">
-            <div className="flex flex-col gap-10 lg:my-auto">
-              <Typography.H1 className="max-w-[400px]">
-                <span className="text-primary">Ożyw</span> swoje marzenia na płótnie z pomocą{' '}
-                <span className="text-primary">AI</span>!
-              </Typography.H1>
-              <ul className="flex list-disc flex-col gap-1.5 pl-5">
-                <li className="text-base leading-[1.5] tracking-[0.5px]">
-                  Stwórz <strong>dowolny obraz</strong>, jaki sobie wymarzysz, dzięki <strong>AI</strong>
-                </li>
-                <li className="text-base leading-[1.5] tracking-[0.5px]">
-                  <strong>Wysokiej jakości</strong> obraz, gotowy do powieszenia
-                </li>
-                <li className="text-base leading-[1.5] tracking-[0.5px]">
-                  Realizuj <strong>najśmielsze</strong> i najbardziej <strong>unikalne</strong> pomysły
-                </li>
-                <li className="text-base leading-[1.5] tracking-[0.5px]">
-                  <strong>Łatwy proces</strong> — wszystko jasne i przejrzyste
-                </li>
-              </ul>
-              <div className="flex flex-wrap gap-2.5 lg:gap-5">
-                <AppButton
-                  href="/generate"
-                  LinkComponent={Link}
-                  size="large"
-                  startIcon={<AutoAwesomeRoundedIcon className="text-base" />}
-                  variant="contained"
-                >
-                  Stwórz swój obraz
-                </AppButton>
-                <AppButton
-                  color="accent"
-                  href="/giftcard"
-                  LinkComponent={Link}
-                  size="large"
-                  startIcon={<GiftIcon className="h-auto w-4 [&_path]:fill-white" id="home" />}
-                  variant="contained"
-                >
-                  Kup kartę podarunkową
-                </AppButton>
+        <AppContainer.Content className="flex flex-col items-center gap-10">
+          <Typography.H1 className="max-w-xl text-center text-2xl md:text-4xl">
+            <span className="text-primary">Ożyw</span> swoje marzenia na płótnie z pomocą{' '}
+            <span className="text-primary">AI</span>!
+          </Typography.H1>
+          <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-2">
+            <ButtonBase
+              className="relative order-1 flex h-full w-full cursor-pointer flex-col items-start justify-between gap-5 rounded-xl border border-primary/10 bg-white p-5 shadow-sm transition-all hover:scale-[1.01] hover:border-primary hover:shadow-md md:order-none md:p-10"
+              href="/generate"
+              LinkComponent={Link}
+            >
+              <div className="flex flex-col gap-2.5">
+                <Typography.H2 className="text-xl md:text-3xl">Stwórz swój obraz</Typography.H2>
+                <Typography.Body className="max-w-sm">
+                  Przekaż nam swoją wizję, a nasza sztuczna inteligencja przemieni ją w unikalne dzieło.
+                </Typography.Body>
               </div>
-            </div>
-            <span className="hidden lg:block">
-              (Dowiedz się więcej <KeyboardArrowDownRoundedIcon />)
-            </span>
+              <div className="w-fit rounded-full bg-primary px-5 py-2.5 text-white">Stwórz obraz</div>
+              <div className="relative aspect-[1.44] w-full shrink-0">
+                <Image
+                  fill
+                  priority
+                  alt="Wygenerowany obraz przedstawiający astronautę grającego na skrzypcach na powierzchni księżyca"
+                  src="/home-hero-picture.png"
+                />
+              </div>
+            </ButtonBase>
+            <ButtonBase
+              className="relative flex h-full w-full cursor-pointer flex-col items-start justify-between gap-5 rounded-xl border border-primary/10 bg-primary p-5 text-white shadow-sm transition-all hover:scale-[1.01] hover:border-accent hover:shadow-md md:p-10"
+              href="/generate/portrait"
+              LinkComponent={Link}
+            >
+              <div className="flex flex-col gap-2.5">
+                <Typography.H2 className="text-xl md:text-3xl">Stwórz swój portret</Typography.H2>
+                <Typography.Body className="max-w-md">
+                  Wybierz zdjęcie, które powinno zawierać twarz. Zostanie następnie zintegrowane z wybranym szablonem.
+                </Typography.Body>
+              </div>
+              <div className="w-fit rounded-full bg-accent px-5 py-2.5">Stwórz portret</div>
+              <div className="relative aspect-[1.44] w-full shrink-0">
+                <Image
+                  fill
+                  priority
+                  alt="Wygenerowany obraz przedstawiający astronautę grającego na skrzypcach na powierzchni księżyca"
+                  src="/home-hero-portrait.png"
+                />
+              </div>
+              <InsertPhotoOutlinedIcon className="absolute bottom-0 left-0 h-auto w-1/2 -translate-x-1/4 translate-y-1/4 opacity-[0.03]" />
+            </ButtonBase>
           </div>
         </AppContainer.Content>
-        <div className="absolute bottom-0 right-0 top-0 hidden aspect-square w-full max-w-[320px] object-cover md:block min-[900px]:max-w-[400px] lg:max-w-[400px] xl:max-w-[700px] 2xl:max-w-[850px]">
-          <Image
-            fill
-            priority
-            alt=""
-            className="object-cover"
-            sizes="(max-width: 900px) 320px, (max-width: 1024px) 400px, (max-width: 1280px) 700px, 850px"
-            src="/home-hero-image.png"
-          />
-        </div>
       </AppContainer>
-      <div className="relative h-[400px] w-full bg-gradient-to-t from-black to-black/0 to-50% sm:h-[500px] md:hidden">
-        <Image fill priority alt="" className="object-cover object-top" sizes="768px" src="/home-hero-image.png" />
-      </div>
       <AppContainer className="overflow-hidden bg-primary py-10 lg:py-20">
         <AppContainer.Content className="flex-col gap-10 text-center text-neutral lg:gap-20">
           <Typography.H2>Jak wygenerować obraz?</Typography.H2>

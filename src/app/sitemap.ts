@@ -14,6 +14,8 @@ const ROUTES = [
   '/giftcard',
   '/gallery',
   '/cart',
+  '/generate/portrait',
+  '/generate/portrait/buy',
   '/inspirations',
   ...Object.keys(styles).map((style) => `/inspirations/${style}`),
   ...inspirationData.map(({ id, style }) => `/inspirations/${style}/${id}`),

@@ -1,20 +1,21 @@
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import LightbulbRoundedIcon from '@mui/icons-material/LightbulbRounded';
+import PortraitIcon from '@mui/icons-material/Portrait';
 import { ButtonBase } from '@mui/material';
 import Link from 'next/link';
-import GiftIcon from '@/app/_assets/gift-icon';
 import GenerateNavbarButtons from '@/app/_components/generate-navbar-buttons';
 import NavbarCartIcon from './navbar-cart-icon';
+
 const NavbarContentMobile = ({ isLoading }: { isLoading: boolean }) => {
   return (
     <div className="flex items-center gap-1 lg:hidden">
       <ButtonBase
         className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"
-        href="/giftcard"
+        href="/generate/portrait"
         LinkComponent={Link}
       >
-        <GiftIcon className="h-auto w-5" id="mobile" />
-        <span className="text-xs font-semibold text-accent">Prezent</span>
+        <PortraitIcon className="text-xl text-primary" />
+        <span className="text-xs font-semibold text-primary">Portret</span>
       </ButtonBase>
       <ButtonBase
         className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"

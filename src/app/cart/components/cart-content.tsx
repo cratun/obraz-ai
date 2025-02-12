@@ -112,7 +112,8 @@ const EditCartItemDrawerContent = ({ item, onClose }: { item: CartItem; onClose:
         <div className="flex grow flex-col justify-between">
           <div className="text-base font-semibold leading-[1.2] tracking-[1px]">ObrazAI</div>
           <div className="text-xl font-bold leading-[1.2] tracking-[1px]">
-            {sizeToPrice[size]} zł {quantity > 1 && <span className="text-sm font-normal text-text/70">za sztukę</span>}
+            {sizeToPrice[item.type][size]} zł{' '}
+            {quantity > 1 && <span className="text-sm font-normal text-text/70">za sztukę</span>}
           </div>
         </div>
       </div>
@@ -151,12 +152,12 @@ const EditCartItemDrawerContent = ({ item, onClose }: { item: CartItem; onClose:
               key={size}
               value={size}
               classes={{
-                root: 'rounded-full py-1.5 px-2.5 border border-text/20',
+                root: 'rounded-full py-1.5 px-10 border border-text/20',
                 selected: '!text-white !bg-primary',
                 standard: 'text-text bg-white',
               }}
             >
-              {size}x{size} cm
+              {size}
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
@@ -270,7 +271,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
     checkPromoCodeMutation.mutate(promoCodeInputRef.current.value);
   };
 
-  const total = cartItems.reduce((total, item) => total + sizeToPrice[item.canvasSize] * item.quantity, 0);
+  const total = cartItems.reduce((total, item) => total + sizeToPrice[item.type][item.canvasSize] * item.quantity, 0);
 
   const getTotalWithPromo = () => {
     if (checkPromoCodeMutation.isSuccess) {
@@ -376,7 +377,9 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                 </div>
                 <div className="flex grow flex-col justify-between">
                   <div className="relative flex flex-col gap-2.5">
-                    <div className="text-base font-semibold leading-[1.2] tracking-[1px]">ObrazAI (płótno)</div>
+                    <div className="text-base font-semibold leading-[1.2] tracking-[1px]">
+                      {item.type === 'square' ? 'ObrazAI' : 'PortretAI'} (płótno)
+                    </div>
                     <IconButton className="absolute -top-2 right-0 text-text" onClick={() => removeItem(item.id)}>
                       <DeleteRoundedIcon className="text-xl" />
                     </IconButton>
@@ -385,10 +388,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                         Ilość: <span className="font-medium">{item.quantity}</span>
                       </div>
                       <div className="text-sm">
-                        Rozmiar:{' '}
-                        <span className="font-medium">
-                          {item.canvasSize}x{item.canvasSize} cm
-                        </span>
+                        Rozmiar: <span className="font-medium">{item.canvasSize}</span>
                       </div>
                     </div>
                     <AppButton
@@ -406,7 +406,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                       <span className={twMerge('text-xl font-bold leading-[1.2] tracking-[1px] text-accent')}>
                         {formatPrice(
                           priceWithPercentDiscount(
-                            sizeToPrice[item.canvasSize] * item.quantity,
+                            sizeToPrice[item.type][item.canvasSize] * item.quantity,
                             checkPromoCodeMutation.data.percentOff,
                           ),
                         )}{' '}
@@ -419,7 +419,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
                         !!checkPromoCodeMutation.data?.percentOff && 'text-base line-through',
                       )}
                     >
-                      {sizeToPrice[item.canvasSize] * item.quantity} zł
+                      {sizeToPrice[item.type][item.canvasSize] * item.quantity} zł
                     </span>
                   </div>
                 </div>
@@ -465,7 +465,7 @@ const CartContent = ({ specialPromoCookie }: { specialPromoCookie: SpecialPromoC
             <strong>Całość:</strong>
             <strong>{formatPrice(totalWithPromo)} zł</strong>
           </div>
-          <PromoBox hidePrice specialPromoCookie={specialPromoCookie} />
+          <PromoBox hidePrice specialPromoCookie={specialPromoCookie} type={cartItems[0].type} />
           <div className="border-b border-text/20" />
           <div>
             {isPromoClicked ? (

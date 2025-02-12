@@ -55,7 +55,7 @@ const AppTextFieldForm = <T extends FieldValues>({ name, control, ...props }: Ap
 const GiftCardForm = () => {
   const form = useForm<GiftCardSchema>({
     defaultValues: {
-      canvasSize: '60',
+      canvasSize: 'M',
       giverName: '',
       recipientEmail: '',
       recipientName: '',
@@ -91,10 +91,8 @@ const GiftCardForm = () => {
                   )}
                   onClick={() => field.onChange(size)}
                 >
-                  <span className="text-base font-semibold tracking-[1px] sm:text-lg lg:text-2xl">
-                    {size}x{size}cm
-                  </span>
-                  <span className="text-base font-bold text-primary lg:text-xl">{sizeToPrice[size]} zł</span>
+                  <span className="text-base font-semibold tracking-[1px] sm:text-lg lg:text-2xl">{size}</span>
+                  <span className="text-base font-bold text-primary lg:text-xl">{sizeToPrice['square'][size]} zł</span>
                 </ButtonBase>
               ))}
             </div>

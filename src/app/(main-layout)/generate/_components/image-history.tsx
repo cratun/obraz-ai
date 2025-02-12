@@ -10,6 +10,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { twMerge } from 'tailwind-merge';
 import {
   IMAGE_HISTORY_EXPIRY_DAYS,
   IMAGE_HISTORY_MAX_ENTRIES,
@@ -62,20 +63,21 @@ const ImageHistoryDialogContent = ({
           generatedImgSrc={generatedImgSrc}
           mockupImages={mockupImages}
         />
-        <OrderDetails toggleButtonVariant="primary">
-          <PromoBox isDark specialPromoCookie={specialPromoCookie} />
+        <OrderDetails toggleButtonVariant="primary" type={imgHistoryEntry.type}>
+          <PromoBox isDark specialPromoCookie={specialPromoCookie} type={imgHistoryEntry.type} />
           <div className="flex flex-col gap-2.5">
             <AddToCartButton
               cartItemData={{
                 canvasSize: getCanvasSizeFromQueryParam(searchParams.get('size')),
                 imageId: imgHistoryEntry.id,
                 creationDateTimestamp: imgHistoryEntry.timestamp,
+                type: imgHistoryEntry.type,
               }}
             />
             <AppButton
               className="py-[11px] lg:py-5 lg:text-lg"
               color="neutral"
-              href="/generate"
+              href={`/generate${imgHistoryEntry.type === 'portrait' ? '/portrait' : ''}`}
               LinkComponent={Link}
               size="large"
               startIcon={<RefreshIcon />}
@@ -140,17 +142,27 @@ const ImageHistory = ({
       {imageHistory.length > 0 ? (
         <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
           {imageHistory.map((item) => (
-            <ButtonBase key={item.id} className="relative aspect-square" onClick={() => setImgHistoryEntry(item)}>
+            <ButtonBase
+              key={item.id}
+              className="relative aspect-square bg-white"
+              onClick={() => setImgHistoryEntry(item)}
+            >
               {/* NOTE: disable easy image copying */}
               <div className="absolute inset-0 z-[2]" />
               <Image
                 fill
                 unoptimized
                 alt=""
+                className="object-contain"
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 src={getBucketImgUrl(item.id)}
               />
-              <div className="absolute bottom-0 left-0 z-[1] rounded-tr-full bg-white/25 p-1">
+              <div
+                className={twMerge(
+                  'absolute bottom-0 left-0 z-[1] rounded-tr-full bg-white/25 p-1',
+                  item.type === 'portrait' && 'bg-black/25',
+                )}
+              >
                 <ShoppingCartRoundedIcon className="mr-2 mt-2 text-xl text-white" />
               </div>
             </ButtonBase>
