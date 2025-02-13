@@ -32,6 +32,7 @@ export const actionUploadImage = async (formData: FormData) => {
   // Handle HEIC/HEIF files
   if (file.type === 'image/heic' || file.type === 'image/heif') {
     const arrayBuffer = Buffer.from(await file.arrayBuffer());
+
     fileBuffer = await convert({
       buffer: arrayBuffer,
       format: 'JPEG',
@@ -69,6 +70,7 @@ export const actionUploadImage = async (formData: FormData) => {
 };
 
 const actionGeneratePortrait = async ({ image, template }: { image: string; template: string }) => {
+  await new Promise((resolve) => setTimeout(resolve, 30000));
   if (image.length > MAX_PROMPT_LENGTH) {
     throw new Error('Prompt is too long');
   }

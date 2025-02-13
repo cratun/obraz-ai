@@ -103,7 +103,7 @@ const PageBuyContentPortrait = ({
                 <div className="absolute inset-0 z-[0] animate-pulse bg-primary/30"></div>
                 <div className="absolute inset-0 z-[1] flex flex-col items-center justify-center gap-5">
                   <CircularProgress />
-                  <span className="text-sm">Tworzenie obrazu...</span>
+                  <span className="text-sm">Tworzenie portretu...</span>
                 </div>
               </div>
               <div className="static flex w-full items-center justify-center gap-3">
@@ -144,7 +144,8 @@ const PageBuyContentPortrait = ({
                 <div className="relative flex aspect-square w-full max-w-[700px] flex-col items-center justify-center gap-5 border border-text/20 p-5">
                   <ErrorOutlineRoundedIcon className="size-24 text-error" />
                   <span className="max-w-sm text-center text-sm">
-                    Wystąpił nieoczekiwany błąd, spróbuj ponownie lub skontaktuj się z nami.
+                    Sprawdź czy dodałeś prawidłowe zdjęcie według naszych zaleceń i spróbuj ponownie. Jeśli nadal
+                    będziesz mieć problemy, skontaktuj się z nami.
                   </span>
                 </div>
               )}

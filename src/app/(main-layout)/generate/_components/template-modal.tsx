@@ -36,7 +36,7 @@ const TemplateModal = forwardRef(
             <Typography.H4 className="pr-5">Kliknij na szablon, który Cię interesuje</Typography.H4>
           </div>
           <div className="grid grid-cols-2 gap-5">
-            {Array.from({ length: 22 }).map((_, index) => (
+            {Array.from({ length: 28 }).map((_, index) => (
               <Image
                 key={index}
                 alt=""
