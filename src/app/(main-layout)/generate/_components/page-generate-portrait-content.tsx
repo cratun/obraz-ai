@@ -157,13 +157,21 @@ const PageGeneratePortraitContent = ({
             <GenerateInfoLimit generationTokenCountCookie={generationTokenCountCookie} />
             <ul className="flex list-inside list-disc flex-col gap-2 text-xs leading-[1.5] tracking-[0.5px] text-text">
               <li>
-                Upewnij się, że przesyłane zdjęcia mają rozdzielczość co najmniej 1500x1500 pikseli, aby zapewnić wysoką
-                jakość wydruku.
+                Upewnij się, że przesyłane zdjęcia mają <strong>wysoką jakość</strong>.
               </li>
-              <li>Zdjęcie powinno zawierać twarz tylko jednej osoby.</li>
-              <li>Zdjęcie powinno być dobrej jakości.</li>
-              <li>Na zdjęciu nie powinieneś nosić: nakryć głowy, nakryć twarzy.</li>
-              <li>Dla zdjęć w formacie HEIC/HEIF nie ma podglądu.</li>
+              <li>
+                Zdjęcie powinno zawierać twarz <strong>tylko jednej osoby</strong>.
+              </li>
+              <li>
+                Twarz powinna być dobrze widoczna. <strong>Zbyt przybliżona twarz</strong> może spowodować, że nie
+                będzie można jej poprawnie rozpoznać.
+              </li>
+              <li>
+                Na zdjęciu nie powinieneś nosić: <strong>nakryć głowy</strong>, <strong>nakryć twarzy</strong>.
+              </li>
+              <li>
+                Dla zdjęć w formacie <strong>HEIC/HEIF</strong> nie ma podglądu.
+              </li>
             </ul>
             <div
               {...getRootProps({
