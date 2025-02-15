@@ -36,13 +36,13 @@ export const actionUploadImage = async (formData: FormData) => {
     fileBuffer = await convert({
       buffer: arrayBuffer,
       format: 'JPEG',
-      quality: 1,
+      quality: 0.6,
     });
   } else {
     // For non-HEIC/HEIF files, process normally.
     fileBuffer = await file.arrayBuffer();
   }
-  const jpegImage = await sharp(Buffer.from(fileBuffer)).jpeg().toBuffer();
+  const jpegImage = await sharp(Buffer.from(fileBuffer)).jpeg({ quality: 60 }).toBuffer();
   const imageId = crypto.randomUUID();
   const portraitKey = `${imageId}.jpeg`;
 
