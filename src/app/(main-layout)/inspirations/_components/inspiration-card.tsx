@@ -26,7 +26,7 @@ const InspirationCard = ({ id, style, prompt }: { id: string; style: GenerationS
       <div className="flex flex-col gap-1">
         <Typography.Body className="text-xs font-bold uppercase text-primary">{styles[style]}</Typography.Body>
         <Typography.Body className="line-clamp-2">{prompt}</Typography.Body>
-        <Typography.Body className="text-sm font-semibold text-accent">Od 89 zł</Typography.Body>
+        <Typography.Body className="text-sm font-semibold text-accent">Od 159 zł</Typography.Body>
       </div>
     </ButtonBase>
   );

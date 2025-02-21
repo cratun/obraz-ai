@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
-export const PROMO_END_DATE = dayjs('2025-02-14').endOf('day');
-export const PROMO_CODE = 'ZIMA2025';
+export const PROMO_END_DATE = dayjs('2025-02-28').endOf('day');
+export const PROMO_CODE = 'LUTY28';
 export const PROMO_PERCENTAGE_VALUE = 30;
 
 export const getIsPromoExpired = () => {

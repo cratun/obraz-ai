@@ -52,7 +52,7 @@ const InspirationPage = ({ params }: { params: { style: GenerationStyle; id: str
                   {styles[inspiration.style]}
                 </Link>
               </Typography.Body>
-              <Typography.H4 className="font-semibold text-accent">Od 89 zł</Typography.H4>
+              <Typography.H4 className="font-semibold text-accent">Od 159 zł</Typography.H4>
               <AppButton
                 href={`/generate?prompt=${inspiration.prompt}&generationStyle=${inspiration.style}`}
                 size="large"
