@@ -1,11 +1,39 @@
 'use client';
 import { Dispatch, ForwardedRef, forwardRef, SetStateAction, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
 import { ButtonBase, Drawer, IconButton, useMediaQuery } from '@mui/material';
+import Tab from '@mui/material/Tab';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 import Typography from '@/app/_components/typography';
 import { getBucketImgUrl } from '@/app/_utils/common';
+
+const CATEGORY_NAMES = {
+  man: 'Mężczyzna',
+  woman: 'Kobieta',
+  kid: 'Dziecko',
+};
+
+type Category = keyof typeof CATEGORY_NAMES;
+
+const getTemplatesWithCategory = (length: number, category: Category) => {
+  const templateUrls = Array.from({ length }, (_, index) =>
+    getBucketImgUrl(`${category}-${index + 1}`, 'public-portrait-templates'),
+  );
+
+  return {
+    [category]: templateUrls,
+  };
+};
+
+const ALL_TEMPLATES = {
+  ...getTemplatesWithCategory(20, 'man'),
+  ...getTemplatesWithCategory(20, 'woman'),
+  ...getTemplatesWithCategory(20, 'kid'),
+};
+const ALL_TEMPLATES_ARRAY = Object.values(ALL_TEMPLATES).flat();
 
 const TemplateModal = forwardRef(
   (
@@ -18,8 +46,15 @@ const TemplateModal = forwardRef(
     },
     ref: ForwardedRef<HTMLDivElement>,
   ) => {
+    const [tab, setTab] = useState<Category | ''>('');
     const isMobile = useMediaQuery('(max-width: 768px)');
     const [isOpen, setIsOpen] = useState(false);
+
+    const filteredTemplates = tab ? ALL_TEMPLATES[tab] : ALL_TEMPLATES_ARRAY;
+
+    const handleChange = (_: unknown, newValue: Category) => {
+      setTab(newValue);
+    };
 
     return (
       <>
@@ -35,17 +70,36 @@ const TemplateModal = forwardRef(
             </IconButton>
             <Typography.H4 className="pr-5">Kliknij na szablon, który Cię interesuje</Typography.H4>
           </div>
+          <TabContext value={tab}>
+            <TabList variant="fullWidth" onChange={handleChange}>
+              <Tab
+                className="text-base normal-case leading-[1.5] tracking-[0.5px]"
+                label={CATEGORY_NAMES.woman}
+                value="woman"
+              />
+              <Tab
+                className="text-base normal-case leading-[1.5] tracking-[0.5px]"
+                label={CATEGORY_NAMES.man}
+                value="man"
+              />
+              <Tab
+                className="text-base normal-case leading-[1.5] tracking-[0.5px]"
+                label={CATEGORY_NAMES.kid}
+                value="kid"
+              />
+            </TabList>
+          </TabContext>
           <div className="grid grid-cols-2 gap-5">
-            {Array.from({ length: 28 }).map((_, index) => (
+            {filteredTemplates.map((url) => (
               <Image
-                key={index}
+                key={url}
                 alt=""
                 className="w-full cursor-pointer rounded-xl"
                 height={400}
-                src={getBucketImgUrl((index + 1).toString(), 'public-portrait-templates')}
+                src={url}
                 width={300}
                 onClick={() => {
-                  setTemplateUrl(getBucketImgUrl((index + 1).toString(), 'public-portrait-templates'));
+                  setTemplateUrl(url);
                   setIsOpen(false);
                 }}
               />
