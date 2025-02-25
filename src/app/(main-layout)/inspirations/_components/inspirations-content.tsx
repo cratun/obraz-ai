@@ -2,7 +2,7 @@ import { Breadcrumbs } from '@mui/material';
 import Link from 'next/link';
 import { shuffle } from 'remeda';
 import { twJoin } from 'tailwind-merge';
-import { inspirationData, styles } from '@/app/(main-layout)/inspirations/utils';
+import { inspirationData, InspirationStyle, styles } from '@/app/(main-layout)/inspirations/utils';
 import AppContainer from '@/app/_components/app-container';
 import Typography from '@/app/_components/typography';
 import { GenerationStyle } from '@/app/_utils/constants';
@@ -10,7 +10,7 @@ import FiltersDrawer from './filters-drawer';
 import InspirationCard from './inspiration-card';
 import ScrollToTopButton from './scroll-to-top-button';
 
-const InspirationsContent = ({ style }: { style?: GenerationStyle }) => {
+const InspirationsContent = ({ style }: { style?: InspirationStyle }) => {
   return (
     <AppContainer className="relative pb-10 pt-[--save-navbar-padding-top] lg:min-h-screen">
       <ScrollToTopButton />

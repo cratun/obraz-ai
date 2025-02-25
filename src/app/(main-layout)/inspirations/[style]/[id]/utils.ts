@@ -2,10 +2,9 @@
 import { useRef } from 'react';
 import { shuffle } from 'remeda';
 import { useWindowSize } from 'usehooks-ts';
-import { inspirationData } from '@/app/(main-layout)/inspirations/utils';
-import { GenerationStyle } from '@/app/_utils/constants';
+import { inspirationData, InspirationStyle } from '@/app/(main-layout)/inspirations/utils';
 
-const useRandomInspirations = (style: GenerationStyle, id: string) => {
+const useRandomInspirations = (style: InspirationStyle, id: string) => {
   const { width } = useWindowSize();
   const shuffledArrayRef = useRef<typeof inspirationData | undefined>();
 

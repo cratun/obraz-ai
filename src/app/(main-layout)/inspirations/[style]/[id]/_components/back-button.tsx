@@ -1,10 +1,9 @@
 import { Breadcrumbs } from '@mui/material';
 import Link from 'next/link';
-import { styles } from '@/app/(main-layout)/inspirations/utils';
+import { InspirationStyle, styles } from '@/app/(main-layout)/inspirations/utils';
 import Typography from '@/app/_components/typography';
-import { GenerationStyle } from '@/app/_utils/constants';
 
-const BreadCrumbsInspirationDetails = ({ className, style }: { className?: string; style: GenerationStyle }) => {
+const BreadCrumbsInspirationDetails = ({ className, style }: { className?: string; style: InspirationStyle }) => {
   return (
     <Breadcrumbs className={className}>
       <Link href="/inspirations">
