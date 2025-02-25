@@ -28,7 +28,7 @@ const GenerateNavbarButtonDesktop = () => {
 
   return (
     <AppButton color="colorText" href={generateHref} LinkComponent={Link} size="small">
-      Stwórz swój obraz
+      Stwórz obraz
     </AppButton>
   );
 };

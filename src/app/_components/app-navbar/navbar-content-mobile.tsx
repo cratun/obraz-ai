@@ -14,8 +14,8 @@ const NavbarContentMobile = ({ isLoading }: { isLoading: boolean }) => {
         href="/generate/portrait"
         LinkComponent={Link}
       >
-        <PortraitIcon className="text-xl text-primary" />
-        <span className="text-xs font-semibold text-primary">Portret</span>
+        <PortraitIcon className="text-xl text-accent" />
+        <span className="text-xs font-semibold text-accent">Portret</span>
       </ButtonBase>
       <ButtonBase
         className="flex flex-col items-center gap-1 rounded-sm p-1 text-text"

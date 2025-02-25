@@ -1,10 +1,11 @@
 import PhotoLibraryRoundedIcon from '@mui/icons-material/PhotoLibraryRounded';
+import PortraitIcon from '@mui/icons-material/Portrait';
 import { IconButton } from '@mui/material';
 import Link from 'next/link';
-import GiftIcon from '@/app/_assets/gift-icon';
 import AppButton from '@/app/_components/app-button';
 import GenerateNavbarButtons from '@/app/_components/generate-navbar-buttons';
 import NavbarCartIcon from './navbar-cart-icon';
+
 const NavbarContentDesktop = ({ isLoading }: { isLoading: boolean }) => {
   return (
     <>
@@ -12,12 +13,12 @@ const NavbarContentDesktop = ({ isLoading }: { isLoading: boolean }) => {
         <AppButton
           className="text-accent"
           color="colorText"
-          href="/giftcard"
+          href="/generate/portrait"
           LinkComponent={Link}
           size="small"
-          startIcon={<GiftIcon className="h-auto w-4 pb-1" id="desktop" />}
+          startIcon={<PortraitIcon className="text-xl text-accent" />}
         >
-          Prezent
+          <span className="text-xs font-semibold text-accent">Stwórz portret</span>
         </AppButton>
         {!isLoading && <GenerateNavbarButtons.Desktop />}
         {isLoading && (
@@ -25,9 +26,6 @@ const NavbarContentDesktop = ({ isLoading }: { isLoading: boolean }) => {
             Stwórz obraz
           </AppButton>
         )}
-        <AppButton color="colorText" href="/generate/portrait" LinkComponent={Link} size="small">
-          Stwórz portret
-        </AppButton>
         <AppButton color="colorText" href="/inspirations" LinkComponent={Link} size="small">
           Inspiracje
         </AppButton>

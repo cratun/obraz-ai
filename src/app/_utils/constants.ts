@@ -20,8 +20,8 @@ export const footerLinks = {
     'Zostaw opinię': '/contact?review=true',
   },
   'Twoje obrazy': {
-    'Stwórz swój obraz': '/generate',
-    'Stwórz swój portret': '/generate/portrait',
+    'Stwórz obraz': '/generate',
+    'Stwórz portret': '/generate/portrait',
     Inspiracje: '/inspirations',
     'Galeria Twoich obrazów': '/gallery',
     'Jak generować?': '/manual',
