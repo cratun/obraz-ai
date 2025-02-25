@@ -7,6 +7,7 @@ import { ButtonBase, Drawer, IconButton, useMediaQuery } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
+import { TEMPLATE_BUCKET_NAME } from '@/app/(main-layout)/generate/_utils/common';
 import Typography from '@/app/_components/typography';
 import { getBucketImgUrl } from '@/app/_utils/common';
 
@@ -20,7 +21,7 @@ type Category = keyof typeof CATEGORY_NAMES;
 
 const getTemplatesWithCategory = (length: number, category: Category) => {
   const templateUrls = Array.from({ length }, (_, index) =>
-    getBucketImgUrl(`${category}-${index + 1}`, 'public-portrait-templates'),
+    getBucketImgUrl(`${category}-${index + 1}`, TEMPLATE_BUCKET_NAME),
   );
 
   return {
@@ -46,7 +47,7 @@ const TemplateModal = forwardRef(
     },
     ref: ForwardedRef<HTMLDivElement>,
   ) => {
-    const [tab, setTab] = useState<Category | ''>('');
+    const [tab, setTab] = useState<Category>('woman');
     const isMobile = useMediaQuery('(max-width: 768px)');
     const [isOpen, setIsOpen] = useState(false);
 
@@ -133,7 +134,7 @@ const TemplateModal = forwardRef(
               alt=""
               className={twMerge('w-full rounded-xl', templateUrl ? 'py-10 opacity-0' : '')}
               height={400}
-              src={getBucketImgUrl((index + 1).toString(), 'public-portrait-templates')}
+              src={getBucketImgUrl((index + 1).toString(), TEMPLATE_BUCKET_NAME)}
               width={300}
             />
           ))}

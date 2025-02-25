@@ -52,3 +52,5 @@ export const sizeToPrice = {
     L: 359,
   },
 };
+
+export const TEMPLATE_BUCKET_NAME = 'public-portrait-templates';

@@ -6,7 +6,7 @@ import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { twJoin, twMerge } from 'tailwind-merge';
+import { ClassNameValue, twJoin, twMerge } from 'tailwind-merge';
 
 import { defaultCanvasSize } from '@/app/_utils/sizes-utils';
 import { MockupImages } from '@/app/types';
@@ -14,11 +14,15 @@ import { MockupImages } from '@/app/types';
 const GeneratedImageSlider = ({
   mockupImages,
   generatedImgSrc,
+  initialImageSrc = generatedImgSrc,
   className,
+  initialImageClassName,
 }: {
   className?: string;
-  mockupImages: MockupImages | null;
   generatedImgSrc: string;
+  initialImageSrc?: string;
+  initialImageClassName?: ClassNameValue;
+  mockupImages: MockupImages | null;
 }) => {
   const [isLoadedImage, setIsLoadedImage] = useState(false);
   const size = useSearchParams().get('size') || defaultCanvasSize;
@@ -40,7 +44,7 @@ const GeneratedImageSlider = ({
           clickable: true,
           renderBullet: function (index, className) {
             return filteredMockupImages
-              ? `<img class="${className} w-14 h-14 md:w-20 md:h-20 rounded-xl border-2 border-solid border-transparent" src="${index === 0 || index === 4 ? generatedImgSrc : filteredMockupImages[index - 1]}" style="${index === 0 ? 'padding: 12px; background-color:white;' : 'background-color:transparent;'}"/>`
+              ? `<img class="${className} w-14 h-14 md:w-20 md:h-20 rounded-xl border-2 border-solid border-transparent object-contain" src="${index === 0 ? initialImageSrc : index === 4 ? generatedImgSrc : filteredMockupImages[index - 1]}" style="${index === 0 ? 'padding: 12px; background-color:white;' : 'background-color:transparent;'}"/>`
               : '';
           },
           bulletActiveClass: '!border-primary opacity-100',
@@ -48,7 +52,11 @@ const GeneratedImageSlider = ({
         onSwiper={(swiper) => (swiperRef.current = swiper)}
       >
         <SwiperSlide
-          className={twJoin('w-full max-w-full bg-white lg:max-w-[700px]', isLoadedImage ? 'p-[12%]' : 'p-0')}
+          className={twJoin(
+            'w-full max-w-full bg-white lg:max-w-[700px]',
+            isLoadedImage ? 'p-[12%]' : 'p-0',
+            initialImageClassName,
+          )}
         >
           <div className="relative z-[1] aspect-square w-full">
             {/* NOTE: disable easy image copying */}
@@ -59,7 +67,7 @@ const GeneratedImageSlider = ({
               alt="Generated image"
               quality={100}
               sizes="700px"
-              src={generatedImgSrc}
+              src={initialImageSrc}
               className={twJoin(
                 'inspiration-shadow z-0 object-contain transition-opacity',
                 isLoadedImage ? 'opacity-100' : 'opacity-0',

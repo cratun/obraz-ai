@@ -6,11 +6,11 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { Drawer, IconButton } from '@mui/material';
 import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
-import { styles } from '@/app/(main-layout)/inspirations/utils';
+import { InspirationStyle, styles } from '@/app/(main-layout)/inspirations/utils';
 import AppButton from '@/app/_components/app-button';
 import Typography from '@/app/_components/typography';
-import { GenerationStyle } from '@/app/_utils/constants';
-const FiltersDrawer = ({ style }: { style?: GenerationStyle }) => {
+
+const FiltersDrawer = ({ style }: { style?: InspirationStyle }) => {
   const [open, setOpen] = useState(false);
 
   const handleClose = () => setOpen(false);
@@ -44,7 +44,7 @@ const FiltersDrawer = ({ style }: { style?: GenerationStyle }) => {
         </Link>
         {Object.keys(styles).map((el) => (
           <Link key={el} className={twJoin(style === el && 'font-bold text-primary')} href={`/inspirations/${el}`}>
-            <Typography.Body>{styles[el as GenerationStyle]}</Typography.Body>
+            <Typography.Body>{styles[el as InspirationStyle]}</Typography.Body>
           </Link>
         ))}
       </Drawer>

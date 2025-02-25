@@ -1,20 +1,28 @@
 import { GENERATION_DATA, GenerationStyle } from '@/app/_utils/constants';
 
+export type InspirationStyle = GenerationStyle | 'portrait';
+
 type Inspiration = {
   id: string;
-  style: GenerationStyle;
+  style: InspirationStyle;
   prompt: string;
 };
 
-export const styles = GENERATION_DATA.reduce<Record<GenerationStyle, string>>(
+const imageStyles = GENERATION_DATA.reduce<Record<GenerationStyle, string>>(
   (acc, el) => {
     if (el.generationStyle === 'adjusted') return acc;
+
     acc[el.generationStyle] = el.text;
 
     return acc;
   },
   {} as Record<GenerationStyle, string>,
 );
+
+export const styles = {
+  portrait: 'Portret',
+  ...imageStyles,
+};
 
 export const inspirationData: Inspiration[] = [
   {
@@ -981,5 +989,205 @@ export const inspirationData: Inspiration[] = [
     id: '183',
     style: 'cubism',
     prompt: 'Dynamiczna scena sportowa, np. piłkarze w ruchu, przedstawiona w fragmentarycznych formach.',
+  },
+  {
+    id: 'woman-1',
+    style: 'portrait',
+    prompt: 'Ratowniczka',
+  },
+  {
+    id: 'woman-2',
+    style: 'portrait',
+    prompt: 'Street racerka',
+  },
+  {
+    id: 'woman-3',
+    style: 'portrait',
+    prompt: 'Gangsterka',
+  },
+  {
+    id: 'woman-4',
+    style: 'portrait',
+    prompt: 'Księżniczka',
+  },
+  {
+    id: 'woman-5',
+    style: 'portrait',
+    prompt: 'Pani Doktor',
+  },
+  {
+    id: 'woman-6',
+    style: 'portrait',
+    prompt: 'Kowbojka',
+  },
+  {
+    id: 'woman-7',
+    style: 'portrait',
+    prompt: 'Mma fighter',
+  },
+  {
+    id: 'woman-8',
+    style: 'portrait',
+    prompt: 'Astronautka',
+  },
+  {
+    id: 'woman-9',
+    style: 'portrait',
+    prompt: 'Trenerka personalna',
+  },
+  {
+    id: 'woman-10',
+    style: 'portrait',
+    prompt: 'Cyberpunkowy portret',
+  },
+  {
+    id: 'woman-11',
+    style: 'portrait',
+    prompt: 'Bizneswoman',
+  },
+  {
+    id: 'woman-12',
+    style: 'portrait',
+    prompt: 'Mechanik z przyszłości',
+  },
+  {
+    id: 'woman-13',
+    style: 'portrait',
+    prompt: 'Prezenterka telewizyjna',
+  },
+  {
+    id: 'woman-14',
+    style: 'portrait',
+    prompt: 'Superwoman',
+  },
+  {
+    id: 'woman-15',
+    style: 'portrait',
+    prompt: 'Królowa',
+  },
+  {
+    id: 'woman-16',
+    style: 'portrait',
+    prompt: 'Archeolog',
+  },
+  {
+    id: 'woman-17',
+    style: 'portrait',
+    prompt: 'Policjantka',
+  },
+  {
+    id: 'woman-18',
+    style: 'portrait',
+    prompt: 'Piekarz',
+  },
+  {
+    id: 'woman-19',
+    style: 'portrait',
+    prompt: 'Kobieta na koniu',
+  },
+  {
+    id: 'woman-20',
+    style: 'portrait',
+    prompt: 'Kobieta na tle sportowego samochodu',
+  },
+  {
+    id: 'man-1',
+    style: 'portrait',
+    prompt: 'Policjant',
+  },
+  {
+    id: 'man-2',
+    style: 'portrait',
+    prompt: 'Strażak',
+  },
+  {
+    id: 'man-3',
+    style: 'portrait',
+    prompt: 'Japoński samuraj',
+  },
+  {
+    id: 'man-4',
+    style: 'portrait',
+    prompt: 'Włoski mafioso',
+  },
+  {
+    id: 'man-5',
+    style: 'portrait',
+    prompt: 'Kucharz',
+  },
+  {
+    id: 'man-6',
+    style: 'portrait',
+    prompt: 'Rycerz',
+  },
+  {
+    id: 'man-7',
+    style: 'portrait',
+    prompt: 'Superhero',
+  },
+  {
+    id: 'man-8',
+    style: 'portrait',
+    prompt: 'Street racer',
+  },
+  {
+    id: 'man-9',
+    style: 'portrait',
+    prompt: 'Kulturysta',
+  },
+  {
+    id: 'man-10',
+    style: 'portrait',
+    prompt: 'Pirat',
+  },
+  {
+    id: 'man-11',
+    style: 'portrait',
+    prompt: 'Pilot wojskowy',
+  },
+  {
+    id: 'man-12',
+    style: 'portrait',
+    prompt: 'Groźny gangster',
+  },
+  {
+    id: 'man-13',
+    style: 'portrait',
+    prompt: 'Biegacz',
+  },
+  {
+    id: 'man-14',
+    style: 'portrait',
+    prompt: 'Thomas Shelby',
+  },
+  {
+    id: 'man-15',
+    style: 'portrait',
+    prompt: 'Robin Hood',
+  },
+  {
+    id: 'man-16',
+    style: 'portrait',
+    prompt: 'Gladiator',
+  },
+  {
+    id: 'man-17',
+    style: 'portrait',
+    prompt: 'Wojskowy',
+  },
+  {
+    id: 'man-18',
+    style: 'portrait',
+    prompt: 'Król',
+  },
+  {
+    id: 'man-19',
+    style: 'portrait',
+    prompt: 'Biznesman',
+  },
+  {
+    id: 'man-20',
+    style: 'portrait',
+    prompt: 'Mechanik',
   },
 ];
