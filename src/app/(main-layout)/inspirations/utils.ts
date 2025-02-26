@@ -24,6 +24,8 @@ export const styles = {
   ...imageStyles,
 };
 
+export const MOCKUP_BUCKET_NAME = 'mockup-bucket-obrazai';
+
 export const inspirationData: Inspiration[] = [
   {
     id: '1',

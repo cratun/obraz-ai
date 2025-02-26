@@ -2,14 +2,17 @@ import { Suspense } from 'react';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { inspirationData, InspirationStyle, styles } from '@/app/(main-layout)/inspirations/utils';
+import { sizeToPrice } from '@/app/(main-layout)/generate/_utils/common';
+import { inspirationData, InspirationStyle, MOCKUP_BUCKET_NAME, styles } from '@/app/(main-layout)/inspirations/utils';
 import AppButton from '@/app/_components/app-button';
 import AppContainer from '@/app/_components/app-container';
 import BenefitsSection from '@/app/_components/benefits-section';
 import Typography from '@/app/_components/typography';
+import { getBucketImgUrl } from '@/app/_utils/common';
 import BreadCrumbsInspirationDetails from './_components/back-button';
 import ImagesMockups from './_components/images-mockups';
 import Prompt from './_components/prompt';
+
 export async function generateMetadata({ params }: { params: { style: InspirationStyle; id: string } }) {
   return {
     title: `${params.style === 'portrait' ? 'PortretAI' : 'ObrazAI'} - ${params.id} - ${styles[params.style]} - Inspiracja`,
@@ -26,6 +29,7 @@ const InspirationPage = ({ params }: { params: { style: InspirationStyle; id: st
   const inspiration = inspirationData.find((el) => el.id === params.id);
   if (!inspiration) throw new Error('Inspiration not found');
   const isPortrait = params.style === 'portrait';
+  const initialImageSrc = getBucketImgUrl(params.id, MOCKUP_BUCKET_NAME, '.jpg');
 
   return (
     <>
@@ -36,7 +40,7 @@ const InspirationPage = ({ params }: { params: { style: InspirationStyle; id: st
             <Suspense>
               <ImagesMockups
                 generatedImgSrc={`/inspirations/${params.style}/${params.id}${params.style === 'impressionism' ? '.webp' : '.jpg'}`}
-                initialImageSrc={isPortrait ? `/inspirations/portrait/${params.id}-card.jpg` : undefined}
+                initialImageSrc={initialImageSrc}
               />
             </Suspense>
 
@@ -56,7 +60,9 @@ const InspirationPage = ({ params }: { params: { style: InspirationStyle; id: st
                   </Link>
                 </Typography.Body>
               )}
-              <Typography.H4 className="font-semibold text-accent">Od {isPortrait ? '169' : '159'} zł</Typography.H4>
+              <Typography.H4 className="font-semibold text-accent">
+                Od {isPortrait ? sizeToPrice.portrait.S : sizeToPrice.square.S} zł
+              </Typography.H4>
               {!isPortrait ? (
                 <AppButton
                   href={`/generate?prompt=${inspiration.prompt}&generationStyle=${inspiration.style}`}
@@ -68,7 +74,7 @@ const InspirationPage = ({ params }: { params: { style: InspirationStyle; id: st
                 </AppButton>
               ) : (
                 <AppButton
-                  href={`/generate/portrait`}
+                  href={`/generate/portrait?template_id=${params.id}`}
                   size="large"
                   startIcon={<AutoAwesomeRoundedIcon />}
                   variant="contained"

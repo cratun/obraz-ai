@@ -9,12 +9,13 @@ export const metadata: Metadata = {
   description: 'Rozpocznij generowanie niepowtarzalnych portretów z ObrazAI. Ożyw swoje marzenia na płótnie już dziś!',
 };
 
-const PageGeneratePortrait = () => {
+const PageGeneratePortrait = ({ searchParams }: { searchParams: { template_id?: string } }) => {
   return (
     <PageGeneratePortraitContent
       generationTokenCountCookie={getGenerationTokenCountCookie()}
       imageHistory={getImageHistoryFromCookie()}
       specialPromoCookie={getSpecialPromoCookie()}
+      templateId={searchParams.template_id}
     />
   );
 };

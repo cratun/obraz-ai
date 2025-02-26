@@ -12,6 +12,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
+import { TEMPLATE_BUCKET_NAME } from '@/app/(main-layout)/generate/_utils/common';
 import { ParsedGenerationTokenCookie } from '@/app/(main-layout)/generate/_utils/generation-token';
 import { ImageHistoryEntry } from '@/app/(main-layout)/generate/_utils/image-history/common';
 import { actionUploadImage } from '@/app/(main-layout)/generate/portrait/buy/action-generate-portrait';
@@ -20,6 +21,7 @@ import AppContainer from '@/app/_components/app-container';
 import BenefitsSection from '@/app/_components/benefits-section';
 import Typography from '@/app/_components/typography';
 import { SpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
+import { getBucketImgUrl } from '@/app/_utils/common';
 import ErrorIcon from './error-icon';
 import GenerateInfoLimit from './generation-token-limit-info';
 import ImageHistory from './image-history';
@@ -40,17 +42,20 @@ const PageGeneratePortraitContent = ({
   generationTokenCountCookie,
   imageHistory,
   specialPromoCookie,
+  templateId,
 }: {
   generationTokenCountCookie: ParsedGenerationTokenCookie;
   imageHistory: ImageHistoryEntry[];
   specialPromoCookie: SpecialPromoCookie;
+  templateId: string | undefined;
 }) => {
   const router = useRouter();
   const templateRef = useRef<HTMLDivElement | null>(null);
   const [fileInputErrors, setFileInputErrors] = useState<string[]>([]);
   const [file, setFile] = useState<FileState>({ url: null, file: null });
-  const [templateUrl, setTemplateUrl] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const defaultTemplateUrl = templateId ? getBucketImgUrl(templateId, TEMPLATE_BUCKET_NAME) : null;
+  const [templateUrl, setTemplateUrl] = useState<string | null>(defaultTemplateUrl);
 
   const uploadImageMutation = useMutation({
     mutationFn: (file: File) => {

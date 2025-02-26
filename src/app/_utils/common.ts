@@ -6,7 +6,7 @@ export const ensureNotNull = <T>(argument: T | undefined | null): T => {
   return argument;
 };
 
-export const getBucketImgUrl = (id: string, bucketName = process.env.NEXT_PUBLIC_S3_BUCKET_NAME) =>
-  `https://${bucketName}.s3.eu-central-1.amazonaws.com/${id}.webp`;
+export const getBucketImgUrl = (id: string, bucketName = process.env.NEXT_PUBLIC_S3_BUCKET_NAME, extension = '.webp') =>
+  `https://${bucketName}.s3.eu-central-1.amazonaws.com/${id}${extension}`;
 
 export const groszToPLN = (grosz: number) => grosz / 100;
