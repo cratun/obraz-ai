@@ -1190,4 +1190,104 @@ export const inspirationData: Inspiration[] = [
     style: 'portrait',
     prompt: 'Mechanik',
   },
+  {
+    id: 'kid-1',
+    style: 'portrait',
+    prompt: 'Dziecko na dinozaurze',
+  },
+  {
+    id: 'kid-2',
+    style: 'portrait',
+    prompt: 'Dziecko na krowie',
+  },
+  {
+    id: 'kid-3',
+    style: 'portrait',
+    prompt: 'Dziecko w magicznym lesie',
+  },
+  {
+    id: 'kid-4',
+    style: 'portrait',
+    prompt: 'Mały astronauta',
+  },
+  {
+    id: 'kid-5',
+    style: 'portrait',
+    prompt: 'Dziecko na ślimaku',
+  },
+  {
+    id: 'kid-6',
+    style: 'portrait',
+    prompt: 'Dziecko na w świecie czekolady',
+  },
+  {
+    id: 'kid-7',
+    style: 'portrait',
+    prompt: 'Dziecko w bańce mydlanej',
+  },
+  {
+    id: 'kid-8',
+    style: 'portrait',
+    prompt: 'Mała księżniczka',
+  },
+  {
+    id: 'kid-9',
+    style: 'portrait',
+    prompt: 'Mały czarodziej',
+  },
+  {
+    id: 'kid-10',
+    style: 'portrait',
+    prompt: 'Mały pirat',
+  },
+  {
+    id: 'kid-11',
+    style: 'portrait',
+    prompt: 'Dziecko motyl',
+  },
+  {
+    id: 'kid-12',
+    style: 'portrait',
+    prompt: 'Dziecko na jednorożcu',
+  },
+  {
+    id: 'kid-13',
+    style: 'portrait',
+    prompt: 'Mały alladyn',
+  },
+  {
+    id: 'kid-14',
+    style: 'portrait',
+    prompt: 'Dziecko na żółwiu',
+  },
+  {
+    id: 'kid-15',
+    style: 'portrait',
+    prompt: 'Superdziecko',
+  },
+  {
+    id: 'kid-16',
+    style: 'portrait',
+    prompt: 'Dziecko na słoniu',
+  },
+  {
+    id: 'kid-17',
+    style: 'portrait',
+    prompt: 'Mały kosmiczny skateboarder',
+  },
+  {
+    id: 'kid-18',
+    style: 'portrait',
+    prompt: 'Dziecko w balonie',
+  },
+  {
+    id: 'kid-19',
+    style: 'portrait',
+    prompt: 'Magiczne dziecko',
+  },
+  {
+    id: 'kid-20',
+    style: 'portrait',
+    prompt: 'Dziecko w papierowym samolocie',
+  },
 ];

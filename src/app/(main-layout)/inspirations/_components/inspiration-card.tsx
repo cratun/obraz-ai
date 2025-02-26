@@ -22,6 +22,7 @@ const InspirationCard = ({ id, style, prompt }: { id: string; style: Inspiration
         <div className="inspiration-shadow relative aspect-square overflow-hidden">
           <Image
             fill
+            unoptimized
             alt={prompt}
             className="h-full w-full object-cover"
             src={`/inspirations/${style}/${id}${style === 'portrait' ? '-card' : ''}${style === 'impressionism' ? '.webp' : '.jpg'}`}
