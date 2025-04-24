@@ -4,7 +4,6 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 import dayjs from 'dayjs';
 import OpenAI from 'openai';
-import Replicate from 'replicate';
 import sharp from 'sharp';
 import { updateSpecialPromoCookie } from '@/app/_promo/special-promo-cookie';
 import { ensureNotNull, getBucketImgUrl } from '@/app/_utils/common';
@@ -14,10 +13,7 @@ import { checkAndUpdateGenerationToken } from './_utils/generation-token';
 import { updateImageHistoryCookie } from './_utils/image-history/server';
 
 const s3Client = new S3Client({ region: 'eu-central-1' });
-const replicate = new Replicate();
 
-const MODEL_NAME = process.env.IMAGE_GENERATOR_MODEL_NAME as any;
-const MODEL_NAME_IMPRESSIONISM = process.env.IMAGE_GENERATOR_MODEL_NAME_IMPRESSIONISM as any;
 const WATERMARK_URL = 'https://public-assets-obraz-ai.s3.eu-central-1.amazonaws.com/watermark.png';
 
 const openai = new OpenAI();
@@ -38,7 +34,7 @@ const actionGenerate = async ({ prompt, generationStyle }: { prompt: string; gen
 
   const generationData = ensureNotNull(GENERATION_DATA.find((item) => item.generationStyle === generationStyle));
 
-  const watermarkPromise = fetch(WATERMARK_URL)
+  const watermarkBuffer = await fetch(WATERMARK_URL)
     .then((res) => res.arrayBuffer())
     .catch(() => {
       throw new Error('Failed to fetch watermark');
@@ -63,34 +59,24 @@ const actionGenerate = async ({ prompt, generationStyle }: { prompt: string; gen
     throw new Error('Failed to generate refined prompt');
   }
 
-  const output = (await replicate.run(
-    generationData.generationStyle === 'impressionism' ? MODEL_NAME_IMPRESSIONISM : MODEL_NAME,
-    {
-      input: {
-        prompt: generationData.imagePromptWrapper(messageContent),
-        aspect_ratio: '1:1',
-        prompt_upsampling: true,
-        ...generationData.modelConfig,
-      },
-    },
-  )) as any;
-
+  const result = await openai.images.generate({
+    model: 'gpt-image-1',
+    prompt: generationData.imagePromptWrapper(messageContent),
+    n: 1,
+    size: '1024x1024',
+    output_format: 'webp',
+    output_compression: 70,
+    quality: 'medium',
+  });
   const imageId = crypto.randomUUID();
-  const imgSrc = generationData.generationStyle === 'impressionism' ? output[0] : output;
-
-  const [fileBuffer, watermarkBuffer] = await Promise.all([
-    fetch(imgSrc)
-      .then((res) => (res.ok ? res.arrayBuffer() : Promise.reject('Failed to fetch image')))
-      .catch(() => {
-        throw new Error('Failed to fetch generated image');
-      }),
-    watermarkPromise,
-  ]);
-
-  const sourceImage = Buffer.from(fileBuffer);
+  const image_base64 = result.data?.[0]?.b64_json;
+  if (!image_base64) {
+    throw new Error('Failed to generate image');
+  }
+  const sourceImage = Buffer.from(image_base64, 'base64');
 
   // Optimize sharp operations
-  const imageWithWatermark = await sharp(fileBuffer, {
+  const imageWithWatermark = await sharp(sourceImage, {
     failOnError: false,
     density: 72, // Optimize for web
   })
