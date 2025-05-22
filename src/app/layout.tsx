@@ -1,12 +1,10 @@
-import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
-import { GoogleTagManager } from '@next/third-parties/google';
 import { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
-import Script from 'next/script';
 import { twJoin } from 'tailwind-merge';
+import AppLogo from './_components/app-logo';
 import { ORIGIN_URL } from './_utils/constants';
 import theme from './_utils/theme';
 import Providers from './providers';
@@ -39,33 +37,27 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+const RootLayout = () => {
   return (
     <html id="root" lang="pl">
-      {process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false' && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />}
       <body className={twJoin('bg-neutral', raleway.variable)}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <Providers>
               <ToastContainer bodyClassName="text-sm lg:text-base" />
-              <div className="min-h-screen-responsive flex flex-col">{children}</div>
+              <div className="min-h-screen-responsive flex h-full flex-col items-center justify-center gap-4">
+                <AppLogo />
+                <div className="flex flex-col gap-4 text-center">
+                  <h1 className="text-2xl font-bold">ObrazAI jest niedostępne</h1>
+                  <p className="text-base">W razie jakichkolwiek pytań napisz do nas!</p>
+                  <a className="font-bold underline" href="mailto:cratun.dev@gmail.com">
+                    cratun.dev@gmail.com
+                  </a>
+                </div>
+              </div>
             </Providers>
           </ThemeProvider>
         </AppRouterCacheProvider>
-        {process.env.SHOULD_SEND_PIXEL_EVENTS !== 'false' && (
-          <Script id="meta-pixel" strategy="afterInteractive">
-            {`!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2576537089212905');
-fbq('track', 'PageView');`}
-          </Script>
-        )}
       </body>
     </html>
   );
